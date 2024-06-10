@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+  allegro_suppliers:
+    container_name: 'postgres_allegro_suppliers'
+    image: postgres:15
+    command: postgres -c "max_connections=10000"
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - /home/izbushko/allegro_suppliers_pg_data:/var/lib/postgresql/data
+    networks:
+      - allegro_suppliers_network
+    ports:
+      - ${POSTGRES_PORT_TO_LOCAL_HOST}:5432
+  allegro_suppliers_app:
+    build: .
+    restart: unless-stopped
+    container_name: "allegro_suppliers"
+    env_file:
+      - .env
+    ports:
+      - "${APP_PORT}:8787"
+    volumes:
+      - /home/izbushko/projects/allegro_suppliers/logs:/app/logs
+    networks:
+      - allegro_suppliers_network
+    depends_on:
+      - allegro_suppliers
+      - pg_web
+networks:
+  allegro_suppliers_network:
+    external: false
