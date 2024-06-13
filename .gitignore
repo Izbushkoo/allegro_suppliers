@@ -326,3 +326,6 @@ allegro_suppliers/media/
 
 .ipython/
 .env
+
+/xml/*
+!/xml/.gitkeep

@@ -27,7 +27,7 @@ sys.path.append(BASE_DIR)
 # target_metadata = Base.metadata
 
 from sqlmodel import SQLModel
-from app.models.user import User
+from app.models.database_models import User, AllegroToken
 
 target_metadata = SQLModel.metadata
 
@@ -42,8 +42,8 @@ def get_url():
     user = os.getenv("POSTGRES_USER", "izbushko")
     password = os.getenv("POSTGRES_PASSWORD", "postgres")
     server = os.getenv(
-        "POSTGRES_SERVER", "allegro_suppliers"
-    ) + ":" + os.getenv("POSTGRES_PORT_TO_LOCAL_HOST", "5555")
+        "POSTGRES_SERVER", "localhost"
+    ) + ":5432"
     db = os.getenv("POSTGRES_DB", "postgres")
     return f"postgresql://{user}:{password}@{server}/{db}"
 

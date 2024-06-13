@@ -10,3 +10,10 @@ class Token(BaseModel):
 
 class TokenPayload(BaseModel):
     sub: Optional[int] = None
+
+
+class TokenOfAllegro(BaseModel):
+    id_: Optional[int]
+    account_name: Optional[str]
+    description: Optional[str]
+    redirect_url: Optional[str]

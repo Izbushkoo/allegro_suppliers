@@ -25,11 +25,11 @@ services:
       - "${APP_PORT}:8787"
     volumes:
       - /home/izbushko/projects/allegro_suppliers/logs:/app/logs
+      - /home/izbushko/projects/allegro_suppliers/xml:/app/xml
     networks:
       - allegro_suppliers_network
     depends_on:
       - allegro_suppliers
-      - pg_web
 networks:
   allegro_suppliers_network:
     external: false
