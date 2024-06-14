@@ -1,7 +1,10 @@
 import os
+
 import asyncio
 from motor.motor_asyncio import AsyncIOMotorClient
-from dotenv import load_dotenv
+
+from app.core.config import settings
+from app.loggers import ToLog
 
 
 supplier_database_id = {
@@ -12,9 +15,9 @@ supplier_database_id = {
     "growbox": "640f0ddec6defcd7745fe210"
 }
 
-uri = os.getenv('MONGO_URI')
-db_name = os.getenv('DB_NAME')
-db_collection = os.getenv('DB_COLL')
+uri = settings.MONGO_URI
+db_name = settings.DB_NAME
+db_collection = settings.DB_COLL
 
 
 async def fetch_data_from_db(supplier, allegro_update):
@@ -61,16 +64,16 @@ async def update_items_by_sku(supplier, skus):
         }
 
         result = await collection.update_many(filter_, update)
-        print(f"{result.modified_count} document(s) was/were updated.")
+        ToLog.write_basic(f"{result.modified_count} document(s) was/were updated.")
     except Exception as error:
-        print("Error updating documents:", error)
+        ToLog.write_error(f"Error updating documents: {error}")
     finally:
         client.close()
 
 
 async def update_items_by_allegro_id(supplier, allegro_ids):
     if not supplier or not allegro_ids or len(allegro_ids) == 0:
-        print("Supplier or IDs not provided")
+        ToLog.write_basic("Supplier or IDs not provided")
         return
 
     supplier_id = supplier_database_id[supplier]
@@ -84,15 +87,15 @@ async def update_items_by_allegro_id(supplier, allegro_ids):
             "groups": supplier_id,
             "allegro_oferta_id": {"$in": allegro_ids}
         }
-        print(filter_)
+        # print(filter_)
         update = {
             "$set": {"allegro_we_update_it": False}
         }
         result = await collection.update_many(filter_, update)
-        print(result)
-        print(f"{result.modified_count} document(s) was/were updated.")
+        # print(result)
+        ToLog.write_basic(f"{result.modified_count} document(s) was/were updated.")
     except Exception as error:
-        print("Error updating documents:", error)
+        ToLog.write_error(f"Error updating documents: {error}")
     finally:
         client.close()
 

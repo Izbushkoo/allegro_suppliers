@@ -1,6 +1,6 @@
 from typing import Any, List
 
-from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
+from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks, Request
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from app.api import deps
@@ -8,9 +8,10 @@ from app.services.updates import get_all_data, fetch_and_update_allegro
 from app.core.bg_task_wrapper import TaskWrapper
 from app.schemas.pydantic_models import UpdateConfig
 from app.services.allegro_token import get_token_by_id
+from app.loggers import ToLog
 
 
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(deps.get_api_token)])
 
 supplier_name = {
     "pgn": "pgn",
@@ -22,8 +23,10 @@ supplier_name = {
 
 
 @router.post("/update")
-async def update_all_suppliers(update_config: UpdateConfig, bg_tasks: BackgroundTasks):
+async def update_suppliers(request: Request, update_config: UpdateConfig, bg_tasks: BackgroundTasks):
     """Обновить Аллегро оферты для заданного аккаунта."""
+
+    ToLog.write_access(f"Access to update supplier with request: {await request.body()}")
     bg_tasks.add_task(
         TaskWrapper(task=update_as_task).run_task(
             update_config=update_config

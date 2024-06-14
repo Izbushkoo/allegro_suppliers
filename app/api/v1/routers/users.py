@@ -6,6 +6,7 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from app.api import deps
 from app.schemas import user as user_schemas
 from app.services import user as user_service
+from app.loggers import ToLog
 
 router = APIRouter()
 
@@ -13,6 +14,7 @@ router = APIRouter()
 @router.get("/", response_model=List[user_schemas.User])
 async def get_users(db: AsyncSession = Depends(deps.get_db_async), skip: int = 0, limit: int = 100) -> Any:
     """Retrieve all users."""
+    ToLog.write_access(f"Access to users list")
     users = await user_service.get_users(db, skip=skip, limit=limit)
     return users
 
@@ -20,6 +22,7 @@ async def get_users(db: AsyncSession = Depends(deps.get_db_async), skip: int = 0
 @router.get("/{user_id}", response_model=user_schemas.User)
 async def get_user(*, db: AsyncSession = Depends(deps.get_db_async), user_id: int) -> Any:
     """Get User by ID."""
+    ToLog.write_access(f"Access to user by ID")
     user = await user_service.get_user_by_id(db, user_id=user_id)
     if not user:
         raise HTTPException(
@@ -32,6 +35,7 @@ async def get_user(*, db: AsyncSession = Depends(deps.get_db_async), user_id: in
 @router.post("/", response_model=user_schemas.User)
 async def create_user(*, db: AsyncSession = Depends(deps.get_db_async), user_in: user_schemas.UserCreate) -> Any:
     """Create new user."""
+    ToLog.write_access(f"Access to user create ")
     user = await user_service.get_user_by_email(db, email=user_in.email)
     if user:
         raise HTTPException(
@@ -46,6 +50,7 @@ async def create_user(*, db: AsyncSession = Depends(deps.get_db_async), user_in:
 async def update_user(*, db: AsyncSession = Depends(deps.get_db_async), user_id: int,
                       user_in: user_schemas.UserUpdate) -> Any:
     """Update User by ID"""
+    ToLog.write_access(f"Access to user update")
     user = await user_service.get_user_by_id(db, user_id=user_id)
     if not user:
         raise HTTPException(

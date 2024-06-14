@@ -4,6 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.database_models import AllegroToken
 from app.services.allegro_token import update_token_by_id
+from app.loggers import ToLog
 
 
 async def check_token(database: AsyncSession, token: AllegroToken):
@@ -16,19 +17,19 @@ async def check_token(database: AsyncSession, token: AllegroToken):
     async with aiohttp.ClientSession() as session:
         async with session.get('https://api.allegro.pl/me', headers=headers) as res:
             if res.status == 200:
-                print('API call successful, token is valid')
+                ToLog.write_basic('API call successful, token is valid')
                 return token
             elif res.status == 401:
-                print('API call failed, token has expired, refreshing...')
+                ToLog.write_basic('API call failed, token has expired, refreshing...')
                 try:
                     new_access_token = await refresh_access_token(database, token)
-                    print('Access token refreshed successfully')
+                    ToLog.write_basic('Access token refreshed successfully')
                     return new_access_token
                 except Exception as err:
-                    print('Error refreshing access token:', err)
+                    ToLog.write_error(f'Error refreshing access token: {err}')
                     raise
             else:
-                print('API call failed, token is invalid:', res.reason, res.status)
+                ToLog.write_error(f'API call failed, token is invalid: {res.reason} {res.status}')
                 raise Exception('Invalid access token')
 
 
@@ -55,9 +56,9 @@ async def refresh_access_token(database: AsyncSession, token: AllegroToken) -> A
             if res.status == 200:
                 access_token = body['access_token']
                 refresh_token = body['refresh_token']
-                print('Access token refreshed successfully')
-                print("new access token: ", access_token)
-                print("new refresh token: ", refresh_token)
+                ToLog.write_basic('Access token refreshed successfully')
+                ToLog.write_basic(f"new access token: {access_token}")
+                ToLog.write_basic(f"new refresh token: {refresh_token}")
                 try:
                     token = await update_token_by_id(
                         database=database,
@@ -65,13 +66,13 @@ async def refresh_access_token(database: AsyncSession, token: AllegroToken) -> A
                         refresh_token=refresh_token,
                         access_token=access_token
                     )
-                    print('New tokens saved to database successfully')
+                    ToLog.write_basic('New tokens saved to database successfully')
                     return token
                 except Exception as error:
-                    print('Error saving new tokens to database:', error)
+                    ToLog.write_error(f'Error saving new tokens to database: {error}')
                     raise Exception('Failed to save new tokens to database')
             else:
-                print(f"Error refreshing access token: {res.status} {res.reason}")
+                ToLog.write_error(f"Error refreshing access token: {res.status} {res.reason}")
                 raise Exception('Failed to refresh access token')
 
 

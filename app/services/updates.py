@@ -7,9 +7,10 @@ from app.services.modules.ParsingManager import parse_xml_to_json
 from app.services.modules.DataFiltering.GetAllData import filter_json_object_to_array_of_objects
 from app.services.modules.DataFiltering.GetAllegroData import filter_supplier_data_for_allegro, filter_supplier_data_for_category, \
     filter_supplier_data_for_category_by_allegro_id
-from app.services.modules.DataFiltering.GetAmazonData import fetch_and_write_data_for_amazon
+# from app.services.modules.DataFiltering.GetAmazonData import fetch_and_write_data_for_amazon
 from app.services.modules.APITokenManager import check_token
 from app.services.modules.AlegroApiManager import update_offers, send_telegram_message
+from app.loggers import ToLog
 
 supplier_name = {
     "pgn": "pgn",
@@ -40,6 +41,6 @@ async def fetch_and_update_allegro(database: AsyncSession, filtered_objects, all
 async def turn_off_items_by_category(supplier, category):
     filtered_objects = await get_all_data(supplier, True, 1.0)
     items_to_turn_off = filter_supplier_data_for_category_by_allegro_id(filtered_objects, category)
-    print(len(items_to_turn_off))
+    ToLog.write_basic(f"Items to turn off: {len(items_to_turn_off)}")
     await update_items_by_allegro_id(supplier, items_to_turn_off)
 

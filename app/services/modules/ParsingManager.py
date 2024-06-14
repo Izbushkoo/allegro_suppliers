@@ -1,5 +1,6 @@
 import os
 import xml.etree.ElementTree as ET
+from app.loggers import ToLog
 
 
 def parse_xml_to_json(supplier_name):
@@ -24,7 +25,9 @@ def parse_xml_to_json(supplier_name):
                             children_dict[key] = value
                 element_dict = {element.tag: children_dict}
             if element.attrib:
-                element_dict[element.tag].update(('@' + attr_key, attr_value) for attr_key, attr_value in element.attrib.items())
+                element_dict[element.tag].update(
+                    ('@' + attr_key, attr_value) for attr_key, attr_value in element.attrib.items()
+                )
             if element.text:
                 text = element.text.strip()
                 if child_elements or element.attrib:
@@ -37,7 +40,7 @@ def parse_xml_to_json(supplier_name):
         json_from_xml = element_to_dict(root_element)
         return json_from_xml
     except Exception as error:
-        print(f"Error parsing XML file {xml_file_path}: {error}")
+        ToLog.write_error(f"Error parsing XML file {xml_file_path}: {error}")
         return None
 
 
