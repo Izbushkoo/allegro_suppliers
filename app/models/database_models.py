@@ -1,6 +1,11 @@
+import uuid
 from typing import Optional
 
 from sqlmodel import Field, SQLModel
+
+
+def uuid_as_string():
+    return str(uuid.uuid4())
 
 
 class User(SQLModel, table=True):
@@ -16,7 +21,7 @@ class User(SQLModel, table=True):
 class AllegroToken(SQLModel, table=True):
     __tablename__ = "allegro_tokens"
 
-    id_: Optional[int] = Field(primary_key=True, index=True)
+    id_: Optional[str] = Field(primary_key=True, default_factory=uuid_as_string)
     belongs_to: str = Field(nullable=False)
     account_name: Optional[str] = Field(default=None, nullable=True)
     description: Optional[str] = Field(default=None, nullable=True)
