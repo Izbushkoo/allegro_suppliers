@@ -10,6 +10,7 @@ import httpx
 
 from app.loggers import ToLog
 
+
 async def send_telegram_message(message):
     bot_token = os.getenv('TELEGRAM_BOT_TOKEN')
     chat_id = os.getenv('TELEGRAM_CHAT_ID')
@@ -52,6 +53,7 @@ async def update_offers(offers_array, access_token: str, oferta_ids_to_process: 
                 stock = offer.get('stock')
                 price = offer.get('price')
 
+                #TODO
                 if stock == 0:
                     ToLog.write_basic(f"Offer {id_} is 0 stock. Pushed to the arrayToEnd.")
                     array_to_end.append(offer)

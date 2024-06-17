@@ -28,6 +28,7 @@ def setup_loggers():
     # access.addHandler(stream_handler)
 
     debug_file_handler = logging.FileHandler(os.path.join(base_path, "debug_log.log"))
+
     logging.basicConfig(handlers=(debug_file_handler, stream_handler), level=logging.DEBUG)
     httpcore_logger = logging.getLogger("httpcore")
     httpcore_logger.setLevel(logging.CRITICAL)

@@ -24,9 +24,14 @@ supplier_name = {
 
 @router.post("/update")
 async def update_suppliers(request: Request, update_config: UpdateConfig, bg_tasks: BackgroundTasks):
-    """Обновить Аллегро оферты для заданного аккаунта."""
+    """Обновить Аллегро оферты для заданного аккаунта.
+    Доступные поставщики: "pgn", "unimet", "hurtprem", "rekman", "growbox". В случае отсутствия в конфиге списка
+    поставщиков, обновление произойдет для всех доступных.
+    То же самое в случае с переданным параметром 'oferta_ids_to_process'. В случае отсутствия обработка произойдет
+    для всех товаров.
+    """
 
-    ToLog.write_access(f"Access to update supplier with request: {await request.body()}")
+    ToLog.write_access(f"Access to update supplier with request: {await request.json()}")
     bg_tasks.add_task(
         TaskWrapper(task=update_as_task).run_task(
             update_config=update_config
