@@ -329,5 +329,3 @@ allegro_suppliers/media/
 
 /xml/*
 !/xml/.gitkeep
-
-docker-compose.yml
