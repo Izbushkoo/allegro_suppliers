@@ -12,7 +12,7 @@ async def get_tokens_list(database: AsyncSession, user_id: str):
         return result.all()
 
 
-async def get_token_by_id(database: AsyncSession, token_id: int):
+async def get_token_by_id(database: AsyncSession, token_id: str):
 
     async with database as session:
         statement = select(token.AllegroToken).where(
@@ -29,7 +29,7 @@ async def get_token_by_name(database: AsyncSession, token_name: str):
         return result.first() if result else []
 
 
-async def update_token_by_id(database: AsyncSession, token_id: int, access_token: str, refresh_token: str
+async def update_token_by_id(database: AsyncSession, token_id: str, access_token: str, refresh_token: str
                              ) -> token.AllegroToken:
     async with database as session:
         statement = select(token.AllegroToken).where(token.AllegroToken.id_ == token_id)
@@ -51,7 +51,7 @@ async def insert_token(database: AsyncSession, token_: token.AllegroToken):
         return token_
 
 
-async def delete_token(database: AsyncSession, token_id: int):
+async def delete_token(database: AsyncSession, token_id: str):
     async with database as session:
         statement = select(token.AllegroToken).where(token.AllegroToken.id_ == token_id)
         result = await session.exec(statement)
