@@ -14,7 +14,7 @@ services:
     networks:
       - allegro_suppliers_network
     ports:
-      - ${POSTGRES_PORT_TO_LOCAL_HOST}:5432
+      - "5432:5432"
   allegro_suppliers_app:
     build: .
     restart: unless-stopped

@@ -17,6 +17,7 @@ class AllegroToken(SQLModel, table=True):
     __tablename__ = "allegro_tokens"
 
     id_: Optional[int] = Field(primary_key=True, index=True)
+    belongs_to: str = Field(nullable=False)
     account_name: Optional[str] = Field(default=None, nullable=True)
     description: Optional[str] = Field(default=None, nullable=True)
     access_token: str
