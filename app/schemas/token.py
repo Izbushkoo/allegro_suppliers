@@ -13,7 +13,7 @@ class TokenPayload(BaseModel):
 
 
 class TokenOfAllegro(BaseModel):
-    id_: Optional[int]
+    id_: Optional[str]
     account_name: Optional[str]
     description: Optional[str]
     redirect_url: Optional[str]
