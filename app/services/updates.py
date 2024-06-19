@@ -9,7 +9,7 @@ from app.services.modules.DataFiltering.GetAllegroData import filter_supplier_da
     filter_supplier_data_for_category_by_allegro_id
 # from app.services.modules.DataFiltering.GetAmazonData import fetch_and_write_data_for_amazon
 from app.services.modules.APITokenManager import check_token
-from app.services.modules.AlegroApiManager import update_offers, send_telegram_message
+from app.services.modules.AlegroApiManager import update_offers
 from app.loggers import ToLog
 
 supplier_name = {
