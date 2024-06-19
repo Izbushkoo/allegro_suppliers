@@ -9,7 +9,7 @@ from pydantic import BaseModel
 from app.api import deps
 from app.services.updates import get_all_data, fetch_and_update_allegro
 from app.core.bg_task_wrapper import TaskWrapper
-from app.schemas.pydantic_models import UpdateConfig, ConfigManager, ConnectionManager
+from app.schemas.pydantic_models import UpdateConfig, ConfigManager, ConnectionManager, CallbackManager
 from app.services.allegro_token import get_token_by_id
 from app.loggers import ToLog
 
@@ -106,6 +106,11 @@ async def update_under_websocket(update_config: UpdateConfig, config_manager: Co
 
 
 async def update_as_task(update_config: UpdateConfig):
+
+    callback_manager = CallbackManager(
+        url=update_config.callback_url,
+        resource_id=update_config.resource_id
+    )
 
     database = deps.AsyncSessLocal()
     allegro_token = await get_token_by_id(database, update_config.allegro_token_id)

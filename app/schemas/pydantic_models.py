@@ -1,8 +1,16 @@
 import asyncio
-from typing import Optional, List, Dict
+from typing import Optional, List, Dict, Literal
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, HttpUrl
 from fastapi import WebSocket
+import httpx
+import requests
+
+
+class CallbackResponse(BaseModel):
+    resource_id: Optional[str | None] = Field(default=None)
+    status: str
+    message: str
 
 
 class UpdateConfig(BaseModel):
@@ -11,7 +19,7 @@ class UpdateConfig(BaseModel):
     suppliers_to_update: Optional[List[str] | None] = Field(default=None)
     oferta_ids_to_process: Optional[List[str] | None] = Field(default=None)
     callback_url: Optional[str | None] = Field(default=None)
-    resourse_id: Optional[str | None] = Field(default=None)
+    resource_id: Optional[str | None] = Field(default=None)
     allegro_token_id: str
 
 
@@ -23,11 +31,11 @@ class ConfigManager(BaseModel):
     manager: ["ConnectionManager"]
 
 
-class ConnectionManager:
-    def __init__(self):
-        self.active_connections: Dict[str, WebSocket] = {}
-        self.stops: Dict[str, asyncio.Event] = {}
-        self.task_status: Dict[str, str] = {}
+class ConnectionManager(BaseModel):
+
+    active_connections: Dict[str, WebSocket] = Field(default_factory=dict)
+    stops: Dict[str, asyncio.Event] = Field(default_factory=dict)
+    task_status: Dict[str, str] = Field(default_factory=dict)
 
     async def connect(self, client_id: str, websocket: WebSocket):
         await websocket.accept()
@@ -46,3 +54,48 @@ class ConnectionManager:
 
     def set_task_status(self, client_id: str, status: str = "in progress"):
         self.task_status[client_id] = status
+
+
+class CallbackManager(BaseModel):
+
+    url: Optional[HttpUrl | None] = Field(default=None)
+    resource_id: Optional[str | None] = Field(default=None)
+
+    def create_message(self, message: str, status: Literal["OK", "error"] = "OK"):
+        return CallbackResponse(
+            status=status,
+            message=message,
+            resource_id=self.resource_id
+        ).model_dump(exclude_none=True)
+
+    async def send_ok_callback_async(self, message: str):
+        if self.url:
+            async with httpx.AsyncClient() as client:
+                try:
+                    await client.post(self.url, json=self.create_message(message, "OK"))
+                except Exception:
+                    pass
+
+    async def send_error_callback_async(self, message: str):
+        if self.url:
+            async with httpx.AsyncClient() as client:
+                try:
+                    await client.post(self.url, json=self.create_message(message, "error"))
+                except Exception:
+                    pass
+
+    def send_ok_callback(self, message: str):
+        if self.url:
+            try:
+                requests.post(self.url, json=self.create_message(message, "OK"))
+            except Exception:
+                pass
+
+    def send_error_callback(self, message: str):
+        if self.url:
+            try:
+                requests.post(self.url, json=self.create_message(message, "error"))
+            except Exception:
+                pass
+
+

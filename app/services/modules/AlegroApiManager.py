@@ -9,7 +9,7 @@ from typing import List
 import httpx
 
 from app.loggers import ToLog
-from app.schemas.pydantic_models import ConfigManager, ConnectionManager
+from app.schemas.pydantic_models import ConfigManager, ConnectionManager, CallbackManager
 
 # async def send_telegram_message(message):
 #     bot_token = os.getenv('TELEGRAM_BOT_TOKEN')
@@ -28,7 +28,8 @@ from app.schemas.pydantic_models import ConfigManager, ConnectionManager
 #             print(f"Error sending Telegram message: {error}")
 
 
-async def update_offers(offers_array, access_token: str, oferta_ids_to_process: List[str] | None = None):
+async def update_offers(offers_array, access_token: str, callback_manager: CallbackManager,
+                        oferta_ids_to_process: List[str] | None = None):
 
     try:
         array_with_price_errors_to_update = []
@@ -80,6 +81,7 @@ async def update_offers(offers_array, access_token: str, oferta_ids_to_process: 
                         response = await client.patch(url, headers=headers, json=data)
                         if response.status_code in [200, 202]:
                             ToLog.write_basic(f"Offer {id_} updated successfully")
+                            await callback_manager.send_ok_callback_async(f"Offer {id_} updated successfully")
                             array_to_activate.append(offer)
                             success = True
                         else:
@@ -100,6 +102,7 @@ async def update_offers(offers_array, access_token: str, oferta_ids_to_process: 
 
                 if not success:
                     ToLog.write_basic(f"I failed to update {id_}")
+                    await callback_manager.send_ok_callback_async(f"I failed to update {id_}")
                     failed_http_request.append(offer)
 
                 ToLog.write_basic(f"Activate: {len(array_to_activate)}")
@@ -108,23 +111,34 @@ async def update_offers(offers_array, access_token: str, oferta_ids_to_process: 
 
         if array_with_price_errors_to_update:
             ToLog.write_basic(f"Updating {len(array_with_price_errors_to_update)} offers with price error...")
-            await update_offers(array_with_price_errors_to_update, access_token)
+            await callback_manager.send_ok_callback_async(
+                f"Updating {len(array_with_price_errors_to_update)} offers with price error..."
+            )
+            await update_offers(array_with_price_errors_to_update, access_token, callback_manager,
+                                oferta_ids_to_process)
         if array_to_activate:
             ToLog.write_basic(f"Activating {len(array_to_activate)} offers...")
-            await update_offers_status(access_token, array_to_activate, "ACTIVATE")
+            await callback_manager.send_ok_callback_async(f"Activating {len(array_to_activate)} offers...")
+            await update_offers_status(access_token, array_to_activate, "ACTIVATE", callback_manager)
         if array_to_end:
             ToLog.write_basic(f"Finishing {len(array_to_end)} offers with errors...")
-            await update_offers_status(access_token, array_to_end, "END")
+            await callback_manager.send_ok_callback_async(f"Finishing {len(array_to_end)} offers with errors...")
+            await update_offers_status(access_token, array_to_end, "END", callback_manager)
 
         ToLog.write_basic(f"Here are the items that could not be updated due to a server error: {failed_http_request}")
-
+        await callback_manager.send_error_callback_async(
+            f"Here are the items that could not be updated due to a server error: \n"
+            f"{', '.join([item.id_ for item in failed_http_request])}"
+        )
     except Exception as error:
         ToLog.write_error(f"Critical error: {error}")
+        await callback_manager.send_error_callback_async(f"Critical error: {error}")
         # await send_telegram_message(f"Critical error in update_offers function: {error}")
         raise error
 
 
-async def handle_errors(response, offer, array_to_end, array_with_price_errors_to_update):
+async def handle_errors(response, offer, array_to_end, array_with_price_errors_to_update,
+                        ):
     try:
         json_response = response.json()
     except json.JSONDecodeError:
@@ -171,7 +185,7 @@ async def handle_errors(response, offer, array_to_end, array_with_price_errors_t
         array_to_end.append(error_for_id)
 
 
-async def update_offers_status(access_token, offers, action):
+async def update_offers_status(access_token, offers, action, callback_manager: CallbackManager):
     batch_size = 1000
     max_offers_per_minute = 9000
     start_index = 0
@@ -206,15 +220,22 @@ async def update_offers_status(access_token, offers, action):
                 response = await client.put(url, headers=headers, json=payload)
                 if response.status_code == 201:
                     ToLog.write_basic(f"Command {action}ed successfully. Command ID: {command_id}. {response.text}")
+                    await callback_manager.send_ok_callback_async(
+                        f"Command {action}ed successfully. Command ID: {command_id}. {response.text}"
+                    )
                 else:
                     ToLog.write_basic(f"Error {response.status_code}: {response.text}")
+                    await callback_manager.send_error_callback_async(f"Error {response.status_code}: {response.text}")
             except Exception as error:
                 ToLog.write_error(f"Error sending request: {error}")
+                await callback_manager.send_error_callback_async(f"Error sending request: {error}")
 
             start_index += batch_size
 
             if start_index % max_offers_per_minute == 0:
                 ToLog.write_basic("Waiting for 1 minute before processing more offers...")
+                await callback_manager.send_ok_callback_async("Waiting for 1 minute before processing more offers...")
+
                 await sleep(60000)
             else:
                 await sleep(500)
