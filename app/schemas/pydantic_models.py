@@ -76,8 +76,11 @@ class CallbackManager(BaseModel):
     async def send_ok_callback_async(self, client, message: str):
         if self.url:
             try:
+                ToLog.write_basic(self.url)
                 result = await client.post(self.url, data=self.create_message(message, "OK"))
-                ToLog.write_basic(f'{await result.json()}')
+
+                ToLog.write_basic(f'{result.json}')
+                ToLog.write_basic(f'{result}')
             except Exception:
                 pass
 
