@@ -1,7 +1,7 @@
 import asyncio
 from typing import Optional, List, Dict
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from fastapi import WebSocket
 
 
@@ -14,6 +14,9 @@ class UpdateConfig(BaseModel):
 
 
 class ConfigManager(BaseModel):
+    model_config = ConfigDict(
+        arbitrary_types_allowed=True
+    )
     client_id: str
     manager: ["ConnectionManager"]
 
