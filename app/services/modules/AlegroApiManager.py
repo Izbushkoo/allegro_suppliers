@@ -51,13 +51,16 @@ async def update_offers(offers_array, access_token: str, callback_manager: Callb
                     continue
                 ToLog.write_basic(f"{id_} testing")
                 await sleep(3000)
-                await client.post(
-                    url=callback_manager.url, data={
+                result = await client.post(
+                    url=callback_manager.url, json=json.dumps({
                         "resource_id": callback_manager.resource_id,
                         "status": "OK",
                         "message": "testing .... "
+                    }), headers={
+                        "Content-Type": "application/json"
                     }
                 )
+                ToLog.write_basic(f"{result.content}")
                 # await callback_manager.send_ok_callback_async(client, "testing ....")
                 # await callback_manager.send_ok_callback_async(client, "testing kind of a long message with some additional information")
 
