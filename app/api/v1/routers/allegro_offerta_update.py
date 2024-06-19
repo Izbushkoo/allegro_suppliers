@@ -9,12 +9,15 @@ from pydantic import BaseModel
 from app.api import deps
 from app.services.updates import get_all_data, fetch_and_update_allegro
 from app.core.bg_task_wrapper import TaskWrapper
-from app.schemas.pydantic_models import UpdateConfig
+from app.schemas.pydantic_models import UpdateConfig, ConfigManager, ConnectionManager
 from app.services.allegro_token import get_token_by_id
 from app.loggers import ToLog
 
 
 router = APIRouter(dependencies=[Depends(deps.get_api_token)])
+
+connection_manager = ConnectionManager()
+
 
 supplier_name = {
     "pgn": "pgn",
@@ -41,39 +44,6 @@ async def update_suppliers(request: Request, update_config: UpdateConfig, bg_tas
         )
     )
     return {"status": "Update task started"}
-
-
-class ConfigManager(BaseModel):
-    client_id: str
-    manager: ["ConnectionManager"]
-
-
-class ConnectionManager:
-    def __init__(self):
-        self.active_connections: Dict[str, WebSocket] = {}
-        self.stops: Dict[str, asyncio.Event] = {}
-        self.task_status: Dict[str, str] = {}
-
-    async def connect(self, client_id: str, websocket: WebSocket):
-        await websocket.accept()
-        self.active_connections[client_id] = websocket
-
-    def disconnect(self, client_id: str):
-        self.active_connections.pop(client_id)
-
-    async def send_personal_message(self, message: Dict, client_id: str):
-        socket = self.active_connections.get(client_id)
-        if socket:
-            await socket.send_json(message)
-    
-    def is_task_active(self, client_id: str) -> bool:
-        return self.task_status.get(client_id) == "in progress"
-
-    def set_task_status(self, client_id: str, status: str = "in progress"):
-        self.task_status[client_id] = status
-
-
-connection_manager = ConnectionManager()
 
 
 @router.websocket("/update/{client_id}")

@@ -9,7 +9,7 @@ from typing import List
 import httpx
 
 from app.loggers import ToLog
-from app.api.v1.routers.allegro_offerta_update import ConfigManager, ConnectionManager
+from app.schemas.pydantic_models import ConfigManager, ConnectionManager
 
 # async def send_telegram_message(message):
 #     bot_token = os.getenv('TELEGRAM_BOT_TOKEN')
@@ -28,11 +28,7 @@ from app.api.v1.routers.allegro_offerta_update import ConfigManager, ConnectionM
 #             print(f"Error sending Telegram message: {error}")
 
 
-async def update_offers(offers_array, access_token: str, oferta_ids_to_process: List[str] | None = None,
-                        config: ConfigManager | None = None):
-    if config:
-        socket_manager = config.manager
-        client_id = config.client_id
+async def update_offers(offers_array, access_token: str, oferta_ids_to_process: List[str] | None = None):
 
     try:
         array_with_price_errors_to_update = []
@@ -255,87 +251,88 @@ async def update_offers_websocket(offers_array, access_token: str, config: Confi
                     )
                     socket_manager.set_task_status(client_id, "stopped")
                     return
-                stock = offer.get('stock')
-                price = offer.get('price')
-
-                #TODO
-                if stock == 0:
-                    ToLog.write_basic(f"Offer {id_} is 0 stock. Pushed to the arrayToEnd.")
-                    array_to_end.append(offer)
-                    continue
-
-                data = {
-                    "sellingMode": {
-                        "price": {
-                            "amount": price,
-                            "currency": "PLN",
-                        },
-                    },
-                    "stock": {
-                        "available": stock,
-                        "unit": "UNIT",
-                    },
-                }
-
-                url = f"https://api.allegro.pl/sale/product-offers/{id_}"
-                retries = 0
-                success = False
-
-                while retries < max_retries and not success:
-                    try:
-                        response = await client.patch(url, headers=headers, json=data)
-                        if response.status_code in [200, 202]:
-                            ToLog.write_basic(f"Offer {id_} updated successfully")
-                            await socket_manager.send_personal_message(
-                                {
-                                    "status": "OK",
-                                    "message": f"Offer {id_} updated successfully"
-                                }, client_id
-                            )
-                            array_to_activate.append(offer)
-                            success = True
-                        else:
-                            await handle_errors_websocket(response, offer, array_to_end,
-                                                          array_with_price_errors_to_update, config)
-                            success = True
-                    except httpx.HTTPStatusError as http_err:
-                        ToLog.write_error(f"HTTP error occurred: {http_err}")
-                        status_code = http_err.response.status_code if http_err.response else None
-                        if status_code in [500, 501, 502, 503, 504]:
-                            ToLog.write_basic("Bad request - will try again in 5 seconds...")
-                            retries += 1
-                            await sleep(5)
-                        else:
-                            await handle_errors_websocket(http_err.response, offer, array_to_end,
-                                                          array_with_price_errors_to_update, config)
-                            retries = max_retries
-                            success = True
-
-                if not success:
-                    ToLog.write_basic(f"I failed to update {id_}")
-                    await socket_manager.send_personal_message(
-                        {
-                            "status": "error",
-                            "message": f"Failed to update {id_}"
-                        }, client_id
-                    )
-                    failed_http_request.append(offer)
-
-                ToLog.write_basic(f"Activate: {len(array_to_activate)}")
-                ToLog.write_basic(f"End: {len(array_to_end)}")
-                ToLog.write_basic(f"UpdatePriceErrors {len(array_with_price_errors_to_update)}")
-
-        if array_with_price_errors_to_update:
-            ToLog.write_basic(f"Updating {len(array_with_price_errors_to_update)} offers with price error...")
-            await update_offers_websocket(array_with_price_errors_to_update, access_token, config)
-        if array_to_activate:
-            ToLog.write_basic(f"Activating {len(array_to_activate)} offers...")
-            await update_offers_status(access_token, array_to_activate, "ACTIVATE")
-        if array_to_end:
-            ToLog.write_basic(f"Finishing {len(array_to_end)} offers with errors...")
-            await update_offers_status(access_token, array_to_end, "END")
-
-        ToLog.write_basic(f"Here are the items that could not be updated due to a server error: {failed_http_request}")
+                await sleep(5000)
+        #         stock = offer.get('stock')
+        #         price = offer.get('price')
+        #
+        #         #TODO
+        #         if stock == 0:
+        #             ToLog.write_basic(f"Offer {id_} is 0 stock. Pushed to the arrayToEnd.")
+        #             array_to_end.append(offer)
+        #             continue
+        #
+        #         data = {
+        #             "sellingMode": {
+        #                 "price": {
+        #                     "amount": price,
+        #                     "currency": "PLN",
+        #                 },
+        #             },
+        #             "stock": {
+        #                 "available": stock,
+        #                 "unit": "UNIT",
+        #             },
+        #         }
+        #
+        #         url = f"https://api.allegro.pl/sale/product-offers/{id_}"
+        #         retries = 0
+        #         success = False
+        #
+        #         while retries < max_retries and not success:
+        #             try:
+        #                 response = await client.patch(url, headers=headers, json=data)
+        #                 if response.status_code in [200, 202]:
+        #                     ToLog.write_basic(f"Offer {id_} updated successfully")
+        #                     await socket_manager.send_personal_message(
+        #                         {
+        #                             "status": "OK",
+        #                             "message": f"Offer {id_} updated successfully"
+        #                         }, client_id
+        #                     )
+        #                     array_to_activate.append(offer)
+        #                     success = True
+        #                 else:
+        #                     await handle_errors_websocket(response, offer, array_to_end,
+        #                                                   array_with_price_errors_to_update, config)
+        #                     success = True
+        #             except httpx.HTTPStatusError as http_err:
+        #                 ToLog.write_error(f"HTTP error occurred: {http_err}")
+        #                 status_code = http_err.response.status_code if http_err.response else None
+        #                 if status_code in [500, 501, 502, 503, 504]:
+        #                     ToLog.write_basic("Bad request - will try again in 5 seconds...")
+        #                     retries += 1
+        #                     await sleep(5)
+        #                 else:
+        #                     await handle_errors_websocket(http_err.response, offer, array_to_end,
+        #                                                   array_with_price_errors_to_update, config)
+        #                     retries = max_retries
+        #                     success = True
+        #
+        #         if not success:
+        #             ToLog.write_basic(f"I failed to update {id_}")
+        #             await socket_manager.send_personal_message(
+        #                 {
+        #                     "status": "error",
+        #                     "message": f"Failed to update {id_}"
+        #                 }, client_id
+        #             )
+        #             failed_http_request.append(offer)
+        #
+        #         ToLog.write_basic(f"Activate: {len(array_to_activate)}")
+        #         ToLog.write_basic(f"End: {len(array_to_end)}")
+        #         ToLog.write_basic(f"UpdatePriceErrors {len(array_with_price_errors_to_update)}")
+        #
+        # if array_with_price_errors_to_update:
+        #     ToLog.write_basic(f"Updating {len(array_with_price_errors_to_update)} offers with price error...")
+        #     await update_offers_websocket(array_with_price_errors_to_update, access_token, config)
+        # if array_to_activate:
+        #     ToLog.write_basic(f"Activating {len(array_to_activate)} offers...")
+        #     await update_offers_status(access_token, array_to_activate, "ACTIVATE")
+        # if array_to_end:
+        #     ToLog.write_basic(f"Finishing {len(array_to_end)} offers with errors...")
+        #     await update_offers_status(access_token, array_to_end, "END")
+        #
+        # ToLog.write_basic(f"Here are the items that could not be updated due to a server error: {failed_http_request}")
 
     except Exception as error:
         await socket_manager.send_personal_message(
