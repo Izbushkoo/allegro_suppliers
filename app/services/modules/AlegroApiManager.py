@@ -131,8 +131,8 @@ async def update_offers(offers_array, access_token: str, callback_manager: Callb
         #     f"{', '.join([item.id_ for item in failed_http_request])}"
         # )
         await sleep(3000)
-        await callback_manager.send_ok_callback("testing ....")
-        await callback_manager.send_ok_callback("testing kind of a long message with some additional information")
+        await callback_manager.send_ok_callback_async("testing ....")
+        await callback_manager.send_ok_callback_async("testing kind of a long message with some additional information")
     except Exception as error:
         ToLog.write_error(f"Critical error: {error}")
         await callback_manager.send_error_callback_async(f"Critical error: {error}")

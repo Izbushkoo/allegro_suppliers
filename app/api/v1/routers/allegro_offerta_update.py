@@ -83,26 +83,25 @@ def validate_input_json(data: Dict, client_id: str) -> bool:
         return True
 
 
-async def update_under_websocket(update_config: UpdateConfig, config_manager: ConfigManager):
-
-    database = deps.AsyncSessLocal()
-    allegro_token = await get_token_by_id(database, update_config.allegro_token_id)
-    multiplier = update_config.multiplier
-    oferta_ids_to_process = update_config.oferta_ids_to_process
-
-    suppliers_list = update_config.suppliers_to_update if update_config.suppliers_to_update else list(
-        supplier_name.values()
-    )
-
-    for supplier in suppliers_list:
-        filtered_objects = await get_all_data(supplier, True, multiplier)
-        await fetch_and_update_allegro(
-            database,
-            filtered_objects,
-            allegro_token,
-            oferta_ids_to_process=oferta_ids_to_process,
-            config_manager=config_manager
-        )
+# async def update_under_websocket(update_config: UpdateConfig, config_manager: ConfigManager):
+#
+#     database = deps.AsyncSessLocal()
+#     allegro_token = await get_token_by_id(database, update_config.allegro_token_id)
+#     multiplier = update_config.multiplier
+#     oferta_ids_to_process = update_config.oferta_ids_to_process
+#
+#     suppliers_list = update_config.suppliers_to_update if update_config.suppliers_to_update else list(
+#         supplier_name.values()
+#     )
+#     for supplier in suppliers_list:
+#         filtered_objects = await get_all_data(supplier, True, multiplier)
+#         await fetch_and_update_allegro(
+#             database,
+#             filtered_objects,
+#             allegro_token,
+#             oferta_ids_to_process=oferta_ids_to_process,
+#             config_manager=config_manager
+#         )
 
 
 async def update_as_task(update_config: UpdateConfig):
@@ -111,6 +110,7 @@ async def update_as_task(update_config: UpdateConfig):
         url=update_config.callback_url,
         resource_id=update_config.resource_id
     )
+    ToLog.write_basic(f"callback manager {callback_manager.model_dump()}")
 
     database = deps.AsyncSessLocal()
     allegro_token = await get_token_by_id(database, update_config.allegro_token_id)
@@ -121,6 +121,7 @@ async def update_as_task(update_config: UpdateConfig):
         supplier_name.values()
     )
 
+    ToLog.write_basic(f"{suppliers_list}")
     for supplier in suppliers_list:
         filtered_objects = await get_all_data(supplier, True, multiplier)
         await fetch_and_update_allegro(
