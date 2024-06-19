@@ -6,6 +6,8 @@ from fastapi import WebSocket
 import httpx
 import requests
 
+from app.loggers import ToLog
+
 
 class CallbackResponse(BaseModel):
     resource_id: Optional[str | None] = Field(default=None)
@@ -75,7 +77,8 @@ class CallbackManager(BaseModel):
         if self.url:
             async with httpx.AsyncClient() as client:
                 try:
-                    await client.post(self.url, json=self.create_message(message, "OK"))
+                    result = await client.post(self.url, json=self.create_message(message, "OK"))
+                    ToLog.write_basic(f'{result}')
                 except Exception:
                     pass
 
