@@ -77,7 +77,7 @@ class CallbackManager(BaseModel):
         if self.url:
             async with httpx.AsyncClient() as client:
                 try:
-                    result = await client.post(self.url, json=self.create_message(message, "OK"))
+                    result = await client.post(self.url, data=self.create_message(message, "OK"))
                     ToLog.write_basic(f'{result}')
                 except Exception:
                     pass
@@ -86,7 +86,7 @@ class CallbackManager(BaseModel):
         if self.url:
             async with httpx.AsyncClient() as client:
                 try:
-                    await client.post(self.url, json=self.create_message(message, "error"))
+                    await client.post(self.url, data=self.create_message(message, "error"))
                 except Exception:
                     pass
 
@@ -95,7 +95,7 @@ class CallbackManager(BaseModel):
         if self.url:
             async with httpx.AsyncClient() as client:
                 try:
-                    await client.post(self.url, json=self.create_message(message, "finished"))
+                    await client.post(self.url, data=self.create_message(message, "finished"))
                 except Exception:
                     pass
 
