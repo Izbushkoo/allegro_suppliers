@@ -61,7 +61,7 @@ class CallbackManager(BaseModel):
     url: Optional[HttpUrl | None] = Field(default=None)
     resource_id: Optional[str | None] = Field(default=None)
 
-    def create_message(self, message: str, status: Literal["OK", "error"] = "OK"):
+    def create_message(self, message: str, status: Literal["OK", "error", "finished"] = "OK"):
         return CallbackResponse(
             status=status,
             message=message,
@@ -81,6 +81,15 @@ class CallbackManager(BaseModel):
             async with httpx.AsyncClient() as client:
                 try:
                     await client.post(self.url, json=self.create_message(message, "error"))
+                except Exception:
+                    pass
+
+    async def send_finish_callback_async(self, message: str):
+
+        if self.url:
+            async with httpx.AsyncClient() as client:
+                try:
+                    await client.post(self.url, json=self.create_message(message, "finished"))
                 except Exception:
                     pass
 
