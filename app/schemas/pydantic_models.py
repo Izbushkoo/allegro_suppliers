@@ -63,7 +63,7 @@ class ConnectionManager(BaseModel):
 
 class CallbackManager(BaseModel):
 
-    url: Optional[HttpUrl | None] = Field(default=None)
+    url: Optional[str | None] = Field(default=None)
     resource_id: Optional[str | None] = Field(default=None)
 
     def create_message(self, message: str, status: Literal["OK", "error", "finished"] = "OK"):
