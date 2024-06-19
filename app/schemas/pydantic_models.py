@@ -77,7 +77,7 @@ class CallbackManager(BaseModel):
         if self.url:
             try:
                 result = await client.post(self.url, data=self.create_message(message, "OK"))
-                ToLog.write_basic(f'{result}')
+                ToLog.write_basic(f'{await result.json()}')
             except Exception:
                 pass
 
