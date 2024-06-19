@@ -49,6 +49,10 @@ async def update_offers(offers_array, access_token: str, callback_manager: Callb
                 id_ = offer.get('id')
                 if oferta_ids_to_process and id_ not in oferta_ids_to_process:
                     continue
+                ToLog.write_basic(f"{id_} testing")
+                await sleep(3000)
+                await callback_manager.send_ok_callback_async("testing ....")
+                await callback_manager.send_ok_callback_async("testing kind of a long message with some additional information")
 
         #         stock = offer.get('stock')
         #         price = offer.get('price')
@@ -130,9 +134,6 @@ async def update_offers(offers_array, access_token: str, callback_manager: Callb
         #     f"Here are the items that could not be updated due to a server error: \n"
         #     f"{', '.join([item.id_ for item in failed_http_request])}"
         # )
-        await sleep(3000)
-        await callback_manager.send_ok_callback_async("testing ....")
-        await callback_manager.send_ok_callback_async("testing kind of a long message with some additional information")
     except Exception as error:
         ToLog.write_error(f"Critical error: {error}")
         await callback_manager.send_error_callback_async(f"Critical error: {error}")
