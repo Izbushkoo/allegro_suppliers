@@ -2,6 +2,7 @@ import asyncio
 from typing import Any, List, Dict
 
 from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks, Request, WebSocket
+from fastapi.responses import JSONResponse
 from sqlmodel.ext.asyncio.session import AsyncSession
 from starlette.websockets import WebSocketDisconnect
 from pydantic import BaseModel
@@ -43,7 +44,7 @@ async def update_suppliers(request: Request, update_config: UpdateConfig, bg_tas
             update_config=update_config
         )
     )
-    return {"status": "Update task started"}
+    return JSONResponse({"status": "Update task started"})
 
 
 @ws_router.websocket("/update/{client_id}")
