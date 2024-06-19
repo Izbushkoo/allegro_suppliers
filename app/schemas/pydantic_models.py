@@ -33,6 +33,9 @@ class ConfigManager(BaseModel):
 
 class ConnectionManager(BaseModel):
 
+    model_config = ConfigDict(
+        arbitrary_types_allowed=True
+    )
     active_connections: Dict[str, WebSocket] = Field(default_factory=dict)
     stops: Dict[str, asyncio.Event] = Field(default_factory=dict)
     task_status: Dict[str, str] = Field(default_factory=dict)
