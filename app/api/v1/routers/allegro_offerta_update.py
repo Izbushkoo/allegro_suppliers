@@ -15,7 +15,7 @@ from app.loggers import ToLog
 
 
 router = APIRouter(dependencies=[Depends(deps.get_api_token)])
-
+ws_router = APIRouter()
 connection_manager = ConnectionManager()
 
 
@@ -46,7 +46,7 @@ async def update_suppliers(request: Request, update_config: UpdateConfig, bg_tas
     return {"status": "Update task started"}
 
 
-@router.websocket("/update/{client_id}")
+@ws_router.websocket("/update/{client_id}")
 async def websocket_endpoint(websocket: WebSocket, client_id: str):
     ToLog.write_access(f"Access to update by websocket")
     await connection_manager.connect(client_id, websocket)

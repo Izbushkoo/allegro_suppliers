@@ -9,3 +9,4 @@ api_router.include_router(auth.router, prefix="/auth", tags=["Авторизац
 api_router.include_router(allegro_tokens.router, prefix="/allegro_tokens", tags=["Аллегро токкены."])
 
 api_router.include_router(allegro_offerta_update.router, prefix="/update", tags=["Обновление оферт Аллегро."])
+api_router.include_router(allegro_offerta_update.ws_router, prefix="/ws", tags=["Websocket"])
