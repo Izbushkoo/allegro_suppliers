@@ -143,6 +143,8 @@ def filter_json_object_to_array_of_objects(supplier, json_file, database_items, 
     handling_time = settings['handlingTime']
 
     all_products = by_string(json_file, products_path)
+    with open(os.path.join(os.getcwd(), 'xml', f'{supplier}.json'), "w") as file:
+        file.write(json.dumps(all_products, indent=4))
 
     for prod in all_products:
         if not prod:
