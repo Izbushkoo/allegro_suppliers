@@ -74,6 +74,7 @@ def clean_xml_string(xml_string):
 
 
 def element_to_dict(element):
+    """Преобразование элемента XML в словарь"""
     element_dict = {element.tag: {} if element.attrib else None}
     child_elements = list(element)
     if child_elements:
@@ -101,12 +102,12 @@ def element_to_dict(element):
     return element_dict
 
 
-def parse_large_xml_to_json_stream(supplier_name):
-    xml_file_path = os.path.join(os.getcwd(), 'xml', f'{supplier_name}.xml')
+def parse_large_xml_to_json_stream(file_path):
+    """Потоковая обработка большого XML файла и преобразование в JSON"""
     json_data = {}
 
     try:
-        context = etree.iterparse(xml_file_path, events=("end",))
+        context = etree.iterparse(file_path, events=("end",))
 
         for event, elem in context:
             # Преобразование элемента в строку XML
@@ -137,7 +138,7 @@ def parse_large_xml_to_json_stream(supplier_name):
         return json_data
 
     except Exception as error:
-        print(f"Error parsing XML file {xml_file_path}: {error}")
+        print(f"Error parsing XML file {file_path}: {error}")
         return None
 
 
