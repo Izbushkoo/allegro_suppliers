@@ -8,25 +8,6 @@ import os
 import xmltodict
 
 
-def parse_large_xml_to_json_stream(supplier_name):
-    xml_file_path = os.path.join(os.getcwd(), 'xml', f'{supplier_name}.xml')
-    context = etree.iterparse(xml_file_path, events=("end",), tag="your_tag")  # Замените "your_tag" на нужный тег
-
-    json_data = []
-
-    for event, elem in context:
-        xml_str = etree.tostring(elem, encoding='utf-8')
-        json_elem = xmltodict.parse(xml_str, attr_prefix='', cdata_key='text')
-        json_data.append(json_elem)
-
-        # Очистка элемента из памяти после обработки
-        elem.clear()
-        while elem.getprevious() is not None:
-            del elem.getparent()[0]
-
-    return json_data
-
-
 def parse_xml_to_json_test(supplier_name):
     xml_file_path = os.path.join(os.getcwd(), 'xml', f'{supplier_name}.xml')
 
@@ -79,6 +60,71 @@ def parse_xml_to_json(supplier_name):
 
         json_from_xml = element_to_dict(root_element)
         return json_from_xml
+    except Exception as error:
+        ToLog.write_error(f"Error parsing XML file {xml_file_path}: {error}")
+        return None
+
+
+def clean_xml_string(xml_string):
+    # Удаление неподходящих символов
+    invalid_xml_re = re.compile('[^\x09\x0A\x0D\x20-\x7F]')
+    return invalid_xml_re.sub('', xml_string)
+
+
+def element_to_dict(element):
+    element_dict = {element.tag: {} if element.attrib else None}
+    child_elements = list(element)
+    if child_elements:
+        children_dict = {}
+        for child_dict in map(element_to_dict, child_elements):
+            for key, value in child_dict.items():
+                if key in children_dict:
+                    if not isinstance(children_dict[key], list):
+                        children_dict[key] = [children_dict[key]]
+                    children_dict[key].append(value)
+                else:
+                    children_dict[key] = value
+        element_dict = {element.tag: children_dict}
+    if element.attrib:
+        element_dict[element.tag].update(
+            ('@' + attr_key, attr_value) for attr_key, attr_value in element.attrib.items()
+        )
+    if element.text:
+        text = element.text.strip()
+        if child_elements or element.attrib:
+            if text:
+                element_dict[element.tag]['#text'] = text
+        else:
+            element_dict[element.tag] = text
+    return element_dict
+
+
+def parse_large_xml_to_json_stream(supplier_name):
+    xml_file_path = os.path.join(os.getcwd(), 'xml', f'{supplier_name}.xml')
+    json_data = []
+
+    try:
+        context = etree.iterparse(xml_file_path, events=("end",))
+
+        for event, elem in context:
+            # Преобразование элемента в строку XML
+            xml_str = etree.tostring(elem, encoding='utf-8').decode('utf-8')
+
+            # Очистка строки от неподходящих символов
+            cleaned_xml_str = clean_xml_string(xml_str)
+
+            # Преобразование очищенной строки XML в словарь
+            elem_tree = etree.fromstring(cleaned_xml_str)
+            json_elem = element_to_dict(elem_tree)
+            json_data.append(json_elem)
+
+            # Очистка элемента из памяти после обработки
+            elem.clear()
+            while elem.getprevious() is not None:
+                del elem.getparent()[0]
+
+        return json_data
+
     except Exception as error:
         ToLog.write_error(f"Error parsing XML file {xml_file_path}: {error}")
         return None
