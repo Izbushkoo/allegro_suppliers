@@ -1,3 +1,4 @@
+import json
 import os
 import xml.etree.ElementTree as ET
 import re
@@ -134,6 +135,9 @@ def parse_large_xml_to_json_stream(file_path):
             elem.clear()
             while elem.getprevious() is not None:
                 del elem.getparent()[0]
+
+        with open(os.path.join(os.getcwd(), "xml", f"unimet.json"), "w") as file:
+            file.write(json.dumps(json_data, indent=4))
 
         return json_data
 
