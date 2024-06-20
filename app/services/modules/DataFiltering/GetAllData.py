@@ -141,6 +141,9 @@ def filter_json_object_to_array_of_objects(supplier, json_file, database_items, 
     sku_prefix = settings['skuPrefix']
     handling_time = settings['handlingTime']
 
+    with open(os.path.join(os.getcwd(), "xml", f"{supplier}.json"), "w") as file:
+        file.write(json.dumps(json_file, indent=4))
+
     all_products = by_string(json_file, products_path)
 
     product_map = {by_string(product, sku_path): product for product in all_products}
