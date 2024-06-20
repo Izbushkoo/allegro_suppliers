@@ -22,7 +22,8 @@ async def download_xml(supplier):
 
             with open(file_dest, 'w', encoding='utf-8') as file:
                 file.write(response_text)
-                ToLog.write_basic(f"File downloaded to {file_dest}")
+
+            ToLog.write_basic(f"File downloaded to {file_dest}")
 
 # Example usage:
 # asyncio.run(download_xml('pgn'))
