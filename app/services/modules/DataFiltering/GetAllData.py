@@ -101,6 +101,7 @@ def replace_polish_characters_in_sku(input_):
 def by_string(json_obj, path):
     properties = path.split('.')
     current_obj = json_obj
+    ToLog.write_basic(f"current object {current_obj}")
     for i, prop in enumerate(properties):
         prev_prop = properties[i - 1] if i > 0 else None
         if prop == 'ean' and prev_prop == 'attrs':

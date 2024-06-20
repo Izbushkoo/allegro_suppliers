@@ -82,10 +82,10 @@ supplier_settings = {
         "handlingTime": 3,
         "xmlPath": {
             "products": "offers.group.o",
-            "sku": "basicProductStats.id",
-            "price": "basicProductStats.price",
+            "sku": "@id",
+            "price": "@price",
             "vat": "vat",
-            "stock": "basicProductStats.stock",
+            "stock": "@stock",
             "ean": "attrs.ean",
             "category": "cat"
         },
