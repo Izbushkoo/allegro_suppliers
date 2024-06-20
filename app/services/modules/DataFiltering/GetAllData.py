@@ -114,11 +114,7 @@ def by_string(json_obj, path):
                 array_prop, index = match.groups()
                 current_obj = current_obj[array_prop][int(index)]
         else:
-            try:
-                current_obj = current_obj.get(prop)
-            except AttributeError as err:
-                ToLog.write_basic(f"current_obj {current_obj} current properties {properties} "
-                                  f"current prop {prop} current index {i}")
+            current_obj = current_obj.get(prop)
 
     return current_obj
 
@@ -143,14 +139,20 @@ def filter_json_object_to_array_of_objects(supplier, json_file, database_items, 
     handling_time = settings['handlingTime']
 
     all_products = by_string(json_file, products_path)
-    with open(os.path.join(os.getcwd(), 'xml', f'{supplier}.json'), "w") as file:
-        file.write(json.dumps(all_products, indent=4))
 
+    # product_map = {by_string(product, sku_path): product for product in all_products}
+
+    new_product_map = {}
     for prod in all_products:
-        if not prod:
-            ToLog.write_basic(f"{prod}")
+        try:
+            key = by_string(prod, sku_path)
+        except AttributeError:
+            ToLog.write_basic(f"product {prod} "
+                              f"sku path {sku_path}")
+            raise AttributeError
+        new_product_map[key] = prod
+
     return
-    product_map = {by_string(product, sku_path): product for product in all_products}
     filtered_objects = []
     for item in database_items:
         sku = item['supplier_sku']
