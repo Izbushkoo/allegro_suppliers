@@ -57,7 +57,7 @@ async def validate_xml_file(file_path):
         return False
 
 
-async def download_with_retry(supplier, retries=3, delay=5):
+async def download_with_retry(supplier, retries=10, delay=5):
     url = urls[supplier]
     destination_path = os.path.join(os.getcwd(), "xml", f"{supplier}.xml")
 
