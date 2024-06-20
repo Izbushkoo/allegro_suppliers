@@ -45,15 +45,15 @@ async def update_offers(offers_array, access_token: str, callback_manager: Callb
 
         max_retries = 5
         async with httpx.AsyncClient() as client:
-            # count = 0
+            count = 0
             for offer in offers_array:
                 id_ = offer.get('id')
                 if oferta_ids_to_process and id_ not in oferta_ids_to_process:
                     continue
 
-                # await callback_manager.send_ok_callback_async(f"{count}some long very long message and more long more more more more moremmosdf"
-                #                                            "jaklsfdkdsl;af more long more long longer longer")
-                # count += 1
+                await callback_manager.send_ok_callback_async(f"{count}some long very long message and more long more more more more moremmosdf"
+                                                           "jaklsfdkdsl;af more long more long longer longer")
+                count += 1
         #         stock = offer.get('stock')
         #         price = offer.get('price')
         #
