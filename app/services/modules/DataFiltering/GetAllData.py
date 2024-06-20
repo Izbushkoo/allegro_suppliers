@@ -1,3 +1,4 @@
+import asyncio
 import re
 import math
 import os
@@ -145,6 +146,8 @@ def filter_json_object_to_array_of_objects(supplier, json_file, database_items, 
 
     for prod in all_products:
         ToLog.write_basic(f"prod")
+
+    asyncio.run(asyncio.sleep(3))
 
     product_map = {by_string(product, sku_path): product for product in all_products}
     filtered_objects = []
