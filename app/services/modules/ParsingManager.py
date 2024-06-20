@@ -69,7 +69,7 @@ def parse_xml_to_json(supplier_name):
 
 def clean_xml_string(xml_string):
     # Удаление неподходящих символов
-    invalid_xml_re = re.compile('[^\x09\x0A\x0D\x20-\x7F]')
+    invalid_xml_re = re.compile(r'[^\x09\x0A\x0D\x20-\x7F]')
     return invalid_xml_re.sub('', xml_string)
 
 
@@ -91,7 +91,7 @@ def element_to_dict(element):
         element_dict[element.tag].update(
             ('@' + attr_key, attr_value) for attr_key, attr_value in element.attrib.items()
         )
-    if element.text:
+    if element.text and element.text.strip():
         text = element.text.strip()
         if child_elements or element.attrib:
             if text:
@@ -103,7 +103,7 @@ def element_to_dict(element):
 
 def parse_large_xml_to_json_stream(supplier_name):
     xml_file_path = os.path.join(os.getcwd(), 'xml', f'{supplier_name}.xml')
-    json_data = []
+    json_data = {}
 
     try:
         context = etree.iterparse(xml_file_path, events=("end",))
@@ -117,8 +117,17 @@ def parse_large_xml_to_json_stream(supplier_name):
 
             # Преобразование очищенной строки XML в словарь
             elem_tree = etree.fromstring(cleaned_xml_str)
-            json_elem = element_to_dict(elem_tree)
-            json_data.append(json_elem)
+            elem_dict = element_to_dict(elem_tree)
+
+            # Объединение элементов в итоговый словарь
+            root_tag = list(elem_dict.keys())[0]
+            if root_tag not in json_data:
+                json_data[root_tag] = elem_dict[root_tag]
+            else:
+                if isinstance(json_data[root_tag], list):
+                    json_data[root_tag].append(elem_dict[root_tag])
+                else:
+                    json_data[root_tag] = [json_data[root_tag], elem_dict[root_tag]]
 
             # Очистка элемента из памяти после обработки
             elem.clear()
@@ -128,7 +137,7 @@ def parse_large_xml_to_json_stream(supplier_name):
         return json_data
 
     except Exception as error:
-        ToLog.write_error(f"Error parsing XML file {xml_file_path}: {error}")
+        print(f"Error parsing XML file {xml_file_path}: {error}")
         return None
 
 
