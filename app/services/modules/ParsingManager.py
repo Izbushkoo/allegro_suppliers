@@ -1,6 +1,6 @@
 import os
 import xml.etree.ElementTree as ET
-from typing import re
+import re
 
 from lxml import etree
 
