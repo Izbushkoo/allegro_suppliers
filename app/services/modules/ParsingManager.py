@@ -1,9 +1,30 @@
 import os
 import xml.etree.ElementTree as ET
+from lxml import etree
+
 from app.loggers import ToLog
 
 import os
 import xmltodict
+
+
+def parse_large_xml_to_json_stream(supplier_name):
+    xml_file_path = os.path.join(os.getcwd(), 'xml', f'{supplier_name}.xml')
+    context = etree.iterparse(xml_file_path, events=("end",), tag="your_tag")  # Замените "your_tag" на нужный тег
+
+    json_data = []
+
+    for event, elem in context:
+        xml_str = etree.tostring(elem, encoding='utf-8')
+        json_elem = xmltodict.parse(xml_str, attr_prefix='', cdata_key='text')
+        json_data.append(json_elem)
+
+        # Очистка элемента из памяти после обработки
+        elem.clear()
+        while elem.getprevious() is not None:
+            del elem.getparent()[0]
+
+    return json_data
 
 
 def parse_xml_to_json_test(supplier_name):
