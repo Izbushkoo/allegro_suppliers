@@ -3,6 +3,7 @@ import math
 import os
 import json
 from app.services.configs.AllegroConfig import supplier_settings
+from app.loggers import ToLog
 
 
 # Helper functions
@@ -112,7 +113,11 @@ def by_string(json_obj, path):
                 array_prop, index = match.groups()
                 current_obj = current_obj[array_prop][int(index)]
         else:
-            current_obj = current_obj.get(prop)
+            try:
+                current_obj = current_obj.get(prop)
+            except AttributeError as err:
+                ToLog.write_basic(f"current_obj {current_obj} current properties {properties} "
+                                  f"current prop {prop} current index {i}")
 
     return current_obj
 

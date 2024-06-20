@@ -11,22 +11,6 @@ import httpx
 from app.loggers import ToLog
 from app.schemas.pydantic_models import ConfigManager, ConnectionManager, CallbackManager
 
-# async def send_telegram_message(message):
-#     bot_token = os.getenv('TELEGRAM_BOT_TOKEN')
-#     chat_id = os.getenv('TELEGRAM_CHAT_ID')
-#     url = f"https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={chat_id}&text={message}"
-#
-#     async with httpx.AsyncClient() as client:
-#         try:
-#             response = await client.get(url)
-#             json_response = response.json()
-#             if json_response['ok']:
-#                 print(f"Telegram message sent successfully: {message}")
-#             else:
-#                 print(f"Error sending Telegram message: {json_response['description']}")
-#         except Exception as error:
-#             print(f"Error sending Telegram message: {error}")
-
 
 async def update_offers(offers_array, access_token: str, callback_manager: CallbackManager,
                         oferta_ids_to_process: List[str] | None = None):
