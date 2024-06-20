@@ -53,6 +53,8 @@ async def update_offers(offers_array, access_token: str, callback_manager: Callb
 
                 await callback_manager.send_ok_callback_async(f"{id_}. Testing logging information...")
                 count += 1
+                if count == 30:
+                    return
         #         stock = offer.get('stock')
         #         price = offer.get('price')
         #
