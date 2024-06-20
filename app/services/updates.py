@@ -27,7 +27,10 @@ async def get_all_data_test(supplier, is_offers_should_be_updated_on_allegro, mu
     await download_xml(supplier)
 
     database_items = await fetch_data_from_db(supplier, is_offers_should_be_updated_on_allegro)
-    json_from_xml = parse_xml_to_json_test(supplier)
+    if supplier == "unimet":
+        json_from_xml = parse_xml_to_json(supplier)
+    else:
+        json_from_xml = parse_xml_to_json_test(supplier)
 
     filtered_objects = filter_json_object_to_array_of_objects_with_pydash(supplier, json_from_xml, database_items,
                                                                           multiplier)
