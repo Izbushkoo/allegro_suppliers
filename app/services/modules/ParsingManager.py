@@ -103,12 +103,13 @@ def element_to_dict(element):
     return element_dict
 
 
-def parse_large_xml_to_json_stream(file_path):
+def parse_large_xml_to_json_stream(supplier_name):
     """Потоковая обработка большого XML файла и преобразование в JSON"""
+    xml_file_path = os.path.join(os.getcwd(), 'xml', f'{supplier_name}.xml')
     json_data = {}
 
     try:
-        context = etree.iterparse(file_path, events=("end",))
+        context = etree.iterparse(xml_file_path, events=("end",))
 
         for event, elem in context:
             # Преобразование элемента в строку XML
@@ -142,7 +143,7 @@ def parse_large_xml_to_json_stream(file_path):
         return json_data
 
     except Exception as error:
-        print(f"Error parsing XML file {file_path}: {error}")
+        ToLog.write_error(f"Error parsing XML file {xml_file_path}: {error}")
         return None
 
 
