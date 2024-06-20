@@ -4,7 +4,7 @@ import os.path
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.database_models import AllegroToken
-from app.services.modules.DownloadXML import download_xml
+from app.services.modules.DownloadXML import download_xml, download_with_retry
 from app.services.modules.DatabaseManager import fetch_data_from_db, update_items_by_sku, update_items_by_allegro_id
 from app.services.modules.ParsingManager import parse_xml_to_json, parse_xml_to_json_test, parse_large_xml_to_json_stream
 from app.services.modules.DataFiltering.GetAllData import filter_json_object_to_array_of_objects, filter_json_object_to_array_of_objects_with_pydash
@@ -38,7 +38,7 @@ async def get_all_data_test(supplier, is_offers_should_be_updated_on_allegro, mu
 
 
 async def get_all_data(supplier, is_offers_should_be_updated_on_allegro, multiplier):
-    await download_xml(supplier)
+    await download_with_retry(supplier)
 
     database_items = await fetch_data_from_db(supplier, is_offers_should_be_updated_on_allegro)
     json_from_xml = parse_xml_to_json(supplier)

@@ -1,6 +1,12 @@
+import httpx
+import hashlib
 import os
+import aiofiles
 import aiohttp
 import asyncio
+
+import xml.etree.ElementTree as ET
+
 from app.loggers import ToLog
 
 urls = {
@@ -25,5 +31,50 @@ async def download_xml(supplier):
 
             ToLog.write_basic(f"File downloaded to {file_dest}")
 
-# Example usage:
-# asyncio.run(download_xml('pgn'))
+
+async def download_file(url, destination_path):
+
+    async with httpx.AsyncClient() as client:
+        async with client.stream("GET", url) as response:
+            response.raise_for_status()  # Проверка на ошибки HTTP
+
+            async with aiofiles.open(destination_path, 'wb') as file:
+                async for chunk in response.aiter_bytes():
+                    if chunk:  # Фильтрация пустых блоков
+                        await file.write(chunk)
+
+    ToLog.write_basic(f"File downloaded to {destination_path}")
+
+    return destination_path
+
+
+async def validate_xml_file(file_path):
+    try:
+        tree = ET.parse(file_path)
+        return True
+    except ET.ParseError as e:
+        ToLog.write_error(f"XML file validation failed: {e}")
+        return False
+
+
+async def download_with_retry(supplier, retries=3, delay=5):
+    url = urls[supplier]
+    destination_path = os.path.join(os.getcwd(), "xml", f"{supplier}.xml")
+
+    for attempt in range(retries):
+        try:
+            await download_file(url, destination_path)
+            if await validate_xml_file(destination_path):
+                ToLog.write_basic("File downloaded and verified successfully")
+                return destination_path
+            else:
+                raise ValueError("File validation failed")
+        except Exception as e:
+            ToLog.write_basic(f"Attempt {attempt + 1} failed: {e}")
+            if attempt + 1 < retries:
+                ToLog.write_basic(f"Retrying in {delay} seconds...")
+                await asyncio.sleep(delay)
+            else:
+                raise
+    raise RuntimeError("Failed to download file after multiple attempts")
+
