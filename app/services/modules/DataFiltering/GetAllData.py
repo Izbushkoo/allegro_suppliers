@@ -145,7 +145,8 @@ def filter_json_object_to_array_of_objects(supplier, json_file, database_items, 
     all_products = by_string(json_file, products_path)
 
     for prod in all_products:
-        ToLog.write_basic(f"{prod}")
+        if not prod:
+            ToLog.write_basic(f"{prod}")
     return
     product_map = {by_string(product, sku_path): product for product in all_products}
     filtered_objects = []
