@@ -71,31 +71,31 @@ class CallbackManager(BaseModel):
             status=status,
             message=message,
             resource_id=self.resource_id
-        ).model_dump(exclude_none=True)
+        ).model_dump_json(exclude_none=True)
 
-    async def send_ok_callback_async(self, client, message: str):
+    async def send_ok_callback_async(self, message: str):
         if self.url:
             try:
-                ToLog.write_basic(self.url)
-                result = await client.post(self.url, data=self.create_message(message, "OK"))
-
-                ToLog.write_basic(f'{result.json}')
-                ToLog.write_basic(f'{result}')
+                async with httpx.AsyncClient() as client:
+                    result = await client.post(self.url, json=self.create_message(message, "OK"))
+                    ToLog.write_basic(f'{result.json} {result.status_code}')
             except Exception:
                 pass
 
-    async def send_error_callback_async(self, client, message: str):
+    async def send_error_callback_async(self, message: str):
         if self.url:
             try:
-                await client.post(self.url, data=self.create_message(message, "error"))
+                async with httpx.AsyncClient() as client:
+                    await client.post(self.url, json=self.create_message(message, "error"))
             except Exception:
                 pass
 
-    async def send_finish_callback_async(self, client, message: str):
+    async def send_finish_callback_async(self, message: str):
 
         if self.url:
             try:
-                await client.post(self.url, data=self.create_message(message, "finished"))
+                async with httpx.AsyncClient() as client:
+                    await client.post(self.url, json=self.create_message(message, "finished"))
             except Exception:
                 pass
 
