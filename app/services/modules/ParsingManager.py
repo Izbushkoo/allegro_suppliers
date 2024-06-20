@@ -1,5 +1,7 @@
 import os
 import xml.etree.ElementTree as ET
+from typing import re
+
 from lxml import etree
 
 from app.loggers import ToLog
