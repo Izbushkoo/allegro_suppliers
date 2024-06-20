@@ -221,24 +221,22 @@ async def update_offers_status(access_token, offers, action, callback_manager: C
                 if response.status_code == 201:
                     ToLog.write_basic(f"Command {action}ed successfully. Command ID: {command_id}. {response.text}")
                     await callback_manager.send_ok_callback_async(
-                        client,
                         f"Command {action}ed successfully. Command ID: {command_id}. {response.text}"
                     )
                 else:
                     ToLog.write_basic(f"Error {response.status_code}: {response.text}")
                     await callback_manager.send_error_callback_async(
-                        client,
                         f"Error {response.status_code}: {response.text}"
                     )
             except Exception as error:
                 ToLog.write_error(f"Error sending request: {error}")
-                await callback_manager.send_error_callback_async(client, f"Error sending request: {error}")
+                await callback_manager.send_error_callback_async(f"Error sending request: {error}")
 
             start_index += batch_size
 
             if start_index % max_offers_per_minute == 0:
                 ToLog.write_basic("Waiting for 1 minute before processing more offers...")
-                await callback_manager.send_ok_callback_async(client, "Waiting for 1 minute before processing more offers...")
+                await callback_manager.send_ok_callback_async("Waiting for 1 minute before processing more offers...")
 
                 await sleep(60000)
             else:
