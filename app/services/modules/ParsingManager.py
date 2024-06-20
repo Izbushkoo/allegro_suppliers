@@ -76,13 +76,13 @@ def clean_xml_string(xml_string):
     return invalid_xml_re.sub('', xml_string)
 
 
-def element_to_dict(element):
+def element_to_dict_(element):
     """Преобразование элемента XML в словарь"""
     element_dict = {element.tag: {} if element.attrib else None}
     child_elements = list(element)
     if child_elements:
         children_dict = {}
-        for child_dict in map(element_to_dict, child_elements):
+        for child_dict in map(element_to_dict_, child_elements):
             for key, value in child_dict.items():
                 if key in children_dict:
                     if not isinstance(children_dict[key], list):
@@ -122,7 +122,7 @@ def parse_large_xml_to_json_stream(supplier_name):
 
             # Преобразование очищенной строки XML в словарь
             elem_tree = etree.fromstring(cleaned_xml_str)
-            elem_dict = element_to_dict(elem_tree)
+            elem_dict = element_to_dict_(elem_tree)
 
             # Объединение элементов в итоговый словарь
             root_tag = list(elem_dict.keys())[0]
