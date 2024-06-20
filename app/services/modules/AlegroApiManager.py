@@ -49,6 +49,8 @@ async def update_offers(offers_array, access_token: str, callback_manager: Callb
                 id_ = offer.get('id')
                 if oferta_ids_to_process and id_ not in oferta_ids_to_process:
                     continue
+                if callback_manager.send_ok_callback_async("some long very long message and more long more more more more moremmosdf"
+                                                           "jaklsfdkdsl;af more long more long longer longer")
 
         #         stock = offer.get('stock')
         #         price = offer.get('price')
