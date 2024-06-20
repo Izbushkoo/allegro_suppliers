@@ -2,6 +2,25 @@ import os
 import xml.etree.ElementTree as ET
 from app.loggers import ToLog
 
+import os
+import xmltodict
+
+
+def parse_xml_to_json_test(supplier_name):
+    xml_file_path = os.path.join(os.getcwd(), 'xml', f'{supplier_name}.xml')
+
+    with open(xml_file_path, 'r', encoding='utf-8') as file:
+        xml_content = file.read()
+
+    options = {
+        'attr_prefix': '',
+        'cdata_key': 'text'
+    }
+
+    json_from_xml = xmltodict.parse(xml_content, **options)
+
+    return json_from_xml
+
 
 def parse_xml_to_json(supplier_name):
     xml_file_path = os.path.join(os.getcwd(), 'xml', f'{supplier_name}.xml')

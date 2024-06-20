@@ -32,6 +32,8 @@ def setup_loggers():
     logging.basicConfig(handlers=(debug_file_handler, stream_handler), level=logging.DEBUG)
     httpcore_logger = logging.getLogger("httpcore")
     httpx_logger = logging.getLogger("httpx")
+    mongo_logger = logging.getLogger("pymongo")
+    mongo_logger.setLevel(logging.CRITICAL)
     httpx_logger.setLevel(logging.CRITICAL)
     httpcore_logger.setLevel(logging.CRITICAL)
 

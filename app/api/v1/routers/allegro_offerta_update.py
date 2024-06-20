@@ -8,7 +8,7 @@ from starlette.websockets import WebSocketDisconnect
 from pydantic import BaseModel
 
 from app.api import deps
-from app.services.updates import get_all_data, fetch_and_update_allegro
+from app.services.updates import get_all_data, fetch_and_update_allegro, get_all_data_test
 from app.core.bg_task_wrapper import TaskWrapper
 from app.schemas.pydantic_models import UpdateConfig, ConfigManager, ConnectionManager, CallbackManager
 from app.services.allegro_token import get_token_by_id
@@ -27,6 +27,14 @@ supplier_name = {
     "rekman": "rekman",
     "growbox": "growbox"
 }
+
+
+@ws_router.post("/test")
+async def update_suppliers_test_parse(supplier: str):
+    fil_obj = await get_all_data_test(supplier, True, 1)
+
+    ToLog.write_basic("succsess")
+    return fil_obj[-1]
 
 
 @router.post("/update")

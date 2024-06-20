@@ -21,4 +21,4 @@ RUN poetry install --without dev
 
 EXPOSE 8787
 
-CMD poetry run gunicorn --bind :8787 -k uvicorn.workers.UvicornH11Worker --workers 4 app.main:app
+CMD poetry run gunicorn --timeout 500 --bind :8787 -k uvicorn.workers.UvicornH11Worker --workers 4 app.main:app

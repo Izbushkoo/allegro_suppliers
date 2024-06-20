@@ -3,6 +3,9 @@ import re
 import math
 import os
 import json
+
+import pydash
+from jsonpath_ng.ext import parse
 from app.services.configs.AllegroConfig import supplier_settings
 from app.loggers import ToLog
 
@@ -101,12 +104,11 @@ def replace_polish_characters_in_sku(input_):
 def by_string(json_obj, path):
     properties = path.split('.')
     current_obj = json_obj
-    ToLog.write_basic(f"current object {current_obj}")
     for i, prop in enumerate(properties):
         prev_prop = properties[i - 1] if i > 0 else None
         if prop == 'ean' and prev_prop == 'attrs':
             attrs_array = current_obj.get('a', [])
-            ean_obj = next((obj for obj in attrs_array if obj['basicProductStats']['name'] == 'EAN'), None)
+            ean_obj = next((obj for obj in attrs_array if obj['name'] == 'EAN'), None)
             current_obj = ean_obj['#text'] if ean_obj else None
             break
         elif '[' in prop and ']' in prop:
@@ -141,19 +143,8 @@ def filter_json_object_to_array_of_objects(supplier, json_file, database_items, 
 
     all_products = by_string(json_file, products_path)
 
-    # product_map = {by_string(product, sku_path): product for product in all_products}
+    product_map = {by_string(product, sku_path): product for product in all_products}
 
-    new_product_map = {}
-    for prod in all_products:
-        try:
-            key = by_string(prod, sku_path)
-        except AttributeError:
-            ToLog.write_basic(f"product {prod} "
-                              f"sku path {sku_path}")
-            raise AttributeError
-        new_product_map[key] = prod
-
-    return
     filtered_objects = []
     for item in database_items:
         sku = item['supplier_sku']
@@ -197,6 +188,74 @@ def filter_json_object_to_array_of_objects(supplier, json_file, database_items, 
 
     return filtered_objects
 
-# Example usage:
-# filtered_objects = filter_json_object_to_array_of_objects('pgn', json_data, database_items)
-# print(filtered_objects)
+
+def jsonpath_search(json_data, path):
+    jsonpath_expr = parse(path)
+    matches = jsonpath_expr.find(json_data)
+    return [match.value for match in matches]
+
+
+def filter_json_object_to_array_of_objects_with_pydash(supplier, json_file, database_items, multiplier=1):
+    settings = supplier_settings[supplier]
+
+    products_path = settings['xmlPath']['products']
+    sku_path = settings['xmlPath']['sku']
+    category_path = settings['xmlPath']['category']
+    price_path = settings['xmlPath']['price']
+    is_apply_custom_multipliers = settings['applyCustomMultipliers']
+    is_apply_custom_multiplier = settings['applyMultiplier']
+    vat_path = settings['xmlPath']['vat']
+    stock_path = settings['xmlPath']['stock']
+    ean_path = settings['xmlPath']['ean']
+    price_ranges = settings['priceRanges']
+    is_vat_included = settings['isVatIncluded']
+
+    sku_prefix = settings['skuPrefix']
+    handling_time = settings['handlingTime']
+
+    all_products = pydash.get(json_file, products_path, [])
+
+    product_map = {pydash.get(product, sku_path): product for product in all_products}
+
+    filtered_objects = []
+    for item in database_items:
+        sku = item['supplier_sku']
+        product = product_map.get(sku)
+
+        if not product:
+            filtered_objects.append({
+                'allegro_offerta_id': item['allegro_oferta_id'],
+                'amazon_sku': f"{sku_prefix}{sku}",
+                'stock': 0,
+                'price': 7.77,
+                'ean': 404,
+                'handling_time': handling_time,
+                'category': 'N/A'
+            })
+            continue
+
+        price_string = str(pydash.get(product, price_path, ""))
+        vat_string = str(pydash.get(product, vat_path, ""))
+        stock_string = str(pydash.get(product, stock_path, ""))
+        ean_string = str(jsonpath_search(product, ean_path)[0])
+
+        formatted_ean = format_ean(ean_string)
+        vat = extract_vat(vat_string, is_vat_included)
+        price = extract_price(price_string, vat, is_vat_included)
+        final_price = calculate_price(price, price_ranges, is_apply_custom_multipliers, is_apply_custom_multiplier,
+                                      supplier, sku, multiplier)
+        final_stock = extract_and_calculate_stock(stock_string)
+        final_sku = replace_polish_characters_in_sku(f"{sku_prefix}{sku}")
+        category = str(pydash.get(product, category_path, "N/A"))
+
+        filtered_objects.append({
+            'allegro_offerta_id': item['allegro_oferta_id'],
+            'amazon_sku': final_sku,
+            'stock': final_stock,
+            'price': final_price,
+            'ean': formatted_ean,
+            'handlingTime': handling_time,
+            'category': category
+        })
+
+    return filtered_objects

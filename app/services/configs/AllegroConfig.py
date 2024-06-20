@@ -82,12 +82,13 @@ supplier_settings = {
         "handlingTime": 3,
         "xmlPath": {
             "products": "offers.group.o",
-            "sku": "@id",
-            "price": "@price",
+            "sku": "id",
+            "price": "price",
             "vat": "vat",
-            "stock": "@stock",
-            "ean": "attrs.ean",
+            "stock": "stock",
+            "ean": "attrs.a[?(@.name == 'EAN')].text",
             "category": "cat"
+
         },
         "priceRanges": [
             {"maxPrice": 10, "factor": "add", "value": 12},
@@ -164,7 +165,7 @@ supplier_settings = {
             "price": "priceAfterDiscountNet",
             "vat": "vat",
             "stock": "qty",
-            "ean": "",
+            "ean": "ean",
             "category": ""
         },
         "priceRanges": [
