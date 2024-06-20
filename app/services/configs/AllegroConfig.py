@@ -86,7 +86,7 @@ supplier_settings = {
             "price": "price",
             "vat": "vat",
             "stock": "stock",
-            "ean": "attrs.a[?(@.name == 'EAN')].text",
+            "ean": "attrs.ean",
             "category": "cat"
 
         },
