@@ -41,7 +41,7 @@ async def get_all_data(supplier, is_offers_should_be_updated_on_allegro, multipl
     await download_xml(supplier)
 
     database_items = await fetch_data_from_db(supplier, is_offers_should_be_updated_on_allegro)
-    json_from_xml = parse_large_xml_to_json_stream(supplier)
+    json_from_xml = parse_xml_to_json(supplier)
     ToLog.write_basic("parsed")
     filtered_objects = filter_json_object_to_array_of_objects(
         supplier, json_from_xml, database_items, multiplier
