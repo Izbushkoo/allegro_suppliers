@@ -108,7 +108,7 @@ def by_string(json_obj, path):
         prev_prop = properties[i - 1] if i > 0 else None
         if prop == 'ean' and prev_prop == 'attrs':
             attrs_array = current_obj.get('a', [])
-            ean_obj = next((obj for obj in attrs_array if obj['name'] == 'EAN'), None)
+            ean_obj = next((obj for obj in attrs_array if obj['@name'] == 'EAN'), None)
             current_obj = ean_obj['#text'] if ean_obj else None
             break
         elif '[' in prop and ']' in prop:
