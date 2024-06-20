@@ -132,8 +132,9 @@ async def update_as_task(update_config: UpdateConfig):
             oferta_ids_to_process=oferta_ids_to_process,
             callback_manager=callback_manager
         )
-        ToLog.write_basic("Update Finished")
-        await callback_manager.send_finish_callback_async("Update Finished")
+
+    ToLog.write_basic("Update Finished")
+    await callback_manager.send_finish_callback_async("Update Finished")
 
 
 
