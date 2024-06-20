@@ -132,11 +132,11 @@ async def update_as_task(update_config: UpdateConfig):
 
     ToLog.write_basic(f"{suppliers_list}")
     for supplier in suppliers_list:
-        try:
-            filtered_objects = await get_all_data(supplier, True, multiplier)
-        except Exception as e:
-            await callback_manager.send_error_callback_async(f"Error with parsing {supplier} data. Try later.")
-            ToLog.write_error(f"{e}")
+        # try:
+        filtered_objects = await get_all_data(supplier, True, multiplier)
+        # except Exception as e:
+        #     await callback_manager.send_error_callback_async(f"Error with parsing {supplier} data. Try later.")
+        #     ToLog.write_error(f"{e}")
         else:
             await fetch_and_update_allegro(
                 database,
