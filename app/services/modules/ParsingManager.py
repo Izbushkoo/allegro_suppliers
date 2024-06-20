@@ -17,12 +17,14 @@ def parse_xml_to_json_test(supplier_name):
     with open(xml_file_path, 'r', encoding='utf-8') as file:
         xml_content = file.read()
 
+    cleaned_xml_content = clean_xml_string(xml_content)
+
     options = {
         'attr_prefix': '',
         'cdata_key': 'text'
     }
 
-    json_from_xml = xmltodict.parse(xml_content, **options)
+    json_from_xml = xmltodict.parse(cleaned_xml_content, **options)
 
     return json_from_xml
 
