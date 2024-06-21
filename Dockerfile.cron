@@ -19,4 +19,5 @@ COPY . .
 
 RUN poetry install --without dev
 
-CMD  poetry run gunicorn --bind :8888 -k uvicorn.workers.UvicornH11Worker --workers 1 app.main_scheduler:app
+CMD  poetry run gunicorn --config gunicorn_conf.py --bind :8888 -k uvicorn.workers.UvicornH11Worker --workers 1 \
+app.main_scheduler:app
