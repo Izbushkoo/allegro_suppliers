@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
 from app.api.v1.scheduler_api import api_router as api_router_v1
+from app.scheduler_service import scheduler_tasks
 from app.core.config import settings
 from app.loggers import setup_loggers
 
@@ -24,3 +25,8 @@ if settings.BACKEND_CORS_ORIGINS:
     )
 
 app.include_router(api_router_v1, prefix=settings.API_V1_STR)
+
+
+@app.on_event("startup")
+async def startup():
+    scheduler_tasks.scheduler.start()

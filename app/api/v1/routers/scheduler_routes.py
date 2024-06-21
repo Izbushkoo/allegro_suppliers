@@ -1,11 +1,18 @@
 from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api import deps
-from app.services.allegro_token import get_tokens_list, get_token_by_name, insert_token, delete_token
-from app.schemas.token import TokenOfAllegro
-from app.models.database_models import AllegroToken
+from app.schemas.pydantic_models import UpdateConfig
 from app.loggers import ToLog
 
 
 router = APIRouter(dependencies=[Depends(deps.get_api_token)])
+
+
+@router.post('/task_start')
+async def activate_task(update_config: UpdateConfig):
+    ...
+
+
+@router.post("/task_stop")
+async def deactivate_task(update_config: UpdateConfig):
+    ...
