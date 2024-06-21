@@ -78,7 +78,7 @@ class CallbackManager(BaseModel):
             try:
                 async with httpx.AsyncClient() as client:
                     result = await client.post(self.url, json=self.create_message(message, "OK"))
-                    ToLog.write_basic(f'{result.json} {result.status_code}')
+                    # ToLog.write_basic(f'{result.json} {result.status_code}')
             except Exception:
                 pass
 
