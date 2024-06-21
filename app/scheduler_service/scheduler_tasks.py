@@ -3,7 +3,7 @@ from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 
 from app.api import deps
 from app.services.updates import get_all_data, fetch_and_update_allegro, get_all_data_test
-from app.database import as_engine
+from app.database import engine
 from app.core.bg_task_wrapper import TaskWrapper
 from app.schemas.pydantic_models import UpdateConfig, ConfigManager, ConnectionManager, CallbackManager
 from app.services.allegro_token import get_token_by_id
@@ -12,7 +12,7 @@ from app.core.config import settings
 
 
 jobstores = {
-    "default": SQLAlchemyJobStore(engine=as_engine)
+    "default": SQLAlchemyJobStore(engine=engine)
 }
 
 scheduler = AsyncIOScheduler(jobstores=jobstores)
@@ -26,7 +26,7 @@ supplier_config = {
 }
 
 
-async def add_task(update_config: UpdateConfig):
+def add_task(update_config: UpdateConfig):
 
     suppliers_list = update_config.suppliers_to_update if update_config.suppliers_to_update else list(
         supplier_config.keys()
@@ -38,7 +38,7 @@ async def add_task(update_config: UpdateConfig):
                 update_supplier, trigger="cron", id=supplier, replace_existing=True,
                 kwargs={"supplier": supplier, "update_config": update_config},
                 # hours=supplier_config[supplier],
-                minutes="*/10"
+                minute="*/10"
             )
 
 

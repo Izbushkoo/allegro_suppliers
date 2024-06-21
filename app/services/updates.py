@@ -38,10 +38,10 @@ async def get_all_data_test(supplier, is_offers_should_be_updated_on_allegro, mu
 
 
 async def get_all_data(supplier, is_offers_should_be_updated_on_allegro, multiplier):
-    if supplier == "rekman":
-        await download_xml(supplier)
-    else:
+    if supplier == "unimet":
         await download_with_retry(supplier)
+    else:
+        await download_xml(supplier)
 
     database_items = await fetch_data_from_db(supplier, is_offers_should_be_updated_on_allegro)
     json_from_xml = parse_xml_to_json(supplier)
