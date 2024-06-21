@@ -330,3 +330,5 @@ allegro_suppliers/media/
 /xml/*
 !/xml/.gitkeep
 docker-compose.yml
+/scheduler_logs
+/scheduler_xml
