@@ -7,8 +7,8 @@ from app.scheduler_service.scheduler_tasks import stop_task, add_task
 from app.loggers import ToLog
 
 
-# router = APIRouter(dependencies=[Depends(deps.get_api_token)])
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(deps.get_api_token)])
+# router = APIRouter()
 
 
 @router.post('/task_start')
