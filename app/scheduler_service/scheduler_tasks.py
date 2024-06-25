@@ -151,7 +151,7 @@ async def get_single_job(job_id: str):
 
     to_return = {
         "supplier": job_identifiers[0],
-        "allegro_accoount": {
+        "allegro_account": {
             "name": allegro_token.account_name,
             "token_id": allegro_token.id_
         },
@@ -175,7 +175,7 @@ async def job_list(user_id: str):
             ToLog.write_basic(trigger)
             active_jobs.append({
                 "supplier": job_identifiers[0],
-                "allegro_accoount": {
+                "allegro_account": {
                     "name": allegro_token.account_name,
                     "token_id": allegro_token.id_
                 },
