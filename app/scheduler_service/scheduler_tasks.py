@@ -207,7 +207,7 @@ def serialize_data(data):
 
 def deserialize_data(encoded_data):
     # Декодируем Base64 обратно в JSON
-    json_data = base64.urlsafe_b64decode(encoded_data.encode()).decode()
+    json_data = base64.urlsafe_b64decode(encoded_data).decode()
     # Преобразуем JSON обратно в данные
     data = json.loads(json_data)
     return data
