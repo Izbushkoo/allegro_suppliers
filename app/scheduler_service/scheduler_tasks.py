@@ -53,7 +53,7 @@ async def add_task(user_id: str, routine: str, update_config: UpdateConfig):
     tasks = []
     for supplier in suppliers_list:
         task_id = supplier + f"__{user_id}__{update_config.allegro_token_id}"
-        await redis_client.set(task_id, oferta_ids_serialized)
+        redis_client.set(task_id, oferta_ids_serialized)
         if not scheduler.get_job(supplier):
             try:
                 if routine == "4_hours":
