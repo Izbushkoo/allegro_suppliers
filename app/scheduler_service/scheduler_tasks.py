@@ -20,9 +20,11 @@ redis_client = redis.StrictRedis(host="redis_suppliers", port=6379, db=0)
 jobstores = {
     "default": RedisJobStore(host="redis_suppliers", port=6379, db=0)
 }
+
 executors = {
     "default": ProcessPoolExecutor(15)
 }
+
 job_defaults = {
     'max_instances': 1
 }

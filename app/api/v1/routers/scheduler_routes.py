@@ -28,12 +28,6 @@ async def deactivate_task(user_id: str, update_config: UpdateConfig):
     else:
         return JSONResponse({"status": "OK", "message": "task(s) stopped"})
 
-# @router.post("/task_stop1")
-# async def deactivate_task_1(update_config: UpdateConfig):
-#     stop_task_1(update_config)
-#     return JSONResponse({"status": "OK", "message": "task(s) stopped"})
-#
-
 
 @router.get("/list_tasks")
 async def get_jobs_list(user_id: str):
