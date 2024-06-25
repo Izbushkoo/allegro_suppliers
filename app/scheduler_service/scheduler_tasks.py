@@ -202,6 +202,30 @@ async def job_list(user_id: str):
     return active_jobs
 
 
+async def job_list_with_acc(user_id: str, account_id: str):
+    database = deps.AsyncSessLocal()
+    # ToLog.write_basic(f"{allegro_token}")
+    jobs = scheduler.get_jobs()
+
+    active_jobs = []
+    for job in jobs:
+        job_identifiers = job.id.split("__")
+        if job_identifiers[1] == user_id and job_identifiers[2] == account_id:
+            allegro_token = await get_token_by_id(database, job_identifiers[2])
+            trigger = f"{scheduler.get_job(job.id).trigger}"
+            ToLog.write_basic(trigger)
+            active_jobs.append({
+                "supplier": job_identifiers[0],
+                "allegro_account": {
+                    "name": allegro_token.account_name,
+                    "token_id": allegro_token.id_
+                },
+                "routine": define_trigger(trigger),
+                "ofertas": deserialize_data(redis_client.get(job.id))
+            })
+    return active_jobs
+
+
 def define_trigger(trigger_string: str):
     if "hour='*/4'" in trigger_string:
         return "4_hours"
