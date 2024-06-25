@@ -1,3 +1,5 @@
+from typing import List
+
 from sqlmodel.ext.asyncio.session import AsyncSession
 from sqlmodel import select, and_
 
@@ -12,7 +14,7 @@ async def get_tokens_list(database: AsyncSession, user_id: str):
         return result.all()
 
 
-async def get_token_by_id(database: AsyncSession, token_id: str):
+async def get_token_by_id(database: AsyncSession, token_id: str) -> token.AllegroToken | List:
 
     async with database as session:
         statement = select(token.AllegroToken).where(
