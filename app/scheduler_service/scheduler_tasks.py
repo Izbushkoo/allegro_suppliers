@@ -82,7 +82,7 @@ async def add_task(user_id: str, routine: str, update_config: UpdateConfig):
 
                 to_append = {
                     "supplier": supplier,
-                    "allegro_accoount": {
+                    "allegro_account": {
                         "name": allegro_token.account_name,
                         "token_id": allegro_token.id_
                     },
