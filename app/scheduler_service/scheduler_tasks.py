@@ -4,17 +4,15 @@ import re
 
 import redis
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
+from apscheduler.executors.pool import ProcessPoolExecutor
 from apscheduler.jobstores.redis import RedisJobStore
-# import redis
+from apscheduler.events import EVENT_JOB_ERROR
 
 from app.api import deps
-from app.services.updates import get_all_data, fetch_and_update_allegro, get_all_data_test
-from app.database import engine
-from app.schemas.pydantic_models import UpdateConfig, ConfigManager, ConnectionManager, CallbackManager
+from app.services.updates import get_all_data, fetch_and_update_allegro
+from app.schemas.pydantic_models import UpdateConfig
 from app.services.allegro_token import get_token_by_id
 from app.loggers import ToLog
-from app.core.config import settings
 
 redis_client = redis.StrictRedis(host="redis_suppliers", port=6379, db=0)
 
@@ -22,12 +20,14 @@ redis_client = redis.StrictRedis(host="redis_suppliers", port=6379, db=0)
 jobstores = {
     "default": RedisJobStore(host="redis_suppliers", port=6379, db=0)
 }
-
+executors = {
+    "default": ProcessPoolExecutor(15)
+}
 job_defaults = {
     'max_instances': 1
 }
 
-scheduler = AsyncIOScheduler(jobstores=jobstores, job_defaults=job_defaults)
+scheduler = AsyncIOScheduler(jobstores=jobstores, executors=executors, job_defaults=job_defaults)
 
 supplier_config = {
     "pgn": "9,21",
@@ -36,6 +36,21 @@ supplier_config = {
     "rekman": "12,0",
     "growbox": "13,1"
 }
+
+
+def job_error_listener(event):
+    job = scheduler.get_job(event.job_id)
+    if job:
+        print(f"Job {event.job_id} failed. Retrying with the same parameters...")
+        # Повторный запуск задачи с теми же параметрами
+        scheduler.add_job(
+            job.func, 
+            trigger=job.trigger, 
+            id=job.id, 
+            replace_existing=True,
+            args=job.args, 
+            kwargs=job.kwargs
+        )
 
 
 async def add_task(user_id: str, routine: str, update_config: UpdateConfig):
@@ -211,4 +226,7 @@ def deserialize_data(encoded_data):
     # Преобразуем JSON обратно в данные
     data = json.loads(json_data)
     return data
+
+
+scheduler.add_listener(job_error_listener, EVENT_JOB_ERROR)
 
