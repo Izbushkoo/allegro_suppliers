@@ -13,12 +13,14 @@ router = APIRouter(dependencies=[Depends(deps.get_api_token)])
 
 @router.post('/task_start')
 async def activate_task(user_id: str, routine: str, update_config: UpdateConfig):
+    ToLog.write_access(f"Access to task start")
     result = await add_task(user_id, routine, update_config)
     return result
 
 
 @router.post("/task_stop")
 async def deactivate_task(user_id: str, update_config: UpdateConfig):
+    ToLog.write_access(f"Access to task stop")
     try:
         stop_task(user_id, update_config)
     except Exception:
@@ -35,6 +37,7 @@ async def deactivate_task(user_id: str, update_config: UpdateConfig):
 
 @router.get("/list_tasks")
 async def get_jobs_list(user_id: str):
+    ToLog.write_access(f"Access to task list")
     jobs = await job_list(user_id)
     return jobs
 
