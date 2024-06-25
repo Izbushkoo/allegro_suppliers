@@ -91,6 +91,7 @@ async def add_task(user_id: str, routine: str, update_config: UpdateConfig):
                 }
 
                 tasks.append(to_append)
+    return tasks
 
 
 def stop_task(user_id: str, update_config: UpdateConfig):
