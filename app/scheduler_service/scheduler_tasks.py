@@ -43,7 +43,7 @@ supplier_config = {
 def job_error_listener(event):
     job = scheduler.get_job(event.job_id)
     if job:
-        print(f"Job {event.job_id} failed. Retrying with the same parameters...")
+        ToLog.write_error(f"Job {event.job_id} failed. Retrying with the same parameters...")
         # Повторный запуск задачи с теми же параметрами
         scheduler.add_job(
             job.func, 
