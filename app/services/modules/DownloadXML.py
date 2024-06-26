@@ -1,4 +1,5 @@
 import io
+import re
 import time
 
 import httpx
@@ -101,11 +102,15 @@ def download_content_sync(supplier):
     response.raise_for_status()
     ToLog.write_basic(f"Content downloaded from {url}")
     ToLog.write_basic(f"{response.text[:40]}")
-    if validate_content_sync(content=response.text):
-        return response.text
-    else:
-        ToLog.write_basic("content is not valid")
-        raise ValueError
+    content = response.text
+
+    if content.startswith('\ufeff'):
+        content = content.lstrip('\ufeff')
+
+        # Удаление неиспользуемых управляющих символов
+    content = re.sub(r'[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]', '', content)
+
+    return content
 
 
 def validate_content_sync(content):

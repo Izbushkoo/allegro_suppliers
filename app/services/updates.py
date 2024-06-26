@@ -59,10 +59,7 @@ async def get_all_data(supplier, is_offers_should_be_updated_on_allegro, multipl
 
 
 def get_all_data_sync(supplier, is_offers_should_be_updated_on_allegro, multiplier):
-    if supplier == "unimet":
-        xml_content = download_with_retry_sync(supplier)
-    else:
-        xml_content = download_content_sync(supplier)
+    xml_content = download_with_retry_sync(supplier)
 
     database_items = fetch_data_from_db_sync(supplier, is_offers_should_be_updated_on_allegro)
 
