@@ -5,7 +5,7 @@ import re
 
 import redis
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from apscheduler.executors.pool import ProcessPoolExecutor
+from apscheduler.executors.asyncio import AsyncIOExecutor
 from apscheduler.jobstores.redis import RedisJobStore
 from apscheduler.events import EVENT_JOB_ERROR
 
@@ -23,11 +23,11 @@ jobstores = {
 }
 
 executors = {
-    "default": ProcessPoolExecutor(15)
+    "default": AsyncIOExecutor()
 }
 
 job_defaults = {
-    'max_instances': 1
+    'max_instances': 2
 }
 
 scheduler = AsyncIOScheduler(jobstores=jobstores, executors=executors, job_defaults=job_defaults)
@@ -76,17 +76,16 @@ async def add_task(user_id: str, routine: str, update_config: UpdateConfig):
             try:
                 if routine == "4_hours":
                     scheduler.add_job(
-
-                        sync_task_wrapper, trigger="cron", id=task_id,
+                        update_supplier, trigger="cron", id=task_id,
                         replace_existing=True,
                         kwargs={"supplier": supplier, "update_config": update_config},
-                        # hour="*/4",
-                        minute="*/4"
+                        hour="*/4",
+                        # minute="*/4"
                     )
                 else:
                     hour, minute = routine.split(":")
                     scheduler.add_job(
-                        sync_task_wrapper, trigger="cron", id=task_id,
+                        update_supplier, trigger="cron", id=task_id,
                         replace_existing=True,
                         kwargs={"supplier": supplier, "update_config": update_config},
                         hour=hour,
@@ -140,10 +139,6 @@ def stop_task_1(update_config: UpdateConfig):
         task_id = supplier + f"__{update_config.allegro_token_id}"
         if scheduler.get_job(task_id):
             scheduler.remove_job(task_id)
-
-
-def sync_task_wrapper(supplier, update_config: UpdateConfig):
-    asyncio.create_task(update_supplier(supplier, update_config))
 
 
 async def update_supplier(supplier, update_config: UpdateConfig):
