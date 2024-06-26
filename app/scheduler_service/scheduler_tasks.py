@@ -50,7 +50,7 @@ def job_error_listener(event):
         ToLog.write_error(f"Job {event.job_id} failed. Retrying with the same parameters...")
         # Повторный запуск задачи с теми же параметрами
         scheduler.add_job(
-            job.func, 
+            job.func,
             trigger="date",
             run_date=datetime.datetime.now() + datetime.timedelta(seconds=5),
             args=job.args,
@@ -81,8 +81,8 @@ async def add_task(user_id: str, routine: str, update_config: UpdateConfig):
                         update_supplier_sync, trigger="cron", id=task_id,
                         replace_existing=True,
                         kwargs={"supplier": supplier, "update_config": update_config},
-                        # hour="*/4",
-                        minute="*/1"
+                        hour="*/4",
+                        # minute="*/1"
                     )
                 else:
                     hour, minute = routine.split(":")
@@ -248,7 +248,7 @@ async def job_list_with_acc(user_id: str, account_id: str):
 
 
 def define_trigger(trigger_string: str):
-    if "hour='*/4'" in trigger_string or "minute='*/4'" in trigger_string or "minute='*/1'" in trigger_string:
+    if "hour='*/4'" in trigger_string or "minute='*/1'" in trigger_string:
         return "4_hours"
     else:
         pattern = r"hour='(\d+)', minute='(\d+)'"
