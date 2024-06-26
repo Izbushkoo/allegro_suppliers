@@ -113,4 +113,9 @@ class CallbackManager(BaseModel):
             except Exception:
                 pass
 
-
+    def send_finish_callback(self, message: str):
+        if self.url:
+            try:
+                requests.post(self.url, json=self.create_message(message, "finished"))
+            except Exception:
+                pass

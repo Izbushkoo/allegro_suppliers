@@ -2,6 +2,7 @@ import os
 
 import asyncio
 from motor.motor_asyncio import AsyncIOMotorClient
+from pymongo import MongoClient
 
 from app.core.config import settings
 from app.loggers import ToLog
@@ -35,6 +36,26 @@ async def fetch_data_from_db(supplier, allegro_update):
         documents = collection.find(query, projection)
 
         items_array = await documents.to_list(length=None)
+        return items_array
+    finally:
+        client.close()
+
+
+def fetch_data_from_db_sync(supplier, allegro_update):
+    client = MongoClient(uri)
+    supplier_id = supplier_database_id[supplier]
+    try:
+        database = client[db_name]
+        collection = database[db_collection]
+
+        query = {
+            "groups": supplier_id,
+            "allegro_we_sell_it": allegro_update
+        }
+        projection = {"allegro_oferta_id": 1, "supplier_sku": 1, "_id": 0}
+        documents = collection.find(query, projection)
+
+        items_array = list(documents)
         return items_array
     finally:
         client.close()

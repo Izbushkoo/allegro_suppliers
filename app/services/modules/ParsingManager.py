@@ -1,3 +1,4 @@
+import io
 import json
 import os
 import xml.etree.ElementTree as ET
@@ -67,6 +68,46 @@ def parse_xml_to_json(supplier_name):
         return json_from_xml
     except Exception as error:
         ToLog.write_error(f"Error parsing XML file {xml_file_path}: {error}")
+        return None
+
+
+def parse_xml_to_json_sync(content):
+
+    try:
+        tree = ET.parse(io.StringIO(content))
+        root_element = tree.getroot()
+
+        def element_to_dict(element):
+            element_dict = {element.tag: {} if element.attrib else None}
+            child_elements = list(element)
+            if child_elements:
+                children_dict = {}
+                for child_dict in map(element_to_dict, child_elements):
+                    for key, value in child_dict.items():
+                        if key in children_dict:
+                            if not isinstance(children_dict[key], list):
+                                children_dict[key] = [children_dict[key]]
+                            children_dict[key].append(value)
+                        else:
+                            children_dict[key] = value
+                element_dict = {element.tag: children_dict}
+            if element.attrib:
+                element_dict[element.tag].update(
+                    ('@' + attr_key, attr_value) for attr_key, attr_value in element.attrib.items()
+                )
+            if element.text:
+                text = element.text.strip()
+                if child_elements or element.attrib:
+                    if text:
+                        element_dict[element.tag]['#text'] = text
+                else:
+                    element_dict[element.tag] = text
+            return element_dict
+
+        json_from_xml = element_to_dict(root_element)
+        return json_from_xml
+    except Exception as error:
+        ToLog.write_error(f"Error parsing XML content: {error}")
         return None
 
 

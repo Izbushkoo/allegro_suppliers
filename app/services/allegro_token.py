@@ -1,6 +1,7 @@
 from typing import List
 
 from sqlmodel.ext.asyncio.session import AsyncSession
+from sqlmodel import Session
 from sqlmodel import select, and_
 
 from app.models import database_models as token
@@ -24,6 +25,17 @@ async def get_token_by_id(database: AsyncSession, token_id: str) -> token.Allegr
         return result.first() if result else []
 
 
+def get_token_by_id_sync(database: Session, token_id: str):
+    """ used for tasks """
+    with database as session:
+
+        statement = select(token.AllegroToken).where(
+            token.AllegroToken.id_ == token_id
+        )
+        result = session.exec(statement)
+        return result.first() if result else []
+
+
 async def get_token_by_name(database: AsyncSession, token_name: str):
     async with database as session:
         statement = select(token.AllegroToken).where(token.AllegroToken.account_name == token_name)
@@ -42,6 +54,20 @@ async def update_token_by_id(database: AsyncSession, token_id: str, access_token
         session.add(current_token)
         await session.commit()
         await session.refresh(current_token)
+        return current_token
+
+
+def update_token_by_id_sync(database: Session, token_id: str, access_token: str, refresh_token: str
+                            ) -> token.AllegroToken:
+    async with database as session:
+        statement = select(token.AllegroToken).where(token.AllegroToken.id_ == token_id)
+        result = session.exec(statement)
+        current_token = result.first()
+        current_token.access_token = access_token
+        current_token.refresh_token = refresh_token
+        session.add(current_token)
+        session.commit()
+        session.refresh(current_token)
         return current_token
 
 

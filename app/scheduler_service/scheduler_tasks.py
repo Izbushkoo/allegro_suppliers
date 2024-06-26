@@ -1,18 +1,21 @@
 import asyncio
 import base64
+import datetime
 import json
 import re
 
 import redis
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from apscheduler.executors.asyncio import AsyncIOExecutor
+from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.executors.pool import ProcessPoolExecutor
 from apscheduler.jobstores.redis import RedisJobStore
 from apscheduler.events import EVENT_JOB_ERROR
 
 from app.api import deps
-from app.services.updates import get_all_data, fetch_and_update_allegro
+from app.services.updates import get_all_data, fetch_and_update_allegro, fetch_data_from_db_sync, \
+    fetch_and_update_allegro_sync, get_all_data_sync
 from app.schemas.pydantic_models import UpdateConfig
-from app.services.allegro_token import get_token_by_id
+from app.services.allegro_token import get_token_by_id, get_token_by_id_sync
 from app.loggers import ToLog
 
 redis_client = redis.StrictRedis(host="redis_suppliers", port=6379, db=0)
@@ -23,14 +26,14 @@ jobstores = {
 }
 
 executors = {
-    "default": AsyncIOExecutor()
+    "default": ProcessPoolExecutor(20)
 }
 
 job_defaults = {
     'max_instances': 2
 }
 
-scheduler = AsyncIOScheduler(jobstores=jobstores, executors=executors, job_defaults=job_defaults)
+scheduler = BackgroundScheduler(jobstores=jobstores, executors=executors, job_defaults=job_defaults)
 
 supplier_config = {
     "pgn": "9,21",
@@ -48,10 +51,9 @@ def job_error_listener(event):
         # Повторный запуск задачи с теми же параметрами
         scheduler.add_job(
             job.func, 
-            trigger=job.trigger, 
-            id=job.id, 
-            replace_existing=True,
-            args=job.args, 
+            trigger="date",
+            run_date=datetime.datetime.now() + datetime.timedelta(seconds=5),
+            args=job.args,
             kwargs=job.kwargs
         )
 
@@ -76,7 +78,7 @@ async def add_task(user_id: str, routine: str, update_config: UpdateConfig):
             try:
                 if routine == "4_hours":
                     scheduler.add_job(
-                        update_supplier, trigger="cron", id=task_id,
+                        update_supplier_sync, trigger="cron", id=task_id,
                         replace_existing=True,
                         kwargs={"supplier": supplier, "update_config": update_config},
                         hour="*/4",
@@ -85,7 +87,7 @@ async def add_task(user_id: str, routine: str, update_config: UpdateConfig):
                 else:
                     hour, minute = routine.split(":")
                     scheduler.add_job(
-                        update_supplier, trigger="cron", id=task_id,
+                        update_supplier_sync, trigger="cron", id=task_id,
                         replace_existing=True,
                         kwargs={"supplier": supplier, "update_config": update_config},
                         hour=hour,
@@ -150,6 +152,24 @@ async def update_supplier(supplier, update_config: UpdateConfig):
 
     filtered_objects = await get_all_data(supplier, True, multiplier)
     await fetch_and_update_allegro(
+        database,
+        filtered_objects,
+        allegro_token,
+        oferta_ids_to_process=oferta_ids_to_process,
+    )
+
+    ToLog.write_basic("Update Finished")
+
+
+def update_supplier_sync(supplier, update_config: UpdateConfig):
+
+    database = deps.SessionLocal()
+    allegro_token = get_token_by_id_sync(database, update_config.allegro_token_id)
+    multiplier = update_config.multiplier
+    oferta_ids_to_process = update_config.oferta_ids_to_process
+
+    filtered_objects = get_all_data_sync(supplier, True, multiplier)
+    fetch_and_update_allegro_sync(
         database,
         filtered_objects,
         allegro_token,

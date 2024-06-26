@@ -1,4 +1,8 @@
+import io
+import time
+
 import httpx
+import requests
 import hashlib
 import os
 import aiofiles
@@ -20,37 +24,36 @@ urls = {
 
 async def download_xml(supplier):
     url = urls[supplier]
-    file_dest = os.path.join(os.getcwd(), "xml", f"{supplier}.xml")
+    # file_dest = os.path.join(os.getcwd(), "xml", f"{supplier}.xml")
 
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
             response_text = await response.text()
 
-            with open(file_dest, 'w', encoding='utf-8') as file:
-                file.write(response_text)
+            # with open(file_dest, 'w', encoding='utf-8') as file:
+            #     file.write(response_text)
+            ToLog.write_basic(f"Content downloaded for {url}")
+            return response_text
 
-            ToLog.write_basic(f"File downloaded to {file_dest}")
 
-
-async def download_file(url, destination_path):
+async def download_file(url):
 
     async with httpx.AsyncClient() as client:
-        async with client.stream("GET", url) as response:
+        async with client.get(url) as response:
             response.raise_for_status()  # Проверка на ошибки HTTP
 
-            async with aiofiles.open(destination_path, 'wb') as file:
-                async for chunk in response.aiter_bytes():
-                    if chunk:  # Фильтрация пустых блоков
-                        await file.write(chunk)
+            # async with aiofiles.open(destination_path, 'wb') as file:
+            #     async for chunk in response.aiter_bytes():
+            #         if chunk:  # Фильтрация пустых блоков
+            #             await file.write(chunk)
 
-    ToLog.write_basic(f"File downloaded to {destination_path}")
+    ToLog.write_basic(f"Content downloaded for {url}")
+    return await response.text()
 
-    return destination_path
 
-
-async def validate_xml_file(file_path):
+async def validate_xml_file(content):
     try:
-        tree = ET.parse(file_path)
+        tree = ET.parse(io.StringIO(content))
         return True
     except ET.ParseError as e:
         ToLog.write_error(f"XML file validation failed: {e}")
@@ -59,14 +62,14 @@ async def validate_xml_file(file_path):
 
 async def download_with_retry(supplier, retries=10, delay=5):
     url = urls[supplier]
-    destination_path = os.path.join(os.getcwd(), "xml", f"{supplier}.xml")
+    # destination_path = os.path.join(os.getcwd(), "xml", f"{supplier}.xml")
 
     for attempt in range(retries):
         try:
-            await download_file(url, destination_path)
-            if await validate_xml_file(destination_path):
+            content = await download_file(url)
+            if await validate_xml_file(content):
                 ToLog.write_basic("File downloaded and verified successfully")
-                return destination_path
+                return content
             else:
                 raise ValueError("File validation failed")
         except Exception as e:
@@ -74,6 +77,56 @@ async def download_with_retry(supplier, retries=10, delay=5):
             if attempt + 1 < retries:
                 ToLog.write_basic(f"Retrying in {delay} seconds...")
                 await asyncio.sleep(delay)
+            else:
+                raise
+    raise RuntimeError("Failed to download file after multiple attempts")
+
+
+def download_xml_sync(supplier):
+    url = urls[supplier]
+    file_dest = os.path.join(os.getcwd(), "xml", f"{supplier}.xml")
+
+    result = requests.get(url)
+    response_text = result.text
+
+    with open(file_dest, 'w', encoding='utf-8') as file:
+        file.write(response_text)
+
+    ToLog.write_basic(f"File downloaded to {file_dest}")
+
+
+def download_content_sync(url):
+    response = requests.get(url)
+    response.raise_for_status()
+    ToLog.write_basic(f"Content downloaded from {url}")
+    return response.text
+
+
+def validate_content_sync(content):
+    try:
+        tree = ET.parse(io.StringIO(content))
+        return True
+    except ET.ParseError as e:
+        ToLog.write_error(f"XML file validation failed: {e}")
+        return False
+
+
+def download_with_retry_sync(supplier, retries=10, delay=5):
+    url = urls[supplier]
+
+    for attempt in range(retries):
+        try:
+            content = download_content_sync(url)
+            if validate_content_sync(content):
+                ToLog.write_basic(f"Content from {url} verified successfully")
+                return content
+            else:
+                raise ValueError("File validation failed")
+        except Exception as e:
+            ToLog.write_basic(f"Attempt {attempt + 1} failed: {e}")
+            if attempt + 1 < retries:
+                ToLog.write_basic(f"Retrying in {delay} seconds...")
+                time.sleep(5)
             else:
                 raise
     raise RuntimeError("Failed to download file after multiple attempts")
