@@ -1,3 +1,4 @@
+import asyncio
 import base64
 import json
 import re
@@ -76,15 +77,16 @@ async def add_task(user_id: str, routine: str, update_config: UpdateConfig):
                 if routine == "4_hours":
                     scheduler.add_job(
 
-                        update_supplier, trigger="cron", id=task_id,
+                        sync_task_wrapper, trigger="cron", id=task_id,
                         replace_existing=True,
                         kwargs={"supplier": supplier, "update_config": update_config},
-                        hour="*/4",
+                        # hour="*/4",
+                        minute="*/4"
                     )
                 else:
                     hour, minute = routine.split(":")
                     scheduler.add_job(
-                        update_supplier, trigger="cron", id=task_id,
+                        sync_task_wrapper, trigger="cron", id=task_id,
                         replace_existing=True,
                         kwargs={"supplier": supplier, "update_config": update_config},
                         hour=hour,
@@ -138,6 +140,10 @@ def stop_task_1(update_config: UpdateConfig):
         task_id = supplier + f"__{update_config.allegro_token_id}"
         if scheduler.get_job(task_id):
             scheduler.remove_job(task_id)
+
+
+def sync_task_wrapper(supplier, update_config: UpdateConfig):
+    asyncio.run(update_supplier(supplier, update_config))
 
 
 async def update_supplier(supplier, update_config: UpdateConfig):
