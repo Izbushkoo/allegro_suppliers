@@ -101,21 +101,20 @@ def download_content_sync(supplier):
     response = requests.get(url)
     response.raise_for_status()
     ToLog.write_basic(f"Content downloaded from {url}")
-    ToLog.write_basic(f"{response.text[:40]}")
     content = response.text
 
     if content.startswith('\ufeff'):
         content = content.lstrip('\ufeff')
 
-        # Удаление неиспользуемых управляющих символов
+    # Удаление неиспользуемых управляющих символов
     content = re.sub(r'[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]', '', content)
-
+    ToLog.write_basic(f"first 40 symbols: {content[:40]}")
     return content
 
 
 def validate_content_sync(content):
     try:
-        tree = ET.parse(io.StringIO(content))
+        tree = ET.fromstring(content)
         return True
     except ET.ParseError as e:
         ToLog.write_error(f"XML file validation failed: {e}")
