@@ -143,8 +143,7 @@ def stop_task_1(update_config: UpdateConfig):
 
 
 def sync_task_wrapper(supplier, update_config: UpdateConfig):
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(update_supplier(supplier, update_config))
+    asyncio.create_task(update_supplier(supplier, update_config))
 
 
 async def update_supplier(supplier, update_config: UpdateConfig):
