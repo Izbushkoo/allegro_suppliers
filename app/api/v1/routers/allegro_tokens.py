@@ -30,11 +30,11 @@ async def add_account(account_data: AllegroToken, database: AsyncSession = Depen
     return TokenOfAllegro(**written_token.model_dump(exclude_none=True))
 
 
-@router.get("/get_by_id")
-async def add_account(token_id: str, database: AsyncSession = Depends(deps.get_db_async)):
-
-    ToLog.write_access(f"Access to allegro token get by ID")
-    return await get_token_by_id(database, token_id)
+# @router.get("/get_by_id")
+# async def add_account(token_id: str, database: AsyncSession = Depends(deps.get_db_async)):
+#
+#     ToLog.write_access(f"Access to allegro token get by ID")
+#     return await get_token_by_id(database, token_id)
 
 
 @router.delete("/delete")
