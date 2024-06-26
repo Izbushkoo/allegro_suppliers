@@ -59,7 +59,7 @@ async def update_token_by_id(database: AsyncSession, token_id: str, access_token
 
 def update_token_by_id_sync(database: Session, token_id: str, access_token: str, refresh_token: str
                             ) -> token.AllegroToken:
-    async with database as session:
+    with database as session:
         statement = select(token.AllegroToken).where(token.AllegroToken.id_ == token_id)
         result = session.exec(statement)
         current_token = result.first()
