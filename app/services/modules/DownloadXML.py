@@ -103,8 +103,11 @@ def download_content_sync(supplier):
     ToLog.write_basic(f"Content downloaded from {url}")
     content = response.text
 
-    if content.startswith('\ufeff'):
-        content = content.lstrip('\ufeff')
+    # Удаление BOM (если присутствует)
+    boms = ['\ufeff', '\ufffe', '\ufeff'.encode('utf-8').decode('utf-8')]
+    for bom in boms:
+        if content.startswith(bom):
+            content = content.lstrip(bom)
 
     # Удаление неиспользуемых управляющих символов
     content = re.sub(r'[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]', '', content)
