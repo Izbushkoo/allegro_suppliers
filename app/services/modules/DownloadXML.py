@@ -101,7 +101,11 @@ def download_content_sync(supplier):
     response.raise_for_status()
     ToLog.write_basic(f"Content downloaded from {url}")
     ToLog.write_basic(f"{response.text[-40:]}")
-    return response.text
+    if validate_content_sync(content=response.text):
+        return response.text
+    else:
+        ToLog.write_basic("content is not valid")
+        raise ValueError
 
 
 def validate_content_sync(content):
