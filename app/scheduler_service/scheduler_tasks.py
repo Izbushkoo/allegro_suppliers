@@ -143,7 +143,8 @@ def stop_task_1(update_config: UpdateConfig):
 
 
 def sync_task_wrapper(supplier, update_config: UpdateConfig):
-    asyncio.run(update_supplier(supplier, update_config))
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(update_supplier(supplier, update_config))
 
 
 async def update_supplier(supplier, update_config: UpdateConfig):
@@ -233,7 +234,7 @@ async def job_list_with_acc(user_id: str, account_id: str):
 
 
 def define_trigger(trigger_string: str):
-    if "hour='*/4'" in trigger_string:
+    if "hour='*/4'" in trigger_string or "minute='*/4'" in trigger_string:
         return "4_hours"
     else:
         pattern = r"hour='(\d+)', minute='(\d+)'"
