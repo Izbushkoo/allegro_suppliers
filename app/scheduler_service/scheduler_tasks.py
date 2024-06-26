@@ -82,7 +82,7 @@ async def add_task(user_id: str, routine: str, update_config: UpdateConfig):
                         replace_existing=True,
                         kwargs={"supplier": supplier, "update_config": update_config},
                         # hour="*/4",
-                        minute="*/4"
+                        minute="*/1"
                     )
                 else:
                     hour, minute = routine.split(":")
