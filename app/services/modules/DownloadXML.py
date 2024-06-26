@@ -117,7 +117,7 @@ def download_with_retry_sync(supplier, retries=10, delay=5):
 
     for attempt in range(retries):
         try:
-            content = download_content_sync(url)
+            content = download_content_sync(supplier)
             if validate_content_sync(content):
                 ToLog.write_basic(f"Content from {url} verified successfully")
                 return content
