@@ -101,13 +101,15 @@ def download_content_sync(supplier):
     response = requests.get(url)
     response.raise_for_status()
     ToLog.write_basic(f"Content downloaded from {url}")
-    content = response.text
+    content = response.content  # Получение содержимого в байтах
 
     # Удаление BOM (если присутствует)
-    boms = ['\ufeff', '\ufffe', '\ufeff'.encode('utf-8').decode('utf-8')]
+    boms = [b'\xef\xbb\xbf', b'\xff\xfe', b'\xfe\xff']
     for bom in boms:
         if content.startswith(bom):
-            content = content.lstrip(bom)
+            content = content[len(bom):]
+
+    content = content.decode('utf-8')  # Декодирование содержимого обратно в текст
 
     # Удаление неиспользуемых управляющих символов
     content = re.sub(r'[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]', '', content)
