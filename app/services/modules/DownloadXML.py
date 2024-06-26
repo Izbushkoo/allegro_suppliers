@@ -100,7 +100,7 @@ def download_content_sync(supplier):
     response = requests.get(url)
     response.raise_for_status()
     ToLog.write_basic(f"Content downloaded from {url}")
-    ToLog.write_basic(f"{response.text}")
+    ToLog.write_basic(f"{response.text[-40:]}")
     return response.text
 
 

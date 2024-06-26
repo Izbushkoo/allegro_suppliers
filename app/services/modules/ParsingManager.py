@@ -74,8 +74,9 @@ def parse_xml_to_json(supplier_name):
 def parse_xml_to_json_sync(content):
 
     try:
-        tree = ET.parse(io.StringIO(content))
-        root_element = tree.getroot()
+        # tree = ET.parse(io.StringIO(content))
+        # root_element = tree.getroot()
+        root_element = ET.fromstring(content)
 
         def element_to_dict(element):
             element_dict = {element.tag: {} if element.attrib else None}
