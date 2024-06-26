@@ -34,7 +34,7 @@ async def add_account(account_data: AllegroToken, database: AsyncSession = Depen
 async def add_account(token_id: str, database: AsyncSession = Depends(deps.get_db_async)):
 
     ToLog.write_access(f"Access to allegro token get by ID")
-    return get_token_by_id(database, token_id)
+    return await get_token_by_id(database, token_id)
 
 
 @router.delete("/delete")
