@@ -248,7 +248,7 @@ async def job_list_with_acc(user_id: str, account_id: str):
 
 
 def define_trigger(trigger_string: str):
-    if "hour='*/4'" in trigger_string or "minute='*/4'" in trigger_string or "minute='*/2'" in trigger_string:
+    if "hour='*/4'" in trigger_string or "minute='*/4'" in trigger_string or "minute='*/1'" in trigger_string:
         return "4_hours"
     else:
         pattern = r"hour='(\d+)', minute='(\d+)'"
