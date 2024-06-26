@@ -95,7 +95,8 @@ def download_xml_sync(supplier):
     ToLog.write_basic(f"File downloaded to {file_dest}")
 
 
-def download_content_sync(url):
+def download_content_sync(supplier):
+    url = urls[supplier]
     response = requests.get(url)
     response.raise_for_status()
     ToLog.write_basic(f"Content downloaded from {url}")
