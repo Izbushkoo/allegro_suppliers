@@ -54,7 +54,7 @@ async def download_file(url):
 
 async def validate_xml_file(content):
     try:
-        tree = ET.parse(io.StringIO(content))
+        tree = ET.fromstring(content)
         return True
     except ET.ParseError as e:
         ToLog.write_error(f"XML file validation failed: {e}")
