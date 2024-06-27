@@ -117,7 +117,7 @@ async def update_offers(offers_array, access_token: str, callback_manager: Callb
             await update_offers_status(access_token, array_to_end, "END", callback_manager)
 
         ToLog.write_basic(f"Here are the items that could not be updated due to a server error: {failed_http_request}")
-        await callback_manager.send_error_callback_async(
+        await callback_manager.send_ok_callback_async(
             f"Here are the items that could not be updated due to a server error: \n"
             f"{', '.join([item.id_ for item in failed_http_request])}"
         )
