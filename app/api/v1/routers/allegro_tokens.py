@@ -55,9 +55,12 @@ async def add_account(init_auth_config: InitializeAuth, bg_tasks: BackgroundTask
 async def delete_account(token_id: str, database: AsyncSession = Depends(deps.get_db_async)):
 
     ToLog.write_access(f"Access to allegro tokens add")
-    deleted_token = await delete_token(database, token_id)
-
-    return TokenOfAllegro(**deleted_token.model_dump(exclude_none=True))
+    try:
+        deleted_token = await delete_token(database, token_id)
+    except Exception :
+        return HTTPException(404, "Smth went wrong. Not deleted or not exists")
+    else:
+        return TokenOfAllegro(**deleted_token.model_dump(exclude_none=True))
 
 
 
