@@ -142,7 +142,7 @@ async def update_as_task(update_config: UpdateConfig):
             await callback_manager.send_error_callback_async(f"Error with parsing {supplier} data. Try later.")
             ToLog.write_error(f"{e}")
         else:
-            await callback_manager.send_ok_callback_async(f"Data downloaded and parsed successfully for {supplier}")
+            await callback_manager.send_error_callback_async(f"Data downloaded and parsed successfully for {supplier}")
             await fetch_and_update_allegro(
                 database,
                 filtered_objects,
