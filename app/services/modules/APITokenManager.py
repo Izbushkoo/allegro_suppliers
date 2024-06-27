@@ -231,5 +231,6 @@ def initialize_auth(init_auth: InitializeAuth):
                 ToLog.write_error(f"Error during saving token to database {err}")
                 callback_manager.send_error_callback(f"Error during saving token to database {err}")
             else:
+                ToLog.write_basic(f"{allegro_token}")
                 ToLog.write_basic(f"Token successfully added to database")
                 callback_manager.send_finish_callback(f"Application authorized successfully")
