@@ -39,9 +39,8 @@ async def add_account(init_auth_config: InitializeAuth, bg_tasks: BackgroundTask
 
     ToLog.write_access(f"Access to initialize auth with config {init_auth_config}")
     bg_tasks.add_task(
-        TaskWrapper(task=initialize_auth).run_task(
-            init_auth=init_auth_config
-        )
+        initialize_auth,
+        init_auth=init_auth_config
     )
     return JSONResponse({"status": "OK", "message": "Authoruzation initialized"})
 
