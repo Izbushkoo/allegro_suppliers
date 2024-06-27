@@ -222,8 +222,8 @@ def initialize_auth(init_auth: InitializeAuth):
                 redirect_url="none",
                 client_id=init_auth.client_id,
                 client_secret_id=init_auth.client_secret,
-                access_token=token.access_token,
-                refresh_token=token.refresh_token
+                access_token=token["access_token"],
+                refresh_token=token["refresh_token"]
             )
             try:
                 insert_token_sync(database, allegro_token)
