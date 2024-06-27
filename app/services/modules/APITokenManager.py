@@ -176,7 +176,9 @@ def get_access_token(device_code, init_auth: InitializeAuth):
 
 
 def await_for_access_token(interval, device_code, init_auth: InitializeAuth):
-    while True:
+    max_attempt = 30
+    attempt = 0
+    while attempt < max_attempt:
         time.sleep(interval)
         result_access_token = get_access_token(device_code, init_auth)
         token = json.loads(result_access_token.text)
@@ -185,8 +187,10 @@ def await_for_access_token(interval, device_code, init_auth: InitializeAuth):
                 interval += interval
             if token['error'] == 'access_denied':
                 break
+            attempt += 1
         else:
             return token
+    raise TimeoutError("too long wait till auth completed. Exited")
 
 
 def initialize_auth(init_auth: InitializeAuth):
