@@ -17,7 +17,8 @@ CODE_URL = "https://allegro.pl/auth/oauth/device"
 TOKEN_URL = "https://allegro.pl/auth/oauth/token"
 
 
-async def check_token(database: AsyncSession, token: AllegroToken):
+async def check_token(database: AsyncSession, token: AllegroToken,
+                      callback_manager: CallbackManager = CallbackManager()):
     access_token = token.access_token
     headers = {
 
@@ -28,18 +29,25 @@ async def check_token(database: AsyncSession, token: AllegroToken):
         async with session.get('https://api.allegro.pl/me', headers=headers) as res:
             if res.status == 200:
                 ToLog.write_basic('API call successful, token is valid')
+                await callback_manager.send_ok_callback_async('API call successful, token is valid')
                 return token
             elif res.status == 401:
                 ToLog.write_basic('API call failed, token has expired, refreshing...')
+                await callback_manager.send_ok_callback_async('API call failed, token has expired, refreshing...')
                 try:
                     new_access_token = await refresh_access_token(database, token)
                     ToLog.write_basic('Access token refreshed successfully')
+                    await callback_manager.send_ok_callback_async('Access token refreshed successfully')
                     return new_access_token
                 except Exception as err:
                     ToLog.write_error(f'Error refreshing access token: {err}')
+                    await callback_manager.send_error_callback_async(f'Error refreshing access token: {err}')
                     raise
             else:
                 ToLog.write_error(f'API call failed, token is invalid: {res.reason} {res.status}')
+                await callback_manager.send_error_callback_async(
+                    f'API call failed, token is invalid: {res.reason} {res.status}'
+                )
                 raise Exception('Invalid access token')
 
 
