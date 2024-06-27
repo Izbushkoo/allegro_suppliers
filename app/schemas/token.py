@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class Token(BaseModel):
@@ -15,5 +15,4 @@ class TokenPayload(BaseModel):
 class TokenOfAllegro(BaseModel):
     id_: Optional[str]
     account_name: Optional[str]
-    description: Optional[str]
     redirect_url: Optional[str]
