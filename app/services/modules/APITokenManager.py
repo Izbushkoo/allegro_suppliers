@@ -201,6 +201,8 @@ def initialize_auth(init_auth: InitializeAuth):
         callback_manager.send_error_callback(f"Code was not be received from allegro {err}")
         raise err
     else:
+        ToLog.write_basic(f"{code}")
+        ToLog.write_basic(f"{type(code)}")
         callback_manager.send_ok_callback(code["verification_uri_complete"])
         try:
             token = await_for_access_token(int(code['interval']), code['device_code'], init_auth)
