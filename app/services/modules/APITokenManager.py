@@ -220,7 +220,11 @@ def initialize_auth(init_auth: InitializeAuth):
                 account_name=init_auth.account_name,
                 description=init_auth.account_description,
                 redirect_url="none",
-                **token)
+                client_id=init_auth.client_id,
+                client_secret_id=init_auth.client_secret,
+                access_token=token.access_token,
+                refresh_token=token.refresh_token
+            )
             try:
                 insert_token_sync(database, allegro_token)
             except Exception as err:
