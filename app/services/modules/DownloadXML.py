@@ -40,8 +40,8 @@ async def download_xml(supplier):
 async def download_file(url):
 
     async with httpx.AsyncClient() as client:
-        async with client.get(url) as response:
-            response.raise_for_status()  # Проверка на ошибки HTTP
+        response = await client.get(url)
+        response.raise_for_status()  # Проверка на ошибки HTTP
 
             # async with aiofiles.open(destination_path, 'wb') as file:
             #     async for chunk in response.aiter_bytes():
@@ -49,7 +49,7 @@ async def download_file(url):
             #             await file.write(chunk)
 
     ToLog.write_basic(f"Content downloaded for {url}")
-    return await response.text()
+    return response.text
 
 
 async def validate_xml_file(content):
