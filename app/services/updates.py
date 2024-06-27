@@ -75,7 +75,7 @@ def get_all_data_sync(supplier, is_offers_should_be_updated_on_allegro, multipli
 async def fetch_and_update_allegro(database: AsyncSession, filtered_objects, allegro_token: AllegroToken, **kwargs):
     allegro_objects = filter_supplier_data_for_allegro(filtered_objects)
     try:
-        token = await check_token(database, allegro_token, callback_manager)
+        token = await check_token(database, allegro_token, kwargs.get("callback_manager"))
     except Exception:
         return
     else:
