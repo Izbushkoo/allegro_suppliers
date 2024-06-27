@@ -41,86 +41,86 @@ async def update_offers(offers_array, access_token: str, callback_manager: Callb
                 count += 1
                 if count == 30:
                     return
-        #         stock = offer.get('stock')
-        #         price = offer.get('price')
-        #
-        #         #TODO
-        #         if stock == 0:
-        #             ToLog.write_basic(f"Offer {id_} is 0 stock. Pushed to the arrayToEnd.")
-        #             array_to_end.append(offer)
-        #             continue
-        #
-        #         data = {
-        #             "sellingMode": {
-        #                 "price": {
-        #                     "amount": price,
-        #                     "currency": "PLN",
-        #                 },
-        #             },
-        #             "stock": {
-        #                 "available": stock,
-        #                 "unit": "UNIT",
-        #             },
-        #         }
-        #
-        #         url = f"https://api.allegro.pl/sale/product-offers/{id_}"
-        #         retries = 0
-        #         success = False
-        #
-        #         while retries < max_retries and not success:
-        #             try:
-        #                 response = await client.patch(url, headers=headers, json=data)
-        #                 if response.status_code in [200, 202]:
-        #                     ToLog.write_basic(f"Offer {id_} updated successfully")
-        #                     await callback_manager.send_ok_callback_async(f"Offer {id_} updated successfully")
-        #                     array_to_activate.append(offer)
-        #                     success = True
-        #                 else:
-        #                     await handle_errors(response, offer, array_to_end, array_with_price_errors_to_update)
-        #                     success = True
-        #             except httpx.HTTPStatusError as http_err:
-        #                 ToLog.write_error(f"HTTP error occurred: {http_err}")
-        #                 status_code = http_err.response.status_code if http_err.response else None
-        #                 if status_code in [500, 501, 502, 503, 504]:
-        #                     ToLog.write_basic("Bad request - will try again in 5 seconds...")
-        #                     retries += 1
-        #                     await sleep(5)
-        #                 else:
-        #                     await handle_errors(http_err.response, offer, array_to_end,
-        #                                         array_with_price_errors_to_update)
-        #                     retries = max_retries
-        #                     success = True
-        #
-        #         if not success:
-        #             ToLog.write_basic(f"I failed to update {id_}")
-        #             await callback_manager.send_ok_callback_async(f"I failed to update {id_}")
-        #             failed_http_request.append(offer)
-        #
-        #         ToLog.write_basic(f"Activate: {len(array_to_activate)}")
-        #         ToLog.write_basic(f"End: {len(array_to_end)}")
-        #         ToLog.write_basic(f"UpdatePriceErrors {len(array_with_price_errors_to_update)}")
-        #
-        # if array_with_price_errors_to_update:
-        #     ToLog.write_basic(f"Updating {len(array_with_price_errors_to_update)} offers with price error...")
-        #     await callback_manager.send_ok_callback_async(
-        #         f"Updating {len(array_with_price_errors_to_update)} offers with price error..."
-        #     )
-        #     await update_offers(array_with_price_errors_to_update, access_token, callback_manager,
-        #                         oferta_ids_to_process)
-        # if array_to_activate:
-        #     ToLog.write_basic(f"Activating {len(array_to_activate)} offers...")
-        #     await callback_manager.send_ok_callback_async(f"Activating {len(array_to_activate)} offers...")
-        #     await update_offers_status(access_token, array_to_activate, "ACTIVATE", callback_manager)
-        # if array_to_end:
-        #     ToLog.write_basic(f"Finishing {len(array_to_end)} offers with errors...")
-        #     await callback_manager.send_ok_callback_async(f"Finishing {len(array_to_end)} offers with errors...")
-        #     await update_offers_status(access_token, array_to_end, "END", callback_manager)
-        #
-        # ToLog.write_basic(f"Here are the items that could not be updated due to a server error: {failed_http_request}")
-        # await callback_manager.send_error_callback_async(
-        #     f"Here are the items that could not be updated due to a server error: \n"
-        #     f"{', '.join([item.id_ for item in failed_http_request])}"
-        # )
+                stock = offer.get('stock')
+                price = offer.get('price')
+
+                #TODO
+                if stock == 0:
+                    ToLog.write_basic(f"Offer {id_} is 0 stock. Pushed to the arrayToEnd.")
+                    array_to_end.append(offer)
+                    continue
+
+                data = {
+                    "sellingMode": {
+                        "price": {
+                            "amount": price,
+                            "currency": "PLN",
+                        },
+                    },
+                    "stock": {
+                        "available": stock,
+                        "unit": "UNIT",
+                    },
+                }
+
+                url = f"https://api.allegro.pl/sale/product-offers/{id_}"
+                retries = 0
+                success = False
+
+                while retries < max_retries and not success:
+                    try:
+                        response = await client.patch(url, headers=headers, json=data)
+                        if response.status_code in [200, 202]:
+                            ToLog.write_basic(f"Offer {id_} updated successfully")
+                            await callback_manager.send_ok_callback_async(f"Offer {id_} updated successfully")
+                            array_to_activate.append(offer)
+                            success = True
+                        else:
+                            await handle_errors(response, offer, array_to_end, array_with_price_errors_to_update)
+                            success = True
+                    except httpx.HTTPStatusError as http_err:
+                        ToLog.write_error(f"HTTP error occurred: {http_err}")
+                        status_code = http_err.response.status_code if http_err.response else None
+                        if status_code in [500, 501, 502, 503, 504]:
+                            ToLog.write_basic("Bad request - will try again in 5 seconds...")
+                            retries += 1
+                            await sleep(5)
+                        else:
+                            await handle_errors(http_err.response, offer, array_to_end,
+                                                array_with_price_errors_to_update)
+                            retries = max_retries
+                            success = True
+
+                if not success:
+                    ToLog.write_basic(f"I failed to update {id_}")
+                    await callback_manager.send_ok_callback_async(f"I failed to update {id_}")
+                    failed_http_request.append(offer)
+
+                ToLog.write_basic(f"Activate: {len(array_to_activate)}")
+                ToLog.write_basic(f"End: {len(array_to_end)}")
+                ToLog.write_basic(f"UpdatePriceErrors {len(array_with_price_errors_to_update)}")
+
+        if array_with_price_errors_to_update:
+            ToLog.write_basic(f"Updating {len(array_with_price_errors_to_update)} offers with price error...")
+            await callback_manager.send_ok_callback_async(
+                f"Updating {len(array_with_price_errors_to_update)} offers with price error..."
+            )
+            await update_offers(array_with_price_errors_to_update, access_token, callback_manager,
+                                oferta_ids_to_process)
+        if array_to_activate:
+            ToLog.write_basic(f"Activating {len(array_to_activate)} offers...")
+            await callback_manager.send_ok_callback_async(f"Activating {len(array_to_activate)} offers...")
+            await update_offers_status(access_token, array_to_activate, "ACTIVATE", callback_manager)
+        if array_to_end:
+            ToLog.write_basic(f"Finishing {len(array_to_end)} offers with errors...")
+            await callback_manager.send_ok_callback_async(f"Finishing {len(array_to_end)} offers with errors...")
+            await update_offers_status(access_token, array_to_end, "END", callback_manager)
+
+        ToLog.write_basic(f"Here are the items that could not be updated due to a server error: {failed_http_request}")
+        await callback_manager.send_error_callback_async(
+            f"Here are the items that could not be updated due to a server error: \n"
+            f"{', '.join([item.id_ for item in failed_http_request])}"
+        )
     except Exception as error:
         ToLog.write_error(f"Critical error: {error}")
         await callback_manager.send_error_callback_async(f"Critical error: {error}")
@@ -259,80 +259,80 @@ def update_offers_sync(offers_array, access_token: str, callback_manager: Callba
             count += 1
             if count == 30:
                 return
-        #     stock = offer.get('stock')
-        #     price = offer.get('price')
-        #
-        #     if stock == 0:
-        #         ToLog.write_basic(f"Offer {id_} is 0 stock. Pushed to the arrayToEnd.")
-        #         array_to_end.append(offer)
-        #         continue
-        #
-        #     data = {
-        #         "sellingMode": {
-        #             "price": {
-        #                 "amount": price,
-        #                 "currency": "PLN",
-        #             },
-        #         },
-        #         "stock": {
-        #             "available": stock,
-        #             "unit": "UNIT",
-        #         },
-        #     }
-        #
-        #     url = f"https://api.allegro.pl/sale/product-offers/{id_}"
-        #     retries = 0
-        #     success = False
-        #
-        #     while retries < max_retries and not success:
-        #         try:
-        #             response = requests.patch(url, headers=headers, json=data)
-        #             if response.status_code in [200, 202]:
-        #                 ToLog.write_basic(f"Offer {id_} updated successfully")
-        #                 callback_manager.send_ok_callback(f"Offer {id_} updated successfully")
-        #                 array_to_activate.append(offer)
-        #                 success = True
-        #             else:
-        #                 handle_errors_sync(response, offer, array_to_end, array_with_price_errors_to_update)
-        #                 success = True
-        #         except requests.RequestException as req_err:
-        #             ToLog.write_error(f"HTTP error occurred: {req_err}")
-        #             status_code = req_err.response.status_code if req_err.response else None
-        #             if status_code in [500, 501, 502, 503, 504]:
-        #                 ToLog.write_basic("Bad request - will try again in 5 seconds...")
-        #                 retries += 1
-        #                 time.sleep(5)
-        #             else:
-        #                 handle_errors_sync(req_err.response, offer, array_to_end, array_with_price_errors_to_update)
-        #                 retries = max_retries
-        #                 success = True
-        #
-        #     if not success:
-        #         ToLog.write_basic(f"I failed to update {id_}")
-        #         callback_manager.send_ok_callback(f"I failed to update {id_}")
-        #         failed_http_request.append(offer)
-        #
-        #     ToLog.write_basic(f"Activate: {len(array_to_activate)}")
-        #     ToLog.write_basic(f"End: {len(array_to_end)}")
-        #     ToLog.write_basic(f"UpdatePriceErrors {len(array_with_price_errors_to_update)}")
-        #
-        # if array_with_price_errors_to_update:
-        #     ToLog.write_basic(f"Updating {len(array_with_price_errors_to_update)} offers with price error...")
-        #     callback_manager.send_ok_callback(
-        #         f"Updating {len(array_with_price_errors_to_update)} offers with price error...")
-        #     update_offers_sync(array_with_price_errors_to_update, access_token, callback_manager, oferta_ids_to_process)
-        # if array_to_activate:
-        #     ToLog.write_basic(f"Activating {len(array_to_activate)} offers...")
-        #     callback_manager.send_ok_callback(f"Activating {len(array_to_activate)} offers...")
-        #     update_offers_status_sync(access_token, array_to_activate, "ACTIVATE", callback_manager)
-        # if array_to_end:
-        #     ToLog.write_basic(f"Finishing {len(array_to_end)} offers with errors...")
-        #     callback_manager.send_ok_callback(f"Finishing {len(array_to_end)} offers with errors...")
-        #     update_offers_status_sync(access_token, array_to_end, "END", callback_manager)
-        #
-        # ToLog.write_basic(f"Here are the items that could not be updated due to a server error: {failed_http_request}")
-        # callback_manager.send_error_callback(f"Here are the items that could not be updated due to a server error: \n"
-        #                                      f"{', '.join([item['id'] for item in failed_http_request])}")
+            stock = offer.get('stock')
+            price = offer.get('price')
+
+            if stock == 0:
+                ToLog.write_basic(f"Offer {id_} is 0 stock. Pushed to the arrayToEnd.")
+                array_to_end.append(offer)
+                continue
+
+            data = {
+                "sellingMode": {
+                    "price": {
+                        "amount": price,
+                        "currency": "PLN",
+                    },
+                },
+                "stock": {
+                    "available": stock,
+                    "unit": "UNIT",
+                },
+            }
+
+            url = f"https://api.allegro.pl/sale/product-offers/{id_}"
+            retries = 0
+            success = False
+
+            while retries < max_retries and not success:
+                try:
+                    response = requests.patch(url, headers=headers, json=data)
+                    if response.status_code in [200, 202]:
+                        ToLog.write_basic(f"Offer {id_} updated successfully")
+                        callback_manager.send_ok_callback(f"Offer {id_} updated successfully")
+                        array_to_activate.append(offer)
+                        success = True
+                    else:
+                        handle_errors_sync(response, offer, array_to_end, array_with_price_errors_to_update)
+                        success = True
+                except requests.RequestException as req_err:
+                    ToLog.write_error(f"HTTP error occurred: {req_err}")
+                    status_code = req_err.response.status_code if req_err.response else None
+                    if status_code in [500, 501, 502, 503, 504]:
+                        ToLog.write_basic("Bad request - will try again in 5 seconds...")
+                        retries += 1
+                        time.sleep(5)
+                    else:
+                        handle_errors_sync(req_err.response, offer, array_to_end, array_with_price_errors_to_update)
+                        retries = max_retries
+                        success = True
+
+            if not success:
+                ToLog.write_basic(f"I failed to update {id_}")
+                callback_manager.send_ok_callback(f"I failed to update {id_}")
+                failed_http_request.append(offer)
+
+            ToLog.write_basic(f"Activate: {len(array_to_activate)}")
+            ToLog.write_basic(f"End: {len(array_to_end)}")
+            ToLog.write_basic(f"UpdatePriceErrors {len(array_with_price_errors_to_update)}")
+
+        if array_with_price_errors_to_update:
+            ToLog.write_basic(f"Updating {len(array_with_price_errors_to_update)} offers with price error...")
+            callback_manager.send_ok_callback(
+                f"Updating {len(array_with_price_errors_to_update)} offers with price error...")
+            update_offers_sync(array_with_price_errors_to_update, access_token, callback_manager, oferta_ids_to_process)
+        if array_to_activate:
+            ToLog.write_basic(f"Activating {len(array_to_activate)} offers...")
+            callback_manager.send_ok_callback(f"Activating {len(array_to_activate)} offers...")
+            update_offers_status_sync(access_token, array_to_activate, "ACTIVATE", callback_manager)
+        if array_to_end:
+            ToLog.write_basic(f"Finishing {len(array_to_end)} offers with errors...")
+            callback_manager.send_ok_callback(f"Finishing {len(array_to_end)} offers with errors...")
+            update_offers_status_sync(access_token, array_to_end, "END", callback_manager)
+
+        ToLog.write_basic(f"Here are the items that could not be updated due to a server error: {failed_http_request}")
+        callback_manager.send_error_callback(f"Here are the items that could not be updated due to a server error: \n"
+                                             f"{', '.join([item['id'] for item in failed_http_request])}")
     except Exception as error:
         ToLog.write_error(f"Critical error: {error}")
         callback_manager.send_error_callback(f"Critical error: {error}")
