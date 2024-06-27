@@ -78,6 +78,13 @@ async def insert_token(database: AsyncSession, token_: token.AllegroToken):
         return token_
 
 
+def insert_token_sync(database: AsyncSession, token_: token.AllegroToken):
+    database.add(token_)
+    database.commit()
+    database.refresh(token_)
+    return token_
+
+
 async def delete_token(database: AsyncSession, token_id: str):
     async with database as session:
         statement = select(token.AllegroToken).where(token.AllegroToken.id_ == token_id)

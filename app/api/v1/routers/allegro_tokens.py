@@ -1,12 +1,16 @@
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
+from fastapi.responses import JSONResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api import deps
+from app.core.bg_task_wrapper import TaskWrapper
 from app.services.allegro_token import get_tokens_list, get_token_by_name, insert_token, delete_token, get_token_by_id
 from app.schemas.token import TokenOfAllegro
 from app.models.database_models import AllegroToken
+from app.schemas.pydantic_models import InitializeAuth
+from app.services.modules.APITokenManager import initialize_auth
 from app.loggers import ToLog
 
 
@@ -29,6 +33,17 @@ async def add_account(account_data: AllegroToken, database: AsyncSession = Depen
 
     return TokenOfAllegro(**written_token.model_dump(exclude_none=True))
 
+
+@router.post("/init_auth")
+async def add_account(init_auth_config: InitializeAuth, bg_tasks: BackgroundTasks):
+
+    ToLog.write_access(f"Access to initialize auth with config {init_auth_config}")
+    bg_tasks.add_task(
+        TaskWrapper(task=initialize_auth).run_task(
+            init_auth=init_auth_config
+        )
+    )
+    return JSONResponse({"status": "OK", "message": "Authoruzation initialized"})
 
 # @router.get("/get_by_id")
 # async def add_account(token_id: str, database: AsyncSession = Depends(deps.get_db_async)):

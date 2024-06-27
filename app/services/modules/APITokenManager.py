@@ -2,10 +2,19 @@ import base64
 import aiohttp
 import requests
 from sqlalchemy.ext.asyncio import AsyncSession
+import requests
+import json
+import time
 
 from app.models.database_models import AllegroToken
-from app.services.allegro_token import update_token_by_id, update_token_by_id_sync
+from app.api.deps import SessionLocal
+from app.services.allegro_token import update_token_by_id, update_token_by_id_sync, insert_token_sync
+from app.schemas.pydantic_models import CallbackManager, InitializeAuth
 from app.loggers import ToLog
+
+
+CODE_URL = "https://allegro.pl/auth/oauth/device"
+TOKEN_URL = "https://allegro.pl/auth/oauth/token"
 
 
 async def check_token(database: AsyncSession, token: AllegroToken):
@@ -146,3 +155,71 @@ def check_token_sync(database, token):
         raise Exception('Invalid access token')
 
 
+def get_code(client_id: str, client_secret: str):
+
+    payload = {'client_id': client_id}
+    headers = {'Content-type': 'application/x-www-form-urlencoded'}
+    api_call_response = requests.post(CODE_URL, auth=(client_id, client_secret),
+                                      headers=headers, data=payload, verify=False)
+    return api_call_response.json()
+
+
+def get_access_token(device_code, init_auth: InitializeAuth):
+    try:
+        headers = {'Content-type': 'application/x-www-form-urlencoded'}
+        data = {'grant_type': 'urn:ietf:params:oauth:grant-type:device_code', 'device_code': device_code}
+        api_call_response = requests.post(TOKEN_URL, auth=(init_auth.client_id, init_auth.client_secret),
+                                          headers=headers, data=data, verify=False)
+        return api_call_response
+    except requests.exceptions.HTTPError as err:
+        raise err
+
+
+def await_for_access_token(interval, device_code, init_auth: InitializeAuth):
+    while True:
+        time.sleep(interval)
+        result_access_token = get_access_token(device_code, init_auth)
+        token = json.loads(result_access_token.text)
+        if result_access_token.status_code == 400:
+            if token['error'] == 'slow_down':
+                interval += interval
+            if token['error'] == 'access_denied':
+                break
+        else:
+            return token
+
+
+def initialize_auth(init_auth: InitializeAuth):
+    callback_manager: CallbackManager = CallbackManager(
+        url=init_auth.callback_url,
+        resource_id=init_auth.user_id
+    )
+    try:
+        code = get_code(init_auth.client_id, init_auth.client_secret)
+    except Exception as err:
+        ToLog.write_error(f"Code was not be received from allegro {err}")
+        callback_manager.send_error_callback(f"Code was not be received from allegro {err}")
+        raise err
+    else:
+        callback_manager.send_ok_callback(code["verification_uri_complete"])
+        try:
+            token = await_for_access_token(int(code['interval']), code['device_code'], init_auth)
+        except Exception as err:
+            ToLog.write_error(f"Smth went wrong {err}")
+            callback_manager.send_error_callback(f"Smth went wrong {err}")
+        else:
+            database = SessionLocal()
+            allegro_token: AllegroToken = AllegroToken(
+                belongs_to=init_auth.user_id,
+                account_name=init_auth.account_name,
+                description=init_auth.account_description,
+                redirect_url="none",
+                **token)
+            try:
+                insert_token_sync(database, allegro_token)
+            except Exception as err:
+                ToLog.write_error(f"Error during saving token to database {err}")
+                callback_manager.send_error_callback(f"Error during saving token to database {err}")
+            else:
+                ToLog.write_basic(f"Token successfully added to database")
+                callback_manager.send_finish_callback(f"Application authorized successfully")

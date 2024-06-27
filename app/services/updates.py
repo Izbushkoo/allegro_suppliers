@@ -48,8 +48,7 @@ async def get_all_data(supplier, is_offers_should_be_updated_on_allegro, multipl
 
     database_items = await fetch_data_from_db(supplier, is_offers_should_be_updated_on_allegro)
     json_from_xml = parse_xml_to_json(supplier)
-    with open(os.path.join(os.getcwd(), "xml", f"{supplier}.json"), "w") as file:
-        file.write(json.dumps(json_from_xml, indent=4))
+
     ToLog.write_basic("parsed")
     filtered_objects = filter_json_object_to_array_of_objects(
         supplier, json_from_xml, database_items, multiplier
@@ -75,16 +74,24 @@ def get_all_data_sync(supplier, is_offers_should_be_updated_on_allegro, multipli
 
 async def fetch_and_update_allegro(database: AsyncSession, filtered_objects, allegro_token: AllegroToken, **kwargs):
     allegro_objects = filter_supplier_data_for_allegro(filtered_objects)
-    token = await check_token(database, allegro_token)
-    access_token = token.access_token
-    await update_offers(allegro_objects, access_token, **kwargs)
+    try:
+        token = await check_token(database, allegro_token)
+    except Exception:
+        return
+    else:
+        access_token = token.access_token
+        await update_offers(allegro_objects, access_token, **kwargs)
 
 
 def fetch_and_update_allegro_sync(database: AsyncSession, filtered_objects, allegro_token: AllegroToken, **kwargs):
     allegro_objects = filter_supplier_data_for_allegro(filtered_objects)
-    token = check_token_sync(database, allegro_token)
-    access_token = token.access_token
-    update_offers_sync(allegro_objects, access_token, **kwargs)
+    try:
+        token = check_token_sync(database, allegro_token)
+    except Exception:
+        return
+    else:
+        access_token = token.access_token
+        update_offers_sync(allegro_objects, access_token, **kwargs)
 
 
 async def turn_off_items_by_category(supplier, category):
