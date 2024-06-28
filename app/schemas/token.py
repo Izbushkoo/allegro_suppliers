@@ -16,3 +16,4 @@ class TokenOfAllegro(BaseModel):
     id_: Optional[str]
     account_name: Optional[str]
     redirect_url: Optional[str]
+    client_id: Optional[str]
