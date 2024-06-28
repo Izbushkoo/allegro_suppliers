@@ -76,7 +76,8 @@ async def update_offers(offers_array, access_token: str, callback_manager: Callb
                             array_to_activate.append(offer)
                             success = True
                         else:
-                            await handle_errors(response, offer, array_to_end, array_with_price_errors_to_update)
+                            await handle_errors(response, offer, array_to_end, array_with_price_errors_to_update,
+                                                callback_manager)
                             success = True
                     except httpx.HTTPStatusError as http_err:
                         ToLog.write_error(f"HTTP error occurred: {http_err}")
@@ -87,7 +88,7 @@ async def update_offers(offers_array, access_token: str, callback_manager: Callb
                             await sleep(5)
                         else:
                             await handle_errors(http_err.response, offer, array_to_end,
-                                                array_with_price_errors_to_update)
+                                                array_with_price_errors_to_update, callback_manager)
                             retries = max_retries
                             success = True
 
@@ -129,7 +130,7 @@ async def update_offers(offers_array, access_token: str, callback_manager: Callb
 
 
 async def handle_errors(response, offer, array_to_end, array_with_price_errors_to_update,
-                        ):
+                        callback_manager: CallbackManager):
     try:
         json_response = response.json()
     except json.JSONDecodeError:
@@ -170,9 +171,15 @@ async def handle_errors(response, offer, array_to_end, array_with_price_errors_t
                 ToLog.write_basic("Failed to parse the price!")
         else:
             ToLog.write_basic(f"Offer {offer.get('id')} got an error code {status_code}: {error_object.get('userMessage')}")
+            await callback_manager.send_ok_callback_async(
+                f"Offer {offer.get('id')} got an error code {status_code}: {error_object.get('userMessage')}"
+            )
             array_to_end.append(error_for_id)
     else:
         ToLog.write_basic(f"Error status code: {status_code}. Error: {error_object}")
+        await callback_manager.send_ok_callback_async(
+            f"Error status code: {status_code}. Error: {error_object}"
+        )
         array_to_end.append(error_for_id)
 
 
