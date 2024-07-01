@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 
 from app.api import deps
 from app.schemas.pydantic_models import UpdateConfig
-from app.scheduler_service.scheduler_tasks import stop_task, add_task, job_list, stop_task_1, get_single_job, \
+from app.scheduler_service.scheduler_tasks import stop_task, add_task, job_list, add_tasks_as_one, get_single_job, \
     job_list_with_acc
 from app.loggers import ToLog
 
@@ -15,7 +15,7 @@ router = APIRouter(dependencies=[Depends(deps.get_api_token)])
 @router.post('/task_start')
 async def activate_task(user_id: str, routine: str, update_config: UpdateConfig):
     ToLog.write_access(f"Access to task start")
-    result = await add_task(user_id, routine, update_config)
+    result = await add_tasks_as_one(user_id, routine, update_config)
     return result
 
 
