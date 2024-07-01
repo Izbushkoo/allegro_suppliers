@@ -34,7 +34,7 @@ def setup_loggers():
                                              maxBytes=100*1024*1024, backupCount=2)
     debug_file_handler.setFormatter(formatter)
     logging.basicConfig(handlers=(debug_file_handler, stream_handler),
-                        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+                        # format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
                         level=logging.DEBUG)
     httpcore_logger = logging.getLogger("httpcore")
     httpx_logger = logging.getLogger("httpx")
