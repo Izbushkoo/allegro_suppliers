@@ -256,16 +256,12 @@ def update_offers_sync(offers_array, access_token: str, callback_manager: Callba
         }
 
         max_retries = 5
-        count = 1
         for offer in offers_array:
             id_ = offer.get('id')
+
             if oferta_ids_to_process and id_ not in oferta_ids_to_process:
                 continue
 
-            callback_manager.send_ok_callback(f"{id_}. Testing logging information...")
-            count += 1
-            if count == 30:
-                return
             stock = offer.get('stock')
             price = offer.get('price')
 
@@ -319,9 +315,9 @@ def update_offers_sync(offers_array, access_token: str, callback_manager: Callba
                 callback_manager.send_ok_callback(f"I failed to update {id_}")
                 failed_http_request.append(offer)
 
-            ToLog.write_basic(f"Activate: {len(array_to_activate)}")
-            ToLog.write_basic(f"End: {len(array_to_end)}")
-            ToLog.write_basic(f"UpdatePriceErrors {len(array_with_price_errors_to_update)}")
+        ToLog.write_basic(f"Activate: {len(array_to_activate)}")
+        ToLog.write_basic(f"End: {len(array_to_end)}")
+        ToLog.write_basic(f"UpdatePriceErrors {len(array_with_price_errors_to_update)}")
 
         if array_with_price_errors_to_update:
             ToLog.write_basic(f"Updating {len(array_with_price_errors_to_update)} offers with price error...")

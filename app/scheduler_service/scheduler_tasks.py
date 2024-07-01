@@ -5,7 +5,6 @@ import json
 import re
 
 import redis
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.executors.pool import ProcessPoolExecutor
 from apscheduler.jobstores.redis import RedisJobStore
@@ -114,6 +113,67 @@ async def add_task(user_id: str, routine: str, update_config: UpdateConfig):
     return tasks
 
 
+async def add_tasks_as_one(user_id: str, routine: str, update_config: UpdateConfig):
+
+    suppliers_list = update_config.suppliers_to_update if update_config.suppliers_to_update else list(
+        supplier_config.keys()
+    )
+    ToLog.write_basic(f"{suppliers_list}")
+    ofertas = update_config.oferta_ids_to_process
+
+    if not ofertas:
+        ofertas = []
+
+    oferta_ids_serialized = serialize_data(ofertas)
+    tasks = []
+    task_id = "_".join(suppliers_list) + f"__{user_id}__{update_config.allegro_token_id}"
+
+    all_jobs = scheduler.get_jobs()
+    for job in all_jobs:
+        if job.id.split("__")[2] == update_config.allegro_token_id:
+            return {"status": "error", "message": "Given account already used in another Job."}
+        else:
+            redis_client.set(task_id, oferta_ids_serialized)
+            try:
+                if routine == "4_hours":
+                    scheduler.add_job(
+                        update_suppliers_sync, trigger="cron", id=task_id,
+                        replace_existing=True,
+                        kwargs={"suppliers_list": suppliers_list, "update_config": update_config},
+                        hour="*/4",
+                        # minute="*/1"
+                    )
+                else:
+                    hour, minute = routine.split(":")
+                    scheduler.add_job(
+                        update_suppliers_sync, trigger="cron", id=task_id,
+                        replace_existing=True,
+                        kwargs={"suppliers_list": suppliers_list, "update_config": update_config},
+                        hour=hour,
+                        minute=minute
+                    )
+            except Exception:
+                pass
+            else:
+
+                database = deps.AsyncSessLocal()
+                allegro_token = await get_token_by_id(database, update_config.allegro_token_id)
+
+                to_append = {
+                    "suppliers": suppliers_list,
+                    "allegro_account": {
+                        "name": allegro_token.account_name,
+                        "token_id": allegro_token.id_
+                    },
+                    "routine": routine,
+                    "ofertas": ofertas
+                }
+
+                tasks.append(to_append)
+
+    return tasks
+
+
 def stop_task(user_id: str, update_config: UpdateConfig):
 
     suppliers_list = update_config.suppliers_to_update if update_config.suppliers_to_update else list(
@@ -122,25 +182,12 @@ def stop_task(user_id: str, update_config: UpdateConfig):
 
     ToLog.write_basic(f"{suppliers_list}")
     try:
-        for supplier in suppliers_list:
-            task_id = supplier + f"__{user_id}__{update_config.allegro_token_id}"
-            if scheduler.get_job(task_id):
-                scheduler.remove_job(task_id)
-                redis_client.delete(task_id)
-    except Exception:
-        raise
-
-
-def stop_task_1(update_config: UpdateConfig):
-
-    suppliers_list = update_config.suppliers_to_update if update_config.suppliers_to_update else list(
-        supplier_config.keys()
-    )
-    ToLog.write_basic(f"{suppliers_list}")
-    for supplier in suppliers_list:
-        task_id = supplier + f"__{update_config.allegro_token_id}"
+        task_id = "_".join(suppliers_list) + f"__{user_id}__{update_config.allegro_token_id}"
         if scheduler.get_job(task_id):
             scheduler.remove_job(task_id)
+            redis_client.delete(task_id)
+    except Exception:
+        raise
 
 
 async def update_supplier(supplier, update_config: UpdateConfig):
@@ -179,6 +226,24 @@ def update_supplier_sync(supplier, update_config: UpdateConfig):
     ToLog.write_basic("Update Finished")
 
 
+def update_suppliers_sync(suppliers_list, update_config: UpdateConfig):
+    database = deps.SessionLocal()
+    allegro_token = get_token_by_id_sync(database, update_config.allegro_token_id)
+    multiplier = update_config.multiplier
+    oferta_ids_to_process = update_config.oferta_ids_to_process
+
+    for supplier in suppliers_list:
+        filtered_objects = get_all_data_sync(supplier, True, multiplier)
+        fetch_and_update_allegro_sync(
+            database,
+            filtered_objects,
+            allegro_token,
+            oferta_ids_to_process=oferta_ids_to_process,
+        )
+
+    ToLog.write_basic("Update Finished")
+
+
 async def get_single_job(job_id: str):
 
     job = scheduler.get_job(job_id)
@@ -188,7 +253,7 @@ async def get_single_job(job_id: str):
     allegro_token = await get_token_by_id(database, job_identifiers[2])
 
     to_return = {
-        "supplier": job_identifiers[0],
+        "suppliers": job_identifiers[0].split("_"),
         "allegro_account": {
             "name": allegro_token.account_name,
             "token_id": allegro_token.id_
@@ -212,7 +277,7 @@ async def job_list(user_id: str):
             trigger = f"{scheduler.get_job(job.id).trigger}"
             ToLog.write_basic(trigger)
             active_jobs.append({
-                "supplier": job_identifiers[0],
+                "suppliers": job_identifiers[0].split("_"),
                 "allegro_account": {
                     "name": allegro_token.account_name,
                     "token_id": allegro_token.id_
@@ -236,7 +301,7 @@ async def job_list_with_acc(user_id: str, account_id: str):
             trigger = f"{scheduler.get_job(job.id).trigger}"
             ToLog.write_basic(trigger)
             active_jobs.append({
-                "supplier": job_identifiers[0],
+                "suppliers": job_identifiers[0].split("_"),
                 "allegro_account": {
                     "name": allegro_token.account_name,
                     "token_id": allegro_token.id_
