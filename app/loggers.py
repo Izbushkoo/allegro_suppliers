@@ -18,6 +18,7 @@ def setup_loggers():
     errors = logging.getLogger("errors")
     file_error_handler = RotatingFileHandler(os.path.join(base_path, "error_log.log"),
                                              maxBytes=100*1024*1024, backupCount=2)
+    file_error_handler.setFormatter(formatter)
     errors.setLevel(level=logging.ERROR)
     errors.addHandler(file_error_handler)
     errors.addHandler(stream_handler)
@@ -30,12 +31,18 @@ def setup_loggers():
     access.addHandler(access_file_handler)
     # access.addHandler(stream_handler)
 
+    #Basic
+    basic = logging.getLogger("basic")
     debug_file_handler = RotatingFileHandler(os.path.join(base_path, "debug_log.log"),
                                              maxBytes=100*1024*1024, backupCount=2)
     debug_file_handler.setFormatter(formatter)
-    logging.basicConfig(handlers=(debug_file_handler, stream_handler),
-                        # format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-                        level=logging.DEBUG)
+    basic.setLevel(logging.DEBUG)
+    basic.addHandler(debug_file_handler)
+    basic.addHandler(stream_handler)
+
+    # logging.basicConfig(handlers=(debug_file_handler, stream_handler),
+    #                     level=logging.DEBUG)
+
     httpcore_logger = logging.getLogger("httpcore")
     httpx_logger = logging.getLogger("httpx")
     mongo_logger = logging.getLogger("pymongo")
