@@ -32,7 +32,7 @@ def setup_loggers():
 
     debug_file_handler = RotatingFileHandler(os.path.join(base_path, "debug_log.log"),
                                              maxBytes=100*1024*1024, backupCount=2)
-
+    debug_file_handler.setFormatter(formatter)
     logging.basicConfig(handlers=(debug_file_handler, stream_handler),
                         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
                         level=logging.DEBUG)
