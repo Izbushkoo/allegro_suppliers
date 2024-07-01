@@ -32,7 +32,7 @@ def setup_loggers():
     # access.addHandler(stream_handler)
 
     #Basic
-    basic = logging.getLogger("basic")
+    basic = logging.getLogger("main")
     debug_file_handler = RotatingFileHandler(os.path.join(base_path, "debug_log.log"),
                                              maxBytes=100*1024*1024, backupCount=2)
     debug_file_handler.setFormatter(formatter)
@@ -43,19 +43,19 @@ def setup_loggers():
     # logging.basicConfig(handlers=(debug_file_handler, stream_handler),
     #                     level=logging.DEBUG)
 
-    httpcore_logger = logging.getLogger("httpcore")
-    httpx_logger = logging.getLogger("httpx")
-    mongo_logger = logging.getLogger("pymongo")
-    mongo_logger.setLevel(logging.CRITICAL)
-    httpx_logger.setLevel(logging.CRITICAL)
-    httpcore_logger.setLevel(logging.CRITICAL)
+    # httpcore_logger = logging.getLogger("httpcore")
+    # httpx_logger = logging.getLogger("httpx")
+    # mongo_logger = logging.getLogger("pymongo")
+    # mongo_logger.setLevel(logging.CRITICAL)
+    # httpx_logger.setLevel(logging.CRITICAL)
+    # httpcore_logger.setLevel(logging.CRITICAL)
 
 
 class ToLog:
 
     error = logging.getLogger("error")
     access = logging.getLogger("access")
-    basic = logging.getLogger("basic")
+    basic = logging.getLogger("main")
 
     @classmethod
     def write_error(cls, msg: str):
