@@ -67,8 +67,11 @@ async def update_suppliers(request: Request, update_config: UpdateConfig, bg_tas
     То же самое в случае с переданным параметром 'oferta_ids_to_process'. В случае отсутствия обработка произойдет
     для всех товаров.
     """
-    os.environ["RESOURCE_ID"] = update_config.resource_id
-    os.environ["CALLBACK_URL"] = update_config.callback_url
+    try:
+        os.environ["RESOURCE_ID"] = update_config.resource_id
+        os.environ["CALLBACK_URL"] = update_config.callback_url
+    except Exception as e:
+        ToLog.write_error(f"{e}")
 
     ToLog.write_access(f"Access to update supplier with request: {await request.json()}")
     bg_tasks.add_task(
