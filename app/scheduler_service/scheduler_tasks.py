@@ -153,8 +153,8 @@ async def add_tasks_as_one(user_id: str, routine: str, update_config: UpdateConf
                 hour=hour,
                 minute=minute
             )
-    except Exception:
-        pass
+    except Exception as err:
+        ToLog.write_error(f"{err}")
     else:
 
         database = deps.AsyncSessLocal()

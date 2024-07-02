@@ -15,9 +15,9 @@ def setup_loggers():
     stream_handler = logging.StreamHandler()
     stream_handler.setFormatter(formatter)
 
-    # Удаление всех существующих обработчиков из корневого логгера
-    for handler in logging.root.handlers[:]:
-        logging.root.removeHandler(handler)
+    # # Удаление всех существующих обработчиков из корневого логгера
+    # for handler in logging.root.handlers[:]:
+    #     logging.root.removeHandler(handler)
 
     errors = logging.getLogger("errors")
     file_error_handler = RotatingFileHandler(os.path.join(base_path, "error_log.log"),
@@ -46,8 +46,8 @@ def setup_loggers():
     
     # logging.getLogger().handlers.clear()
 
-    # logging.basicConfig(handlers=(debug_file_handler, stream_handler),
-    #                     level=logging.DEBUG)
+    logging.basicConfig(handlers=(debug_file_handler, stream_handler),
+                        level=logging.DEBUG)
 
     # httpcore_logger = logging.getLogger("httpcore")
     # httpx_logger = logging.getLogger("httpx")
