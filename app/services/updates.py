@@ -14,7 +14,7 @@ from app.services.modules.DataFiltering.GetAllData import filter_json_object_to_
 from app.services.modules.DataFiltering.GetAllegroData import filter_supplier_data_for_allegro, filter_supplier_data_for_category, \
     filter_supplier_data_for_category_by_allegro_id
 from app.services.modules.APITokenManager import check_token, check_token_sync
-from app.services.modules.AlegroApiManager import update_offers, update_offers_sync
+from app.services.modules.AlegroApiManager import update_offers, update_offers_sync, update_offers_in_bulks
 from app.loggers import ToLog
 
 supplier_name = {
@@ -81,6 +81,11 @@ async def fetch_and_update_allegro(database: AsyncSession, filtered_objects, all
     else:
         access_token = token.access_token
         await update_offers(allegro_objects, access_token, **kwargs)
+
+
+async def fetch_and_update_allegro_bulks(filtered_objects, access_token: str, **kwargs):
+    allegro_objects = filter_supplier_data_for_allegro(filtered_objects)
+    await update_offers(allegro_objects, access_token, **kwargs)
 
 
 def fetch_and_update_allegro_sync(database: AsyncSession, filtered_objects, allegro_token: AllegroToken, **kwargs):
