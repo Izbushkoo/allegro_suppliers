@@ -44,7 +44,7 @@ def setup_loggers():
     basic.addHandler(debug_file_handler)
     basic.addHandler(stream_handler)
     
-    logging.getLogger().handlers.clear()
+    # logging.getLogger().handlers.clear()
 
     # logging.basicConfig(handlers=(debug_file_handler, stream_handler),
     #                     level=logging.DEBUG)
