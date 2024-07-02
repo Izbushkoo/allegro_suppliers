@@ -144,17 +144,19 @@ async def update_as_task_in_bulks(update_config: UpdateConfig):
         supplier_name.values()
     )
 
-    tasks = []
+    for i in range(0, len(suppliers_list), 2):
+        batch = suppliers_list[i:i + 2]
+        tasks = []
 
-    for supplier in suppliers_list:
-        task = asyncio.create_task(
-            update_single_supplier(
-                supplier, multiplier, access_token, oferta_ids_to_process, callback_manager
+        for supplier in batch:
+            task = asyncio.create_task(
+                update_single_supplier(
+                    supplier, multiplier, access_token, oferta_ids_to_process, callback_manager
+                )
             )
-        )
-        tasks.append(task)
+            tasks.append(task)
+        await asyncio.gather(*tasks)
 
-    await asyncio.gather(*tasks)
     ToLog.write_basic("Update Finished")
     await callback_manager.send_finish_callback_async("Update Finished")
 

@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 
 from app.api import deps
 from app.schemas.pydantic_models import UpdateConfig
-from app.services.scheduler_service import stop_task, job_list, add_tasks_as_one, get_single_job, \
+from app.services.scheduler_service.scheduler_tasks import stop_task, job_list, add_tasks_as_one, get_single_job, \
     job_list_with_acc
 from app.loggers import ToLog
 
