@@ -85,7 +85,7 @@ async def fetch_and_update_allegro(database: AsyncSession, filtered_objects, all
 
 async def fetch_and_update_allegro_bulks(filtered_objects, access_token: str, **kwargs):
     allegro_objects = filter_supplier_data_for_allegro(filtered_objects)
-    await update_offers(allegro_objects, access_token, **kwargs)
+    await update_offers_in_bulks(allegro_objects, access_token, **kwargs)
 
 
 def fetch_and_update_allegro_sync(database: AsyncSession, filtered_objects, allegro_token: AllegroToken, **kwargs):
