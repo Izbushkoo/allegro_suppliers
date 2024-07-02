@@ -32,6 +32,7 @@ async def update_offers_in_bulks(offers_array, access_token: str, callback_manag
         timeout = httpx.Timeout(20.0, connect=5.0)
 
         async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
+            # counter = 0
             for i in range(0, len(offers_array), 50):
                 batch = offers_array[i:i + 50]
                 tasks = []
@@ -45,8 +46,10 @@ async def update_offers_in_bulks(offers_array, access_token: str, callback_manag
                         array_with_price_errors_to_update, array_to_end, 
                         array_to_activate, failed_http_request
                     )))
+                    # counter += 1
 
                 await asyncio.gather(*tasks)
+                # await callback_manager.send_ok_callback_async(f"Было обработано 50 предл")
 
         if array_with_price_errors_to_update:
             ToLog.write_basic(f"Обновление {len(array_with_price_errors_to_update)} предложений с ошибками цены...")
@@ -110,7 +113,8 @@ async def process_offer(offer, client, headers, callback_manager,
         try:
             response = await client.patch(url, headers=headers, json=data)
             if response.status_code in [200, 202]:
-                await callback_manager.send_ok_callback_async(f"Предложение {id_} успешно обновлено")
+                ToLog.write_basic(f"Предложение {id_} успешно обновлено")
+                # await callback_manager.send_ok_callback_async(f"Предложение {id_} успешно обновлено")
                 array_to_activate.append(offer)
                 success = True
             else:
