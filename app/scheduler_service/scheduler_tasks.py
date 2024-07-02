@@ -4,6 +4,7 @@ import datetime
 import json
 import re
 
+from fastapi.exceptions import HTTPException
 import redis
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.executors.pool import ProcessPoolExecutor
@@ -131,45 +132,45 @@ async def add_tasks_as_one(user_id: str, routine: str, update_config: UpdateConf
     all_jobs = scheduler.get_jobs()
     for job in all_jobs:
         if job.id.split("__")[2] == update_config.allegro_token_id:
-            return {"status": "error", "message": "Given account already used in another Job."}
+            raise HTTPException(status_code=400, detail="Given account already used in another Job.")
+
+    redis_client.set(task_id, oferta_ids_serialized)
+    try:
+        if routine == "4_hours":
+            scheduler.add_job(
+                update_suppliers_sync, trigger="cron", id=task_id,
+                replace_existing=True,
+                kwargs={"suppliers_list": suppliers_list, "update_config": update_config},
+                hour="*/4",
+                # minute="*/1"
+            )
         else:
-            redis_client.set(task_id, oferta_ids_serialized)
-            try:
-                if routine == "4_hours":
-                    scheduler.add_job(
-                        update_suppliers_sync, trigger="cron", id=task_id,
-                        replace_existing=True,
-                        kwargs={"suppliers_list": suppliers_list, "update_config": update_config},
-                        hour="*/4",
-                        # minute="*/1"
-                    )
-                else:
-                    hour, minute = routine.split(":")
-                    scheduler.add_job(
-                        update_suppliers_sync, trigger="cron", id=task_id,
-                        replace_existing=True,
-                        kwargs={"suppliers_list": suppliers_list, "update_config": update_config},
-                        hour=hour,
-                        minute=minute
-                    )
-            except Exception:
-                pass
-            else:
+            hour, minute = routine.split(":")
+            scheduler.add_job(
+                update_suppliers_sync, trigger="cron", id=task_id,
+                replace_existing=True,
+                kwargs={"suppliers_list": suppliers_list, "update_config": update_config},
+                hour=hour,
+                minute=minute
+            )
+    except Exception:
+        pass
+    else:
 
-                database = deps.AsyncSessLocal()
-                allegro_token = await get_token_by_id(database, update_config.allegro_token_id)
+        database = deps.AsyncSessLocal()
+        allegro_token = await get_token_by_id(database, update_config.allegro_token_id)
 
-                to_append = {
-                    "suppliers": suppliers_list,
-                    "allegro_account": {
-                        "name": allegro_token.account_name,
-                        "token_id": allegro_token.id_
-                    },
-                    "routine": routine,
-                    "ofertas": ofertas
-                }
+        to_append = {
+            "suppliers": suppliers_list,
+            "allegro_account": {
+                "name": allegro_token.account_name,
+                "token_id": allegro_token.id_
+            },
+            "routine": routine,
+            "ofertas": ofertas
+        }
 
-                tasks.append(to_append)
+        tasks.append(to_append)
 
     return tasks
 
