@@ -134,47 +134,52 @@ async def update_as_task(update_config: UpdateConfig):
     await callback_manager.send_finish_callback_async("Update Finished")
 
 
-async def update_as_task_in_bulks(update_config: UpdateConfig):
+async def update_as_task_in_bulks(update_config: UpdateConfig, **kwargs):
 
-    callback_manager = CallbackManager(
-        url=update_config.callback_url,
-        resource_id=update_config.resource_id
-    )
-    ToLog.write_basic(f"callback manager {callback_manager.model_dump()}")
+    semaphore = kwargs.get("semaphore")
+    if not semaphore:
+        semaphore = asyncio.Semaphore(1)
 
-    database = deps.AsyncSessLocal()
-    allegro_token = await get_token_by_id(database, update_config.allegro_token_id)
+    async with semaphore:
+        callback_manager = CallbackManager(
+            url=update_config.callback_url,
+            resource_id=update_config.resource_id
+        )
+        ToLog.write_basic(f"callback manager {callback_manager.model_dump()}")
 
-    try:
-        token = await check_token(database, allegro_token, callback_manager)
-    except Exception as err:
-        ToLog.write_error(f"Error while check and update token {err}")
-        await callback_manager.send_error_callback(f"Error while check and update token {err}")
-        return
-    else:
-        access_token = token.access_token
+        database = deps.AsyncSessLocal()
+        allegro_token = await get_token_by_id(database, update_config.allegro_token_id)
 
-    multiplier = update_config.multiplier
-    oferta_ids_to_process = update_config.oferta_ids_to_process
-    suppliers_list = update_config.suppliers_to_update if update_config.suppliers_to_update else list(
-        supplier_name.values()
-    )
+        try:
+            token = await check_token(database, allegro_token, callback_manager)
+        except Exception as err:
+            ToLog.write_error(f"Error while check and update token {err}")
+            await callback_manager.send_error_callback(f"Error while check and update token {err}")
+            return
+        else:
+            access_token = token.access_token
 
-    for i in range(0, len(suppliers_list), 2):
-        batch = suppliers_list[i:i + 2]
-        tasks = []
+        multiplier = update_config.multiplier
+        oferta_ids_to_process = update_config.oferta_ids_to_process
+        suppliers_list = update_config.suppliers_to_update if update_config.suppliers_to_update else list(
+            supplier_name.values()
+        )
 
-        for supplier in batch:
-            task = asyncio.create_task(
-                update_single_supplier(
-                    supplier, multiplier, access_token, oferta_ids_to_process, callback_manager
+        for i in range(0, len(suppliers_list), 2):
+            batch = suppliers_list[i:i + 2]
+            tasks = []
+
+            for supplier in batch:
+                task = asyncio.create_task(
+                    update_single_supplier(
+                        supplier, multiplier, access_token, oferta_ids_to_process, callback_manager
+                    )
                 )
-            )
-            tasks.append(task)
-        await asyncio.gather(*tasks)
+                tasks.append(task)
+            await asyncio.gather(*tasks)
 
-    ToLog.write_basic("Update Finished")
-    await callback_manager.send_finish_callback_async("Update Finished")
+        ToLog.write_basic("Update Finished")
+        await callback_manager.send_finish_callback_async("Update Finished")
 
 
 async def update_single_supplier(supplier: str, multiplier: float | int, access_token, oferta_ids_to_process,
