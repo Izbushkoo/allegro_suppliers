@@ -12,6 +12,7 @@ from apscheduler.jobstores.redis import RedisJobStore
 from apscheduler.events import EVENT_JOB_ERROR
 
 from app.api import deps
+from app.api.v1.routers.allegro_offerta_update import update_as_task_in_bulks
 from app.services.updates import get_all_data, fetch_and_update_allegro, fetch_data_from_db_sync, \
     fetch_and_update_allegro_sync, get_all_data_sync
 from app.schemas.pydantic_models import UpdateConfig

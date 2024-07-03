@@ -11,7 +11,7 @@ import httpx
 import requests
 
 from app.loggers import ToLog
-from app.schemas.pydantic_models import ConfigManager, ConnectionManager, CallbackManager
+from app.schemas.pydantic_models import CallbackManager
 
 
 async def update_offers_in_bulks(offers_array, access_token: str, callback_manager: CallbackManager = CallbackManager(),
