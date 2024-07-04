@@ -9,7 +9,7 @@ from starlette.websockets import WebSocketDisconnect
 from pydantic import BaseModel
 
 from app.api import deps
-from app.services.updates import get_all_data, fetch_and_update_allegro, get_all_data_test, \
+from app.services.updates import get_all_data, fetch_and_update_allegro, \
     fetch_and_update_allegro_bulks
 from app.services.modules.APITokenManager import check_token
 from app.core.bg_task_wrapper import TaskWrapper
@@ -33,7 +33,7 @@ supplier_name = {
 
 @ws_router.post("/test")
 async def update_suppliers_test_parse(supplier: str):
-    fil_obj = await get_all_data_test(supplier, True, 1)
+    fil_obj = await get_all_data(supplier, True, 1)
 
     ToLog.write_basic("succsess")
     return fil_obj[-1]
