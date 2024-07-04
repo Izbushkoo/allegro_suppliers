@@ -151,10 +151,13 @@ async def update_as_task_in_bulks(update_config: UpdateConfig, **kwargs):
         allegro_token = await get_token_by_id(database, update_config.allegro_token_id)
 
         try:
+            await callback_manager.send_ok_callback_async(
+                f"Проверяем валидность токена '{allegro_token.account_name}'..."
+            )
             token = await check_token(database, allegro_token, callback_manager)
         except Exception as err:
             ToLog.write_error(f"Error while check and update token {err}")
-            await callback_manager.send_error_callback(f"Error while check and update token {err}")
+            await callback_manager.send_error_callback(f"Ошибка во время проверки и обновления токена: {err}")
             return
         else:
             access_token = token.access_token
@@ -179,20 +182,21 @@ async def update_as_task_in_bulks(update_config: UpdateConfig, **kwargs):
             await asyncio.gather(*tasks)
 
         ToLog.write_basic("Update Finished")
-        await callback_manager.send_finish_callback_async("Update Finished")
+        await callback_manager.send_finish_callback_async("Обновление завершено.")
 
 
 async def update_single_supplier(supplier: str, multiplier: float | int, access_token, oferta_ids_to_process,
                                  callback_manager: CallbackManager):
 
     try:
-        await callback_manager.send_ok_callback_async(f"Start to download {supplier} data.")
+        await callback_manager.send_ok_callback_async(f"Начинаем скачивание данных для {supplier}")
         filtered_objects = await get_all_data(supplier, True, multiplier)
     except Exception as e:
-        await callback_manager.send_error_callback_async(f"Error with parsing {supplier} data. Try later.")
+        await callback_manager.send_error_callback_async(f"Ошибка во время парсинга данных для {supplier}. "
+                                                         f"Попробуйте позже.")
         ToLog.write_error(f"{e}")
     else:
-        await callback_manager.send_ok_callback_async(f"Data downloaded and parsed successfully for {supplier}")
+        await callback_manager.send_ok_callback_async(f"Данные загружены и распаршены успешно для: {supplier}")
         await fetch_and_update_allegro_bulks(
             filtered_objects,
             access_token,
