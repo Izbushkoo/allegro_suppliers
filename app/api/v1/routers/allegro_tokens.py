@@ -35,7 +35,7 @@ async def add_account(account_data: AllegroToken, database: AsyncSession = Depen
 
 
 @router.post("/init_auth")
-async def add_account(init_auth_config: InitializeAuth, bg_tasks: BackgroundTasks):
+async def init_auth(init_auth_config: InitializeAuth, bg_tasks: BackgroundTasks):
 
     ToLog.write_access(f"Access to initialize auth with config {init_auth_config}")
     bg_tasks.add_task(
