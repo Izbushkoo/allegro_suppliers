@@ -6,12 +6,12 @@ import re
 
 from fastapi.exceptions import HTTPException
 import redis
-from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.executors.pool import ProcessPoolExecutor
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.jobstores.redis import RedisJobStore
 from apscheduler.events import EVENT_JOB_ERROR
 
 from app.api import deps
+from app.api.v1.routers.allegro_offerta_update import update_as_task_in_bulks
 from app.services.updates import get_all_data, fetch_and_update_allegro, fetch_data_from_db_sync, \
     fetch_and_update_allegro_sync, get_all_data_sync
 from app.schemas.pydantic_models import UpdateConfig
@@ -25,15 +25,15 @@ jobstores = {
     "default": RedisJobStore(host="redis_suppliers", port=6379, db=0)
 }
 
-executors = {
-    "default": ProcessPoolExecutor(20)
-}
+# executors = {
+#     "default": ProcessPoolExecutor(20)
+# }
 
 job_defaults = {
-    'max_instances': 2
+    'max_instances': 1
 }
 
-scheduler = BackgroundScheduler(jobstores=jobstores, executors=executors, job_defaults=job_defaults)
+scheduler = AsyncIOScheduler(jobstores=jobstores, job_defaults=job_defaults)
 
 supplier_config = {
     "pgn": "9,21",
@@ -114,7 +114,9 @@ async def add_task(user_id: str, routine: str, update_config: UpdateConfig):
     return tasks
 
 
-async def add_tasks_as_one(user_id: str, routine: str, update_config: UpdateConfig):
+async def add_tasks_as_one(user_id: str, routine: str, update_config: UpdateConfig, **kwargs):
+
+    semaphore = kwargs.get("semaphore")
 
     suppliers_list = update_config.suppliers_to_update if update_config.suppliers_to_update else list(
         supplier_config.keys()
@@ -138,18 +140,18 @@ async def add_tasks_as_one(user_id: str, routine: str, update_config: UpdateConf
     try:
         if routine == "4_hours":
             scheduler.add_job(
-                update_suppliers_sync, trigger="cron", id=task_id,
+                update_as_task_in_bulks, trigger="cron", id=task_id,
                 replace_existing=True,
-                kwargs={"suppliers_list": suppliers_list, "update_config": update_config},
+                kwargs={"update_config": update_config, "semaphore": semaphore},
                 hour="*/4",
                 # minute="*/1"
             )
         else:
             hour, minute = routine.split(":")
             scheduler.add_job(
-                update_suppliers_sync, trigger="cron", id=task_id,
+                update_as_task_in_bulks, trigger="cron", id=task_id,
                 replace_existing=True,
-                kwargs={"suppliers_list": suppliers_list, "update_config": update_config},
+                kwargs={"update_config": update_config, "semaphore": semaphore},
                 hour=hour,
                 minute=minute
             )

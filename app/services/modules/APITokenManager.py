@@ -75,8 +75,8 @@ async def refresh_access_token(database: AsyncSession, token: AllegroToken) -> A
                 access_token = body['access_token']
                 refresh_token = body['refresh_token']
                 ToLog.write_basic('Access token refreshed successfully')
-                ToLog.write_basic(f"new access token: {access_token}")
-                ToLog.write_basic(f"new refresh token: {refresh_token}")
+                # ToLog.write_basic(f"new access token: {access_token}")
+                # ToLog.write_basic(f"new refresh token: {refresh_token}")
                 try:
                     token = await update_token_by_id(
                         database=database,
