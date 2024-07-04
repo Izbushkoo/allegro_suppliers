@@ -29,24 +29,24 @@ async def check_token(database: AsyncSession, token: AllegroToken,
         async with session.get('https://api.allegro.pl/me', headers=headers) as res:
             if res.status == 200:
                 ToLog.write_basic('API call successful, token is valid')
-                await callback_manager.send_ok_callback_async('API call successful, token is valid')
+                await callback_manager.send_ok_callback_async('Проверка успешна, токен валиден')
                 return token
             elif res.status == 401:
                 ToLog.write_basic('API call failed, token has expired, refreshing...')
-                await callback_manager.send_ok_callback_async('API call failed, token has expired, refreshing...')
+                await callback_manager.send_ok_callback_async('Проверка не пройдена, токен не валиден, обновляем...')
                 try:
                     new_access_token = await refresh_access_token(database, token)
                     ToLog.write_basic('Access token refreshed successfully')
-                    await callback_manager.send_ok_callback_async('Access token refreshed successfully')
+                    await callback_manager.send_ok_callback_async('Токен успешно обновлен')
                     return new_access_token
                 except Exception as err:
                     ToLog.write_error(f'Error refreshing access token: {err}')
-                    await callback_manager.send_error_callback_async(f'Error refreshing access token: {err}')
+                    await callback_manager.send_error_callback_async(f'Ошибка обновления токена: {err}')
                     raise
             else:
                 ToLog.write_error(f'API call failed, token is invalid: {res.reason} {res.status}')
                 await callback_manager.send_error_callback_async(
-                    f'API call failed, token is invalid: {res.reason} {res.status}'
+                    f'Проверка не пройдена, токен не валиден: {res.reason} {res.status}'
                 )
                 raise Exception('Invalid access token')
 

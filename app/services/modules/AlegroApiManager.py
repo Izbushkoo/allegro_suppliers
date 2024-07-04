@@ -39,12 +39,15 @@ async def update_offers_in_bulks(offers_array, access_token: str, callback_manag
                 for offer in batch:
                     id_ = offer.get('id')
                     if oferta_ids_to_process and id_ not in oferta_ids_to_process:
+                        send_log = True
                         continue
+                    else:
+                        send_log = False
 
                     tasks.append(asyncio.create_task(process_offer(
                         offer, client, headers, callback_manager, 
                         array_with_price_errors_to_update, array_to_end, 
-                        array_to_activate, failed_http_request
+                        array_to_activate, failed_http_request, send_log
                     )))
                     # counter += 1
 
@@ -67,14 +70,16 @@ async def update_offers_in_bulks(offers_array, access_token: str, callback_manag
             await callback_manager.send_ok_callback_async(f"Завершение {len(array_to_end)} предложений с ошибками...")
             await update_offers_status(access_token, array_to_end, "END", callback_manager)
 
-        ToLog.write_basic(
-            f"Следующие позиции не удалось обновить из-за ошибки сервера: \n"
-            f"{', '.join([item['id'] for item in failed_http_request])}"
-        )
-        await callback_manager.send_ok_callback_async(
-            f"Следующие позиции не удалось обновить из-за ошибки сервера: \n"
-            f"{', '.join([item['id'] for item in failed_http_request])}"
-        )
+        if failed_http_request:
+            ToLog.write_basic(
+                f"Следующие позиции не удалось обновить из-за ошибки сервера: \n"
+                f"{', '.join([item['id'] for item in failed_http_request])}"
+            )
+            await callback_manager.send_ok_callback_async(
+                f"Следующие позиции не удалось обновить из-за ошибки сервера: \n"
+                f"{', '.join([item['id'] for item in failed_http_request])}"
+            )
+
     except Exception as error:
         ToLog.write_error(f"Критическая ошибка: {error}")
         await callback_manager.send_error_callback_async(f"Критическая ошибка: {error}")
@@ -82,8 +87,9 @@ async def update_offers_in_bulks(offers_array, access_token: str, callback_manag
 
 
 async def process_offer(offer, client, headers, callback_manager,
-                        array_with_price_errors_to_update, array_to_end, array_to_activate, failed_http_request):
-    max_retries = 5
+                        array_with_price_errors_to_update, array_to_end, array_to_activate, failed_http_request,
+                        send_log=False):
+    max_retries = 10
     id_ = offer.get('id')
     stock = offer.get('stock')
     price = offer.get('price')
@@ -114,7 +120,9 @@ async def process_offer(offer, client, headers, callback_manager,
             response = await client.patch(url, headers=headers, json=data)
             if response.status_code in [200, 202]:
                 ToLog.write_basic(f"Предложение {id_} успешно обновлено")
-                # await callback_manager.send_ok_callback_async(f"Предложение {id_} успешно обновлено")
+                if send_log:
+                    await callback_manager.send_ok_callback_async(f"Предложение {id_} успешно обновлено")
+
                 array_to_activate.append(offer)
                 success = True
             else:
@@ -182,16 +190,17 @@ async def handle_errors(response, offer, array_to_end, array_with_price_errors_t
                 f"Предложение {offer.get('id')} получило ошибку {status_code}: {error_object.get('userMessage')}"
             )
             await callback_manager.send_ok_callback_async(
-                f"Предложение {offer.get('id')} получило ошибку {status_code}: {error_object.get('userMessage')}"
+                f"Предложение {offer.get('id')} получило ошибку {status_code}: {error_object.get('userMessage')}. "
+                f"Если предложение активно, оно будет деактивировано."
             )
             array_to_end.append(error_for_id)
     else:
         ToLog.write_basic(
             f"Статус ошибки: {status_code}. Ошибка: {error_object}"
         )
-        await callback_manager.send_ok_callback_async(
-            f"Статус ошибки: {status_code}. Ошибка: {error_object}"
-        )
+        # await callback_manager.send_ok_callback_async(
+        #     f"Статус ошибки: {status_code}. Ошибка: {error_object}"
+        # )
         array_to_end.append(error_for_id)
 
 
@@ -210,7 +219,7 @@ async def update_offers(offers_array, access_token: str, callback_manager: Callb
             "Accept": "application/vnd.allegro.public.v1+json",
         }
 
-        max_retries = 5
+        max_retries = 15
         async with httpx.AsyncClient() as client:
             # count = 1
             for offer in offers_array:
