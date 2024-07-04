@@ -57,19 +57,21 @@ async def update_offers_in_bulks(offers_array, access_token: str, callback_manag
                 # await callback_manager.send_ok_callback_async(f"Было обработано 50 предл")
 
         if array_with_price_errors_to_update:
-            ToLog.write_basic(f"Обновление {len(array_with_price_errors_to_update)} предложений с ошибками цены...")
+            ToLog.write_basic(f"Обновление {len(array_with_price_errors_to_update)} предложений(я) с ошибками цены...")
             await callback_manager.send_ok_callback_async(
-                f"Обновление {len(array_with_price_errors_to_update)} предложений с ошибками цены..."
+                f"Обновление {len(array_with_price_errors_to_update)} предложений(я) с ошибками цены..."
             )
             await update_offers(array_with_price_errors_to_update, access_token, callback_manager,
                                 oferta_ids_to_process)
         if array_to_activate:
             ToLog.write_basic(f"Активация {len(array_to_activate)} предложений...")
-            await callback_manager.send_ok_callback_async(f"Активация {len(array_to_activate)} предложений...")
+            await callback_manager.send_ok_callback_async(f"Активация {len(array_to_activate)} предложений(я)...")
             await update_offers_status(access_token, array_to_activate, "ACTIVATE", callback_manager)
         if array_to_end:
-            ToLog.write_basic(f"Завершение {len(array_to_end)} предложений с ошибками...")
-            await callback_manager.send_ok_callback_async(f"Завершение {len(array_to_end)} предложений с ошибками...")
+            ToLog.write_basic(f"Завершение {len(array_to_end)} предложений(я) с ошибками...")
+            await callback_manager.send_ok_callback_async(
+                f"Завершение {len(array_to_end)} предложений(я) с ошибками..."
+            )
             await update_offers_status(access_token, array_to_end, "END", callback_manager)
 
         if failed_http_request:
