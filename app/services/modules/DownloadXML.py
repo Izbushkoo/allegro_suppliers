@@ -43,10 +43,19 @@ async def download_file(url):
         response = await client.get(url)
         response.raise_for_status()  # Проверка на ошибки HTTP
 
-            # async with aiofiles.open(destination_path, 'wb') as file:
-            #     async for chunk in response.aiter_bytes():
-            #         if chunk:  # Фильтрация пустых блоков
-            #             await file.write(chunk)
+        content = response.content  # Получение содержимого в байтах
+
+        # Удаление BOM (если присутствует)
+        boms = [b'\xef\xbb\xbf', b'\xff\xfe', b'\xfe\xff']
+        for bom in boms:
+            if content.startswith(bom):
+                content = content[len(bom):]
+
+        content = content.decode('utf-8')  # Декодирование содержимого обратно в текст
+
+        # Удаление неиспользуемых управляющих символов
+        content = re.sub(r'[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]', '', content)
+        ToLog.write_basic(f"first 40 symbols: {content[:40]}")
 
     ToLog.write_basic(f"Content downloaded for {url}")
     return response.text

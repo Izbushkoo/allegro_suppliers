@@ -27,13 +27,13 @@ supplier_name = {
 
 
 async def get_all_data(supplier, is_offers_should_be_updated_on_allegro, multiplier):
-    if supplier == "unimet":
-        await download_with_retry(supplier)
-    else:
-        await download_xml(supplier)
+    # if supplier == "unimet":
+    content = await download_with_retry(supplier)
+    # else:
+    #     await download_xml(supplier)
 
     database_items = await fetch_data_from_db(supplier, is_offers_should_be_updated_on_allegro)
-    json_from_xml = parse_xml_to_json_sync(supplier)
+    json_from_xml = parse_xml_to_json_sync(content)
 
     ToLog.write_basic("parsed")
     filtered_objects = filter_json_object_to_array_of_objects(
