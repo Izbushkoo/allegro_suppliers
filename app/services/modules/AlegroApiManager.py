@@ -31,16 +31,18 @@ async def update_offers_in_bulks(offers_array, access_token: str, callback_manag
         limits = httpx.Limits(max_connections=500, max_keepalive_connections=100)
         timeout = httpx.Timeout(20.0, connect=5.0)
 
-        async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
+        async with (httpx.AsyncClient(limits=limits, timeout=timeout) as client):
             # counter = 0
             for i in range(0, len(offers_array), 50):
                 batch = offers_array[i:i + 50]
                 tasks = []
                 for offer in batch:
                     id_ = offer.get('id')
-                    if oferta_ids_to_process and id_ not in oferta_ids_to_process:
-                        send_log = True
-                        continue
+                    if oferta_ids_to_process:
+                        if id_ not in oferta_ids_to_process:
+                            continue
+                        else:
+                            send_log = True
                     else:
                         send_log = False
 
