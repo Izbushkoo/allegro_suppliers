@@ -44,11 +44,11 @@ async def init_auth(init_auth_config: InitializeAuth, bg_tasks: BackgroundTasks)
     )
     return JSONResponse({"status": "OK", "message": "Authoruzation initialized"})
 
-# @router.get("/get_by_id")
-# async def add_account(token_id: str, database: AsyncSession = Depends(deps.get_db_async)):
-#
-#     ToLog.write_access(f"Access to allegro token get by ID")
-#     return await get_token_by_id(database, token_id)
+@router.get("/get_by_id")
+async def add_account(token_id: str, database: AsyncSession = Depends(deps.get_db_async)):
+
+    ToLog.write_access(f"Access to allegro token get by ID")
+    return await get_token_by_id(database, token_id)
 
 
 @router.delete("/delete")

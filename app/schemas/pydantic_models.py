@@ -45,6 +45,13 @@ class InitializeAuth(BaseModel):
     callback_url: Optional[str | None] = Field(default=None)
 
 
+class OffersRequest(BaseModel):
+    name: str
+    token_id: str = Field(exclude=True)
+    limit: int = Field(default=500)
+    offset: int = Field(default=0)
+
+
 class ConnectionManager(BaseModel):
 
     model_config = ConfigDict(

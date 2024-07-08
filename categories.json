@@ -1,0 +1,208 @@
+{
+    "categories": [
+        {
+            "id": "49855",
+            "name": "Aba\u017cury i klosze",
+            "parent": {
+                "id": "5317"
+            },
+            "leaf": true,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "256542",
+            "name": "Girlandy \u015bwietlne",
+            "parent": {
+                "id": "5317"
+            },
+            "leaf": true,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "301034",
+            "name": "Halogeny i na\u015bwietlacze",
+            "parent": {
+                "id": "5317"
+            },
+            "leaf": true,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "5318",
+            "name": "Lampy",
+            "parent": {
+                "id": "5317"
+            },
+            "leaf": false,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "257007",
+            "name": "Oprawy o\u015bwietleniowe",
+            "parent": {
+                "id": "5317"
+            },
+            "leaf": true,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "260776",
+            "name": "O\u015bwietlenie inteligentne",
+            "parent": {
+                "id": "5317"
+            },
+            "leaf": false,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "257008",
+            "name": "O\u015bwietlenie meblowe",
+            "parent": {
+                "id": "5317"
+            },
+            "leaf": true,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "305061",
+            "name": "O\u015bwietlenie zewn\u0119trzne",
+            "parent": {
+                "id": "5317"
+            },
+            "leaf": false,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "260141",
+            "name": "Systemy linkowe i szynowe",
+            "parent": {
+                "id": "5317"
+            },
+            "leaf": true,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "320404",
+            "name": "Ta\u015bmy LED",
+            "parent": {
+                "id": "5317"
+            },
+            "leaf": true,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "10774",
+            "name": "\u0179r\u00f3d\u0142a \u015bwiat\u0142a",
+            "parent": {
+                "id": "5317"
+            },
+            "leaf": true,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "318588",
+            "name": "Akcesoria i osprz\u0119t o\u015bwietleniowy",
+            "parent": {
+                "id": "5317"
+            },
+            "leaf": true,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        }
+    ]
+}

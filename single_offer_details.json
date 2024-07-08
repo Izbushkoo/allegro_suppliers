@@ -1,0 +1,220 @@
+{
+    "name": "INTEGRA BOOST REGULATOR WILGOCI 8G 55%",
+    "productSet": [
+        {
+            "product": {
+                "id": "4d431a67-a8d3-43ac-8b5e-79a34abe6ff3",
+                "publication": {
+                    "status": "LISTED"
+                },
+                "parameters": [
+                    {
+                        "id": "25168",
+                        "name": "Zastosowanie",
+                        "values": [
+                            "grzybob\u00f3jcze",
+                            "regeneracja"
+                        ],
+                        "valuesIds": [
+                            "25168_1783506",
+                            "25168_1783445"
+                        ],
+                        "rangeValue": null
+                    },
+                    {
+                        "id": "224017",
+                        "name": "Kod producenta",
+                        "values": [
+                            "INPA558"
+                        ],
+                        "valuesIds": null,
+                        "rangeValue": null
+                    },
+                    {
+                        "id": "236342",
+                        "name": "Forma",
+                        "values": [
+                            "granulat"
+                        ],
+                        "valuesIds": [
+                            "236342_400270"
+                        ],
+                        "rangeValue": null
+                    },
+                    {
+                        "id": "248801",
+                        "name": "Producent",
+                        "values": [
+                            "Integra Boost"
+                        ],
+                        "valuesIds": [
+                            "248801_943043"
+                        ],
+                        "rangeValue": null
+                    },
+                    {
+                        "id": "225693",
+                        "name": "EAN (GTIN)",
+                        "values": [
+                            "802359000416"
+                        ],
+                        "valuesIds": null,
+                        "rangeValue": null
+                    }
+                ]
+            },
+            "quantity": {
+                "value": 1
+            },
+            "responsiblePerson": null
+        }
+    ],
+    "parameters": [
+        {
+            "id": "11323",
+            "name": "Stan",
+            "values": [
+                "Nowy"
+            ],
+            "valuesIds": [
+                "11323_1"
+            ],
+            "rangeValue": null
+        }
+    ],
+    "images": [
+        "https://a.allegroimg.com/original/11f0aa/522cee804272bbcfa92151992efa",
+        "https://a.allegroimg.com/original/11fe32/37b4f44a43c49d4fc977ff59f112",
+        "https://a.allegroimg.com/original/110f96/6822801c4626ad5674fe8defa58f"
+    ],
+    "afterSalesServices": {
+        "impliedWarranty": {
+            "id": "79830b5f-f593-4575-8d4a-7a5926191e90"
+        },
+        "returnPolicy": {
+            "id": "bbf69b95-39a2-4d04-ba35-771abe9f9ff9"
+        },
+        "warranty": {
+            "id": "ce329c25-ba91-4f32-a7dc-9f792aff66d9"
+        }
+    },
+    "payments": {
+        "invoice": "VAT"
+    },
+    "sellingMode": {
+        "format": "BUY_NOW",
+        "price": {
+            "amount": "22.95",
+            "currency": "PLN"
+        },
+        "startingPrice": null,
+        "minimalPrice": null
+    },
+    "stock": {
+        "available": 100,
+        "unit": "UNIT"
+    },
+    "location": {
+        "countryCode": "PL",
+        "province": "MAZOWIECKIE",
+        "city": "WARSZAWA",
+        "postCode": "02-672"
+    },
+    "delivery": {
+        "shippingRates": {
+            "id": "424ce34c-4a1f-4db7-b456-56a0b67a95ec"
+        },
+        "handlingTime": "PT72H",
+        "additionalInfo": null,
+        "shipmentDate": null
+    },
+    "description": {
+        "sections": [
+            {
+                "items": [
+                    {
+                        "type": "TEXT",
+                        "content": "<p>Integra Boost Humidiccant to regulator utrzymuj\u0105cy sta\u0142\u0105 wilgotno\u015b\u0107 w  pojemniku, s\u0142u\u017c\u0105cy do curringu, jedno opakowanie wystarczy maksymalnie na 28g  suszu. Curring to metoda przechowywania poprawiaj\u0105ca w\u0142a\u015bciwo\u015bci smakowe i  jako\u015b\u0107 przechowywanego suszu ro\u015blinnego. Integra Boost wykorzystuje zg\u0142oszon\u0105 do  opatentowania technologi\u0119, kt\u00f3ra uwalnia lub poch\u0142ania wilgo\u0107, utrzymuj\u0105c  wzgl\u0119dn\u0105 wilgotno\u015b\u0107 w zamkni\u0119tym \u015brodowisku w okolicy 55%. Ka\u017cdy indywidualnie  opakowany pakiet Integra Boost zawiera kart\u0119 wska\u017anikow\u0105, gdy okr\u0105g\u0142a kropka  zmienia kolor z r\u00f3\u017cowego na niebieski nale\u017cy wymieni\u0107 saszetk\u0119.</p>\n<p>\u00a0</p>\n<p>Zastosowanie:</p>\n<p>1.W\u0142ozy\u0107 saszetk\u0119 Integra Boost do pojemnika z suszem ro\u015blinnym</p>\n<p>2.Umie\u015bci\u0107 papierek wska\u017anikowy w widocznym miejscu, wewn\u0105trz pojemnika</p>\n<p>3. Szczelnie zamkn\u0105\u0107 pojemnik z suszem</p>\n<p>4.Po zmianie koloru wska\u017anika na niebieski nale\u017cy wymieni\u0107 saszetk\u0119 Integra  Boost</p>"
+                    }
+                ]
+            },
+            {
+                "items": [
+                    {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/11f0aa/522cee804272bbcfa92151992efa"
+                    },
+                    {
+                        "type": "TEXT",
+                        "content": "<ul><li><b>Jednostka:</b> szt.</li></ul>"
+                    }
+                ]
+            }
+        ]
+    },
+    "external": {
+        "id": "GRBX_FS_03332"
+    },
+    "category": {
+        "id": "126200"
+    },
+    "tax": null,
+    "taxSettings": null,
+    "sizeTable": null,
+    "discounts": {
+        "wholesalePriceList": null
+    },
+    "contact": null,
+    "fundraisingCampaign": null,
+    "messageToSellerSettings": null,
+    "attachments": [],
+    "b2b": null,
+    "additionalServices": null,
+    "compatibilityList": null,
+    "additionalMarketplaces": {
+        "allegro-cz": {
+            "sellingMode": null,
+            "publication": {
+                "state": "NOT_REQUESTED",
+                "refusalReasons": []
+            }
+        },
+        "allegro-sk": {
+            "sellingMode": null,
+            "publication": {
+                "state": "NOT_REQUESTED",
+                "refusalReasons": []
+            }
+        },
+        "allegro-business-cz": {
+            "sellingMode": null,
+            "publication": {
+                "state": "NOT_REQUESTED",
+                "refusalReasons": []
+            }
+        }
+    },
+    "id": "13409951912",
+    "language": "pl-PL",
+    "publication": {
+        "status": "ENDED",
+        "duration": null,
+        "endedBy": "USER",
+        "endingAt": null,
+        "startingAt": null,
+        "republish": false,
+        "marketplaces": {
+            "base": {
+                "id": "allegro-pl"
+            },
+            "additional": []
+        }
+    },
+    "validation": {
+        "errors": [],
+        "warnings": [],
+        "validatedAt": "2024-06-09T19:38:29.292Z"
+    },
+    "createdAt": "2023-03-13T08:58:40.000Z",
+    "updatedAt": "2024-07-03T11:36:53.700Z"
+}

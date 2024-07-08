@@ -12,8 +12,9 @@ from app.api import deps
 from app.services.updates import get_all_data, fetch_and_update_allegro, \
     fetch_and_update_allegro_bulks
 from app.services.modules.APITokenManager import check_token
+from app.services.modules.AlegroApiManager import get_all_found_offers, get_page_offers
 from app.core.bg_task_wrapper import TaskWrapper
-from app.schemas.pydantic_models import UpdateConfig, CallbackManager
+from app.schemas.pydantic_models import UpdateConfig, CallbackManager, OffersRequest
 from app.services.allegro_token import get_token_by_id
 from app.loggers import ToLog
 
@@ -93,6 +94,27 @@ async def update_suppliers(request: Request, update_config: UpdateConfig, bg_tas
         )
     )
     return JSONResponse({"status": "OK", "message": "Update task started"})
+
+
+@router.post("/get_offers")
+async def get_offers_by_name(offers_request: OffersRequest, database: AsyncSession = Depends(deps.get_db_async)):
+    """Роут возвращает JSON содержащий оферты Title которых включает заданную фразу
+    В теле запроса параметры по умолчанию offset - 0 и limit - 500. Это сделано для того чтобы не перегружать ответ
+    в случаях когда оферт слишком много.
+    """
+    allegro_token = await get_token_by_id(database, offers_request.token_id)
+
+    try:
+        token = await check_token(database, allegro_token)
+    except Exception as err:
+        ToLog.write_error(f"Error while check and update token {err}")
+        return HTTPException(status_code=403, detail=f"Error while check and update token {err}")
+    else:
+        access_token = token.access_token
+
+    result = await get_all_found_offers(offers_request, access_token)
+
+    return result
 
 
 async def update_as_task(update_config: UpdateConfig):

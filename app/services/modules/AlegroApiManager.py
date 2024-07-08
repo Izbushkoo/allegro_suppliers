@@ -11,7 +11,46 @@ import httpx
 import requests
 
 from app.loggers import ToLog
-from app.schemas.pydantic_models import CallbackManager
+from app.schemas.pydantic_models import CallbackManager, OffersRequest
+
+
+limits = httpx.Limits(max_connections=500, max_keepalive_connections=100)
+timeout = httpx.Timeout(20.0, connect=5.0)
+
+
+async def get_all_found_offers(offers_request: OffersRequest, access_token: str):
+
+    all_offers = []
+    result = await get_page_offers(offers_request, access_token, 1)
+    total = result.get("totalCount")
+    ToLog.write_basic(f"Current total for request {total}")
+    current_total = 0
+
+    while current_total < total:
+        bulk_offers = await get_page_offers(offers_request, access_token, limit=1000, offset=current_total)
+        current_total += bulk_offers["count"]
+        all_offers += bulk_offers["offers"]
+        ToLog.write_basic(f"Got {current_total} offers from {total}")
+
+    return all_offers
+
+
+async def get_page_offers(offers_request, access_token):
+
+    url = f"https://api.allegro.pl/sale/offers"
+    headers = {
+        "Authorization": f"Bearer {access_token}",
+        "Content-Type": "application/vnd.allegro.public.v1+json",
+        "Accept": "application/vnd.allegro.public.v1+json",
+    }
+    params = {
+        **offers_request.model_dump(),
+    }
+
+    async with (httpx.AsyncClient(limits=limits, timeout=timeout) as client):
+        result = await client.get(url, params=params, headers=headers)
+        result.raise_for_status()
+        return result.json()
 
 
 async def update_offers_in_bulks(offers_array, access_token: str, callback_manager: CallbackManager = CallbackManager(),
@@ -27,9 +66,6 @@ async def update_offers_in_bulks(offers_array, access_token: str, callback_manag
             "Content-Type": "application/vnd.allegro.public.v1+json",
             "Accept": "application/vnd.allegro.public.v1+json",
         }
-
-        limits = httpx.Limits(max_connections=500, max_keepalive_connections=100)
-        timeout = httpx.Timeout(20.0, connect=5.0)
 
         async with (httpx.AsyncClient(limits=limits, timeout=timeout) as client):
             # counter = 0
@@ -191,7 +227,7 @@ async def handle_errors(response, offer, array_to_end, array_with_price_errors_t
                 pass
         else:
             ToLog.write_basic(
-                f"Предложение {offer.get('id')} получило ошибку {status_code}: {error_object.get('userMessage')}"
+                f"Предложение {offer.get('id')} получило ошибку {status_code}: {error_object.get('message')}"
             )
             await callback_manager.send_ok_callback_async(
                 f"Предложение {offer.get('id')} получило ошибку {status_code}: {error_object.get('userMessage')}. "
