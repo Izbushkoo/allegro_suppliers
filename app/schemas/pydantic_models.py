@@ -42,7 +42,7 @@ class InitializeAuth(BaseModel):
     client_secret: str
     account_name: str
     account_description: Optional[str | None] = Field(default=None)
-    callback_url: str
+    callback_url: Optional[str | None] = Field(default=None)
 
 
 class ConnectionManager(BaseModel):
