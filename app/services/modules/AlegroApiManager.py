@@ -52,6 +52,7 @@ async def get_page_offers(offers_request, access_token):
     }
     params = {
         **offers_request.model_dump(),
+        "publication.status": "ACTIVE"
         # "limit": limit,
         # "offset": offset
     }
