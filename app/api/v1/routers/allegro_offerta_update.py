@@ -123,7 +123,7 @@ async def get_offers_by_name(request: Request, offers_request: OffersRequest,
     return result
 
 
-@router.delete("/delete_offers_from_map")
+@router.post("/delete_offers_from_map")
 async def delete_from_map(request: Request, delete_offers_request: DeleteOffersRequest,
                           bg_tasks: BackgroundTasks, database: AsyncSession = Depends(deps.get_db_async)):
 
@@ -165,6 +165,7 @@ async def deactivate_on_allegro_as_task(delete_offers_request: DeleteOffersReque
     )
     offers = [{"id": item} for item in delete_offers_request.oferta_ids]
     await update_offers_status(access_token, offers, "END", callback_manager)
+    await callback_manager.send_finish_callback_async("Деактивация завершена")
 
 
 async def update_as_task(update_config: UpdateConfig):
