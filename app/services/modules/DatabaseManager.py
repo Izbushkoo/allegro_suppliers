@@ -77,8 +77,23 @@ class MongoBaseManager:
                 }
             }
             return await collection.delete_many(query)
-    
-    
+
+    async def set_we_sell_to_false(self, allegro_ids: List[str | int]):
+
+        async with self._connect() as db_manager:
+            database = db_manager[base_db_name]
+            collection = database[base_db_collection]
+            query = {
+                "$set": {
+                    "allegro_we_sell_it": False,
+                }
+            }
+            filter_ = {
+                "allegro_oferta_id": {
+                    "$in": allegro_ids
+                }
+            }
+            return await collection.update_many(filter_, query)
 
 
 async def fetch_data_from_db(supplier, allegro_update):

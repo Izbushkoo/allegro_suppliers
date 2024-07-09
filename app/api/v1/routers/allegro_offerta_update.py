@@ -142,12 +142,13 @@ async def delete_from_map(request: Request, delete_offers_request: DeleteOffersR
     else:
         access_token = token.access_token
     try:
-        await MongoManager.remove_positions_by_allegro_id_bulk(delete_offers_request.oferta_ids)
+        await MongoManager.set_we_sell_to_false(delete_offers_request.oferta_ids)
     except Exception as e:
-        ToLog.write_error(f"Error during delete ofertas from Mongo map {e}")
+        ToLog.write_error(f"Error during '.set_we_sell_to_false()' from Mongo map {e}")
     else:
-        await callback_manager.send_ok_callback_async(f"Предложения были успешно удалены из Mongo Map")
-        ToLog.write_basic(f"Succsesfully removed ofertas from Mongo map")
+        await callback_manager.send_ok_callback_async(
+            f"Предложения были успешно обновлены 'allegro_we_sell_it': False в Mongo Map")
+        ToLog.write_basic(f"Предложения были успешно обновлены 'allegro_we_sell_it': False в Mongo Map")
 
     bg_tasks.add_task(
         TaskWrapper(task=deactivate_on_allegro_as_task).run_task(
