@@ -10,14 +10,14 @@ from starlette.websockets import WebSocketDisconnect
 from pydantic import BaseModel
 
 from app.api import deps
-from app.database import redis
-from app.utils import serialize_data, deserialize_data
 from app.services.updates import get_all_data, fetch_and_update_allegro, \
     fetch_and_update_allegro_bulks
 from app.services.modules.APITokenManager import check_token
-from app.services.modules.AlegroApiManager import get_all_found_offers, get_page_offers
+from app.services.modules.AlegroApiManager import get_page_offers, update_offers_status
+
+from app.services.modules.DatabaseManager import MongoManager
 from app.core.bg_task_wrapper import TaskWrapper
-from app.schemas.pydantic_models import UpdateConfig, CallbackManager, OffersRequest
+from app.schemas.pydantic_models import UpdateConfig, CallbackManager, OffersRequest, DeleteOffersRequest
 from app.services.allegro_token import get_token_by_id
 from app.loggers import ToLog
 
@@ -124,9 +124,47 @@ async def get_offers_by_name(request: Request, offers_request: OffersRequest,
 
 
 @router.delete("/delete_offers_from_map")
-async def delete_from_map():
+async def delete_from_map(request: Request, delete_offers_request: DeleteOffersRequest,
+                          bg_tasks: BackgroundTasks, database: AsyncSession = Depends(deps.get_db_async)):
 
-    ...
+    callback_manager = CallbackManager(
+        url=delete_offers_request.callback_url,
+        resource_id=delete_offers_request.resource_id
+    )
+    ToLog.write_access(f"Access to delete offers with request: {await request.json()}")
+    allegro_token = await get_token_by_id(database, delete_offers_request.token_id)
+
+    try:
+        token = await check_token(database, allegro_token)
+    except Exception as err:
+        ToLog.write_error(f"Error while check and update token {err}")
+        return HTTPException(status_code=403, detail=f"Error while check and update token {err}")
+    else:
+        access_token = token.access_token
+    try:
+        await MongoManager.remove_positions_by_allegro_id_bulk(delete_offers_request.oferta_ids)
+    except Exception as e:
+        ToLog.write_error(f"Error during delete ofertas from Mongo map {e}")
+    else:
+        await callback_manager.send_ok_callback_async(f"Предложения были успешно удалены из Mongo Map")
+        ToLog.write_basic(f"Succsesfully removed ofertas from Mongo map")
+
+    bg_tasks.add_task(
+        TaskWrapper(task=deactivate_on_allegro_as_task).run_task(
+            delete_offers_request=delete_offers_request,
+            access_token=access_token
+        )
+    )
+    return JSONResponse({"status": "OK", "message": "Deactivate task started"})
+
+
+async def deactivate_on_allegro_as_task(delete_offers_request: DeleteOffersRequest, access_token: str):
+    callback_manager = CallbackManager(
+        url=delete_offers_request.callback_url,
+        resource_id=delete_offers_request.resource_id
+    )
+    offers = [{"id": item} for item in delete_offers_request.oferta_ids]
+    await update_offers_status(access_token, offers, "END", callback_manager)
 
 
 async def update_as_task(update_config: UpdateConfig):

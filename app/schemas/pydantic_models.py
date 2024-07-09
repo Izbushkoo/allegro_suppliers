@@ -52,6 +52,13 @@ class OffersRequest(BaseModel):
     offset: int = Field(default=0)
 
 
+class DeleteOffersRequest(BaseModel):
+    token_id: str
+    oferta_ids: List[str]
+    resource_id: Optional[str] = Field(default=None)
+    callback_url: Optional[str] = Field(default=None)
+
+
 class ConnectionManager(BaseModel):
 
     model_config = ConfigDict(

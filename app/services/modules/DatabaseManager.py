@@ -196,5 +196,5 @@ async def update_items_by_allegro_id(supplier, allegro_ids):
     finally:
         client.close()
 
-MangoManager = MongoBaseManager()
+MongoManager = MongoBaseManager()
 
