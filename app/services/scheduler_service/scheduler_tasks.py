@@ -126,17 +126,23 @@ async def add_tasks_as_one(user_id: str, routine: str, update_config: UpdateConf
     return tasks
 
 
-def stop_task(user_id: str, update_config: UpdateConfig):
+async def stop_task(user_id: str, update_config: UpdateConfig):
 
     suppliers_list = update_config.suppliers_to_update if update_config.suppliers_to_update else list(
         supplier_config.keys()
     )
+
+    database = deps.AsyncSessLocal()
+    allegro_token = await get_token_by_id(database, update_config.allegro_token_id)
 
     ToLog.write_basic(f"{suppliers_list}")
     try:
         task_id = "_".join(suppliers_list) + f"__{user_id}__{update_config.allegro_token_id}"
         if scheduler.get_job(task_id):
             scheduler.remove_job(task_id)
+            this_ofertas_serialized = redis_client.get(task_id)
+            this_ofertas_deserialized = deserialize_data(this_ofertas_serialized)
+            await EscapedManager.remove_form_escaped(allegro_token.access_token, this_ofertas_deserialized)
             redis_client.delete(task_id)
     except Exception:
         raise

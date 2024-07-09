@@ -23,7 +23,7 @@ async def activate_task(user_id: str, routine: str, update_config: UpdateConfig)
 async def deactivate_task(user_id: str, update_config: UpdateConfig):
     ToLog.write_access(f"Access to task stop")
     try:
-        stop_task(user_id, update_config)
+        await stop_task(user_id, update_config)
     except Exception:
         return JSONResponse({"status": "error", "message": "task(s) stopped"})
     else:
