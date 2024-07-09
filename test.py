@@ -1,4 +1,6 @@
 import json
+
+import jwt
 import requests
 
 
@@ -39,7 +41,7 @@ def get_offer(offer):
 
     url = f"https://api.allegro.pl/sale/product-offers/{offer}"
 
-    response = requests.get(url, headers=headers, params=params)
+    response = requests.get(url, headers=headers)
     # response.raise_for_status()
     resp = json.loads(response.text)
 
@@ -75,6 +77,9 @@ def get_category_info(cat_id):
 
     with open("categoriy_info.json", "w") as file:
         file.write(json.dumps(resp, indent=4))
-        
 
-get_category_info("261258")
+
+def decode_token(token):
+    decoded = jwt.decode(token, options={"verify_signature": False})
+    print(decoded)
+    print(type(decoded))

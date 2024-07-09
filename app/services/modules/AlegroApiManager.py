@@ -11,7 +11,9 @@ import httpx
 import requests
 
 from app.loggers import ToLog
+from app.utils import EscapedManager
 from app.schemas.pydantic_models import CallbackManager, OffersRequest
+from app.services.modules.DatabaseManager import MangoManager
 
 
 limits = httpx.Limits(max_connections=500, max_keepalive_connections=100)
@@ -27,9 +29,13 @@ async def get_all_found_offers(offers_request: OffersRequest, access_token: str)
     current_total = 0
 
     while current_total < total:
-        bulk_offers = await get_page_offers(offers_request, access_token, limit=1000, offset=current_total)
+        bulk_offers = await get_page_offers(offers_request, access_token, limit=500, offset=current_total)
         current_total += bulk_offers["count"]
-        all_offers += bulk_offers["offers"]
+        required_data = list(map(lambda x: {
+            "name": x["name"],
+            "id": x["id"]
+        }, bulk_offers["offers"]))
+        all_offers += required_data
         ToLog.write_basic(f"Got {current_total} offers from {total}")
 
     return all_offers
@@ -45,12 +51,27 @@ async def get_page_offers(offers_request, access_token):
     }
     params = {
         **offers_request.model_dump(),
+        # "limit": limit,
+        # "offset": offset
     }
 
     async with (httpx.AsyncClient(limits=limits, timeout=timeout) as client):
         result = await client.get(url, params=params, headers=headers)
         result.raise_for_status()
-        return result.json()
+        result_json = result.json()
+
+        required_data = list(map(lambda x: {
+            "name": x["name"],
+            "id": x["id"]
+        }, result_json["offers"]))
+
+        to_return = {
+            "total": result_json["totalCount"],
+            "count": result_json["count"],
+            "offers": required_data
+        }
+
+        return to_return
 
 
 async def update_offers_in_bulks(offers_array, access_token: str, callback_manager: CallbackManager = CallbackManager(),
@@ -67,6 +88,8 @@ async def update_offers_in_bulks(offers_array, access_token: str, callback_manag
             "Accept": "application/vnd.allegro.public.v1+json",
         }
 
+        current_escaped = await EscapedManager.get_current_escaped(access_token)
+
         async with (httpx.AsyncClient(limits=limits, timeout=timeout) as client):
             # counter = 0
             for i in range(0, len(offers_array), 50):
@@ -81,6 +104,13 @@ async def update_offers_in_bulks(offers_array, access_token: str, callback_manag
                             send_log = True
                     else:
                         send_log = False
+
+                    if id_ in current_escaped:
+                        ToLog.write_basic(f"Предложение {id_} обновляется в одной из Cron-Job")
+                        await callback_manager.send_ok_callback_async(
+                            f"Предложение {id_} обновляется в одной из Cron-Job"
+                        )
+                        continue
 
                     tasks.append(asyncio.create_task(process_offer(
                         offer, client, headers, callback_manager, 
@@ -214,6 +244,16 @@ async def handle_errors(response, offer, array_to_end, array_with_price_errors_t
                     {"id": offer.get('id'), "price": new_price, "stock": offer.get('stock')})
         elif status_code in [401, 403]:
             pass
+
+        elif status_code in [404]:
+            id_ = offer.get("id")
+            try:
+                await MangoManager.remove_position_by_allegro_id(id_)
+            except Exception as e:
+                ToLog.write_error(f"Error during removing offer {id_} from Mongo map\n{e}")
+            else:
+                ToLog.write_basic(f"Offer {id_} persistent removed from Mongo map")
+
         elif status_code == 422 and error_object.get('code') == "IllegalOfferUpdateException.IllegalIncreasePrice":
             error_text = error_object.get('userMessage')
             regex_match = re.search(r'([0-9]+,[0-9]+) PLN', error_text)

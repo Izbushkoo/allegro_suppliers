@@ -3,12 +3,15 @@ import os
 from typing import Any, List, Dict
 
 from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks, Request, WebSocket
+import jwt
 from fastapi.responses import JSONResponse
 from sqlmodel.ext.asyncio.session import AsyncSession
 from starlette.websockets import WebSocketDisconnect
 from pydantic import BaseModel
 
 from app.api import deps
+from app.database import redis
+from app.utils import serialize_data, deserialize_data
 from app.services.updates import get_all_data, fetch_and_update_allegro, \
     fetch_and_update_allegro_bulks
 from app.services.modules.APITokenManager import check_token
@@ -112,9 +115,15 @@ async def get_offers_by_name(offers_request: OffersRequest, database: AsyncSessi
     else:
         access_token = token.access_token
 
-    result = await get_all_found_offers(offers_request, access_token)
+    result = await get_page_offers(offers_request, access_token)
 
     return result
+
+
+@router.delete("/delete_offers_from_map")
+async def delete_from_map():
+
+    ...
 
 
 async def update_as_task(update_config: UpdateConfig):
