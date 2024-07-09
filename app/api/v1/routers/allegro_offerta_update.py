@@ -100,11 +100,14 @@ async def update_suppliers(request: Request, update_config: UpdateConfig, bg_tas
 
 
 @router.post("/get_offers")
-async def get_offers_by_name(offers_request: OffersRequest, database: AsyncSession = Depends(deps.get_db_async)):
+async def get_offers_by_name(request: Request, offers_request: OffersRequest,
+                             database: AsyncSession = Depends(deps.get_db_async)):
     """Роут возвращает JSON содержащий оферты Title которых включает заданную фразу
     В теле запроса параметры по умолчанию offset - 0 и limit - 500. Это сделано для того чтобы не перегружать ответ
     в случаях когда оферт слишком много.
     """
+
+    ToLog.write_access(f"Access to get offers with request: {await request.json()}")
     allegro_token = await get_token_by_id(database, offers_request.token_id)
 
     try:
