@@ -31,6 +31,7 @@ def get_offers():
 
     print(len(response.json()["offers"]))
 
+
 def get_offer(offer):
 
     params = {

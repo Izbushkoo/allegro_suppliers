@@ -34,7 +34,7 @@ class MongoBaseManager:
         self.db_collection = db_collection or base_db_collection
 
     @asynccontextmanager
-    def _connect(self) -> AsyncIOMotorClient:
+    async def _connect(self) -> AsyncIOMotorClient:
         client = AsyncIOMotorClient(self.uri)
         try:
             yield client
