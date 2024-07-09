@@ -62,7 +62,8 @@ async def get_page_offers(offers_request, access_token):
 
         required_data = list(map(lambda x: {
             "name": x["name"],
-            "_id": x["id"]
+            "_id": x["id"],
+            "image_src": x["primaryImage"].get("url")
         }, result_json["offers"]))
 
         to_return = {
