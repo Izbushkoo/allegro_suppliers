@@ -62,7 +62,7 @@ async def get_page_offers(offers_request, access_token):
 
         required_data = list(map(lambda x: {
             "name": x["name"],
-            "id": x["id"]
+            "_id": x["id"]
         }, result_json["offers"]))
 
         to_return = {
