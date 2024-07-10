@@ -416,10 +416,11 @@ async def update_offers_status(access_token, offers, action, callback_manager: C
                 response = await client.put(url, headers=headers, json=payload)
                 if response.status_code == 201:
                     ToLog.write_basic(
-                        f"Команда {action} успешно выполнена. Command ID: {command_id}. {response.text}"
+                        f"Команда {action} успешно выполнена. Command ID: {command_id}."
                     )
                     await callback_manager.send_ok_callback_async(
-                        f"Команда {action} успешно выполнена. Command ID: {command_id}. {response.text}"
+                        f"Команда {action} успешно выполнена. Command ID: {command_id}.\n"
+                        f"Потребуется время для применения изменений"
                     )
                 else:
                     ToLog.write_basic(

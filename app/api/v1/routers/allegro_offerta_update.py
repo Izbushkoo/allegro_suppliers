@@ -171,7 +171,7 @@ async def update_status_on_allegro_as_task(update_offers_request: UpdateOffersRe
     if update_offers_request.action in ["ACTIVATE", "END"]:
         offers = [{"id": item} for item in update_offers_request.oferta_ids]
         await update_offers_status(access_token, offers, update_offers_request.action, callback_manager)
-        await callback_manager.send_finish_callback_async("Завершено")
+        await callback_manager.send_finish_callback_async(f"Завершено для {len(offers)}")
     else:
         await callback_manager.send_error_callback_async(
             f"Действие '{update_offers_request.action}' недопустимо. Не выполнено."
