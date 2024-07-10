@@ -46,7 +46,9 @@ class InitializeAuth(BaseModel):
 
 
 class OffersRequest(BaseModel):
-
+    model_config = ConfigDict(
+        populate_by_name=True
+    )
     name: str
     token_id: str = Field(exclude=True)
     publication_status: Optional[str] = Field(default="ACTIVE", alias="publication.status")
