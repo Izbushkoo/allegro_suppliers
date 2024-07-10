@@ -28,7 +28,7 @@ async def download_xml(supplier):
     url = urls[supplier]
     # file_dest = os.path.join(os.getcwd(), "xml", f"{supplier}.xml")
 
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession(timeout=100) as session:
         async with session.get(url) as response:
             response_text = await response.text()
 
