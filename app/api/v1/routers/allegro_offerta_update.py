@@ -142,20 +142,21 @@ async def delete_from_map(request: Request, update_offers_request: UpdateOffersR
     else:
         access_token = token.access_token
     try:
+        sell = True if update_offers_request.action == "ACTIVATE" else False
         await MongoManager.set_we_sell_to(
             update_offers_request.oferta_ids,
-            True if update_offers_request.action == "ACTIVATE" else False
+            sell
         )
     except Exception as e:
         ToLog.write_error(f"Error during '.set_we_sell_to_...()' from Mongo map {e}")
     else:
         await callback_manager.send_ok_callback_async(
-            f"Предложения были успешно обновлены 'allegro_we_sell_it': False в Mongo Map")
-        ToLog.write_basic(f"Предложения были успешно обновлены 'allegro_we_sell_it': False в Mongo Map")
+            f"Предложения были успешно обновлены 'allegro_we_sell_it': {sell} в Mongo Map")
+        ToLog.write_basic(f"Предложения были успешно обновлены 'allegro_we_sell_it': {sell} в Mongo Map")
 
     bg_tasks.add_task(
         TaskWrapper(task=update_status_on_allegro_as_task).run_task(
-            delete_offers_request=update_offers_request,
+            update_offers_request=update_offers_request,
             access_token=access_token
         )
     )
