@@ -34,6 +34,7 @@ async def get_page_offers(offers_request, access_token):
         # "offset": offset
     }
 
+    ToLog.write_basic(f"Params {params}")
     async with (httpx.AsyncClient(limits=limits, timeout=timeout) as client):
         result = await client.get(url, params=params, headers=headers)
         result.raise_for_status()
