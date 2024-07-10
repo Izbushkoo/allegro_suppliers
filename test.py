@@ -84,3 +84,10 @@ def decode_token(token):
     decoded = jwt.decode(token, options={"verify_signature": False})
     print(decoded)
     print(type(decoded))
+
+def get_data_for_rekman():
+    url = "https://api.rekman.com.pl/cennik.php?email=aradzevich&password=GeVIOj&TylkoNaStanie=TRUE"
+    response = requests.get(url)
+    print(response.text)
+
+get_data_for_rekman()

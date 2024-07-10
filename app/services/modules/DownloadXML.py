@@ -40,7 +40,7 @@ async def download_xml(supplier):
 
 async def download_file(url):
 
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(timeout=300) as client:
         response = await client.get(url)
         response.raise_for_status()  # Проверка на ошибки HTTP
 
