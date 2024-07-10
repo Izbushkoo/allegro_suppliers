@@ -51,7 +51,7 @@ async def get_page_offers(offers_request, access_token):
             "count": result_json["count"],
             "offers": required_data
         }
-
+        ToLog.write_basic(f"Allegro returned len {len(to_return)}")
         return to_return
 
 
