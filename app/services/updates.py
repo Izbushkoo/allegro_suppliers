@@ -13,6 +13,7 @@ from app.services.modules.ParsingManager import parse_xml_to_json, \
 from app.services.modules.DataFiltering.GetAllData import filter_json_object_to_array_of_objects, filter_json_object_to_array_of_objects_with_pydash
 from app.services.modules.DataFiltering.GetAllegroData import filter_supplier_data_for_allegro, filter_supplier_data_for_category, \
     filter_supplier_data_for_category_by_allegro_id
+from app.schemas.pydantic_models import CallbackManager
 from app.services.modules.APITokenManager import check_token, check_token_sync
 from app.services.modules.AlegroApiManager import update_offers, update_offers_sync, update_offers_in_bulks
 from app.loggers import ToLog
@@ -26,9 +27,9 @@ supplier_name = {
 }
 
 
-async def get_all_data(supplier, is_offers_should_be_updated_on_allegro, multiplier):
+async def get_all_data(supplier, is_offers_should_be_updated_on_allegro, multiplier, callback_manager: CallbackManager):
     # if supplier == "unimet":
-    content = await download_with_retry(supplier)
+    content = await download_with_retry(supplier, callback_manager)
     # else:
     #     await download_xml(supplier)
 

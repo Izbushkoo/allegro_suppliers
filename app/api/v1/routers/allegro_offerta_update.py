@@ -43,32 +43,32 @@ async def update_suppliers_test_parse(supplier: str):
     return fil_obj[-1]
 
 
-@router.post("/update")
-async def update_suppliers(request: Request, update_config: UpdateConfig, bg_tasks: BackgroundTasks):
-    """Обновить Аллегро оферты для заданного аккаунта.
-    Доступные поставщики: "pgn", "unimet", "hurtprem", "rekman", "growbox". В случае отсутствия в конфиге списка
-    поставщиков, обновление произойдет для всех доступных.
-    То же самое в случае с переданным параметром 'oferta_ids_to_process'. В случае отсутствия обработка произойдет
-    для всех товаров.
-    """
-    try:
-        if update_config.resource_id is None:
-            raise ValueError("RESOURCE_ID не должен быть None")
-        if update_config.callback_url is None:
-            raise ValueError("CALLBACK_URL не должен быть None")
-
-        os.environ["RESOURCE_ID"] = update_config.resource_id
-        os.environ["CALLBACK_URL"] = update_config.callback_url
-    except Exception as e:
-        ToLog.write_error(f"{e}")
-
-    ToLog.write_access(f"Access to update supplier with request: {await request.json()}")
-    bg_tasks.add_task(
-        TaskWrapper(task=update_as_task).run_task(
-            update_config=update_config
-        )
-    )
-    return JSONResponse({"status": "OK", "message": "Update task started"})
+# @router.post("/update")
+# async def update_suppliers(request: Request, update_config: UpdateConfig, bg_tasks: BackgroundTasks):
+#     """Обновить Аллегро оферты для заданного аккаунта.
+#     Доступные поставщики: "pgn", "unimet", "hurtprem", "rekman", "growbox". В случае отсутствия в конфиге списка
+#     поставщиков, обновление произойдет для всех доступных.
+#     То же самое в случае с переданным параметром 'oferta_ids_to_process'. В случае отсутствия обработка произойдет
+#     для всех товаров.
+#     """
+#     try:
+#         if update_config.resource_id is None:
+#             raise ValueError("RESOURCE_ID не должен быть None")
+#         if update_config.callback_url is None:
+#             raise ValueError("CALLBACK_URL не должен быть None")
+#
+#         os.environ["RESOURCE_ID"] = update_config.resource_id
+#         os.environ["CALLBACK_URL"] = update_config.callback_url
+#     except Exception as e:
+#         ToLog.write_error(f"{e}")
+#
+#     ToLog.write_access(f"Access to update supplier with request: {await request.json()}")
+#     bg_tasks.add_task(
+#         TaskWrapper(task=update_as_task).run_task(
+#             update_config=update_config
+#         )
+#     )
+#     return JSONResponse({"status": "OK", "message": "Update task started"})
 
 
 @router.post("/update_bulks")
@@ -273,7 +273,8 @@ async def update_single_supplier(supplier: str, multiplier: float | int, access_
 
     try:
         await callback_manager.send_ok_callback_async(f"Начинаем скачивание данных для {supplier}")
-        filtered_objects = await get_all_data(supplier, True, multiplier)
+        filtered_objects = await get_all_data(supplier, True, multiplier,
+                                              callback_manager)
     except Exception as e:
         await callback_manager.send_error_callback_async(f"Ошибка во время парсинга данных для {supplier}. "
                                                          f"Попробуйте позже.")

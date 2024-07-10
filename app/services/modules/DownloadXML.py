@@ -13,6 +13,7 @@ import asyncio
 import xml.etree.ElementTree as ET
 
 from app.loggers import ToLog
+from app.schemas.pydantic_models import CallbackManager
 
 urls = {
     "pgn": "https://b2b.pgn.com.pl/xml?id=26",
@@ -56,7 +57,6 @@ async def download_file(url):
         # Удаление неиспользуемых управляющих символов
         content = re.sub(r'[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]', '', content)
         ToLog.write_basic(f"first 40 symbols: {content[:40]}")
-
     ToLog.write_basic(f"Content downloaded for {url}")
     return response.text
 
@@ -70,22 +70,34 @@ async def validate_xml_file(content):
         return False
 
 
-async def download_with_retry(supplier, retries=10, delay=5):
+async def download_with_retry(supplier, callback_manager: CallbackManager, retries=20, delay=5):
     url = urls[supplier]
     # destination_path = os.path.join(os.getcwd(), "xml", f"{supplier}.xml")
 
     for attempt in range(retries):
         try:
             content = await download_file(url)
+            await callback_manager.send_ok_callback_async(
+                f"Данные скачаны успешно для: {supplier}"
+            )
             if await validate_xml_file(content):
                 ToLog.write_basic("File downloaded and verified successfully")
+                await callback_manager.send_ok_callback_async(
+                    f"Данные провалидированы успешно для: {supplier}"
+                )
                 return content
             else:
                 raise ValueError("File validation failed")
         except Exception as e:
             ToLog.write_basic(f"Attempt {attempt + 1} failed: {e}")
+            await callback_manager.send_ok_callback_async(
+                f"Попытка валидации {attempt + 1} не удалась. {e}"
+            )
             if attempt + 1 < retries:
                 ToLog.write_basic(f"Retrying in {delay} seconds...")
+                await callback_manager.send_ok_callback_async(
+                    f"Повторное скачивание через {delay} секунд."
+                )
                 await asyncio.sleep(delay)
             else:
                 raise
