@@ -139,7 +139,7 @@ async def update_offers_in_bulks(offers_array, access_token: str, callback_manag
 async def process_offer(offer, client, headers, callback_manager,
                         array_with_price_errors_to_update, array_to_end, array_to_activate, failed_http_request,
                         send_log=False):
-    max_retries = 10
+    max_retries = 20
     id_ = offer.get('id')
     stock = offer.get('stock')
     price = offer.get('price')
@@ -247,7 +247,8 @@ async def handle_errors(response, offer, array_to_end, array_with_price_errors_t
                 pass
         else:
             ToLog.write_basic(
-                f"Предложение {offer.get('id')} получило ошибку {status_code}: {error_object.get('message')}"
+                f"Предложение {offer.get('id')} получило ошибку {status_code}: '{error_object.get('userMessage')}'\n"
+                f"Allegro error code '{error_object.get('code')}'"
             )
             await callback_manager.send_ok_callback_async(
                 f"Предложение {offer.get('id')} получило ошибку {status_code}: {error_object.get('userMessage')}. "
