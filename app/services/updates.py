@@ -29,13 +29,10 @@ supplier_name = {
 }
 
 
-async def get_all_data(supplier, is_offers_should_be_updated_on_allegro, multiplier, callback_manager: CallbackManager):
-    # if supplier == "unimet":
+async def get_all_data(supplier, multiplier, callback_manager: CallbackManager):
     content = await download_with_retry(supplier, callback_manager)
-    # else:
-    #     await download_xml(supplier)
 
-    database_items = await fetch_data_from_db(supplier, is_offers_should_be_updated_on_allegro)
+    database_items = await MongoManager.fetch_positions_for_sale(supplier)
     json_from_xml = parse_xml_to_json_sync(content)
 
     ToLog.write_basic("parsed")

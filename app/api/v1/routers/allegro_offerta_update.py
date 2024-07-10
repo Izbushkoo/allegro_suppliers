@@ -35,13 +35,13 @@ supplier_name = {
 }
 
 
-@router.get("/test")
-async def update_suppliers_test_parse(supplier: str):
-    fil_obj = await get_all_data_current_test(supplier)
-
-    ToLog.write_basic("succsess")
-
-    return list(fil_obj.items())[-1]
+# @router.get("/test")
+# async def update_suppliers_test_parse(supplier: str):
+#     fil_obj = await get_all_data_current_test(supplier)
+#
+#     ToLog.write_basic("succsess")
+#
+#     return list(fil_obj.items())[-1]
 
 
 # @router.post("/update")
@@ -275,8 +275,7 @@ async def update_single_supplier(supplier: str, multiplier: float | int, access_
 
     try:
         await callback_manager.send_ok_callback_async(f"Начинаем скачивание данных для {supplier}")
-        filtered_objects = await get_all_data(supplier, True, multiplier,
-                                              callback_manager)
+        filtered_objects = await get_all_data(supplier, multiplier, callback_manager)
     except Exception as e:
         await callback_manager.send_error_callback_async(f"Ошибка во время парсинга данных для {supplier}. "
                                                          f"Попробуйте позже.")
