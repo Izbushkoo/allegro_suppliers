@@ -1,16 +1,12 @@
 import asyncio
 import os
-from typing import Any, List, Dict
 
-from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks, Request, WebSocket
-import jwt
+from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks, Request
 from fastapi.responses import JSONResponse
 from sqlmodel.ext.asyncio.session import AsyncSession
-from starlette.websockets import WebSocketDisconnect
-from pydantic import BaseModel
 
 from app.api import deps
-from app.services.updates import get_all_data, fetch_and_update_allegro, \
+from app.services.updates import get_all_data, \
     fetch_and_update_allegro_bulks, get_all_data_current_test
 from app.services.modules.APITokenManager import check_token
 from app.services.modules.AlegroApiManager import get_page_offers, update_offers_status
@@ -178,45 +174,6 @@ async def update_status_on_allegro_as_task(update_offers_request: UpdateOffersRe
         await callback_manager.send_error_callback_async(
             f"Действие '{update_offers_request.action}' недопустимо. Не выполнено."
         )
-
-
-async def update_as_task(update_config: UpdateConfig):
-
-    callback_manager = CallbackManager(
-        url=update_config.callback_url,
-        resource_id=update_config.resource_id
-    )
-    ToLog.write_basic(f"callback manager {callback_manager.model_dump()}")
-
-    database = deps.AsyncSessLocal()
-    allegro_token = await get_token_by_id(database, update_config.allegro_token_id)
-    multiplier = update_config.multiplier
-    oferta_ids_to_process = update_config.oferta_ids_to_process
-
-    suppliers_list = update_config.suppliers_to_update if update_config.suppliers_to_update else list(
-        supplier_name.values()
-    )
-
-    ToLog.write_basic(f"{suppliers_list}")
-    for supplier in suppliers_list:
-        try:
-            await callback_manager.send_ok_callback_async(f"Start to download {supplier} data.")
-            filtered_objects = await get_all_data(supplier, True, multiplier)
-        except Exception as e:
-            await callback_manager.send_error_callback_async(f"Error with parsing {supplier} data. Try later.")
-            ToLog.write_error(f"{e}")
-        else:
-            await callback_manager.send_ok_callback_async(f"Data downloaded and parsed successfully for {supplier}")
-            await fetch_and_update_allegro(
-                database,
-                filtered_objects,
-                allegro_token,
-                oferta_ids_to_process=oferta_ids_to_process,
-                callback_manager=callback_manager
-            )
-
-    ToLog.write_basic("Update Finished")
-    await callback_manager.send_finish_callback_async("Update Finished")
 
 
 async def update_as_task_in_bulks(update_config: UpdateConfig, **kwargs):

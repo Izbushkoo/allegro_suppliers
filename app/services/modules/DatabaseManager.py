@@ -1,4 +1,3 @@
-import os
 from contextlib import asynccontextmanager
 import asyncio
 from typing import List, Dict
@@ -149,47 +148,6 @@ class MongoBaseManager:
                     await asyncio.sleep(2 ** attempt)
 
 
-async def fetch_data_from_db(supplier, allegro_update):
-    client = AsyncIOMotorClient(base_uri)
-    supplier_id = supplier_database_id[supplier]
-    try:
-        database = client[base_db_name]
-        collection = database[base_db_collection]
-
-        query = {
-            "groups": supplier_id,
-            "allegro_we_sell_it": allegro_update
-        }
-
-        projection = {"allegro_oferta_id": 1, "supplier_sku": 1, "_id": 0}
-        documents = collection.find(query, projection)
-
-        items_array = await documents.to_list(length=None)
-        return items_array
-    finally:
-        client.close()
-
-
-def fetch_data_from_db_sync(supplier, allegro_update):
-    client = MongoClient(base_uri)
-    supplier_id = supplier_database_id[supplier]
-    try:
-        database = client[base_db_name]
-        collection = database[base_db_collection]
-
-        query = {
-            "groups": supplier_id,
-            "allegro_we_sell_it": allegro_update
-        }
-        projection = {"allegro_oferta_id": 1, "supplier_sku": 1, "_id": 0}
-        documents = collection.find(query, projection)
-
-        items_array = list(documents)
-        return items_array
-    finally:
-        client.close()
-
-
 def add_fields(fields: Dict):
     MONGO_URI = "mongodb+srv://BAS:BAS2023_@cluster0.tsfucjd.mongodb.net/?retryWrites=true&w=majority"
     DB_NAME = "SuppliersSkuMap"
@@ -235,34 +193,6 @@ async def update_items_by_sku(supplier, skus):
     finally:
         client.close()
 
-
-async def update_items_by_allegro_id(supplier, allegro_ids):
-    if not supplier or not allegro_ids or len(allegro_ids) == 0:
-        ToLog.write_basic("Supplier or IDs not provided")
-        return
-
-    supplier_id = supplier_database_id[supplier]
-
-    client = AsyncIOMotorClient(uri)
-    try:
-        database = client[db_name]
-        collection = database[db_collection]
-
-        filter_ = {
-            "groups": supplier_id,
-            "allegro_oferta_id": {"$in": allegro_ids}
-        }
-        # print(filter_)
-        update = {
-            "$set": {"allegro_we_update_it": False}
-        }
-        result = await collection.update_many(filter_, update)
-        # print(result)
-        ToLog.write_basic(f"{result.modified_count} document(s) was/were updated.")
-    except Exception as error:
-        ToLog.write_error(f"Error updating documents: {error}")
-    finally:
-        client.close()
 
 MongoManager = MongoBaseManager()
 

@@ -13,10 +13,9 @@ from apscheduler.events import EVENT_JOB_ERROR
 from app.api import deps
 from app.utils import serialize_data, deserialize_data, EscapedManager
 from app.api.v1.routers.allegro_offerta_update import update_as_task_in_bulks
-from app.services.updates import get_all_data, fetch_and_update_allegro, fetch_data_from_db_sync, \
-    fetch_and_update_allegro_sync, get_all_data_sync
+from app.services.updates import get_all_data
 from app.schemas.pydantic_models import UpdateConfig
-from app.services.allegro_token import get_token_by_id, get_token_by_id_sync
+from app.services.allegro_token import get_token_by_id
 from app.loggers import ToLog
 
 redis_client = redis.StrictRedis(host="redis_suppliers", port=6379, db=0)
@@ -148,60 +147,6 @@ async def stop_task(user_id: str, update_config: UpdateConfig):
         raise
 
 
-async def update_supplier(supplier, update_config: UpdateConfig):
-
-    database = deps.AsyncSessLocal()
-    allegro_token = await get_token_by_id(database, update_config.allegro_token_id)
-    multiplier = update_config.multiplier
-    oferta_ids_to_process = update_config.oferta_ids_to_process
-
-    filtered_objects = await get_all_data(supplier, True, multiplier)
-    await fetch_and_update_allegro(
-        database,
-        filtered_objects,
-        allegro_token,
-        oferta_ids_to_process=oferta_ids_to_process,
-    )
-
-    ToLog.write_basic("Update Finished")
-
-
-def update_supplier_sync(supplier, update_config: UpdateConfig):
-
-    database = deps.SessionLocal()
-    allegro_token = get_token_by_id_sync(database, update_config.allegro_token_id)
-    multiplier = update_config.multiplier
-    oferta_ids_to_process = update_config.oferta_ids_to_process
-
-    filtered_objects = get_all_data_sync(supplier, True, multiplier)
-    fetch_and_update_allegro_sync(
-        database,
-        filtered_objects,
-        allegro_token,
-        oferta_ids_to_process=oferta_ids_to_process,
-    )
-
-    ToLog.write_basic("Update Finished")
-
-
-def update_suppliers_sync(suppliers_list, update_config: UpdateConfig):
-    database = deps.SessionLocal()
-    allegro_token = get_token_by_id_sync(database, update_config.allegro_token_id)
-    multiplier = update_config.multiplier
-    oferta_ids_to_process = update_config.oferta_ids_to_process
-
-    for supplier in suppliers_list:
-        filtered_objects = get_all_data_sync(supplier, True, multiplier)
-        fetch_and_update_allegro_sync(
-            database,
-            filtered_objects,
-            allegro_token,
-            oferta_ids_to_process=oferta_ids_to_process,
-        )
-
-    ToLog.write_basic("Update Finished")
-
-
 async def get_single_job(job_id: str):
 
     job = scheduler.get_job(job_id)
@@ -280,8 +225,6 @@ def define_trigger(trigger_string: str):
         hours = match.group(1)
         minutes = match.group(2)
         return f"{hours}:{minutes}"
-
-
 
 
 scheduler.add_listener(job_error_listener, EVENT_JOB_ERROR)

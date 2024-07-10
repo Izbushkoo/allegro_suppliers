@@ -4,7 +4,6 @@ from starlette.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
 from arq.connections import create_pool, RedisSettings
-import aioredis
 
 from app.api.v1.api import api_router as api_router_v1
 from app.core.config import settings
