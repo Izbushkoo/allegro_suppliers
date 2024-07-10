@@ -12,34 +12,12 @@ import requests
 
 from app.loggers import ToLog
 from app.utils import EscapedManager
-from app.schemas.pydantic_models import CallbackManager, OffersRequest, DeleteOffersRequest
+from app.schemas.pydantic_models import CallbackManager, OffersRequest, UpdateOffersRequest
 from app.services.modules.DatabaseManager import MongoManager
 
 
 limits = httpx.Limits(max_connections=500, max_keepalive_connections=100)
 timeout = httpx.Timeout(20.0, connect=5.0)
-
-
-
-async def get_all_found_offers(offers_request: OffersRequest, access_token: str):
-
-    all_offers = []
-    result = await get_page_offers(offers_request, access_token, 1)
-    total = result.get("totalCount")
-    ToLog.write_basic(f"Current total for request {total}")
-    current_total = 0
-
-    while current_total < total:
-        bulk_offers = await get_page_offers(offers_request, access_token, limit=500, offset=current_total)
-        current_total += bulk_offers["count"]
-        required_data = list(map(lambda x: {
-            "name": x["name"],
-            "id": x["id"]
-        }, bulk_offers["offers"]))
-        all_offers += required_data
-        ToLog.write_basic(f"Got {current_total} offers from {total}")
-
-    return all_offers
 
 
 async def get_page_offers(offers_request, access_token):
@@ -51,8 +29,7 @@ async def get_page_offers(offers_request, access_token):
         "Accept": "application/vnd.allegro.public.v1+json",
     }
     params = {
-        **offers_request.model_dump(),
-        "publication.status": "ACTIVE"
+        **offers_request.model_dump(by_alias=True),
         # "limit": limit,
         # "offset": offset
     }

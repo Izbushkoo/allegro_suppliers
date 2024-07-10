@@ -17,7 +17,7 @@ from app.services.modules.AlegroApiManager import get_page_offers, update_offers
 
 from app.services.modules.DatabaseManager import MongoManager
 from app.core.bg_task_wrapper import TaskWrapper
-from app.schemas.pydantic_models import UpdateConfig, CallbackManager, OffersRequest, DeleteOffersRequest
+from app.schemas.pydantic_models import UpdateConfig, CallbackManager, OffersRequest, UpdateOffersRequest
 from app.services.allegro_token import get_token_by_id
 from app.loggers import ToLog
 
@@ -123,16 +123,16 @@ async def get_offers_by_name(request: Request, offers_request: OffersRequest,
     return result
 
 
-@router.post("/delete_offers_from_map")
-async def delete_from_map(request: Request, delete_offers_request: DeleteOffersRequest,
+@router.patch("/update_offers_status")
+async def delete_from_map(request: Request, update_offers_request: UpdateOffersRequest,
                           bg_tasks: BackgroundTasks, database: AsyncSession = Depends(deps.get_db_async)):
 
     callback_manager = CallbackManager(
-        url=delete_offers_request.callback_url,
-        resource_id=delete_offers_request.resource_id
+        url=update_offers_request.callback_url,
+        resource_id=update_offers_request.resource_id
     )
     ToLog.write_access(f"Access to delete offers with request: {await request.json()}")
-    allegro_token = await get_token_by_id(database, delete_offers_request.token_id)
+    allegro_token = await get_token_by_id(database, update_offers_request.token_id)
 
     try:
         token = await check_token(database, allegro_token)
@@ -142,31 +142,39 @@ async def delete_from_map(request: Request, delete_offers_request: DeleteOffersR
     else:
         access_token = token.access_token
     try:
-        await MongoManager.set_we_sell_to_false(delete_offers_request.oferta_ids)
+        await MongoManager.set_we_sell_to(
+            update_offers_request.oferta_ids,
+            True if update_offers_request.action == "ACTIVATE" else False
+        )
     except Exception as e:
-        ToLog.write_error(f"Error during '.set_we_sell_to_false()' from Mongo map {e}")
+        ToLog.write_error(f"Error during '.set_we_sell_to_...()' from Mongo map {e}")
     else:
         await callback_manager.send_ok_callback_async(
             f"Предложения были успешно обновлены 'allegro_we_sell_it': False в Mongo Map")
         ToLog.write_basic(f"Предложения были успешно обновлены 'allegro_we_sell_it': False в Mongo Map")
 
     bg_tasks.add_task(
-        TaskWrapper(task=deactivate_on_allegro_as_task).run_task(
-            delete_offers_request=delete_offers_request,
+        TaskWrapper(task=update_status_on_allegro_as_task).run_task(
+            delete_offers_request=update_offers_request,
             access_token=access_token
         )
     )
-    return JSONResponse({"status": "OK", "message": "Deactivate task started"})
+    return JSONResponse({"status": "OK", "message": "Activate/Deactivate task started"})
 
 
-async def deactivate_on_allegro_as_task(delete_offers_request: DeleteOffersRequest, access_token: str):
+async def update_status_on_allegro_as_task(update_offers_request: UpdateOffersRequest, access_token: str):
     callback_manager = CallbackManager(
-        url=delete_offers_request.callback_url,
-        resource_id=delete_offers_request.resource_id
+        url=update_offers_request.callback_url,
+        resource_id=update_offers_request.resource_id
     )
-    offers = [{"id": item} for item in delete_offers_request.oferta_ids]
-    await update_offers_status(access_token, offers, "END", callback_manager)
-    await callback_manager.send_finish_callback_async("Деактивация завершена")
+    if update_offers_request.action in ["ACTIVATE", "END"]:
+        offers = [{"id": item} for item in update_offers_request.oferta_ids]
+        await update_offers_status(access_token, offers, update_offers_request.action, callback_manager)
+        await callback_manager.send_finish_callback_async("Завершено")
+    else:
+        await callback_manager.send_error_callback_async(
+            f"Действие '{update_offers_request.action}' недопустимо. Не выполнено."
+        )
 
 
 async def update_as_task(update_config: UpdateConfig):

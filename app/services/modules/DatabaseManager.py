@@ -78,14 +78,14 @@ class MongoBaseManager:
             }
             return await collection.delete_many(query)
 
-    async def set_we_sell_to_false(self, allegro_ids: List[str | int]):
+    async def set_we_sell_to(self, allegro_ids: List[str | int], to_set_value: bool = False):
 
         async with self._connect() as db_manager:
             database = db_manager[base_db_name]
             collection = database[base_db_collection]
             query = {
                 "$set": {
-                    "allegro_we_sell_it": False,
+                    "allegro_we_sell_it": to_set_value,
                 }
             }
             filter_ = {

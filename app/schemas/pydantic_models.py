@@ -46,17 +46,20 @@ class InitializeAuth(BaseModel):
 
 
 class OffersRequest(BaseModel):
+
     name: str
     token_id: str = Field(exclude=True)
+    publication_status: Optional[str] = Field(default="ACTIVE", alias="publication.status")
     limit: int = Field(default=500)
     offset: int = Field(default=0)
 
 
-class DeleteOffersRequest(BaseModel):
+class UpdateOffersRequest(BaseModel):
     token_id: str
     oferta_ids: List[str]
     resource_id: Optional[str] = Field(default=None)
     callback_url: Optional[str] = Field(default=None)
+    action: Optional[str] = Field(default="ACTIVATE")
 
 
 class ConnectionManager(BaseModel):
