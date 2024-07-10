@@ -84,7 +84,22 @@ def extract_and_calculate_stock(xml_stock):
         # Если преобразование не удалось, устанавливаем значение 0
         stock = 0
     # Ограничиваем значение от 0 до 100
-    return max(min(stock, 100), 0)
+    return max(stock, 0)
+
+
+def extract_and_calculate_weight(xml_weight, supplier):
+    # Заменяем запятую на точку
+    normalized = xml_weight.replace(',', '.')
+    try:
+        weight = float(normalized)
+    except ValueError:
+        weight = "N/A"
+    else:
+        if supplier not in ["rekman"]:
+            weight *= 1000
+        if weight == 0:
+           weight = "N/A"
+    return weight
 
 
 def format_ean(ean):
@@ -185,6 +200,38 @@ def filter_json_object_to_array_of_objects(supplier, json_file, database_items, 
             'handlingTime': handling_time,
             'category': category
         })
+
+    return filtered_objects
+
+
+def filter_json_object_to_array_of_objects_for_adding_to_mongo_map(supplier, json_file, database_items, multiplier=1):
+    settings = supplier_settings[supplier]
+
+    products_path = settings['xmlPath']['products']
+    weight_path = settings['xmlPath']['weight']
+    sku_path = settings['xmlPath']['sku']
+
+    all_products = by_string(json_file, products_path)
+
+    product_map = {by_string(product, sku_path): product for product in all_products}
+
+    filtered_objects = {}
+    for item in database_items:
+        sku = item['supplier_sku']
+        product = product_map.get(sku)
+
+        if not product:
+            # filtered_objects.append({
+            #     'allegro_offerta_id': item['allegro_oferta_id'],
+            #     'weight': "N/A"
+            # })
+            continue
+
+        weight_string = str(by_string(product, weight_path))
+
+        weight_value = extract_and_calculate_weight(weight_string, supplier)
+
+        filtered_objects[item['allegro_oferta_id']] = weight_value
 
     return filtered_objects
 

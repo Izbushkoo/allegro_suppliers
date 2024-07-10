@@ -11,7 +11,7 @@ from pydantic import BaseModel
 
 from app.api import deps
 from app.services.updates import get_all_data, fetch_and_update_allegro, \
-    fetch_and_update_allegro_bulks
+    fetch_and_update_allegro_bulks, get_all_data_current_test
 from app.services.modules.APITokenManager import check_token
 from app.services.modules.AlegroApiManager import get_page_offers, update_offers_status
 
@@ -35,12 +35,13 @@ supplier_name = {
 }
 
 
-@ws_router.post("/test")
+@router.get("/test")
 async def update_suppliers_test_parse(supplier: str):
-    fil_obj = await get_all_data(supplier, True, 1)
+    fil_obj = await get_all_data_current_test(supplier)
 
     ToLog.write_basic("succsess")
-    return fil_obj[-1]
+
+    return list(fil_obj.items())[-1]
 
 
 # @router.post("/update")
@@ -160,6 +161,7 @@ async def delete_from_map(request: Request, update_offers_request: UpdateOffersR
             access_token=access_token
         )
     )
+
     return JSONResponse({"status": "OK", "message": "Activate/Deactivate task started"})
 
 

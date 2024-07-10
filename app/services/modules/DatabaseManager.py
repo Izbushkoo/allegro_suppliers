@@ -4,7 +4,7 @@ import asyncio
 from typing import List, Dict
 
 from motor.motor_asyncio import AsyncIOMotorClient
-from pymongo import MongoClient
+from pymongo import MongoClient, UpdateOne
 
 from app.core.config import settings
 from app.loggers import ToLog
@@ -35,7 +35,9 @@ class MongoBaseManager:
 
     @asynccontextmanager
     async def _connect(self) -> AsyncIOMotorClient:
-        client = AsyncIOMotorClient(self.uri)
+        client = AsyncIOMotorClient(
+            self.uri
+        )
         try:
             yield client
         finally:
@@ -94,6 +96,57 @@ class MongoBaseManager:
                 }
             }
             return await collection.update_many(filter_, query)
+
+    async def set_weight(self, allegro_id, weight: float | int):
+        """Устанавливает значение веса для записи с заданным 'allegro_oferta_id'"""
+        async with self._connect() as db_manager:
+            database = db_manager[base_db_name]
+            collection = database[base_db_collection]
+            query = {
+                "$set": {
+                    "weight": weight
+                }
+            }
+            filter_ = {
+                "allegro_oferta_id": allegro_id
+            }
+            for attempt in range(5):
+                try:
+                    return await collection.update_one(filter_, query)
+                except Exception as err:
+                    ToLog.write_basic(f"{err}")
+                    if attempt == 4:
+                        raise
+                    await asyncio.sleep(2 ** attempt)
+
+    async def set_weight_bulks(self, weights: Dict):
+        """Аргумент 'weights - словарь, где ключ - allegro_oferta_id, значение - weight"""
+        async with self._connect() as db_manager:
+            database = db_manager[base_db_name]
+            collection = database[base_db_collection]
+
+            bulk_updates = []
+            for item in weights.items():
+                bulk_updates.append(
+                    UpdateOne(
+                        {"allegro_oferta_id": item[0]},
+                        {"$set": {
+                            "weight": item[1]
+                        }}
+                    )
+                )
+
+            for attempt in range(5):
+                try:
+                    if bulk_updates:
+                        return await collection.bulk_write(bulk_updates, ordered=False)
+                    else:
+                        ToLog.write_basic("No documents to update.")
+                except Exception as err:
+                    ToLog.write_basic(f"{err}")
+                    if attempt == 4:
+                        raise
+                    await asyncio.sleep(2 ** attempt)
 
 
 async def fetch_data_from_db(supplier, allegro_update):

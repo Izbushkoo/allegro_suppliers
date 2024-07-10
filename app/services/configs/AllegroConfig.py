@@ -9,7 +9,8 @@ supplier_settings = {
             "vat": "vat",
             "stock": "availability",
             "ean": "ean",
-            "category": "category"
+            "category": "category",
+            "weight": "weight"
         },
         "priceRanges": [
             {"maxPrice": 10, "factor": "add", "value": 12},
@@ -48,7 +49,8 @@ supplier_settings = {
             "vat": "VAT",
             "stock": "STAN_NA_MAGAZYNIE",
             "ean": "EAN",
-            "category": "KATEGORIE"
+            "category": "KATEGORIE",
+            "weight": "WAGA"
         },
         "priceRanges": [
             {"maxPrice": 10, "factor": "add", "value": 12},
@@ -87,7 +89,8 @@ supplier_settings = {
             "vat": "vat",
             "stock": "@stock",
             "ean": "attrs.ean",
-            "category": "cat"
+            "category": "cat",
+            "weight": "@weight"
 
         },
         "priceRanges": [
@@ -127,7 +130,8 @@ supplier_settings = {
             "vat": "PODATEK",
             "stock": "PRODUCTS_QUANTITY",
             "ean": "KOD_KRESKOWY",
-            "category": "CATEGORY_NAME"
+            "category": "CATEGORY_NAME",
+            "weight": "WAGA"
         },
         "priceRanges": [
             {"maxPrice": 10, "factor": "add", "value": 12},
@@ -166,7 +170,8 @@ supplier_settings = {
             "vat": "vat",
             "stock": "qty",
             "ean": "ean",
-            "category": ""
+            "category": "",
+            "weight": "weight"
         },
         "priceRanges": [
             {"maxPrice": 10, "factor": "add", "value": 22},

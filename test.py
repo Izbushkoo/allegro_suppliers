@@ -85,6 +85,7 @@ def decode_token(token):
     print(decoded)
     print(type(decoded))
 
+
 def get_data_for_rekman():
     url = "https://api.rekman.com.pl/cennik.php?email=aradzevich&password=GeVIOj&TylkoNaStanie=TRUE"
     response = requests.get(url)
