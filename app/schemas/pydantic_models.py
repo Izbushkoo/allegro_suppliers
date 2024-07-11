@@ -45,6 +45,25 @@ class InitializeAuth(BaseModel):
     callback_url: Optional[str | None] = Field(default=None)
 
 
+class OffersRequest(BaseModel):
+    model_config = ConfigDict(
+        populate_by_name=True
+    )
+    name: str
+    token_id: str = Field(exclude=True)
+    publication_status: Optional[str] = Field(default="ACTIVE", alias="publication.status")
+    limit: int = Field(default=500)
+    offset: int = Field(default=0)
+
+
+class UpdateOffersRequest(BaseModel):
+    token_id: str
+    oferta_ids: List[str]
+    resource_id: Optional[str] = Field(default=None)
+    callback_url: Optional[str] = Field(default=None)
+    action: Optional[str] = Field(default="ACTIVATE")
+
+
 class ConnectionManager(BaseModel):
 
     model_config = ConfigDict(

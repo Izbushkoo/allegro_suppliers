@@ -4,10 +4,8 @@ from starlette.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
 from arq.connections import create_pool, RedisSettings
-from arq.cron import CronJob
 
 from app.api.v1.api import api_router as api_router_v1
-from app.services.scheduler_service.arq_tasks import WorkerSettings
 from app.core.config import settings
 from app.loggers import setup_loggers
 from app.context import ctx

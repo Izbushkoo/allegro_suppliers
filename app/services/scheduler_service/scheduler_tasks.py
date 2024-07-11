@@ -11,11 +11,11 @@ from apscheduler.jobstores.redis import RedisJobStore
 from apscheduler.events import EVENT_JOB_ERROR
 
 from app.api import deps
+from app.utils import serialize_data, deserialize_data, EscapedManager
 from app.api.v1.routers.allegro_offerta_update import update_as_task_in_bulks
-from app.services.updates import get_all_data, fetch_and_update_allegro, fetch_data_from_db_sync, \
-    fetch_and_update_allegro_sync, get_all_data_sync
+from app.services.updates import get_all_data
 from app.schemas.pydantic_models import UpdateConfig
-from app.services.allegro_token import get_token_by_id, get_token_by_id_sync
+from app.services.allegro_token import get_token_by_id
 from app.loggers import ToLog
 
 redis_client = redis.StrictRedis(host="redis_suppliers", port=6379, db=0)
@@ -58,62 +58,6 @@ def job_error_listener(event):
         )
 
 
-async def add_task(user_id: str, routine: str, update_config: UpdateConfig):
-
-    suppliers_list = update_config.suppliers_to_update if update_config.suppliers_to_update else list(
-        supplier_config.keys()
-    )
-    ToLog.write_basic(f"{suppliers_list}")
-    ofertas = update_config.oferta_ids_to_process
-
-    if not ofertas:
-        ofertas = []
-
-    oferta_ids_serialized = serialize_data(ofertas)
-    tasks = []
-    for supplier in suppliers_list:
-        task_id = supplier + f"__{user_id}__{update_config.allegro_token_id}"
-        redis_client.set(task_id, oferta_ids_serialized)
-        if not scheduler.get_job(supplier):
-            try:
-                if routine == "4_hours":
-                    scheduler.add_job(
-                        update_supplier_sync, trigger="cron", id=task_id,
-                        replace_existing=True,
-                        kwargs={"supplier": supplier, "update_config": update_config},
-                        hour="*/4",
-                        # minute="*/1"
-                    )
-                else:
-                    hour, minute = routine.split(":")
-                    scheduler.add_job(
-                        update_supplier_sync, trigger="cron", id=task_id,
-                        replace_existing=True,
-                        kwargs={"supplier": supplier, "update_config": update_config},
-                        hour=hour,
-                        minute=minute
-                    )
-            except Exception:
-                pass
-            else:
-
-                database = deps.AsyncSessLocal()
-                allegro_token = await get_token_by_id(database, update_config.allegro_token_id)
-
-                to_append = {
-                    "supplier": supplier,
-                    "allegro_account": {
-                        "name": allegro_token.account_name,
-                        "token_id": allegro_token.id_
-                    },
-                    "routine": routine,
-                    "ofertas": ofertas
-                }
-
-                tasks.append(to_append)
-    return tasks
-
-
 async def add_tasks_as_one(user_id: str, routine: str, update_config: UpdateConfig, **kwargs):
 
     semaphore = kwargs.get("semaphore")
@@ -127,6 +71,9 @@ async def add_tasks_as_one(user_id: str, routine: str, update_config: UpdateConf
     if not ofertas:
         ofertas = []
 
+    database = deps.AsyncSessLocal()
+    allegro_token = await get_token_by_id(database, update_config.allegro_token_id)
+
     oferta_ids_serialized = serialize_data(ofertas)
     tasks = []
     task_id = "_".join(suppliers_list) + f"__{user_id}__{update_config.allegro_token_id}"
@@ -136,7 +83,6 @@ async def add_tasks_as_one(user_id: str, routine: str, update_config: UpdateConf
         if job.id.split("__")[2] == update_config.allegro_token_id:
             raise HTTPException(status_code=400, detail="Given account already used in another Job.")
 
-    redis_client.set(task_id, oferta_ids_serialized)
     try:
         if routine == "4_hours":
             scheduler.add_job(
@@ -158,6 +104,8 @@ async def add_tasks_as_one(user_id: str, routine: str, update_config: UpdateConf
     except Exception as err:
         ToLog.write_error(f"{err}")
     else:
+        redis_client.set(task_id, oferta_ids_serialized)
+        await EscapedManager.add_to_escaped(allegro_token.access_token, ofertas)
 
         database = deps.AsyncSessLocal()
         allegro_token = await get_token_by_id(database, update_config.allegro_token_id)
@@ -177,74 +125,26 @@ async def add_tasks_as_one(user_id: str, routine: str, update_config: UpdateConf
     return tasks
 
 
-def stop_task(user_id: str, update_config: UpdateConfig):
+async def stop_task(user_id: str, update_config: UpdateConfig):
 
     suppliers_list = update_config.suppliers_to_update if update_config.suppliers_to_update else list(
         supplier_config.keys()
     )
+
+    database = deps.AsyncSessLocal()
+    allegro_token = await get_token_by_id(database, update_config.allegro_token_id)
 
     ToLog.write_basic(f"{suppliers_list}")
     try:
         task_id = "_".join(suppliers_list) + f"__{user_id}__{update_config.allegro_token_id}"
         if scheduler.get_job(task_id):
             scheduler.remove_job(task_id)
+            this_ofertas_serialized = redis_client.get(task_id)
+            this_ofertas_deserialized = deserialize_data(this_ofertas_serialized)
+            await EscapedManager.remove_form_escaped(allegro_token.access_token, this_ofertas_deserialized)
             redis_client.delete(task_id)
     except Exception:
         raise
-
-
-async def update_supplier(supplier, update_config: UpdateConfig):
-
-    database = deps.AsyncSessLocal()
-    allegro_token = await get_token_by_id(database, update_config.allegro_token_id)
-    multiplier = update_config.multiplier
-    oferta_ids_to_process = update_config.oferta_ids_to_process
-
-    filtered_objects = await get_all_data(supplier, True, multiplier)
-    await fetch_and_update_allegro(
-        database,
-        filtered_objects,
-        allegro_token,
-        oferta_ids_to_process=oferta_ids_to_process,
-    )
-
-    ToLog.write_basic("Update Finished")
-
-
-def update_supplier_sync(supplier, update_config: UpdateConfig):
-
-    database = deps.SessionLocal()
-    allegro_token = get_token_by_id_sync(database, update_config.allegro_token_id)
-    multiplier = update_config.multiplier
-    oferta_ids_to_process = update_config.oferta_ids_to_process
-
-    filtered_objects = get_all_data_sync(supplier, True, multiplier)
-    fetch_and_update_allegro_sync(
-        database,
-        filtered_objects,
-        allegro_token,
-        oferta_ids_to_process=oferta_ids_to_process,
-    )
-
-    ToLog.write_basic("Update Finished")
-
-
-def update_suppliers_sync(suppliers_list, update_config: UpdateConfig):
-    database = deps.SessionLocal()
-    allegro_token = get_token_by_id_sync(database, update_config.allegro_token_id)
-    multiplier = update_config.multiplier
-    oferta_ids_to_process = update_config.oferta_ids_to_process
-
-    for supplier in suppliers_list:
-        filtered_objects = get_all_data_sync(supplier, True, multiplier)
-        fetch_and_update_allegro_sync(
-            database,
-            filtered_objects,
-            allegro_token,
-            oferta_ids_to_process=oferta_ids_to_process,
-        )
-
-    ToLog.write_basic("Update Finished")
 
 
 async def get_single_job(job_id: str):
@@ -325,22 +225,6 @@ def define_trigger(trigger_string: str):
         hours = match.group(1)
         minutes = match.group(2)
         return f"{hours}:{minutes}"
-
-
-def serialize_data(data):
-    # Преобразуем данные в JSON
-    json_data = json.dumps(data)
-    # Кодируем JSON в Base64
-    encoded_data = base64.urlsafe_b64encode(json_data.encode()).decode()
-    return encoded_data
-
-
-def deserialize_data(encoded_data):
-    # Декодируем Base64 обратно в JSON
-    json_data = base64.urlsafe_b64decode(encoded_data).decode()
-    # Преобразуем JSON обратно в данные
-    data = json.loads(json_data)
-    return data
 
 
 scheduler.add_listener(job_error_listener, EVENT_JOB_ERROR)
