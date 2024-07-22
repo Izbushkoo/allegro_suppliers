@@ -173,7 +173,8 @@ def filter_json_object_to_array_of_objects(supplier, json_file, database_items, 
                 'price': 7.77,
                 'ean': 404,
                 'handling_time': handling_time,
-                'category': 'N/A'
+                'category': 'N/A',
+                'weight': item['weight']
             })
             continue
 
@@ -198,7 +199,8 @@ def filter_json_object_to_array_of_objects(supplier, json_file, database_items, 
             'price': final_price,
             'ean': formatted_ean,
             'handlingTime': handling_time,
-            'category': category
+            'category': category,
+            'weight': item['weight']
         })
 
     return filtered_objects

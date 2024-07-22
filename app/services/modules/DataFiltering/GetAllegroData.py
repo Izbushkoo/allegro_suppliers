@@ -3,7 +3,8 @@ def filter_supplier_data_for_allegro(filtered_objects):
         {
             "id": item['allegro_offerta_id'],
             "stock": item['stock'],
-            "price": item['price']
+            "price": item['price'],
+            "weight": item['weight']
         }
         for item in filtered_objects
     ]

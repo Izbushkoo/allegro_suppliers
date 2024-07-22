@@ -92,7 +92,6 @@ async def update_offers_in_bulks(offers_array, access_token: str, callback_manag
                             f"Предложение {id_} обновляется в одной из Cron-Job"
                         )
                         continue
-
                     tasks.append(asyncio.create_task(process_offer(
                         offer, client, headers, callback_manager, 
                         array_with_price_errors_to_update, array_to_end, 
@@ -144,6 +143,7 @@ async def process_offer(offer, client, headers, callback_manager,
     id_ = offer.get('id')
     stock = offer.get('stock')
     price = offer.get('price')
+    # weight = offer.get("weight")
 
     if stock == 0:
         array_to_end.append(offer)
@@ -161,6 +161,23 @@ async def process_offer(offer, client, headers, callback_manager,
             "unit": "UNIT",
         },
     }
+
+    # ToLog.write_basic(f"type {type(weight)}, value {weight}")
+    #
+    # if isinstance(weight, (int, float)) and weight != "N/A":
+    #     data.update(
+    #         {
+    #             "parameters": [
+    #                 {
+    #                     "id": 226262,
+    #                     # "name": "Waga",
+    #                     "values": [(weight / 1000)]
+    #
+    #                 }
+    #             ]
+    #         }
+    #     )
+    #     ToLog.write_basic("data updated with weight")
 
     url = f"https://api.allegro.pl/sale/product-offers/{id_}"
     retries = 0
@@ -246,10 +263,12 @@ async def handle_errors(response, offer, array_to_end, array_with_price_errors_t
                     {"id": offer.get('id'), "price": new_price, "stock": offer.get('stock')})
             else:
                 pass
+
         else:
             ToLog.write_basic(
                 f"Предложение {offer.get('id')} получило ошибку {status_code}: '{error_object.get('userMessage')}'\n"
-                f"Allegro error code '{error_object.get('code')}'"
+                f"Allegro error code '{error_object.get('code')}' and message '{error_object.get('message')}'"
+                f"Full error: {error_object}"
             )
             await callback_manager.send_ok_callback_async(
                 f"Предложение {offer.get('id')} получило ошибку {status_code}: {error_object.get('userMessage')}. "
@@ -313,6 +332,7 @@ async def update_offers(offers_array, access_token: str, callback_manager: Callb
                         "available": stock,
                         "unit": "UNIT",
                     },
+
                 }
 
                 url = f"https://api.allegro.pl/sale/product-offers/{id_}"

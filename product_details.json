@@ -1,0 +1,276 @@
+{
+    "id": "dd2bca59-ee64-42c4-85b1-be29256b61d7",
+    "name": "Integra Boost Terpene Essentials Humulene 4G 62%",
+    "category": {
+        "id": "126200",
+        "path": [
+            {
+                "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                "name": "Allegro"
+            },
+            {
+                "id": "5",
+                "name": "Dom i Ogr\u00f3d"
+            },
+            {
+                "id": "1532",
+                "name": "Ogr\u00f3d"
+            },
+            {
+                "id": "126188",
+                "name": "Nawozy i preparaty"
+            },
+            {
+                "id": "126200",
+                "name": "\u015arodki ochrony ro\u015blin"
+            }
+        ],
+        "similar": [
+            {
+                "id": "316237",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "5",
+                        "name": "Dom i Ogr\u00f3d"
+                    },
+                    {
+                        "id": "1532",
+                        "name": "Ogr\u00f3d"
+                    },
+                    {
+                        "id": "126188",
+                        "name": "Nawozy i preparaty"
+                    },
+                    {
+                        "id": "316237",
+                        "name": "\u015arodki do kompostowania"
+                    }
+                ]
+            },
+            {
+                "id": "126197",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "5",
+                        "name": "Dom i Ogr\u00f3d"
+                    },
+                    {
+                        "id": "1532",
+                        "name": "Ogr\u00f3d"
+                    },
+                    {
+                        "id": "126188",
+                        "name": "Nawozy i preparaty"
+                    },
+                    {
+                        "id": "126197",
+                        "name": "Nawozy"
+                    }
+                ]
+            },
+            {
+                "id": "320125",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "5",
+                        "name": "Dom i Ogr\u00f3d"
+                    },
+                    {
+                        "id": "1532",
+                        "name": "Ogr\u00f3d"
+                    },
+                    {
+                        "id": "126188",
+                        "name": "Nawozy i preparaty"
+                    },
+                    {
+                        "id": "320125",
+                        "name": "Hydro\u017cele"
+                    }
+                ]
+            }
+        ]
+    },
+    "parameters": [
+        {
+            "id": "248801",
+            "name": "Producent",
+            "valuesLabels": [
+                "inna (Integra)"
+            ],
+            "valuesIds": [
+                "248801_943043"
+            ],
+            "values": [
+                "Integra"
+            ],
+            "unit": null,
+            "options": {
+                "identifiesProduct": true
+            }
+        },
+        {
+            "id": "225693",
+            "name": "EAN (GTIN)",
+            "valuesLabels": [
+                "0802359002021",
+                "802359002021"
+            ],
+            "values": [
+                "0802359002021",
+                "802359002021"
+            ],
+            "unit": null,
+            "options": {
+                "identifiesProduct": true,
+                "isGTIN": true
+            }
+        },
+        {
+            "id": "236342",
+            "name": "Forma",
+            "valuesLabels": [
+                "inna"
+            ],
+            "valuesIds": [
+                "236342_400266"
+            ],
+            "values": null,
+            "unit": null,
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "226262",
+            "name": "Waga",
+            "valuesLabels": [
+                "0,1500 kg"
+            ],
+            "values": [
+                "0.1500"
+            ],
+            "unit": "kg",
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "25168",
+            "name": "Zastosowanie",
+            "valuesLabels": [
+                "inne"
+            ],
+            "valuesIds": [
+                "25168_8192"
+            ],
+            "values": null,
+            "unit": null,
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "224017",
+            "name": "Kod producenta",
+            "valuesLabels": [
+                "5947-UNIW"
+            ],
+            "values": [
+                "5947-UNIW"
+            ],
+            "unit": null,
+            "options": {
+                "identifiesProduct": false
+            }
+        }
+    ],
+    "images": [
+        {
+            "url": "https://a.allegroimg.com/original/111c4a/7bc8e7a4429fb9768dce6489fd64"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/11e33a/6150ae574a00bcf694c26dfbdaad"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/1109c7/2e2503bc46be8e01fb297c0634b9"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/11db4c/186c743f472eaa77ef54cedd8944"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/11a789/9985c81849a381010bc8bc446a5f"
+        }
+    ],
+    "offerRequirements": {
+        "id": null,
+        "parameters": []
+    },
+    "description": {
+        "sections": [
+            {
+                "items": [
+                    {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/11e33a/6150ae574a00bcf694c26dfbdaad"
+                    },
+                    {
+                        "type": "TEXT",
+                        "content": "<h2>Regulator wilgotno\u015bci suszu Integra Boost Terpene HUMULENE 4 g</h2> <p>Regulator wilgoci w suszu Integra Boost Terpene Essentials.</p> <p><b>Dwukierunkowa formu\u0142a wzbogacona o izolaty terpenowe wykonane z surowc\u00f3w ro\u015blinnych.</b></p> <p>Terpen: HUMULEN - ziemisto-drzewno-korzenny aromat.</p> <p><b>Saszetki Integra Boost Terpene</b><b>uwalniaj\u0105 lub poch\u0142aniaj\u0105 wilgo\u0107 z materia\u0142u ro\u015blinnego.</b></p> <p>Pozwalaj\u0105 zachowa\u0107 \u015bwie\u017co\u015b\u0107, zapobiegaj\u0105 ulatnianiu si\u0119 skladnik\u00f3w aktywnych.</p> <p>Wype\u0142nij sw\u00f3j susz wybranym terpenem z potencjalnym dzia\u0142aniem prozdrowotnym.</p> <p>Jak u\u017cywa\u0107 saszetek Integra Boost Terpene:</p> <ol> <li>4 g Integra Boost Terpene przeznaczone s\u0105 do p\u00f3\u0142 uncji produktu (ok 14 g)</li> <li>W\u0142\u00f3\u017c saszetk\u0119 Integra Boost Terpene do suszu i zamknij w hermetycznym opakowaniu</li> <li>Pozostaw na 24-72 h</li> <li>Aby zapewni\u0107 sobie d\u0142ugotrwa\u0142\u0105 \u015bwie\u017co\u015b\u0107, wymie\u0144 opakowanie Boost Terpene Essentials na bezsmakowe opakowanie Boost 55% lub 62%.</li> </ol> <p><b>Wskaz\u00f3wka producenta:</b>&nbsp;po 1 u\u017cyciu przechowuj opakowanie Boost Terpene Essentials w hermetycznym pojemniku i u\u017cyj go jeszcze 2 razy.</p>"
+                    }
+                ]
+            },
+            {
+                "items": [
+                    {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/1109c7/2e2503bc46be8e01fb297c0634b9"
+                    }
+                ]
+            },
+            {
+                "items": [
+                    {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/11db4c/186c743f472eaa77ef54cedd8944"
+                    }
+                ]
+            },
+            {
+                "items": [
+                    {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/11e33a/6150ae574a00bcf694c26dfbdaad"
+                    }
+                ]
+            },
+            {
+                "items": [
+                    {
+                        "type": "TEXT",
+                        "content": "<p><b>Mo\u017cliwe efekty:</b></p> <ul> <li>Dzia\u0142a przeciwzapalnie, relaksuj\u0105co, koj\u0105co, uspokajaj\u0105co.</li> </ul> <p><b>Aromat:</b></p> <ul> <li>Chmiel i cytrusy z nut\u0105 pikantno\u015bci.</li> </ul> <p><b>Smak:</b></p> <ul> <li>Bogata ziemista baza z nutami ostrego chmielu</li> </ul> <p><b>Pochodzenie botaniczne:</b></p> <ul> <li>Chmiel, sza\u0142wia, \u017ce\u0144-sze\u0144, mi\u0119ta, imbir, li\u015b\u0107 laurowy, pomara\u0144cza, kolendra.</li> </ul> <p><b>Saszetka: 4 g</b></p>"
+                    }
+                ]
+            }
+        ]
+    },
+    "publication": {
+        "status": "LISTED"
+    },
+    "isDraft": false,
+    "aiCoCreatedContent": {
+        "paths": []
+    }
+}

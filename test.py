@@ -4,7 +4,7 @@ import jwt
 import requests
 
 
-access_token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiIxMDI3NTgyODAiLCJzY29wZSI6WyJhbGxlZ3JvOmFwaTpvcmRlcnM6cmVhZCIsImFsbGVncm86YXBpOmZ1bGZpbGxtZW50OnJlYWQiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOndyaXRlIiwiYWxsZWdybzphcGk6ZnVsZmlsbG1lbnQ6d3JpdGUiLCJhbGxlZ3JvOmFwaTpzYWxlOm9mZmVyczp3cml0ZSIsImFsbGVncm86YXBpOmJpbGxpbmc6cmVhZCIsImFsbGVncm86YXBpOmNhbXBhaWducyIsImFsbGVncm86YXBpOmRpc3B1dGVzIiwiYWxsZWdybzphcGk6YmlkcyIsImFsbGVncm86YXBpOnNhbGU6b2ZmZXJzOnJlYWQiLCJhbGxlZ3JvOmFwaTpzaGlwbWVudHM6d3JpdGUiLCJhbGxlZ3JvOmFwaTpvcmRlcnM6d3JpdGUiLCJhbGxlZ3JvOmFwaTphZHMiLCJhbGxlZ3JvOmFwaTpwYXltZW50czp3cml0ZSIsImFsbGVncm86YXBpOnNhbGU6c2V0dGluZ3M6d3JpdGUiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOnJlYWQiLCJhbGxlZ3JvOmFwaTpyYXRpbmdzIiwiYWxsZWdybzphcGk6c2FsZTpzZXR0aW5nczpyZWFkIiwiYWxsZWdybzphcGk6cGF5bWVudHM6cmVhZCIsImFsbGVncm86YXBpOnNoaXBtZW50czpyZWFkIiwiYWxsZWdybzphcGk6bWVzc2FnaW5nIl0sImFsbGVncm9fYXBpIjp0cnVlLCJpc3MiOiJodHRwczovL2FsbGVncm8ucGwiLCJleHAiOjE3MjA0NjU2OTEsImp0aSI6IjE1ZWQyNTA1LTQ3NjctNGFkNC04Yzk5LTJkMzAzMmZjOWFjMiIsImNsaWVudF9pZCI6IjdiNDFkOTE4ZDVlMDQ4NDE4NGRlMzE1ODIwMjkzODcxIn0.ppsXgf7REzJWcx5t--XvONNEZmG-5XSFT9JNi09NlabzhmdXnTbXXHDHG_S70_DGIJUOUhhmV8jXdHfJWaN1Ize9colqlV1a00i_l2cK8Ac537apa8Cub1VJxPZq5YKw5VW1G8T71OtKDInGXN-ttd1zt2m5ayc4A6RPvfOJC_HSxoG3M2q7Dh5vxf1XZVuuWpIHitzhN9fm6fdrzDvXz_Hyiv4mDGbNVvrUkeQsAKISugWhEo-prLa_B1xhUcDyu4tpqguxe5h2qh4FhjHWA9qroqWbew5-KhV_MWhFj4BeGAXM7GK6wQpFJJiDCwZFr2RqCJrSUZAyQ9Kq_BGmAg"
+access_token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiIxMDI3NTgyODAiLCJzY29wZSI6WyJhbGxlZ3JvOmFwaTpvcmRlcnM6cmVhZCIsImFsbGVncm86YXBpOmZ1bGZpbGxtZW50OnJlYWQiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOndyaXRlIiwiYWxsZWdybzphcGk6ZnVsZmlsbG1lbnQ6d3JpdGUiLCJhbGxlZ3JvOmFwaTpzYWxlOm9mZmVyczp3cml0ZSIsImFsbGVncm86YXBpOmJpbGxpbmc6cmVhZCIsImFsbGVncm86YXBpOmNhbXBhaWducyIsImFsbGVncm86YXBpOmRpc3B1dGVzIiwiYWxsZWdybzphcGk6YmlkcyIsImFsbGVncm86YXBpOnNhbGU6b2ZmZXJzOnJlYWQiLCJhbGxlZ3JvOmFwaTpzaGlwbWVudHM6d3JpdGUiLCJhbGxlZ3JvOmFwaTpvcmRlcnM6d3JpdGUiLCJhbGxlZ3JvOmFwaTphZHMiLCJhbGxlZ3JvOmFwaTpwYXltZW50czp3cml0ZSIsImFsbGVncm86YXBpOnNhbGU6c2V0dGluZ3M6d3JpdGUiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOnJlYWQiLCJhbGxlZ3JvOmFwaTpyYXRpbmdzIiwiYWxsZWdybzphcGk6c2FsZTpzZXR0aW5nczpyZWFkIiwiYWxsZWdybzphcGk6cGF5bWVudHM6cmVhZCIsImFsbGVncm86YXBpOnNoaXBtZW50czpyZWFkIiwiYWxsZWdybzphcGk6bWVzc2FnaW5nIl0sImFsbGVncm9fYXBpIjp0cnVlLCJpc3MiOiJodHRwczovL2FsbGVncm8ucGwiLCJleHAiOjE3MjE2NzIwOTYsImp0aSI6ImFjMTFhZjhkLTdjZjgtNDczMi1hZjAxLWI3ZTM2MDVmNzhmOSIsImNsaWVudF9pZCI6IjdiNDFkOTE4ZDVlMDQ4NDE4NGRlMzE1ODIwMjkzODcxIn0.sblMGt1SCfS2smG4Hnj2ZjYZdNxNd6d2H8TqX2FbeZKz_XcduhC4SOfO37CkqEYVMt7hxY4ZKmyQ53FZAmeqNV85Vv_QKsL9-MijRIVeSW0hCjnDsayUogDUGDvtg8mvNju8QAh8e1tzQHfF0gWPFu8N5448Fh26nsXKaOtaE9K6fSdgYE2UcO95Cw9QREMr9fd1U67NzNcZTl4Juhc9BQHJbW7QZMRriUzoxkWSONOKdLwEE6p1WrK3OVZ0GnanaUckrS0biIFlym7cID1m3DekV8_UxAbUeQF5hUWEU3JCemDLb_X59i8aqyIKBNSuFNcRL1JcoLLq2UuhdJ_HaQ"
 
 
 headers = {
@@ -91,4 +91,37 @@ def get_data_for_rekman():
     response = requests.get(url)
     print(response.text)
 
-get_data_for_rekman()
+
+def get_offers_with_missing_params():
+    url = "https://api.allegro.pl/sale/offers/unfilled-parameters"
+    params = {
+        "limit": 1000
+    }
+    response = requests.get(url, params=params, headers=headers)
+
+    with open("with_missing_params.json", "w") as file:
+        file.write(json.dumps(response.json(), indent=4))
+
+# get_offers_with_missing_params()
+
+
+def get_params_supported_by_category(cat_id):
+    url = f"https://api.allegro.pl/sale/categories/{cat_id}/parameters"
+
+    response = requests.get(url, headers=headers)
+    with open("params_supp_by_cat.json", "w") as file:
+        file.write(json.dumps(response.json(), indent=4))
+
+
+def get_product_details(product_id):
+
+    url = f"https://api.allegro.pl/sale/products/{product_id}"
+
+    response = requests.get(url, headers=headers)
+    with open("product_details.json", "w") as file:
+        file.write(json.dumps(response.json(), indent=4))
+
+# get_offer(13409953686)
+# get_params_supported_by_category(cat_id=126200)
+# get_offers_with_missing_params()
+get_product_details("dd2bca59-ee64-42c4-85b1-be29256b61d7")
