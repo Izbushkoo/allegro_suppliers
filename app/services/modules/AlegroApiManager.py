@@ -727,7 +727,7 @@ async def create_single_offer(product, access_token):
     new_params = json.dumps(params)
 
     async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
-        result = await client.post(url=url, headers=headers, json=new_params)
+        result = await client.post(url=url, headers=headers, data=new_params)
         result.raise_for_status()
     if result.status_code in [201, 202]:
         return result.json()
