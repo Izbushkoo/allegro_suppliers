@@ -263,6 +263,7 @@ async def process_complete_synchro_task(synchro_config: SynchronizeOffersRequest
         ToLog.write_basic(f"Added to Mongo {len(all_results)} documents")
         await MongoManager.append_bulks(all_results, synchro_config.supplier)
 
+    ToLog.write_basic(f"Synchronization Finished")
 
 
 
