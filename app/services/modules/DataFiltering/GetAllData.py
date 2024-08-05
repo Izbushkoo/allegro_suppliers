@@ -137,6 +137,60 @@ def by_string(json_obj, path):
     return current_obj
 
 
+def filter_for_supplier_items(supplier, json_file, multiplier=1):
+    settings = supplier_settings[supplier]
+
+    products_path = settings['xmlPath']['products']
+    sku_path = settings['xmlPath']['sku']
+    category_path = settings['xmlPath']['category']
+    weight_path = settings['xmlPath']['weight']
+    price_path = settings['xmlPath']['price']
+    is_apply_custom_multipliers = settings['applyCustomMultipliers']
+    is_apply_custom_multiplier = settings['applyMultiplier']
+    vat_path = settings['xmlPath']['vat']
+    stock_path = settings['xmlPath']['stock']
+    ean_path = settings['xmlPath']['ean']
+    price_ranges = settings['priceRanges']
+    is_vat_included = settings['isVatIncluded']
+
+    sku_prefix = settings['skuPrefix']
+
+    all_products = by_string(json_file, products_path)
+
+    product_map = {by_string(product, sku_path): product for product in all_products}
+
+    filtered_objects = []
+    for key, product in product_map.items():
+        sku = key
+
+        price_string = str(by_string(product, price_path))
+        vat_string = str(by_string(product, vat_path))
+        stock_string = str(by_string(product, stock_path))
+        ean_string = str(by_string(product, ean_path))
+
+        formatted_ean = format_ean(ean_string)
+        vat = extract_vat(vat_string, is_vat_included)
+        price = extract_price(price_string, vat, is_vat_included)
+        final_price = calculate_price(price, price_ranges, is_apply_custom_multipliers, is_apply_custom_multiplier,
+                                      supplier, sku, multiplier)
+        final_stock = extract_and_calculate_stock(stock_string)
+        final_sku = replace_polish_characters_in_sku(f"{sku_prefix}{sku}")
+
+        weight_string = str(by_string(product, weight_path))
+        weight_value = extract_and_calculate_weight(weight_string, supplier)
+
+        filtered_objects.append({
+            'supplier_sku': final_sku,
+            'supplier_prefix': sku_prefix,
+            'stock': final_stock,
+            'price': final_price,
+            'ean': formatted_ean,
+            'weight': weight_value
+        })
+
+    return filtered_objects
+
+
 # Final function
 def filter_json_object_to_array_of_objects(supplier, json_file, database_items, multiplier=1):
     settings = supplier_settings[supplier]
@@ -191,6 +245,7 @@ def filter_json_object_to_array_of_objects(supplier, json_file, database_items, 
         final_stock = extract_and_calculate_stock(stock_string)
         final_sku = replace_polish_characters_in_sku(f"{sku_prefix}{sku}")
         category = str(by_string(product, category_path))
+
 
         filtered_objects.append({
             'allegro_offerta_id': item['allegro_oferta_id'],

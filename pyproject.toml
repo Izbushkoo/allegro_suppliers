@@ -2,7 +2,7 @@
 name = "allegro_suppliers"
 version = "0.1.0"
 description = "Default description of the project!"
-authors = ["Izbushko izbushko@example.com"]
+authors = ["Izbushko <izbushko@example.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]

@@ -668,5 +668,78 @@ def update_offers_status_sync(access_token, offers, action, callback_manager):
             time.sleep(0.5)
 
 
+async def search_product_by_ean_return_first(ean, access_token):
+
+    url = f"https://api.allegro.pl/sale/products"
+    params = {
+        "phrase": ean,
+        "mode": "GTIN"
+    }
+
+    headers = {
+        "Authorization": f"Bearer {access_token}",
+        "Content-Type": "application/vnd.allegro.public.v1+json",
+        "Accept": "application/vnd.allegro.public.v1+json",
+    }
+
+    async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
+        result = await client.get(url=url, headers=headers, params=params)
+        result.raise_for_status()
+        products = result.json()["products"]
+        if products:
+            return products[0]
+        return []
+
+
+async def create_single_offer(product, access_token):
+
+    url = f"https://api.allegro.pl/sale/product-offers"
+    headers = {
+        "Authorization": f"Bearer {access_token}",
+        "Content-Type": "application/vnd.allegro.public.v1+json",
+        "Accept": "application/vnd.allegro.public.v1+json",
+    }
+    params = {
+        "productSet": [
+            {
+                "product": {"id": product["allegro_product_id"]},
+                "quantity": {
+                    "value": product["stock"]
+                },
+            }
+        ],
+        "stock": {
+            "available": 11,
+            "unit": "UNIT"
+        },
+        "language": "pl-PL",
+        "category": {"id": product["category_id"]},
+        "name": product["product_name"],
+        "sellingMode": {
+            "format": "BUY_NOW",
+            "price": {
+                "amount": product["price"],
+                "currency": "PLN"
+            },
+        },
+        "external": {"id": f"{product['sku_prefix']}{product['supplier_sku']}"}
+    }
+    new_params = json.dumps(params)
+
+    async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
+        result = await client.post(url=url, headers=headers, json=new_params)
+        result.raise_for_status()
+    if result.status_code in [201, 202]:
+        return result.json()
+
+
 def sleep(ms):
     return asyncio.sleep(ms / 1000)
+
+
+
+
+
+
+
+

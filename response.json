@@ -1,0 +1,266 @@
+{
+    "name": "Frytownica jednokomorowa Royal Catering RCKF 16ESH 16 l 6000 W",
+    "productSet": [
+        {
+            "product": {
+                "id": "787974ae-d391-4275-8e20-19e51a26cec0",
+                "publication": {
+                    "status": "LISTED"
+                },
+                "parameters": [
+                    {
+                        "id": "237206",
+                        "name": "Model",
+                        "values": [
+                            "RCKF 16ESH"
+                        ],
+                        "valuesIds": null,
+                        "rangeValue": null
+                    },
+                    {
+                        "id": "221125",
+                        "name": "Marka",
+                        "values": [
+                            "Royal Catering"
+                        ],
+                        "valuesIds": [
+                            "221125_294301"
+                        ],
+                        "rangeValue": null
+                    },
+                    {
+                        "id": "224017",
+                        "name": "Kod producenta",
+                        "values": [
+                            "10010005"
+                        ],
+                        "valuesIds": null,
+                        "rangeValue": null
+                    },
+                    {
+                        "id": "225693",
+                        "name": "EAN (GTIN)",
+                        "values": [
+                            "4260223021305"
+                        ],
+                        "valuesIds": null,
+                        "rangeValue": null
+                    },
+                    {
+                        "id": "242881",
+                        "name": "Moc",
+                        "values": [
+                            "6000.00"
+                        ],
+                        "valuesIds": null,
+                        "rangeValue": null
+                    },
+                    {
+                        "id": "242917",
+                        "name": "Pojemno\u015b\u0107",
+                        "values": [
+                            "16.00"
+                        ],
+                        "valuesIds": null,
+                        "rangeValue": null
+                    },
+                    {
+                        "id": "18491",
+                        "name": "Liczba kom\u00f3r",
+                        "values": [
+                            "jednokomorowa"
+                        ],
+                        "valuesIds": [
+                            "18491_2"
+                        ],
+                        "rangeValue": null
+                    },
+                    {
+                        "id": "17448",
+                        "name": "Waga produktu z opakowaniem jednostkowym",
+                        "values": [
+                            "23.100"
+                        ],
+                        "valuesIds": null,
+                        "rangeValue": null
+                    }
+                ]
+            },
+            "quantity": {
+                "value": 1
+            },
+            "responsiblePerson": null
+        }
+    ],
+    "parameters": [
+        {
+            "id": "11323",
+            "name": "Stan",
+            "values": [
+                "Nowy"
+            ],
+            "valuesIds": [
+                "11323_1"
+            ],
+            "rangeValue": null
+        }
+    ],
+    "images": [
+        "https://f.allegroimg.com/original/011ae7/0d3c91024571adda894c252c6a2f",
+        "https://a.allegroimg.com/original/11815c/5e63cad547c09318f5d066936c56",
+        "https://a.allegroimg.com/original/119275/3bb9ddc34a69b2bfd5bc217f08c9",
+        "https://a.allegroimg.com/original/11d267/e7363fcf4c6bb28aa82ba103afc3",
+        "https://a.allegroimg.com/original/116324/2f64faac4242a9f9a3fbe2ef4881",
+        "https://a.allegroimg.com/original/11269a/d1bc4342417e810871ebde65d991",
+        "https://a.allegroimg.com/original/11a322/757250154ccab4d9d0015cd3a229",
+        "https://a.allegroimg.com/original/110cf2/2baa73854226ae461e5cf8537e5b",
+        "https://a.allegroimg.com/original/111d79/01592edd47bd9933fc4d239928e3",
+        "https://a.allegroimg.com/original/111136/ce7bc0684a01984a21acd91ffe09",
+        "https://a.allegroimg.com/original/11575c/a72a2bdb4fc7bc41f2a3fa15601b"
+    ],
+    "afterSalesServices": {
+        "impliedWarranty": {
+            "id": "ea2cca3b-3db5-466a-95bd-03ae13a5f45f"
+        },
+        "returnPolicy": {
+            "id": "b83d0fc2-71e6-4682-a63a-578c25cbaeb8"
+        },
+        "warranty": null
+    },
+    "payments": {
+        "invoice": "VAT"
+    },
+    "sellingMode": {
+        "format": "BUY_NOW",
+        "price": {
+            "amount": "1335.70",
+            "currency": "PLN"
+        },
+        "startingPrice": null,
+        "minimalPrice": null
+    },
+    "stock": {
+        "available": 11,
+        "unit": "UNIT"
+    },
+    "location": {
+        "countryCode": "PL",
+        "province": "MAZOWIECKIE",
+        "city": "Warszawa",
+        "postCode": "02-672"
+    },
+    "delivery": {
+        "shippingRates": {
+            "id": "d02954ba-e878-46dd-9b5c-971f518100c8"
+        },
+        "handlingTime": "PT24H",
+        "additionalInfo": null,
+        "shipmentDate": null
+    },
+    "description": {
+        "sections": [
+            {
+                "items": [
+                    {
+                        "type": "TEXT",
+                        "content": "<p><b>Frytkownica wolnostoj\u0105ca elektryczna na szafce 400V 16L</b></p> <p>Nazwa producenta: <b>RCKF-16ESH</b></p> <p>Profesjonalna, wolnostoj\u0105ca frytkownica elektryczna<b>o pojemno\u015bci 16 L</b>&nbsp;idealnie sprawdzi si\u0119 w przygotowaniu du\u017cej ilo\u015bci potraw. Wydajny element grzewczy <b>o mocy 6000 W</b>w kr\u00f3tkim czasie osi\u0105gnie temperatur\u0119 200C, a wbudowany&nbsp;<b>termostat</b>&nbsp;utrzyma j\u0105 na odpowiednim poziomie. Dzi\u0119ki zastosowaniu&nbsp;<b>zimnej strefy,&nbsp;</b>opadaj\u0105ce resztki potraw nie przypalaj\u0105 si\u0119 podczas sma\u017cenia, co pozwala na przygotowanie da\u0144 wysokiej jako\u015bci.</p> <p><b>Bezpieczne u\u017cytkowanie</b> z urz\u0105dzenia gwarantuje system, kt\u00f3ry automatycznie wy\u0142\u0105cza grza\u0142k\u0119, gdy jest ona odchylana do ty\u0142u. Dodatkowo kosz wyposa\u017cono w <b>nienagrzewaj\u0105c\u0105 si\u0119 r\u0105czk\u0119</b> chroni\u0105c\u0105 przed poparzeniem. Stabilno\u015b\u0107 frytkownicy zapewniaj\u0105 <b>gumowe, antypo\u015blizgowe n\u00f3\u017cki</b>.</p> <p>Sprz\u0119t jest prosty w czyszczeniu za spraw\u0105 <b>wyjmowanego elementu grzewczego</b>. Do usuwania t\u0142uszczu s\u0142u\u017cy<b>kranik spustowy</b> znajduj\u0105cy si\u0119 wewn\u0105trz szafki. Ponadto zastosowanie&nbsp;<b>stali nierdzewnej</b>&nbsp;chroni zar\u00f3wno frytkownic\u0119, jak i szafk\u0119 przed sta\u0142ymi zabrudzeniami oraz u\u0142atwia mycie. Stal jest r\u00f3wnie\u017c <b>odporna na uszkodzenia mechaniczne</b>, a biologiczna oboj\u0119tno\u015b\u0107 metalu pozwala na<b>kontakt z \u017cywno\u015bci\u0105 bez ryzyka dla zdrowia</b>.</p> <p>Frytkownica znajduje si\u0119 na <b>pojemnej szafce</b>, kt\u00f3ra sprawdzi si\u0119 w przechowywaniu niezb\u0119dnych akcesori\u00f3w. Dzi\u0119ki temu zawsze b\u0119d\u0105 pod r\u0119k\u0105.</p> <p><b>Cechy i funkcje:</b></p> <ul> <li>- wysokiej jako\u015bci stal i solidna konstrukcja</li> <li>- zimna strefa</li> <li>- ogromna moc 6 kW</li> <li>- wysokiej jako\u015bci termostat z podw\u00f3jn\u0105 termopar\u0105</li> <li>- p\u0142ynna regulacja temperatury</li> <li>- kranik zlewowy w szafce</li> <li>- \u0142atwo\u015b\u0107 czyszczenia</li> <li>- oszcz\u0119dno\u015b\u0107 energii</li> </ul> <p><b>W zestawie:</b></p> <ul> <li>- Frytkownica&nbsp;<b>RCKF-16ESH</b></li> <li><b>-</b>Kosz do frytkownicy</li> <li>- Instrukcja PL</li> <li>- <b>NIE MA wtyczki do gniazda 400V</b></li> </ul>"
+                    },
+                    {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/11815c/5e63cad547c09318f5d066936c56"
+                    }
+                ]
+            },
+            {
+                "items": [
+                    {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/119275/3bb9ddc34a69b2bfd5bc217f08c9"
+                    }
+                ]
+            },
+            {
+                "items": [
+                    {
+                        "type": "IMAGE",
+                        "url": "https://f.allegroimg.com/original/011ae7/0d3c91024571adda894c252c6a2f"
+                    }
+                ]
+            },
+            {
+                "items": [
+                    {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/11d267/e7363fcf4c6bb28aa82ba103afc3"
+                    }
+                ]
+            }
+        ]
+    },
+    "external": {
+        "id": "test_id_1234"
+    },
+    "category": {
+        "id": "121356"
+    },
+    "taxSettings": null,
+    "sizeTable": null,
+    "discounts": {
+        "wholesalePriceList": null
+    },
+    "contact": null,
+    "fundraisingCampaign": null,
+    "messageToSellerSettings": null,
+    "attachments": [],
+    "b2b": {
+        "buyableOnlyByBusiness": false
+    },
+    "additionalServices": null,
+    "compatibilityList": null,
+    "additionalMarketplaces": {
+        "allegro-sk": {
+            "sellingMode": null,
+            "publication": {
+                "state": "NOT_REQUESTED",
+                "refusalReasons": []
+            }
+        },
+        "allegro-cz": {
+            "sellingMode": null,
+            "publication": {
+                "state": "NOT_REQUESTED",
+                "refusalReasons": []
+            }
+        },
+        "allegro-business-cz": {
+            "sellingMode": null,
+            "publication": {
+                "state": "NOT_REQUESTED",
+                "refusalReasons": []
+            }
+        }
+    },
+    "id": "16170918379",
+    "language": "pl-PL",
+    "publication": {
+        "status": "INACTIVE",
+        "duration": null,
+        "endedBy": null,
+        "endingAt": null,
+        "startingAt": null,
+        "republish": false,
+        "marketplaces": {
+            "base": {
+                "id": "allegro-pl"
+            },
+            "additional": []
+        }
+    },
+    "validation": {
+        "errors": [],
+        "warnings": [],
+        "validatedAt": "2024-08-01T09:53:55.538Z"
+    },
+    "createdAt": "2024-08-01T09:53:55.000Z",
+    "updatedAt": "2024-08-01T09:53:55.670Z"
+}

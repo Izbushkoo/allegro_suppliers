@@ -1,9 +1,9 @@
 from contextlib import asynccontextmanager
 import asyncio
-from typing import List, Dict
+from typing import List, Dict, Any
 
 from motor.motor_asyncio import AsyncIOMotorClient
-from pymongo import MongoClient, UpdateOne
+from pymongo import MongoClient, UpdateOne, InsertOne
 
 from app.core.config import settings
 from app.loggers import ToLog
@@ -52,6 +52,23 @@ class MongoBaseManager:
             query = {
                 "groups": supplier_id,
                 "allegro_we_sell_it": True
+            }
+
+            projection = {"allegro_oferta_id": 1, "supplier_sku": 1, "_id": 0, "weight": 1}
+            documents = collection.find(query, projection)
+
+            items_array = await documents.to_list(length=None)
+            return items_array
+
+    async def fetch_positions_all(self, supplier):
+
+        supplier_id = supplier_database_id[supplier]
+        async with self._connect() as db_manager:
+            database = db_manager[base_db_name]
+            collection = database[base_db_collection]
+
+            query = {
+                "groups": supplier_id,
             }
 
             projection = {"allegro_oferta_id": 1, "supplier_sku": 1, "_id": 0, "weight": 1}
@@ -141,6 +158,32 @@ class MongoBaseManager:
                         return await collection.bulk_write(bulk_updates, ordered=False)
                     else:
                         ToLog.write_basic("No documents to update.")
+                except Exception as err:
+                    ToLog.write_basic(f"{err}")
+                    if attempt == 4:
+                        raise
+                    await asyncio.sleep(2 ** attempt)
+
+    async def append_bulks(self, documents: List, supplier: str):
+        """
+
+        """
+        async with self._connect() as db_manager:
+            database = db_manager[base_db_name]
+            collection = database[base_db_collection]
+
+            append_bulks = []
+            for item in documents:
+                append_bulks.append(
+                    InsertOne({**item, "groups": supplier_database_id[supplier]})
+                )
+
+            for attempt in range(5):
+                try:
+                    if append_bulks:
+                        return await collection.bulk_write(append_bulks, ordered=False)
+                    else:
+                        ToLog.write_basic("No documents to insert.")
                 except Exception as err:
                     ToLog.write_basic(f"{err}")
                     if attempt == 4:

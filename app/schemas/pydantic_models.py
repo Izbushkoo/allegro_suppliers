@@ -64,6 +64,14 @@ class UpdateOffersRequest(BaseModel):
     action: Optional[str] = Field(default="ACTIVATE")
 
 
+class SynchronizeOffersRequest(BaseModel):
+    token_id: str
+    supplier: str
+    multiplier: Optional[float | int] = Field(default=1)
+    resource_id: Optional[str] = Field(default=None)
+    callback_url: Optional[str] = Field(default=None)
+
+
 class ConnectionManager(BaseModel):
 
     model_config = ConfigDict(
