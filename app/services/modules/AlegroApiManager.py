@@ -684,14 +684,17 @@ async def search_product_by_ean_return_first(ean, access_token):
 
     async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
         result = await client.get(url=url, headers=headers, params=params)
-        if result.status_code in [429]:
-            await asyncio.sleep(60)
+
+    if result.status_code in [429]:
+        await asyncio.sleep(60)
+
+        async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
             result = await client.get(url=url, headers=headers, params=params)
 
-        products = result.json()["products"]
-        if products:
-            return products[0]
-        return []
+    products = result.json()["products"]
+    if products:
+        return products[0]
+    return []
 
 
 async def create_single_offer(product, access_token):
