@@ -703,13 +703,10 @@ async def create_single_offer(product, access_token):
         "productSet": [
             {
                 "product": {"id": product["allegro_product_id"]},
-                "quantity": {
-                    "value": product["stock"]
-                },
             }
         ],
         "stock": {
-            "available": 11,
+            "available": product["stock"],
             "unit": "UNIT"
         },
         "language": "pl-PL",
