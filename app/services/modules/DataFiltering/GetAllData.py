@@ -182,7 +182,8 @@ def filter_for_supplier_items(supplier, json_file, multiplier=1):
         weight_value = extract_and_calculate_weight(weight_string, supplier)
 
         filtered_objects.append({
-            'supplier_sku': final_sku,
+            'supplier_sku': sku,
+            'product_sku': final_sku,
             'sku_prefix': sku_prefix,
             'stock': final_stock,
             'price': final_price,

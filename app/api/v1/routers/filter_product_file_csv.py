@@ -245,12 +245,13 @@ async def handle_single_product(supplier_product, allegro_access_token):
                 if allegro_response:
                     product_to_work_with["allegro_oferta_id"] = allegro_response["id"]
                     product_to_work_with["allegro_we_sell_it"] = True
+                    product_to_work_with.pop("price")
                     ToLog.write_basic(f"Created offer with id {product_to_work_with['allegro_oferta_id']}")
                     return product_to_work_with
 
 
 async def process_complete_synchro_task(synchro_config: SynchronizeOffersRequest, access_token, products,
-                                        batch: int = 200):
+                                        batch: int = 50):
 
     for i in range(0, len(products), batch):
         tasks = []

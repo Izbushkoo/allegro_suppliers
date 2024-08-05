@@ -684,7 +684,10 @@ async def search_product_by_ean_return_first(ean, access_token):
 
     async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
         result = await client.get(url=url, headers=headers, params=params)
-        result.raise_for_status()
+        if result.status_code in [429]:
+            await asyncio.sleep(60)
+            result = await client.get(url=url, headers=headers, params=params)
+
         products = result.json()["products"]
         if products:
             return products[0]
@@ -719,14 +722,19 @@ async def create_single_offer(product, access_token):
                 "currency": "PLN"
             },
         },
-        "external": {"id": f"{product['sku_prefix']}{product['supplier_sku']}"}
+        "external": {"id": product['product_sku']}
     }
     new_params = json.dumps(params)
 
     async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
         result = await client.post(url=url, headers=headers, data=new_params)
+    if result.status_code in [429]:
+        await asyncio.sleep(60)
+        result = await client.post(url=url, headers=headers, data=new_params)
+
     if result.status_code in [201, 202]:
         return result.json()
+
 
 
 def sleep(ms):
