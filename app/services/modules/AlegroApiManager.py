@@ -16,8 +16,8 @@ from app.schemas.pydantic_models import CallbackManager, OffersRequest, UpdateOf
 from app.services.modules.DatabaseManager import MongoManager
 
 
-limits = httpx.Limits(max_connections=500, max_keepalive_connections=100)
-timeout = httpx.Timeout(20.0, connect=5.0)
+limits = httpx.Limits(max_connections=500, max_keepalive_connections=300)
+timeout = httpx.Timeout(100, connect=20)
 
 
 async def get_page_offers(offers_request, access_token):

@@ -232,7 +232,10 @@ async def get_all_offers_filter(access_token: str, supplier_prefix: str) -> List
 async def handle_single_product(supplier_product, allegro_access_token):
     ean = supplier_product["ean"]
     if ean:
-        found_product = await search_product_by_ean_return_first(ean, allegro_access_token)
+        try:
+            found_product = await search_product_by_ean_return_first(ean, allegro_access_token)
+        except httpx.TimeoutException as err:
+            return None
         if found_product:
             if supplier_product["stock"] > 0:
                 product_to_work_with = {
