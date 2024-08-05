@@ -733,7 +733,9 @@ async def create_single_offer(product, access_token):
         result = await client.post(url=url, headers=headers, data=new_params)
     if result.status_code in [429]:
         await asyncio.sleep(60)
-        result = await client.post(url=url, headers=headers, data=new_params)
+
+        async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
+            result = await client.post(url=url, headers=headers, data=new_params)
 
     if result.status_code in [201, 202]:
         return result.json()
