@@ -252,15 +252,11 @@ async def handle_single_product(supplier_product, allegro_access_token):
 async def process_complete_synchro_task(synchro_config: SynchronizeOffersRequest, access_token, products,
                                         batch: int = 200):
 
-    count = 0
     for i in range(0, len(products), batch):
         tasks = []
         for product in products[i: i + batch]:
             task = asyncio.create_task(handle_single_product(product, access_token))
             tasks.append(task)
-            count += 1
-            if count > 4:
-                break
         results = await asyncio.gather(*tasks)
         all_results = [result for result in results if result]
         ToLog.write_basic(f"Added to Mongo {len(all_results)} documents")
