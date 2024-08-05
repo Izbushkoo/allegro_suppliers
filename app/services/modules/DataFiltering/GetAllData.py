@@ -142,7 +142,6 @@ def filter_for_supplier_items(supplier, json_file, multiplier=1):
 
     products_path = settings['xmlPath']['products']
     sku_path = settings['xmlPath']['sku']
-    category_path = settings['xmlPath']['category']
     weight_path = settings['xmlPath']['weight']
     price_path = settings['xmlPath']['price']
     is_apply_custom_multipliers = settings['applyCustomMultipliers']
@@ -184,7 +183,7 @@ def filter_for_supplier_items(supplier, json_file, multiplier=1):
 
         filtered_objects.append({
             'supplier_sku': final_sku,
-            'supplier_prefix': sku_prefix,
+            'sku_prefix': sku_prefix,
             'stock': final_stock,
             'price': final_price,
             'ean': formatted_ean,
