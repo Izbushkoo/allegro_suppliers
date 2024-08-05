@@ -124,7 +124,7 @@ def by_string(json_obj, path):
         if prop == 'ean' and prev_prop == 'attrs':
             attrs_array = current_obj.get('a', [])
             ean_obj = next((obj for obj in attrs_array if obj['@name'] == 'EAN'), None)
-            current_obj = ean_obj['#text'] if ean_obj else None
+            current_obj = ean_obj.get('#text') if ean_obj else None
             break
         elif '[' in prop and ']' in prop:
             match = re.match(r'(\w+)\[(\d+)\]', prop)
@@ -166,8 +166,11 @@ def filter_for_supplier_items(supplier, json_file, multiplier=1):
         price_string = str(by_string(product, price_path))
         vat_string = str(by_string(product, vat_path))
         stock_string = str(by_string(product, stock_path))
-        ean_string = str(by_string(product, ean_path))
-
+        try:
+            ean_string = str(by_string(product, ean_path))
+        except KeyError as err:
+            ToLog.write_error(f"{key} {product}")
+            raise err
         formatted_ean = format_ean(ean_string)
         vat = extract_vat(vat_string, is_vat_included)
         price = extract_price(price_string, vat, is_vat_included)
@@ -245,7 +248,6 @@ def filter_json_object_to_array_of_objects(supplier, json_file, database_items, 
         final_stock = extract_and_calculate_stock(stock_string)
         final_sku = replace_polish_characters_in_sku(f"{sku_prefix}{sku}")
         category = str(by_string(product, category_path))
-
 
         filtered_objects.append({
             'allegro_offerta_id': item['allegro_oferta_id'],

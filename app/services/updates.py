@@ -32,9 +32,9 @@ async def get_all_supplier_products_data(supplier, callback_manager: CallbackMan
 
     json_from_xml = parse_xml_to_json_sync(content)
 
-    # path = os.path.join(os.getcwd(), "xml", "json_for_supplier.json")
-    # with open(path, "w") as file:
-    #     file.write(json.dumps(json_from_xml, indent=4))
+    path = os.path.join(os.getcwd(), "xml", "json_for_supplier.json")
+    with open(path, "w") as file:
+        file.write(json.dumps(json_from_xml, indent=4))
 
     filtered_objects = filter_for_supplier_items(supplier, json_from_xml, multiplier)
 

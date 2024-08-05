@@ -50,7 +50,7 @@ async def get_all_skus(
     return [lambda x: x.replace(f"{supplier_prefix}_", '') for x in all_skus]
 
 
-@router.get("/synchronize_offers_with_supplier")
+@router.post("/synchronize_offers_with_supplier")
 async def synchronize_products_with_supplier(
         synchro_request: SynchronizeOffersRequest,
         bg_tasks: BackgroundTasks,
@@ -231,34 +231,39 @@ async def get_all_offers_filter(access_token: str, supplier_prefix: str) -> List
 
 async def handle_single_product(supplier_product, allegro_access_token):
     ean = supplier_product["ean"]
-    found_product = await search_product_by_ean_return_first(ean, allegro_access_token)
-    if found_product:
-        if supplier_product["stock"] > 0:
-            product_to_work_with = {
-                **supplier_product,
-                "allegro_product_id": found_product["id"],
-                "category_id": found_product["category"]["id"],
-                "product_name": found_product["name"]
-            }
-            allegro_response = await create_single_offer(product_to_work_with, access_token=allegro_access_token)
-            if allegro_response:
-                product_to_work_with["allegro_oferta_id"] = allegro_response["id"]
-                product_to_work_with["allegro_we_sell_it"] = True
-                return product_to_work_with
+    if ean:
+        found_product = await search_product_by_ean_return_first(ean, allegro_access_token)
+        if found_product:
+            if supplier_product["stock"] > 0:
+                product_to_work_with = {
+                    **supplier_product,
+                    "allegro_product_id": found_product["id"],
+                    "category_id": found_product["category"]["id"],
+                    "product_name": found_product["name"]
+                }
+                allegro_response = await create_single_offer(product_to_work_with, access_token=allegro_access_token)
+                if allegro_response:
+                    product_to_work_with["allegro_oferta_id"] = allegro_response["id"]
+                    product_to_work_with["allegro_we_sell_it"] = True
+                    return product_to_work_with
 
 
 async def process_complete_synchro_task(synchro_config: SynchronizeOffersRequest, access_token, products,
                                         batch: int = 200):
 
-    tasks = []
     all_results = []
+    count = 0
     for i in range(0, len(products), batch):
+        tasks = []
         for product in products[i: i + batch]:
             task = asyncio.create_task(handle_single_product(product, access_token))
             tasks.append(task)
+            count += 1
+            if count > 4:
+                break
         results = await asyncio.gather(*tasks)
         all_results += [result for result in results if result]
-
+    ToLog.write_basic(f"all results length {len(all_results)}")
     await MongoManager.append_bulks(all_results, synchro_config.supplier)
 
 
