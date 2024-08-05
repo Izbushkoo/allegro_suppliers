@@ -245,13 +245,13 @@ async def handle_single_product(supplier_product, allegro_access_token):
                 if allegro_response:
                     product_to_work_with["allegro_oferta_id"] = allegro_response["id"]
                     product_to_work_with["allegro_we_sell_it"] = True
+                    ToLog.write_basic(f"Created offer with id {product_to_work_with['allegro_oferta_id']}")
                     return product_to_work_with
 
 
 async def process_complete_synchro_task(synchro_config: SynchronizeOffersRequest, access_token, products,
                                         batch: int = 200):
 
-    all_results = []
     count = 0
     for i in range(0, len(products), batch):
         tasks = []
@@ -262,9 +262,9 @@ async def process_complete_synchro_task(synchro_config: SynchronizeOffersRequest
             if count > 4:
                 break
         results = await asyncio.gather(*tasks)
-        all_results += [result for result in results if result]
-    ToLog.write_basic(f"all results length {len(all_results)}")
-    await MongoManager.append_bulks(all_results, synchro_config.supplier)
+        all_results = [result for result in results if result]
+        ToLog.write_basic(f"Added to Mongo {len(all_results)} documents")
+        await MongoManager.append_bulks(all_results, synchro_config.supplier)
 
 
 

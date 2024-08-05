@@ -26,6 +26,7 @@ class Settings(BaseSettings):
     MONGO_URI: str
     DB_NAME: str
     DB_COLL: str
+    RENEWED_COLL: str
 
     @field_validator("BACKEND_CORS_ORIGINS", mode='before')
     def assemble_cors_origins(cls, v: Union[str, List[str]]) -> Union[List[str], str]:

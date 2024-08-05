@@ -20,6 +20,7 @@ supplier_database_id = {
 base_uri = settings.MONGO_URI
 base_db_name = settings.DB_NAME
 base_db_collection = settings.DB_COLL
+renewed_collection = settings.RENEWED_COLL
 
 
 class MongoBaseManager:
@@ -170,7 +171,7 @@ class MongoBaseManager:
         """
         async with self._connect() as db_manager:
             database = db_manager[base_db_name]
-            collection = database[base_db_collection]
+            collection = database[renewed_collection]
 
             append_bulks = []
             for item in documents:
