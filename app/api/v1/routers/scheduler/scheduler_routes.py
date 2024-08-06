@@ -55,7 +55,7 @@ async def get_jobs_list(job_id: str):
     return jobs
 
 
-@router.get("/synchro")
+@router.post("/synchro")
 async def syncro_run(
     synchro_request: SynchronizeOffersRequest,
     database: AsyncSession = Depends(deps.get_db_async),
