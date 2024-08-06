@@ -1,3 +1,5 @@
+from typing import List
+
 import httpx
 import asyncio
 
@@ -29,18 +31,21 @@ async def handle_single_product(supplier_product, allegro_access_token):
                     product_to_work_with["allegro_oferta_id"] = allegro_response["id"]
                     product_to_work_with["allegro_we_sell_it"] = True
                     product_to_work_with.pop("price")
+                    product_to_work_with.pop("stock")
+
                     ToLog.write_basic(f"Created offer with id {product_to_work_with['allegro_oferta_id']}")
                     return product_to_work_with
 
 
 async def process_complete_synchro_task(synchro_config: SynchronizeOffersRequest, access_token, products,
-                                        batch: int = 50):
+                                        existing_ofertas: List, batch: int = 50):
 
     for i in range(0, len(products), batch):
         tasks = []
         for product in products[i: i + batch]:
-            task = asyncio.create_task(handle_single_product(product, access_token))
-            tasks.append(task)
+            if product["supplier_sku"] not in existing_ofertas:
+                task = asyncio.create_task(handle_single_product(product, access_token))
+                tasks.append(task)
         results = await asyncio.gather(*tasks)
         all_results = [result for result in results if result]
         ToLog.write_basic(f"Added to Mongo {len(all_results)} documents")

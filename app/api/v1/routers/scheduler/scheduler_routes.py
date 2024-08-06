@@ -6,6 +6,7 @@ from app.services.allegro_token import get_token_by_id
 from app.services.modules.APITokenManager import check_token
 from app.api import deps
 from app.schemas.pydantic_models import UpdateConfig
+from app.services.modules.DatabaseManager import MongoManager
 from app.services.scheduler_service.scheduler_tasks import stop_task, job_list, add_tasks_as_one, get_single_job, \
     job_list_with_acc, add_synchro_products_job
 from app.loggers import ToLog
@@ -68,7 +69,8 @@ async def syncro_run(
 
     products = await get_all_supplier_products_data(synchro_request.supplier, callback_manager=callback_manager,
                                                     multiplier=synchro_request.multiplier)
-
+    products_in_mongo = await MongoManager.fetch_positions_all_for_supplier(synchro_request.supplier)
+    existing_ofertas = [product["supplier_sku"] for product in products_in_mongo]
     allegro_token = await get_token_by_id(database, synchro_request.token_id)
 
     try:
@@ -86,7 +88,8 @@ async def syncro_run(
         job = add_synchro_products_job(
             synchro_config=synchro_request,
             access_token=access_token,
-            products=products
+            products=products,
+            existing_ofertas=existing_ofertas
         )
 
     return JSONResponse({"status": "OK", "message": "Synchronization started", "job_id": job.id})

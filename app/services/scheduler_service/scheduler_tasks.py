@@ -44,13 +44,14 @@ supplier_config = {
 }
 
 
-def add_synchro_products_job(synchro_config: SynchronizeOffersRequest, access_token, products):
+def add_synchro_products_job(synchro_config: SynchronizeOffersRequest, access_token, products, existing_ofertas):
     return scheduler.add_job(
         process_complete_synchro_task,
         kwargs={
             "synchro_config": synchro_config,
             "access_token": access_token,
-            "products": products
+            "products": products,
+            "existing_ofertas": existing_ofertas
         }
     )
 

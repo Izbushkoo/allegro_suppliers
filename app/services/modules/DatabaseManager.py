@@ -61,18 +61,16 @@ class MongoBaseManager:
             items_array = await documents.to_list(length=None)
             return items_array
 
-    async def fetch_positions_all(self, supplier):
+    async def fetch_positions_all_for_supplier(self, supplier):
 
         supplier_id = supplier_database_id[supplier]
         async with self._connect() as db_manager:
             database = db_manager[base_db_name]
-            collection = database[base_db_collection]
-
+            collection = database[renewed_collection]
             query = {
                 "groups": supplier_id,
             }
-
-            projection = {"allegro_oferta_id": 1, "supplier_sku": 1, "_id": 0, "weight": 1}
+            projection = {"supplier_sku": 1, "_id": 0}
             documents = collection.find(query, projection)
 
             items_array = await documents.to_list(length=None)
