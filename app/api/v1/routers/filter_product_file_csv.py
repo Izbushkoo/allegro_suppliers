@@ -14,13 +14,8 @@ from app.core.bg_task_wrapper import TaskWrapper
 from app.loggers import ToLog
 from app.services.allegro_token import get_tokens_list, get_token_by_id
 from app.services.modules.APITokenManager import check_token
-from app.services.modules.AlegroApiManager import create_single_offer
-from app.services.modules.DatabaseManager import MongoManager
-from app.services.configs.AllegroConfig import supplier_settings as allegro_config
 from app.services.updates import get_all_supplier_products_data
-from app.services.modules.DataFiltering.GetAllData import filter_for_supplier_items
 from app.schemas.pydantic_models import CallbackManager, SynchronizeOffersRequest
-from app.services.modules.AlegroApiManager import search_product_by_ean_return_first
 
 # router = APIRouter(dependencies=[Depends(deps.get_api_token)])
 router = APIRouter()
@@ -48,45 +43,6 @@ async def get_all_skus(
 
     all_skus = await get_all_offers_filter_skus(access_token, supplier_prefix)
     return [lambda x: x.replace(f"{supplier_prefix}_", '') for x in all_skus]
-
-
-@router.post("/synchronize_offers_with_supplier")
-async def synchronize_products_with_supplier(
-        synchro_request: SynchronizeOffersRequest,
-        bg_tasks: BackgroundTasks,
-        database: AsyncSession = Depends(deps.get_db_async),
-        ):
-
-    callback_manager = CallbackManager(
-        url=synchro_request.callback_url,
-        resource_id=synchro_request.resource_id
-    )
-
-    products = await get_all_supplier_products_data(synchro_request.supplier, callback_manager=callback_manager,
-                                                    multiplier=synchro_request.multiplier)
-
-    allegro_token = await get_token_by_id(database, synchro_request.token_id)
-
-    try:
-        await callback_manager.send_ok_callback_async(
-            f"Проверяем валидность токена '{allegro_token.account_name}'..."
-        )
-        token = await check_token(database, allegro_token, callback_manager)
-    except Exception as err:
-        ToLog.write_error(f"Error while check and update token {err}")
-        await callback_manager.send_error_callback(f"Ошибка во время проверки и обновления токена: {err}")
-        raise HTTPException(status_code=403, detail="Invalid token")
-    else:
-        access_token = token.access_token
-
-    bg_tasks.add_task(
-        TaskWrapper(task=process_complete_synchro_task).run_task(
-            synchro_config=synchro_request,
-            access_token=access_token,
-            products=products
-        )
-    )
-    return JSONResponse({"status": "OK", "message": "Synchronization started"})
 
 
 @router.post("/filter_and_prefix")
@@ -229,44 +185,7 @@ async def get_all_offers_filter(access_token: str, supplier_prefix: str) -> List
     return offers
 
 
-async def handle_single_product(supplier_product, allegro_access_token):
-    ean = supplier_product["ean"]
-    if ean:
-        try:
-            found_product = await search_product_by_ean_return_first(ean, allegro_access_token)
-        except httpx.TimeoutException as err:
-            return None
-        if found_product:
-            if supplier_product["stock"] > 0:
-                product_to_work_with = {
-                    **supplier_product,
-                    "allegro_product_id": found_product["id"],
-                    "category_id": found_product["category"]["id"],
-                    "product_name": found_product["name"]
-                }
-                allegro_response = await create_single_offer(product_to_work_with, access_token=allegro_access_token)
-                if allegro_response:
-                    product_to_work_with["allegro_oferta_id"] = allegro_response["id"]
-                    product_to_work_with["allegro_we_sell_it"] = True
-                    product_to_work_with.pop("price")
-                    ToLog.write_basic(f"Created offer with id {product_to_work_with['allegro_oferta_id']}")
-                    return product_to_work_with
 
-
-async def process_complete_synchro_task(synchro_config: SynchronizeOffersRequest, access_token, products,
-                                        batch: int = 50):
-
-    for i in range(0, len(products), batch):
-        tasks = []
-        for product in products[i: i + batch]:
-            task = asyncio.create_task(handle_single_product(product, access_token))
-            tasks.append(task)
-        results = await asyncio.gather(*tasks)
-        all_results = [result for result in results if result]
-        ToLog.write_basic(f"Added to Mongo {len(all_results)} documents")
-        await MongoManager.append_bulks(all_results, synchro_config.supplier)
-
-    ToLog.write_basic(f"Synchronization Finished")
 
 
 
