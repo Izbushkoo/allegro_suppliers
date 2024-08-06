@@ -16,8 +16,10 @@ async def handle_single_product(supplier_product, allegro_access_token):
     if ean:
         try:
             found_product = await search_product_by_ean_return_first(ean, allegro_access_token)
-        except httpx.TimeoutException as err:
+        except (httpx.TimeoutException, httpx.RemoteProtocolError) as err:
+            ToLog.write_error(f"Error {err} \n skiped product with ean {ean}")
             return None
+
         if found_product:
             if supplier_product["stock"] > 0:
                 product_to_work_with = {
