@@ -21,22 +21,24 @@ async def handle_single_product(supplier_product, allegro_access_token):
                 return None
 
             if found_product:
-                if supplier_product["stock"] > 0:
-                    product_to_work_with = {
-                        **supplier_product,
-                        "allegro_product_id": found_product["id"],
-                        "category_id": found_product["category"]["id"],
-                        "product_name": found_product["name"]
-                    }
-                    allegro_response = await create_single_offer(product_to_work_with, access_token=allegro_access_token)
-                    if allegro_response:
-                        product_to_work_with["allegro_oferta_id"] = allegro_response["id"]
-                        product_to_work_with["allegro_we_sell_it"] = True
-                        product_to_work_with.pop("price")
-                        product_to_work_with.pop("stock")
+                if supplier_product["stock"] > 1:
+                    if supplier_product["price"] <= 5000:
+                        product_to_work_with = {
+                            **supplier_product,
+                            "allegro_product_id": found_product["id"],
+                            "category_id": found_product["category"]["id"],
+                            "product_name": found_product["name"]
+                        }
+                        allegro_response = await create_single_offer(product_to_work_with,
+                                                                     access_token=allegro_access_token)
+                        if allegro_response:
+                            product_to_work_with["allegro_oferta_id"] = allegro_response["id"]
+                            product_to_work_with["allegro_we_sell_it"] = True
+                            product_to_work_with.pop("price")
+                            product_to_work_with.pop("stock")
 
-                        ToLog.write_basic(f"Created offer with id {product_to_work_with['allegro_oferta_id']}")
-                        return product_to_work_with
+                            ToLog.write_basic(f"Created offer with id {product_to_work_with['allegro_oferta_id']}")
+                            return product_to_work_with
     except Exception as er:
         ToLog.write_error(f"Error {er} \n skiped product with ean {ean}")
 
