@@ -169,12 +169,16 @@ def filter_for_supplier_items(supplier, json_file, multiplier=1):
             ean_string = str(by_string(product, ean_path))
         except KeyError as err:
             ToLog.write_error(f"{key} {product}")
-            raise err
+            continue
         formatted_ean = format_ean(ean_string)
         vat = extract_vat(vat_string, is_vat_included)
         price = extract_price(price_string, vat, is_vat_included)
-        final_price = calculate_price(price, price_ranges, is_apply_custom_multipliers, is_apply_custom_multiplier,
-                                      supplier, sku, multiplier)
+        try:
+            final_price = calculate_price(price, price_ranges, is_apply_custom_multipliers, is_apply_custom_multiplier,
+                                          supplier, sku, multiplier)
+        except ValueError:
+            ToLog.write_error(f"For product with ean {ean_string} ")
+            continue
         final_stock = extract_and_calculate_stock(stock_string)
         final_sku = replace_polish_characters_in_sku(f"{sku_prefix}{sku}")
 
