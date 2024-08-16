@@ -3,7 +3,8 @@ from typing import List
 from sqlmodel.ext.asyncio.session import AsyncSession
 from sqlmodel import Session
 from sqlmodel import select, and_
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import IntegrityError, DatabaseError, SQLAlchemyError
+from sqlalchemy.dialects.postgresql.asyncpg import exc
 
 from app.models import database_models
 
@@ -24,5 +25,5 @@ async def add_failed_ean(database: AsyncSession, eans: List[str]):
             session.add(new)
             try:
                 await session.commit()
-            except IntegrityError:
+            except exc.IntegrityError:
                 pass
