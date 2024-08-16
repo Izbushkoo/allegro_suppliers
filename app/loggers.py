@@ -46,8 +46,8 @@ def setup_loggers():
     
     # logging.getLogger().handlers.clear()
 
-    logging.basicConfig(handlers=(debug_file_handler, stream_handler),
-                        level=logging.DEBUG)
+    # logging.basicConfig(handlers=(debug_file_handler, stream_handler),
+    #                     level=logging.DEBUG)
 
     httpcore_logger = logging.getLogger("httpcore")
     httpx_logger = logging.getLogger("httpx")
