@@ -42,12 +42,13 @@ def setup_loggers():
     debug_file_handler.setFormatter(formatter)
     basic.setLevel(logging.DEBUG)
     basic.addHandler(debug_file_handler)
-    basic.addHandler(stream_handler)
+    # basic.addHandler(stream_handler)
     
     # logging.getLogger().handlers.clear()
 
-    # logging.basicConfig(handlers=(debug_file_handler, stream_handler),
-    #                     level=logging.DEBUG)
+    logging.basicConfig(handlers=(debug_file_handler, stream_handler),
+                        level=logging.DEBUG, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+                        datefmt='%Y-%m-%d %H:%M:%S')
 
     httpcore_logger = logging.getLogger("httpcore")
     httpx_logger = logging.getLogger("httpx")
