@@ -1,6 +1,7 @@
 import uuid
 from typing import Optional
 
+from sqlalchemy import table
 from sqlmodel import Field, SQLModel
 
 
@@ -30,3 +31,10 @@ class AllegroToken(SQLModel, table=True):
     client_id: str
     client_secret: str
     redirect_url: str
+
+
+class FailedEans(SQLModel, table=True):
+    __tablename__ = "failed_eans"
+
+    id: str = Field(primary_key=True)
+

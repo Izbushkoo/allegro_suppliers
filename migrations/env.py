@@ -27,7 +27,7 @@ sys.path.append(BASE_DIR)
 # target_metadata = Base.metadata
 
 from sqlmodel import SQLModel
-from app.models.database_models import User, AllegroToken
+from app.models.database_models import User, AllegroToken, FailedEans
 
 target_metadata = SQLModel.metadata
 
