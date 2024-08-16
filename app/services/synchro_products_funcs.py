@@ -56,6 +56,7 @@ async def process_complete_synchro_task(synchro_config: SynchronizeOffersRequest
     with_failed_include = synchro_config.with_failed_ean_include
     failed_eans = await get_all_failed_eans(database)
 
+    ToLog.write_basic(f"length of failed eans: {len(failed_eans)}")
     for i in range(0, len(products), batch):
 
         tasks = []
@@ -76,5 +77,6 @@ async def process_complete_synchro_task(synchro_config: SynchronizeOffersRequest
             ToLog.write_basic(f"Added to Mongo {len(all_records)} documents")
         if all_failed_eans:
             await add_failed_ean(database, all_failed_eans)
+            ToLog.write_basic(f"Written to FailedEans {len(all_failed_eans)}")
     ToLog.write_basic(f"Synchronization Finished")
 
