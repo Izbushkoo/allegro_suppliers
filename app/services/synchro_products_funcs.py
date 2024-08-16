@@ -12,10 +12,9 @@ from app.api import deps
 from app.services.failed_eans import get_all_failed_eans, add_failed_ean
 
 
-async def handle_single_product(supplier_product, allegro_access_token):
+async def handle_single_product(supplier_product, allegro_access_token, database):
 
     ean = supplier_product["ean"]
-
     try:
         if ean:
 
@@ -25,6 +24,7 @@ async def handle_single_product(supplier_product, allegro_access_token):
                     try:
                         found_product = await search_product_by_ean_return_first(ean, allegro_access_token)
                     except httpx.TimeoutException as err:
+                        await add_failed_ean(database, ean)
                         return None
                     if found_product:
                         ToLog.write_basic(f"Start process found product with ean: {ean}")
@@ -44,7 +44,8 @@ async def handle_single_product(supplier_product, allegro_access_token):
 
                             ToLog.write_basic(f"Created offer with id {product_to_work_with['allegro_oferta_id']}")
                             return product_to_work_with
-
+                        else:
+                            await add_failed_ean(database, ean)
     except Exception as er:
         ToLog.write_error(f"Error {er} \n skiped product with ean {ean}")
 
@@ -65,7 +66,7 @@ async def process_complete_synchro_task(synchro_config: SynchronizeOffersRequest
                 if not with_failed_include and product['ean'] in failed_eans:
                     continue
 
-                task = asyncio.create_task(handle_single_product(product, access_token))
+                task = asyncio.create_task(handle_single_product(product, access_token, database))
                 tasks.append(task)
         results = await asyncio.gather(*tasks)
         all_results = [result for result in results if result]
