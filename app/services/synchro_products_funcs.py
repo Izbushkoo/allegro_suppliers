@@ -8,6 +8,8 @@ from app.services.modules.AlegroApiManager import create_single_offer
 from app.services.modules.DatabaseManager import MongoManager
 from app.schemas.pydantic_models import CallbackManager, SynchronizeOffersRequest
 from app.services.modules.AlegroApiManager import search_product_by_ean_return_first
+from app.api import deps
+from app.services.failed_eans import get_all_failed_eans, add_failed_ean
 
 
 async def handle_single_product(supplier_product, allegro_access_token):
@@ -50,10 +52,20 @@ async def handle_single_product(supplier_product, allegro_access_token):
 async def process_complete_synchro_task(synchro_config: SynchronizeOffersRequest, access_token, products,
                                         existing_ofertas: List, batch: int = 50):
 
+    database = deps.AsyncSessLocal()
+
+    with_failed_include = synchro_config.with_failed_ean_include
+    failed_eans = await get_all_failed_eans(database)
+
     for i in range(0, len(products), batch):
+
         tasks = []
         for product in products[i: i + batch]:
             if product["supplier_sku"] not in existing_ofertas:
+                if with_failed_include:
+                    if product['ean'] in failed_eans:
+                        continue
+
                 task = asyncio.create_task(handle_single_product(product, access_token))
                 tasks.append(task)
         results = await asyncio.gather(*tasks)

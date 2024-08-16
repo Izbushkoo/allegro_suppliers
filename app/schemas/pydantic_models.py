@@ -68,6 +68,7 @@ class SynchronizeOffersRequest(BaseModel):
     token_id: str
     supplier: str
     multiplier: Optional[float | int] = Field(default=1)
+    with_failed_ean_include: Optional[bool] = Field(default=False)
     resource_id: Optional[str] = Field(default=None)
     callback_url: Optional[str] = Field(default=None)
 
