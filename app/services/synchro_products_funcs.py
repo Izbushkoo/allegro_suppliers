@@ -62,9 +62,8 @@ async def process_complete_synchro_task(synchro_config: SynchronizeOffersRequest
         tasks = []
         for product in products[i: i + batch]:
             if product["supplier_sku"] not in existing_ofertas:
-                if with_failed_include:
-                    if product['ean'] in failed_eans:
-                        continue
+                if not with_failed_include and product['ean'] in failed_eans:
+                    continue
 
                 task = asyncio.create_task(handle_single_product(product, access_token))
                 tasks.append(task)
