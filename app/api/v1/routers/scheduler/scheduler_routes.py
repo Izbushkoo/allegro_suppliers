@@ -71,6 +71,7 @@ async def syncro_run(
                                                     multiplier=synchro_request.multiplier)
     products_in_mongo = await MongoManager.fetch_positions_all_for_supplier(synchro_request.supplier)
     existing_ofertas = [product["supplier_sku"] for product in products_in_mongo]
+    ToLog.write_basic(f"length of existing ofertas {len(existing_ofertas)}")
     allegro_token = await get_token_by_id(database, synchro_request.token_id)
 
     try:
