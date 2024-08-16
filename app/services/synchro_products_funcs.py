@@ -12,7 +12,7 @@ from app.api import deps
 from app.services.failed_eans import get_all_failed_eans, add_failed_ean
 
 
-async def handle_single_product(supplier_product, allegro_access_token, database):
+async def handle_single_product(supplier_product, allegro_access_token):
 
     ean = supplier_product["ean"]
     try:
@@ -20,6 +20,8 @@ async def handle_single_product(supplier_product, allegro_access_token, database
 
             if supplier_product["stock"] > 1:
                 if supplier_product["price"] <= 5000:
+
+                    database = deps.AsyncSessLocal()
 
                     try:
                         found_product = await search_product_by_ean_return_first(ean, allegro_access_token)
@@ -66,7 +68,7 @@ async def process_complete_synchro_task(synchro_config: SynchronizeOffersRequest
                 if not with_failed_include and product['ean'] in failed_eans:
                     continue
 
-                task = asyncio.create_task(handle_single_product(product, access_token, database))
+                task = asyncio.create_task(handle_single_product(product, access_token))
                 tasks.append(task)
         results = await asyncio.gather(*tasks)
         all_results = [result for result in results if result]
