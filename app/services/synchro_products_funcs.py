@@ -17,17 +17,13 @@ async def handle_single_product(supplier_product, allegro_access_token):
     ean = supplier_product["ean"]
     try:
         if ean:
-
             if supplier_product["stock"] > 1:
                 if supplier_product["price"] <= 5000:
-
-                    database = deps.AsyncSessLocal()
 
                     try:
                         found_product = await search_product_by_ean_return_first(ean, allegro_access_token)
                     except httpx.TimeoutException as err:
-                        await add_failed_ean(database, ean)
-                        return None
+                        return None, ean
                     if found_product:
                         ToLog.write_basic(f"Start process found product with ean: {ean}")
                         product_to_work_with = {
@@ -45,11 +41,11 @@ async def handle_single_product(supplier_product, allegro_access_token):
                             product_to_work_with.pop("stock")
 
                             ToLog.write_basic(f"Created offer with id {product_to_work_with['allegro_oferta_id']}")
-                            return product_to_work_with
-                        else:
-                            await add_failed_ean(database, ean)
+                            return product_to_work_with, None
+        return None, ean
     except Exception as er:
         ToLog.write_error(f"Error {er} \n skiped product with ean {ean}")
+        return None, ean
 
 
 async def process_complete_synchro_task(synchro_config: SynchronizeOffersRequest, access_token, products,
@@ -71,9 +67,14 @@ async def process_complete_synchro_task(synchro_config: SynchronizeOffersRequest
                 task = asyncio.create_task(handle_single_product(product, access_token))
                 tasks.append(task)
         results = await asyncio.gather(*tasks)
-        all_results = [result for result in results if result]
-        if all_results:
-            await MongoManager.append_bulks_with_retry(all_results, synchro_config.supplier)
-            ToLog.write_basic(f"Added to Mongo {len(all_results)} documents")
+        all_results = [result for result in results]
+        all_records = [rec[0] for rec in all_results if rec[0]]
+        all_failed_eans = [rec[1] for rec in all_results if rec[1]]
 
+        if all_records:
+            await MongoManager.append_bulks_with_retry(all_records, synchro_config.supplier)
+            ToLog.write_basic(f"Added to Mongo {len(all_records)} documents")
+        if all_failed_eans:
+            await add_failed_ean(database, all_failed_eans)
     ToLog.write_basic(f"Synchronization Finished")
+

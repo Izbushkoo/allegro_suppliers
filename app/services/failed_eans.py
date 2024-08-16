@@ -16,8 +16,9 @@ async def get_all_failed_eans(database: AsyncSession) -> List:
         return [res.id for res in all_results]
 
 
-async def add_failed_ean(database: AsyncSession, ean):
+async def add_failed_ean(database: AsyncSession, eans: List[str]):
     async with database as session:
-        new = database_models.FailedEans(id=ean)
-        session.add(new)
+        for ean in eans:
+            new = database_models.FailedEans(id=ean)
+            session.add(new)
         await session.commit()
