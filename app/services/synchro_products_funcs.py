@@ -13,6 +13,8 @@ from app.services.modules.AlegroApiManager import search_product_by_ean_return_f
 async def handle_single_product(supplier_product, allegro_access_token):
 
     ean = supplier_product["ean"]
+
+    ToLog.write_basic(f"Start process product with ean: {ean}")
     try:
         if ean:
             try:
@@ -39,6 +41,7 @@ async def handle_single_product(supplier_product, allegro_access_token):
 
                             ToLog.write_basic(f"Created offer with id {product_to_work_with['allegro_oferta_id']}")
                             return product_to_work_with
+
     except Exception as er:
         ToLog.write_error(f"Error {er} \n skiped product with ean {ean}")
 
