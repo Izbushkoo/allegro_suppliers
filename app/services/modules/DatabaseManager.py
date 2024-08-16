@@ -163,6 +163,18 @@ class MongoBaseManager:
                         raise
                     await asyncio.sleep(2 ** attempt)
 
+    async def append_bulks_with_retry(self, documents: List, supplier: str, retries: int = 5):
+        retry = 0
+        while retry < retries:
+            try:
+                result = await self.append_bulks(documents, supplier)
+                return result
+            except Exception as err:
+                retry += 1
+                if retry >= retries:
+                    raise err
+                continue
+
     async def append_bulks(self, documents: List, supplier: str):
         """
 

@@ -55,7 +55,7 @@ async def process_complete_synchro_task(synchro_config: SynchronizeOffersRequest
         results = await asyncio.gather(*tasks)
         all_results = [result for result in results if result]
         if all_results:
-            await MongoManager.append_bulks(all_results, synchro_config.supplier)
+            await MongoManager.append_bulks_with_retry(all_results, synchro_config.supplier)
             ToLog.write_basic(f"Added to Mongo {len(all_results)} documents")
 
     ToLog.write_basic(f"Synchronization Finished")
