@@ -119,3 +119,4 @@ async def disable_multiple_ean_offers(access_token, products, callback_manager, 
             except Exception:
                 await MongoManager.set_we_sell_to([offer["id"] for offer in array_to_deactivate], True)
 
+    ToLog.write_basic(f"Deactivation finished")
