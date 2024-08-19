@@ -819,12 +819,12 @@ async def get_product_details(product_id, access_token):
     }
 
     async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
-        result = await client.post(url=url, headers=headers)
+        result = await client.get(url=url, headers=headers)
     if result.status_code in [429]:
         ToLog.write_basic(f"Waiting 60 sec for product_details getting for product_id: {product_id}")
         await asyncio.sleep(60)
         async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
-            result = await client.post(url=url, headers=headers)
+            result = await client.get(url=url, headers=headers)
 
     if result.status_code in [201, 202]:
         return result.json()
