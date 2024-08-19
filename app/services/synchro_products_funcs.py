@@ -89,7 +89,7 @@ async def make_single_oferta_check(product_from_mongo, access_token):
     offer_id = product_from_mongo["allegro_oferta_id"]
     products = await search_product_by_ean(ean, access_token)
     allegro_product_details = await get_product_details(allegro_product_id, access_token)
-
+    ToLog.write_basic(f"{allegro_product_details}")
     allegro_eans = None
     for param in allegro_product_details["parameters"]:
         if param["id"] == "225693" or param["name"] == "EAN (GTIN)":
