@@ -5,7 +5,8 @@ import math
 import asyncio
 import re
 import os
-from typing import List
+from itertools import product
+from typing import List, Dict
 
 import httpx
 import requests
@@ -668,6 +669,44 @@ def update_offers_status_sync(access_token, offers, action, callback_manager):
             time.sleep(0.5)
 
 
+async def update_status_single_offer(offer_id, access_token, action: str = "END"):
+
+    headers = {
+        'Authorization': f'Bearer {access_token}',
+        'Accept': 'application/vnd.allegro.public.v1+json',
+        'Content-Type': 'application/vnd.allegro.public.v1+json'
+    }
+
+    payload = {
+        "offerCriteria": [
+            {
+                "offers": [{"id": offer_id}],
+                "type": "CONTAINS_OFFERS",
+            }
+        ],
+        "publication": {
+            "action": action,
+        },
+    }
+
+    command_id = str(uuid.uuid4())
+    url = f"https://api.allegro.pl/sale/offer-publication-commands/{command_id}"
+    # new_params = json.dumps(payload)
+    async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
+        result = await client.put(url=url, headers=headers, json=payload)
+
+    if result.status_code in [429]:
+        await asyncio.sleep(60)
+
+        async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
+            result = await client.put(url=url, headers=headers, json=payload)
+
+    res = result.json()
+    if res :
+        return res
+    return []
+
+
 async def search_product_by_ean_return_first(ean, access_token):
 
     url = f"https://api.allegro.pl/sale/products"
@@ -694,6 +733,35 @@ async def search_product_by_ean_return_first(ean, access_token):
     products = result.json()["products"]
     if products:
         return products[0]
+    return []
+
+
+async def search_product_by_ean(ean, access_token):
+
+    url = f"https://api.allegro.pl/sale/products"
+    params = {
+        "phrase": ean,
+        "mode": "GTIN"
+    }
+
+    headers = {
+        "Authorization": f"Bearer {access_token}",
+        "Content-Type": "application/vnd.allegro.public.v1+json",
+        "Accept": "application/vnd.allegro.public.v1+json",
+    }
+
+    async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
+        result = await client.get(url=url, headers=headers, params=params)
+
+    if result.status_code in [429]:
+        await asyncio.sleep(60)
+
+        async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
+            result = await client.get(url=url, headers=headers, params=params)
+
+    products = result.json()["products"]
+    if products:
+        return products
     return []
 
 
@@ -740,6 +808,26 @@ async def create_single_offer(product, access_token):
     if result.status_code in [201, 202]:
         return result.json()
 
+async def get_product_details(product_id, access_token):
+
+    url = f"https://api.allegro.pl/sale/products/{product_id}"
+
+    headers = {
+        "Authorization": f"Bearer {access_token}",
+        "Content-Type": "application/vnd.allegro.public.v1+json",
+        "Accept": "application/vnd.allegro.public.v1+json",
+    }
+
+    async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
+        result = await client.post(url=url, headers=headers)
+    if result.status_code in [429]:
+        ToLog.write_basic(f"Waiting 60 sec for product_details getting for product_id: {product_id}")
+        await asyncio.sleep(60)
+        async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
+            result = await client.post(url=url, headers=headers)
+
+    if result.status_code in [201, 202]:
+        return result.json()
 
 
 def sleep(ms):

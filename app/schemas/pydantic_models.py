@@ -73,6 +73,13 @@ class SynchronizeOffersRequest(BaseModel):
     callback_url: Optional[str] = Field(default=None)
 
 
+class DisableOffersRequest(BaseModel):
+    token_id: str
+    supplier: str
+    resource_id: Optional[str] = Field(default=None)
+    callback_url: Optional[str] = Field(default=None)
+
+
 class ConnectionManager(BaseModel):
 
     model_config = ConfigDict(

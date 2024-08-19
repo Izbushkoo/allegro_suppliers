@@ -13,10 +13,10 @@ from apscheduler.events import EVENT_JOB_ERROR
 from app.api import deps
 from app.utils import serialize_data, deserialize_data, EscapedManager
 from app.api.v1.routers.allegro_offerta_update import update_as_task_in_bulks
-from app.schemas.pydantic_models import UpdateConfig, CallbackManager, SynchronizeOffersRequest
+from app.schemas.pydantic_models import UpdateConfig, CallbackManager, SynchronizeOffersRequest, DisableOffersRequest
 from app.services.allegro_token import get_token_by_id
 from app.loggers import ToLog
-from app.services.synchro_products_funcs import process_complete_synchro_task
+from app.services.synchro_products_funcs import process_complete_synchro_task, disable_multiple_ean_offers
 
 redis_client = redis.StrictRedis(host="redis_suppliers", port=6379, db=0)
 
@@ -42,6 +42,18 @@ supplier_config = {
     "rekman": "12,0",
     "growbox": "13,1"
 }
+
+
+def add_disable_ofertas(disable_config: DisableOffersRequest, access_token, products, callback_manager):
+    return scheduler.add_job(
+        disable_multiple_ean_offers,
+        kwargs={
+            "synchro_config": disable_config,
+            "access_token": access_token,
+            "products": products,
+            "callback_manager": callback_manager
+        }
+    )
 
 
 def add_synchro_products_job(synchro_config: SynchronizeOffersRequest, access_token, products, existing_ofertas):

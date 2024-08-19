@@ -1,8 +1,8 @@
 {
-    "id": "dd2bca59-ee64-42c4-85b1-be29256b61d7",
-    "name": "Integra Boost Terpene Essentials Humulene 4G 62%",
+    "id": "a3aa1577-7056-4734-bdaf-443a041b716d",
+    "name": "Skrzynka na listy wrzutnia Metal-Bud czarny",
     "category": {
-        "id": "126200",
+        "id": "46147",
         "path": [
             {
                 "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
@@ -13,108 +13,59 @@
                 "name": "Dom i Ogr\u00f3d"
             },
             {
-                "id": "1532",
-                "name": "Ogr\u00f3d"
+                "id": "1520",
+                "name": "Budownictwo i Akcesoria"
             },
             {
-                "id": "126188",
-                "name": "Nawozy i preparaty"
+                "id": "15957",
+                "name": "Ogrodzenia i bramy"
             },
             {
-                "id": "126200",
-                "name": "\u015arodki ochrony ro\u015blin"
+                "id": "46147",
+                "name": "Skrzynki na listy"
             }
         ],
-        "similar": [
-            {
-                "id": "316237",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "5",
-                        "name": "Dom i Ogr\u00f3d"
-                    },
-                    {
-                        "id": "1532",
-                        "name": "Ogr\u00f3d"
-                    },
-                    {
-                        "id": "126188",
-                        "name": "Nawozy i preparaty"
-                    },
-                    {
-                        "id": "316237",
-                        "name": "\u015arodki do kompostowania"
-                    }
-                ]
-            },
-            {
-                "id": "126197",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "5",
-                        "name": "Dom i Ogr\u00f3d"
-                    },
-                    {
-                        "id": "1532",
-                        "name": "Ogr\u00f3d"
-                    },
-                    {
-                        "id": "126188",
-                        "name": "Nawozy i preparaty"
-                    },
-                    {
-                        "id": "126197",
-                        "name": "Nawozy"
-                    }
-                ]
-            },
-            {
-                "id": "320125",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "5",
-                        "name": "Dom i Ogr\u00f3d"
-                    },
-                    {
-                        "id": "1532",
-                        "name": "Ogr\u00f3d"
-                    },
-                    {
-                        "id": "126188",
-                        "name": "Nawozy i preparaty"
-                    },
-                    {
-                        "id": "320125",
-                        "name": "Hydro\u017cele"
-                    }
-                ]
-            }
-        ]
+        "similar": []
     },
     "parameters": [
         {
-            "id": "248801",
-            "name": "Producent",
+            "id": "248811",
+            "name": "Marka",
             "valuesLabels": [
-                "inna (Integra)"
+                "Metal-Bud"
             ],
             "valuesIds": [
-                "248801_943043"
+                "248811_951000"
+            ],
+            "values": null,
+            "unit": null,
+            "options": {
+                "identifiesProduct": true
+            }
+        },
+        {
+            "id": "215174",
+            "name": "Kolor",
+            "valuesLabels": [
+                "czarny"
+            ],
+            "valuesIds": [
+                "215174_269274"
+            ],
+            "values": null,
+            "unit": null,
+            "options": {
+                "identifiesProduct": true
+            }
+        },
+        {
+            "id": "224017",
+            "name": "Kod producenta",
+            "valuesLabels": [
+                "A4Napis_UV_kolory"
             ],
             "values": [
-                "Integra"
+                "A4Napis_UV_kolory"
             ],
             "unit": null,
             "options": {
@@ -122,30 +73,13 @@
             }
         },
         {
-            "id": "225693",
-            "name": "EAN (GTIN)",
+            "id": "18234",
+            "name": "Typ skrzynki",
             "valuesLabels": [
-                "0802359002021",
-                "802359002021"
-            ],
-            "values": [
-                "0802359002021",
-                "802359002021"
-            ],
-            "unit": null,
-            "options": {
-                "identifiesProduct": true,
-                "isGTIN": true
-            }
-        },
-        {
-            "id": "236342",
-            "name": "Forma",
-            "valuesLabels": [
-                "inna"
+                "wrzutnia"
             ],
             "valuesIds": [
-                "236342_400266"
+                "18234_32"
             ],
             "values": null,
             "unit": null,
@@ -154,13 +88,55 @@
             }
         },
         {
-            "id": "226262",
-            "name": "Waga",
+            "id": "223329",
+            "name": "Wysoko\u015b\u0107 produktu",
             "valuesLabels": [
-                "0,1500 kg"
+                "34,50 cm"
             ],
             "values": [
-                "0.1500"
+                "34.50"
+            ],
+            "unit": "cm",
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "223333",
+            "name": "Szeroko\u015b\u0107 produktu",
+            "valuesLabels": [
+                "22,50 cm"
+            ],
+            "values": [
+                "22.50"
+            ],
+            "unit": "cm",
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "201321",
+            "name": "G\u0142\u0119boko\u015b\u0107 produktu",
+            "valuesLabels": [
+                "6,00 cm"
+            ],
+            "values": [
+                "6.00"
+            ],
+            "unit": "cm",
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "17448",
+            "name": "Waga produktu z opakowaniem jednostkowym",
+            "valuesLabels": [
+                "1,700 kg"
+            ],
+            "values": [
+                "1.700"
             ],
             "unit": "kg",
             "options": {
@@ -168,50 +144,132 @@
             }
         },
         {
-            "id": "25168",
-            "name": "Zastosowanie",
+            "id": "225693",
+            "name": "EAN (GTIN)",
             "valuesLabels": [
-                "inne"
-            ],
-            "valuesIds": [
-                "25168_8192"
-            ],
-            "values": null,
-            "unit": null,
-            "options": {
-                "identifiesProduct": false
-            }
-        },
-        {
-            "id": "224017",
-            "name": "Kod producenta",
-            "valuesLabels": [
-                "5947-UNIW"
+                "0773115173012",
+                "0791947327038",
+                "3617316812028",
+                "3664012739425",
+                "4006799048687",
+                "5905155279668",
+                "5906720521335",
+                "5906720521540",
+                "6953942282727",
+                "6955862122954",
+                "6957059729489",
+                "773115173012",
+                "791947327038"
             ],
             "values": [
-                "5947-UNIW"
+                "0773115173012",
+                "0791947327038",
+                "3617316812028",
+                "3664012739425",
+                "4006799048687",
+                "5905155279668",
+                "5906720521335",
+                "5906720521540",
+                "6953942282727",
+                "6955862122954",
+                "6957059729489",
+                "773115173012",
+                "791947327038"
             ],
             "unit": null,
             "options": {
-                "identifiesProduct": false
+                "identifiesProduct": false,
+                "isGTIN": true
             }
         }
     ],
     "images": [
         {
-            "url": "https://a.allegroimg.com/original/111c4a/7bc8e7a4429fb9768dce6489fd64"
+            "url": "https://a.allegroimg.com/original/11c945/6bce2263406f9faeb1ca8b277a4d"
         },
         {
-            "url": "https://a.allegroimg.com/original/11e33a/6150ae574a00bcf694c26dfbdaad"
+            "url": "https://a.allegroimg.com/original/117698/7a465a9c40b0835b698a4b1fe02c"
         },
         {
-            "url": "https://a.allegroimg.com/original/1109c7/2e2503bc46be8e01fb297c0634b9"
+            "url": "https://a.allegroimg.com/original/1198cd/b91d9c574500af81746d6549b63a"
         },
         {
-            "url": "https://a.allegroimg.com/original/11db4c/186c743f472eaa77ef54cedd8944"
+            "url": "https://a.allegroimg.com/original/11126e/19e0c176426fbe6635c0f4b841f5"
         },
         {
-            "url": "https://a.allegroimg.com/original/11a789/9985c81849a381010bc8bc446a5f"
+            "url": "https://a.allegroimg.com/original/1162d4/3095523b4ae9a74a66d10175b490"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/11d2fd/f8ddf4014d8c92932f3032986789"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/11c177/4cab9a0b4b58a5fecdd550d9ee9d"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/118ff4/604c5774447cb7741a40eaa2f71e"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/11452e/bf65c6d943c5a718b3883f51902c"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/11effe/a72d48ec492d9237af4f3b298f51"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/11eefc/2c47aadf4065b80cfbf2dde209ef"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/11da91/e5fbd71146e0a6939acfa8337c29"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/118d08/c1cc5da642c6b9c4d2d94fc043a1"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/115444/52dcfc6e4629affce4381435346c"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/1120d7/92f07b484038833d0c2d2b600eab"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/11872a/224b2c74494cb30cf6e2ebd4e074"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/114c97/3ce17c2a47b4b89c2054fe918f5a"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/116a22/f5d30c4e4221bc32bc7c9789b238"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/119722/a7def50d4788bccf6c8327991e6b"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/11cd5a/fa60e9784cc7b169f6ae7954660b"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/11d111/99e4539f407aafeb74bc20475e1b"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/1155bc/1f437db94e71b3cb26d31ee3a55e"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/11ebc1/0dcfd83a4287bd92d7273844d147"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/1132aa/72a7327e4c7b8c9518e1e2da2fa7"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/11c078/cee1ec314586b47e83e809068eca"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/11674a/b7e3ffc34c62966e39eee944e06c"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/11a4de/11ed1e624930bda1d91dbf7d1cf5"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/11cbea/a2d4b3374ec682213234d7befb97"
+        },
+        {
+            "url": "https://a.allegroimg.com/original/1171de/77120a19480fbdcc851681588a0c"
         }
     ],
     "offerRequirements": {
@@ -223,12 +281,28 @@
             {
                 "items": [
                     {
+                        "type": "TEXT",
+                        "content": "<p>NOWOCZESNA SKRZYNKA POCZTOWA POST DU\u017bA MODNY DESING</p> <p>213,40</p> <p>HD16439</p> <p><b>NOWOCZESNA SKRZYNKA POCZTOWA POST DU\u017bA MODNY DESIGN</b></p> <p>&nbsp;Nowoczesna skrzynka pocztowa posiada ciekawy modny design, kt\u00f3ry z pewno\u015bci\u0105 przykuwa uwag\u0119.&nbsp;</p> <p>Nasza skrzynka ma bardzo du\u017c\u0105 pojemno\u015b\u0107.</p> <p>Jest ona zamykana na kluczyk. Na dole skrzynki wykonany jest schowek na gazety.</p> <p>Wrzutnik skrzynki przykryty klapk\u0105.&nbsp;</p> <p>Cechy produktu:</p> <ul> <li>Nowoczesna skrzynka na listy malowana proszkowo z oklein\u0105 ze stali nierdzewnej</li> <li>Napis post</li> <li>Schowek na gazety</li> <li>2 klucze</li> <li>Materia\u0142 monta\u017cowy</li> </ul> <p>Dane Techniczne:</p> <ul> <li>Wymiary (W / H / D) 370 x 370 x 105 mm</li> <li>Wymiary gazetnika(B / H / D): 360 x 90 x 80 mm</li> <li>Wymiary wrzutnika 335 x 35 mm</li> <li>Kolor grafit i stal nierdzewna</li> <li>Materia\u0142: Ocynkowana stal malowana proszkowo / stal nierdzewna</li> <li>Grubo\u015b\u0107 materia\u0142u: 0,6-0,8 mm</li> </ul> <ul> <li>Poziomo 23,0 cm</li> <li>Pionowo 17,0 cm</li> <li>Przek\u0105tna 28,5 cm</li> </ul>"
+                    }
+                ]
+            },
+            {
+                "items": [
+                    {
                         "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/11e33a/6150ae574a00bcf694c26dfbdaad"
+                        "url": "https://a.allegroimg.com/original/115444/52dcfc6e4629affce4381435346c"
+                    }
+                ]
+            },
+            {
+                "items": [
+                    {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/1120d7/92f07b484038833d0c2d2b600eab"
                     },
                     {
-                        "type": "TEXT",
-                        "content": "<h2>Regulator wilgotno\u015bci suszu Integra Boost Terpene HUMULENE 4 g</h2> <p>Regulator wilgoci w suszu Integra Boost Terpene Essentials.</p> <p><b>Dwukierunkowa formu\u0142a wzbogacona o izolaty terpenowe wykonane z surowc\u00f3w ro\u015blinnych.</b></p> <p>Terpen: HUMULEN - ziemisto-drzewno-korzenny aromat.</p> <p><b>Saszetki Integra Boost Terpene</b><b>uwalniaj\u0105 lub poch\u0142aniaj\u0105 wilgo\u0107 z materia\u0142u ro\u015blinnego.</b></p> <p>Pozwalaj\u0105 zachowa\u0107 \u015bwie\u017co\u015b\u0107, zapobiegaj\u0105 ulatnianiu si\u0119 skladnik\u00f3w aktywnych.</p> <p>Wype\u0142nij sw\u00f3j susz wybranym terpenem z potencjalnym dzia\u0142aniem prozdrowotnym.</p> <p>Jak u\u017cywa\u0107 saszetek Integra Boost Terpene:</p> <ol> <li>4 g Integra Boost Terpene przeznaczone s\u0105 do p\u00f3\u0142 uncji produktu (ok 14 g)</li> <li>W\u0142\u00f3\u017c saszetk\u0119 Integra Boost Terpene do suszu i zamknij w hermetycznym opakowaniu</li> <li>Pozostaw na 24-72 h</li> <li>Aby zapewni\u0107 sobie d\u0142ugotrwa\u0142\u0105 \u015bwie\u017co\u015b\u0107, wymie\u0144 opakowanie Boost Terpene Essentials na bezsmakowe opakowanie Boost 55% lub 62%.</li> </ol> <p><b>Wskaz\u00f3wka producenta:</b>&nbsp;po 1 u\u017cyciu przechowuj opakowanie Boost Terpene Essentials w hermetycznym pojemniku i u\u017cyj go jeszcze 2 razy.</p>"
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/11872a/224b2c74494cb30cf6e2ebd4e074"
                     }
                 ]
             },
@@ -236,7 +310,11 @@
                 "items": [
                     {
                         "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/1109c7/2e2503bc46be8e01fb297c0634b9"
+                        "url": "https://a.allegroimg.com/original/114c97/3ce17c2a47b4b89c2054fe918f5a"
+                    },
+                    {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/116a22/f5d30c4e4221bc32bc7c9789b238"
                     }
                 ]
             },
@@ -244,23 +322,7 @@
                 "items": [
                     {
                         "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/11db4c/186c743f472eaa77ef54cedd8944"
-                    }
-                ]
-            },
-            {
-                "items": [
-                    {
-                        "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/11e33a/6150ae574a00bcf694c26dfbdaad"
-                    }
-                ]
-            },
-            {
-                "items": [
-                    {
-                        "type": "TEXT",
-                        "content": "<p><b>Mo\u017cliwe efekty:</b></p> <ul> <li>Dzia\u0142a przeciwzapalnie, relaksuj\u0105co, koj\u0105co, uspokajaj\u0105co.</li> </ul> <p><b>Aromat:</b></p> <ul> <li>Chmiel i cytrusy z nut\u0105 pikantno\u015bci.</li> </ul> <p><b>Smak:</b></p> <ul> <li>Bogata ziemista baza z nutami ostrego chmielu</li> </ul> <p><b>Pochodzenie botaniczne:</b></p> <ul> <li>Chmiel, sza\u0142wia, \u017ce\u0144-sze\u0144, mi\u0119ta, imbir, li\u015b\u0107 laurowy, pomara\u0144cza, kolendra.</li> </ul> <p><b>Saszetka: 4 g</b></p>"
+                        "url": "https://a.allegroimg.com/original/119722/a7def50d4788bccf6c8327991e6b"
                     }
                 ]
             }

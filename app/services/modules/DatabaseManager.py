@@ -76,6 +76,22 @@ class MongoBaseManager:
             items_array = await documents.to_list(length=None)
             return items_array
 
+    async def fetch_complete_positions_for_supplier(self, supplier):
+
+        supplier_id = supplier_database_id[supplier]
+        async with self._connect() as db_manager:
+            database = db_manager[base_db_name]
+            collection = database[renewed_collection]
+            query = {
+                "groups": supplier_id,
+            }
+            projection = {"ean": 1, "product_name": 1, "allegro_oferta_id": 1, 
+                          "allegro_product_id": 1, "_id": 0}
+            documents = collection.find(query, projection)
+
+            items_array = await documents.to_list(length=None)
+            return items_array
+
     async def remove_position_by_allegro_id(self, allegro_id: str | int):
 
         async with self._connect() as db_manager:

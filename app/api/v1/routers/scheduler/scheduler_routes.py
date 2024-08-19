@@ -8,9 +8,9 @@ from app.api import deps
 from app.schemas.pydantic_models import UpdateConfig
 from app.services.modules.DatabaseManager import MongoManager
 from app.services.scheduler_service.scheduler_tasks import stop_task, job_list, add_tasks_as_one, get_single_job, \
-    job_list_with_acc, add_synchro_products_job
+    job_list_with_acc, add_synchro_products_job, add_disable_ofertas
 from app.loggers import ToLog
-from app.schemas.pydantic_models import SynchronizeOffersRequest, CallbackManager
+from app.schemas.pydantic_models import SynchronizeOffersRequest, CallbackManager, DisableOffersRequest
 from app.services.updates import get_all_supplier_products_data
 
 
@@ -96,4 +96,38 @@ async def syncro_run(
     return JSONResponse({"status": "OK", "message": "Synchronization started", "job_id": job.id})
 
 
+@router.post("/disable_offers")
+async def disable_offers_with_multiple_eans(
+        disable_request: DisableOffersRequest,
+        database: AsyncSession = Depends(deps.get_db_async),
+):
 
+    callback_manager = CallbackManager(
+        url=disable_request.callback_url,
+        resource_id=disable_request.resource_id
+    )
+
+    products_in_mongo = await MongoManager.fetch_complete_positions_for_supplier(disable_request.supplier)
+
+    allegro_token = await get_token_by_id(database, disable_request.token_id)
+
+    try:
+        await callback_manager.send_ok_callback_async(
+            f"Проверяем валидность токена '{allegro_token.account_name}'..."
+        )
+        token = await check_token(database, allegro_token, callback_manager)
+    except Exception as err:
+        ToLog.write_error(f"Error while check and update token {err}")
+        await callback_manager.send_error_callback(f"Ошибка во время проверки и обновления токена: {err}")
+        raise HTTPException(status_code=403, detail="Invalid token")
+    else:
+        access_token = token.access_token
+
+        job = add_disable_ofertas(
+            disable_config=disable_request,
+            access_token=access_token,
+            products=products_in_mongo,
+            callback_manager=callback_manager
+        )
+
+    return JSONResponse({"status": "OK", "message": "Synchronization started", "job_id": job.id})
