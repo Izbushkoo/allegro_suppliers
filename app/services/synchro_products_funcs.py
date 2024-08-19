@@ -91,9 +91,10 @@ async def make_single_oferta_check(product_from_mongo, access_token):
     allegro_product_details = await get_product_details(allegro_product_id, access_token)
 
     allegro_eans = None
-    for param in allegro_product_details["parameters"]:
-        if param["id"] == "225693" or param["name"] == "EAN (GTIN)":
-            allegro_eans = param
+    if allegro_product_details:
+        for param in allegro_product_details["parameters"]:
+            if param["id"] == "225693" or param["name"] == "EAN (GTIN)":
+                allegro_eans = param
 
     if allegro_eans:
         if len(allegro_eans["values"]) != 1:
