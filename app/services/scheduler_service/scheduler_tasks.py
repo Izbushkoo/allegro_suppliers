@@ -44,11 +44,10 @@ supplier_config = {
 }
 
 
-def add_disable_ofertas(disable_config: DisableOffersRequest, access_token, products, callback_manager):
+def add_disable_ofertas(access_token, products, callback_manager):
     return scheduler.add_job(
         disable_multiple_ean_offers,
         kwargs={
-            "synchro_config": disable_config,
             "access_token": access_token,
             "products": products,
             "callback_manager": callback_manager

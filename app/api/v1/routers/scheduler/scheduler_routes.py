@@ -96,7 +96,7 @@ async def syncro_run(
     return JSONResponse({"status": "OK", "message": "Synchronization started", "job_id": job.id})
 
 
-@router.post("/disable_offers")
+@router.put("/disable_offers")
 async def disable_offers_with_multiple_eans(
         disable_request: DisableOffersRequest,
         database: AsyncSession = Depends(deps.get_db_async),
@@ -124,7 +124,6 @@ async def disable_offers_with_multiple_eans(
         access_token = token.access_token
 
         job = add_disable_ofertas(
-            disable_config=disable_request,
             access_token=access_token,
             products=products_in_mongo,
             callback_manager=callback_manager
