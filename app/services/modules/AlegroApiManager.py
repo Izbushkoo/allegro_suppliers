@@ -828,7 +828,7 @@ async def get_product_details(product_id, access_token):
         async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
             result = await client.get(url=url, headers=headers)
 
-    if result.status_code in [201, 202]:
+    if result.status_code in [200, 201, 202]:
         return result.json()
 
 
