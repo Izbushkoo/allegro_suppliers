@@ -110,13 +110,14 @@ async def disable_multiple_ean_offers(access_token, products, callback_manager, 
         for product in products[i: i + batch]:
             task = asyncio.create_task(make_single_oferta_check(product, access_token))
             tasks.append(task)
-            results = await asyncio.gather(*tasks)
-            array_to_deactivate = [result for result in results if result]
-            await MongoManager.set_we_sell_to([offer["id"] for offer in array_to_deactivate], False)
-            try:
-                await update_offers_status(access_token, array_to_deactivate, "END", callback_manager)
-                ToLog.write_basic(f"Deactivated {len(array_to_deactivate)} offertas")
-            except Exception:
-                await MongoManager.set_we_sell_to([offer["id"] for offer in array_to_deactivate], True)
+
+        results = await asyncio.gather(*tasks)
+        array_to_deactivate = [result for result in results if result]
+        await MongoManager.set_we_sell_to([offer["id"] for offer in array_to_deactivate], False)
+        try:
+            await update_offers_status(access_token, array_to_deactivate, "END", callback_manager)
+            ToLog.write_basic(f"Deactivated {len(array_to_deactivate)} offertas")
+        except Exception:
+            await MongoManager.set_we_sell_to([offer["id"] for offer in array_to_deactivate], True)
 
     ToLog.write_basic(f"Deactivation finished")
