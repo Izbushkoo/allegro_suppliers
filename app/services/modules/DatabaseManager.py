@@ -124,7 +124,8 @@ class MongoBaseManager:
             filter_ = {
                 "allegro_oferta_id": {
                     "$in": allegro_ids
-                }
+                },
+                "allegro_we_sell_it": True
             }
             return await collection.update_many(filter_, query)
 

@@ -800,7 +800,7 @@ async def create_single_offer(product, access_token):
     async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
         result = await client.post(url=url, headers=headers, data=new_params)
     if result.status_code in [429]:
-        ToLog.write_basic(f"Waiting 60 sec for ean: {product['ean']}")
+        ToLog.write_basic(f"Waiting 60 sec for creating offer: {product['ean']}")
         await asyncio.sleep(60)
         async with httpx.AsyncClient(limits=limits, timeout=timeout) as client:
             result = await client.post(url=url, headers=headers, data=new_params)
