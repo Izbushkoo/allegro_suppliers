@@ -121,12 +121,31 @@ async def disable_multiple_ean_offers(access_token, products, callback_manager, 
 
         results = await asyncio.gather(*tasks)
         array_to_deactivate = [result for result in results if result]
-        await MongoManager.set_we_sell_to([offer["id"] for offer in array_to_deactivate], False)
+        try:
+            await MongoManager.set_we_sell_to([offer["id"] for offer in array_to_deactivate], False)
+        except Exception as e:
+            ToLog.write_error(f"{e}\n try one more time after 30 sec")
+            await asyncio.sleep(30)
+            try:
+                await MongoManager.set_we_sell_to([offer["id"] for offer in array_to_deactivate], False)
+            except Exception as e:
+                ToLog.write_error(f"{e}\n after one more time and 30 sec")
+                continue
         try:
             await update_offers_status(access_token, array_to_deactivate, "END", callback_manager)
             ToLog.write_basic(f"Deactivated {len(array_to_deactivate)} offertas")
         except Exception:
-            await MongoManager.set_we_sell_to([offer["id"] for offer in array_to_deactivate], True)
+            try:
+                await MongoManager.set_we_sell_to([offer["id"] for offer in array_to_deactivate], True)
+            except Exception as e:
+                ToLog.write_error(f"{e}\n try one more time after 30 sec")
+                await asyncio.sleep(30)
+                try:
+                    await MongoManager.set_we_sell_to([offer["id"] for offer in array_to_deactivate], True)
+                except Exception as e:
+                    ToLog.write_error(f"{e}\n after one more time and 30 sec")
+                    continue
+
         count += batch
         ToLog.write_basic(f"Processed {count} offers")
     ToLog.write_basic(f"Deactivation finished")
