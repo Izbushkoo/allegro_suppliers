@@ -84,6 +84,7 @@ class MongoBaseManager:
             collection = database[renewed_collection]
             query = {
                 "groups": supplier_id,
+                "allegro_we_sell_it": True
             }
             projection = {"ean": 1, "product_name": 1, "allegro_oferta_id": 1, 
                           "allegro_product_id": 1, "_id": 0}
@@ -125,7 +126,6 @@ class MongoBaseManager:
                 "allegro_oferta_id": {
                     "$in": allegro_ids
                 },
-                "allegro_we_sell_it": True
             }
             return await collection.update_many(filter_, query)
 
