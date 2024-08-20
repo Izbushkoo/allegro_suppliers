@@ -21,7 +21,7 @@ limits = httpx.Limits(max_connections=500, max_keepalive_connections=300)
 timeout = httpx.Timeout(100, connect=20)
 
 
-async def get_page_offers(offers_request, access_token):
+async def get_page_offers(offers_request: OffersRequest, access_token):
 
     url = f"https://api.allegro.pl/sale/offers"
     headers = {
@@ -29,10 +29,9 @@ async def get_page_offers(offers_request, access_token):
         "Content-Type": "application/vnd.allegro.public.v1+json",
         "Accept": "application/vnd.allegro.public.v1+json",
     }
+
     params = {
-        **offers_request.model_dump(by_alias=True),
-        # "limit": limit,
-        # "offset": offset
+        **offers_request.model_dump(by_alias=True, exclude_none=True),
     }
 
     ToLog.write_basic(f"Params {params}")

@@ -49,7 +49,10 @@ class OffersRequest(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True
     )
-    name: str
+
+    name: Optional[str] = Field(default=None)
+    offer_id: Optional[str] = Field(default=None, alias="offer.id")
+
     token_id: str = Field(exclude=True)
     publication_status: Optional[str] = Field(default="ACTIVE", alias="publication.status")
     limit: int = Field(default=500)
