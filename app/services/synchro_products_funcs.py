@@ -110,7 +110,8 @@ async def make_single_oferta_check(product_from_mongo, access_token):
 
 
 async def disable_multiple_ean_offers(access_token, products, callback_manager, batch: int = 50):
-
+    ToLog.write_basic(f"Total ofers to process {len(products)}")
+    count = 0
     for i in range(0, len(products), batch):
         tasks = []
         for product in products[i: i + batch]:
@@ -126,5 +127,6 @@ async def disable_multiple_ean_offers(access_token, products, callback_manager, 
             ToLog.write_basic(f"Deactivated {len(array_to_deactivate)} offertas")
         except Exception:
             await MongoManager.set_we_sell_to([offer["id"] for offer in array_to_deactivate], True)
-
+        count += batch
+        ToLog.write_basic(f"Processed {count} offers")
     ToLog.write_basic(f"Deactivation finished")
