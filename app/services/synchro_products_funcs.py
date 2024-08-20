@@ -116,6 +116,7 @@ async def disable_multiple_ean_offers(access_token, products, callback_manager, 
         for product in products[i: i + batch]:
             task = asyncio.create_task(make_single_oferta_check(product, access_token))
             tasks.append(task)
+            await asyncio.sleep(0.3)
 
         results = await asyncio.gather(*tasks)
         array_to_deactivate = [result for result in results if result]
