@@ -93,6 +93,7 @@ async def update_offers_in_bulks(offers_array, access_token: str, callback_manag
                             f"Предложение {id_} обновляется в одной из Cron-Job"
                         )
                         continue
+
                     tasks.append(asyncio.create_task(process_offer(
                         offer, client, headers, callback_manager, 
                         array_with_price_errors_to_update, array_to_end, 
@@ -146,7 +147,7 @@ async def process_offer(offer, client, headers, callback_manager,
     price = offer.get('price')
     # weight = offer.get("weight")
 
-    if stock == 0:
+    if stock <= 1:
         array_to_end.append(offer)
         return
 
