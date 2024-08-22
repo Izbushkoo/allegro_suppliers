@@ -199,4 +199,4 @@ async def get_found_word_in_description(word: str, access_token, products, callb
     base_path = os.path.join(os.getcwd(), "logs", "to_check.json")
     with open(base_path, "w", encoding="utf-8") as file:
         file.write(json.dumps(offers, indent=4, ensure_ascii=False))
-    ToLog.write_basic(f"Finished")
+    ToLog.write_basic(f"Finished. Found {len(offers.keys())}")
