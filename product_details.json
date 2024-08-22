@@ -1,8 +1,8 @@
 {
-    "id": "a3aa1577-7056-4734-bdaf-443a041b716d",
-    "name": "Skrzynka na listy wrzutnia Metal-Bud czarny",
+    "id": "8f6168d2-3140-418a-8e9f-8ba70b731df4",
+    "name": "Wkr\u0119tarka Yato zasilanie akumulatorowe 18 V YT-82797",
     "category": {
-        "id": "46147",
+        "id": "147662",
         "path": [
             {
                 "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
@@ -13,29 +13,72 @@
                 "name": "Dom i Ogr\u00f3d"
             },
             {
-                "id": "1520",
-                "name": "Budownictwo i Akcesoria"
+                "id": "1536",
+                "name": "Narz\u0119dzia"
             },
             {
-                "id": "15957",
-                "name": "Ogrodzenia i bramy"
-            },
-            {
-                "id": "46147",
-                "name": "Skrzynki na listy"
+                "id": "147662",
+                "name": "Wkr\u0119tarki"
             }
         ],
-        "similar": []
+        "similar": [
+            {
+                "id": "300893",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "5",
+                        "name": "Dom i Ogr\u00f3d"
+                    },
+                    {
+                        "id": "1536",
+                        "name": "Narz\u0119dzia"
+                    },
+                    {
+                        "id": "300893",
+                        "name": "Zestawy elektronarz\u0119dzi"
+                    }
+                ]
+            },
+            {
+                "id": "259924",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "3",
+                        "name": "Motoryzacja"
+                    },
+                    {
+                        "id": "18554",
+                        "name": "Narz\u0119dzia i sprz\u0119t warsztatowy"
+                    },
+                    {
+                        "id": "322020",
+                        "name": "Wiertarki i wkr\u0119tarki"
+                    },
+                    {
+                        "id": "259924",
+                        "name": "Wkr\u0119tarki"
+                    }
+                ]
+            }
+        ]
     },
     "parameters": [
         {
-            "id": "248811",
+            "id": "127509",
             "name": "Marka",
             "valuesLabels": [
-                "Metal-Bud"
+                "Yato"
             ],
             "valuesIds": [
-                "248811_951000"
+                "127509_29"
             ],
             "values": null,
             "unit": null,
@@ -44,13 +87,13 @@
             }
         },
         {
-            "id": "215174",
-            "name": "Kolor",
+            "id": "128551",
+            "name": "Napi\u0119cie (V)",
             "valuesLabels": [
-                "czarny"
+                "18 V"
             ],
             "valuesIds": [
-                "215174_269274"
+                "128551_6"
             ],
             "values": null,
             "unit": null,
@@ -59,27 +102,28 @@
             }
         },
         {
-            "id": "224017",
-            "name": "Kod producenta",
+            "id": "225693",
+            "name": "EAN (GTIN)",
             "valuesLabels": [
-                "A4Napis_UV_kolory"
+                "5906083025082"
             ],
             "values": [
-                "A4Napis_UV_kolory"
+                "5906083025082"
             ],
             "unit": null,
             "options": {
-                "identifiesProduct": true
+                "identifiesProduct": true,
+                "isGTIN": true
             }
         },
         {
-            "id": "18234",
-            "name": "Typ skrzynki",
+            "id": "209202",
+            "name": "Zasilanie",
             "valuesLabels": [
-                "wrzutnia"
+                "akumulatorowe"
             ],
             "valuesIds": [
-                "18234_32"
+                "209202_1769478"
             ],
             "values": null,
             "unit": null,
@@ -88,43 +132,186 @@
             }
         },
         {
-            "id": "223329",
-            "name": "Wysoko\u015b\u0107 produktu",
+            "id": "204657",
+            "name": "Rodzaj silnika",
             "valuesLabels": [
-                "34,50 cm"
+                "silnik bezszczotkowy"
             ],
-            "values": [
-                "34.50"
+            "valuesIds": [
+                "204657_221325"
             ],
-            "unit": "cm",
+            "values": null,
+            "unit": null,
             "options": {
                 "identifiesProduct": false
             }
         },
         {
-            "id": "223333",
-            "name": "Szeroko\u015b\u0107 produktu",
+            "id": "129633",
+            "name": "Pojemno\u015b\u0107 akumulatora",
             "valuesLabels": [
-                "22,50 cm"
+                "0,00 Ah"
             ],
             "values": [
-                "22.50"
+                "0.00"
             ],
-            "unit": "cm",
+            "unit": "Ah",
             "options": {
                 "identifiesProduct": false
             }
         },
         {
-            "id": "201321",
-            "name": "G\u0142\u0119boko\u015b\u0107 produktu",
+            "id": "205009",
+            "name": "Mi\u0119kki moment obrotowy",
             "valuesLabels": [
-                "6,00 cm"
+                "42,00 Nm"
             ],
             "values": [
-                "6.00"
+                "42.00"
             ],
-            "unit": "cm",
+            "unit": "Nm",
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "129635",
+            "name": "Twardy moment obrotowy",
+            "valuesLabels": [
+                "42,00 Nm"
+            ],
+            "values": [
+                "42.00"
+            ],
+            "unit": "Nm",
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "129634",
+            "name": "Typ akumulatora",
+            "valuesLabels": [
+                "Li-Ion"
+            ],
+            "valuesIds": [
+                "129634_2"
+            ],
+            "values": null,
+            "unit": null,
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "205001",
+            "name": "Maksymalna pr\u0119dko\u015b\u0107 obrotowa - I bieg",
+            "valuesLabels": [
+                "600 RPM"
+            ],
+            "values": [
+                "600"
+            ],
+            "unit": "RPM",
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "205005",
+            "name": "Maksymalna pr\u0119dko\u015b\u0107 obrotowa - II bieg",
+            "valuesLabels": [
+                "2000 RPM"
+            ],
+            "values": [
+                "2000"
+            ],
+            "unit": "RPM",
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "205013",
+            "name": "Maksymalna \u015brednica wiercenia w drewnie",
+            "valuesLabels": [
+                "25 mm"
+            ],
+            "values": [
+                "25"
+            ],
+            "unit": "mm",
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "205017",
+            "name": "Maksymalna \u015brednica wiercenia w metalu",
+            "valuesLabels": [
+                "10 mm"
+            ],
+            "values": [
+                "10"
+            ],
+            "unit": "mm",
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "205021",
+            "name": "Maksymalna liczba udar\u00f3w",
+            "valuesLabels": [
+                "36000"
+            ],
+            "values": [
+                "36000"
+            ],
+            "unit": null,
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "205025",
+            "name": "Liczba zakres\u00f3w momentu obrotowego (x+1)",
+            "valuesLabels": [
+                "20"
+            ],
+            "values": [
+                "20"
+            ],
+            "unit": null,
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "128552",
+            "name": "Informacje dodatkowe",
+            "valuesLabels": [
+                "nie dotyczy"
+            ],
+            "valuesIds": [
+                "128552_8"
+            ],
+            "values": null,
+            "unit": null,
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "25029",
+            "name": "Waga urz\u0105dzenia",
+            "valuesLabels": [
+                "1,30 kg"
+            ],
+            "values": [
+                "1.30"
+            ],
+            "unit": "kg",
             "options": {
                 "identifiesProduct": false
             }
@@ -144,132 +331,88 @@
             }
         },
         {
-            "id": "225693",
-            "name": "EAN (GTIN)",
+            "id": "224017",
+            "name": "Kod producenta",
             "valuesLabels": [
-                "0773115173012",
-                "0791947327038",
-                "3617316812028",
-                "3664012739425",
-                "4006799048687",
-                "5905155279668",
-                "5906720521335",
-                "5906720521540",
-                "6953942282727",
-                "6955862122954",
-                "6957059729489",
-                "773115173012",
-                "791947327038"
+                "YT-82797"
             ],
             "values": [
-                "0773115173012",
-                "0791947327038",
-                "3617316812028",
-                "3664012739425",
-                "4006799048687",
-                "5905155279668",
-                "5906720521335",
-                "5906720521540",
-                "6953942282727",
-                "6955862122954",
-                "6957059729489",
-                "773115173012",
-                "791947327038"
+                "YT-82797"
             ],
             "unit": null,
             "options": {
-                "identifiesProduct": false,
-                "isGTIN": true
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "237222",
+            "name": "Seria",
+            "valuesLabels": [
+                "GRF"
+            ],
+            "values": [
+                "GRF"
+            ],
+            "unit": null,
+            "options": {
+                "identifiesProduct": false
             }
         }
     ],
     "images": [
         {
-            "url": "https://a.allegroimg.com/original/11c945/6bce2263406f9faeb1ca8b277a4d"
+            "url": "https://a.allegroimg.com/original/11291b/591f767a4f749b812f00c2fc7c39"
         },
         {
-            "url": "https://a.allegroimg.com/original/117698/7a465a9c40b0835b698a4b1fe02c"
+            "url": "https://a.allegroimg.com/original/1140a2/04c943314bb59cebac1d8025fd61"
         },
         {
-            "url": "https://a.allegroimg.com/original/1198cd/b91d9c574500af81746d6549b63a"
+            "url": "https://a.allegroimg.com/original/11b049/5f55d31d47179ca82948019f09a7"
         },
         {
-            "url": "https://a.allegroimg.com/original/11126e/19e0c176426fbe6635c0f4b841f5"
+            "url": "https://a.allegroimg.com/original/03f8c2/aea613cd49339705fc3aaa61c4a3"
         },
         {
-            "url": "https://a.allegroimg.com/original/1162d4/3095523b4ae9a74a66d10175b490"
+            "url": "https://a.allegroimg.com/original/11a2fc/f19bfbd14040a9996123083214cf"
         },
         {
-            "url": "https://a.allegroimg.com/original/11d2fd/f8ddf4014d8c92932f3032986789"
+            "url": "https://a.allegroimg.com/original/111187/deec1fb54b0da526d49a7ac59d61"
         },
         {
-            "url": "https://a.allegroimg.com/original/11c177/4cab9a0b4b58a5fecdd550d9ee9d"
+            "url": "https://a.allegroimg.com/original/11a91e/b67202da47f9872db502dc6ffa6c"
         },
         {
-            "url": "https://a.allegroimg.com/original/118ff4/604c5774447cb7741a40eaa2f71e"
+            "url": "https://a.allegroimg.com/original/03871d/d7046e034cdabd9ab8451eea96b6"
         },
         {
-            "url": "https://a.allegroimg.com/original/11452e/bf65c6d943c5a718b3883f51902c"
+            "url": "https://a.allegroimg.com/original/11beb2/e03b740a44aca82f0465e909f944"
         },
         {
-            "url": "https://a.allegroimg.com/original/11effe/a72d48ec492d9237af4f3b298f51"
+            "url": "https://a.allegroimg.com/original/1189f7/bac7cfb24a55b7b3cad19ea8b9d1"
         },
         {
-            "url": "https://a.allegroimg.com/original/11eefc/2c47aadf4065b80cfbf2dde209ef"
+            "url": "https://a.allegroimg.com/original/116b09/ab40024b4a6aa3ed67bb87812221"
         },
         {
-            "url": "https://a.allegroimg.com/original/11da91/e5fbd71146e0a6939acfa8337c29"
+            "url": "https://a.allegroimg.com/original/2519d5/d152e3884290819736ec28643902"
         },
         {
-            "url": "https://a.allegroimg.com/original/118d08/c1cc5da642c6b9c4d2d94fc043a1"
+            "url": "https://a.allegroimg.com/original/25bfc8/f23f1a4246fba97b0d0fddf2efc3"
         },
         {
-            "url": "https://a.allegroimg.com/original/115444/52dcfc6e4629affce4381435346c"
+            "url": "https://a.allegroimg.com/original/259d24/f54f7d2a414ca72d7f266a2648c2"
         },
         {
-            "url": "https://a.allegroimg.com/original/1120d7/92f07b484038833d0c2d2b600eab"
+            "url": "https://a.allegroimg.com/original/1166e1/ffae3cd94b6aa77c80d769c301ce"
         },
         {
-            "url": "https://a.allegroimg.com/original/11872a/224b2c74494cb30cf6e2ebd4e074"
+            "url": "https://a.allegroimg.com/original/254811/c9c731c04417883743dbf00e07e7"
         },
         {
-            "url": "https://a.allegroimg.com/original/114c97/3ce17c2a47b4b89c2054fe918f5a"
+            "url": "https://a.allegroimg.com/original/11ba2c/5928001e46c3b30e893842af31fe"
         },
         {
-            "url": "https://a.allegroimg.com/original/116a22/f5d30c4e4221bc32bc7c9789b238"
-        },
-        {
-            "url": "https://a.allegroimg.com/original/119722/a7def50d4788bccf6c8327991e6b"
-        },
-        {
-            "url": "https://a.allegroimg.com/original/11cd5a/fa60e9784cc7b169f6ae7954660b"
-        },
-        {
-            "url": "https://a.allegroimg.com/original/11d111/99e4539f407aafeb74bc20475e1b"
-        },
-        {
-            "url": "https://a.allegroimg.com/original/1155bc/1f437db94e71b3cb26d31ee3a55e"
-        },
-        {
-            "url": "https://a.allegroimg.com/original/11ebc1/0dcfd83a4287bd92d7273844d147"
-        },
-        {
-            "url": "https://a.allegroimg.com/original/1132aa/72a7327e4c7b8c9518e1e2da2fa7"
-        },
-        {
-            "url": "https://a.allegroimg.com/original/11c078/cee1ec314586b47e83e809068eca"
-        },
-        {
-            "url": "https://a.allegroimg.com/original/11674a/b7e3ffc34c62966e39eee944e06c"
-        },
-        {
-            "url": "https://a.allegroimg.com/original/11a4de/11ed1e624930bda1d91dbf7d1cf5"
-        },
-        {
-            "url": "https://a.allegroimg.com/original/11cbea/a2d4b3374ec682213234d7befb97"
-        },
-        {
-            "url": "https://a.allegroimg.com/original/1171de/77120a19480fbdcc851681588a0c"
+            "url": "https://a.allegroimg.com/original/11034c/6fc599ea47bd9ca7023cd16b8599"
         }
     ],
     "offerRequirements": {
@@ -282,7 +425,7 @@
                 "items": [
                     {
                         "type": "TEXT",
-                        "content": "<p>NOWOCZESNA SKRZYNKA POCZTOWA POST DU\u017bA MODNY DESING</p> <p>213,40</p> <p>HD16439</p> <p><b>NOWOCZESNA SKRZYNKA POCZTOWA POST DU\u017bA MODNY DESIGN</b></p> <p>&nbsp;Nowoczesna skrzynka pocztowa posiada ciekawy modny design, kt\u00f3ry z pewno\u015bci\u0105 przykuwa uwag\u0119.&nbsp;</p> <p>Nasza skrzynka ma bardzo du\u017c\u0105 pojemno\u015b\u0107.</p> <p>Jest ona zamykana na kluczyk. Na dole skrzynki wykonany jest schowek na gazety.</p> <p>Wrzutnik skrzynki przykryty klapk\u0105.&nbsp;</p> <p>Cechy produktu:</p> <ul> <li>Nowoczesna skrzynka na listy malowana proszkowo z oklein\u0105 ze stali nierdzewnej</li> <li>Napis post</li> <li>Schowek na gazety</li> <li>2 klucze</li> <li>Materia\u0142 monta\u017cowy</li> </ul> <p>Dane Techniczne:</p> <ul> <li>Wymiary (W / H / D) 370 x 370 x 105 mm</li> <li>Wymiary gazetnika(B / H / D): 360 x 90 x 80 mm</li> <li>Wymiary wrzutnika 335 x 35 mm</li> <li>Kolor grafit i stal nierdzewna</li> <li>Materia\u0142: Ocynkowana stal malowana proszkowo / stal nierdzewna</li> <li>Grubo\u015b\u0107 materia\u0142u: 0,6-0,8 mm</li> </ul> <ul> <li>Poziomo 23,0 cm</li> <li>Pionowo 17,0 cm</li> <li>Przek\u0105tna 28,5 cm</li> </ul>"
+                        "content": "<h1>WIERTARKO-WKR\u0118TARKA BEZSZCZ. YATO + 2x2AH + TORBA</h1>"
                     }
                 ]
             },
@@ -290,19 +433,19 @@
                 "items": [
                     {
                         "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/115444/52dcfc6e4629affce4381435346c"
+                        "url": "https://a.allegroimg.com/original/1140a2/04c943314bb59cebac1d8025fd61"
                     }
                 ]
             },
             {
                 "items": [
                     {
-                        "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/1120d7/92f07b484038833d0c2d2b600eab"
+                        "type": "TEXT",
+                        "content": "<h1>Najmocniejsza wiertarko wkr\u0119tarka wraz z torb\u0105 narz\u0119dziow\u0105 12\", 9 kieszeni renomowanej marki YATO</h1> <h2>Wyposa\u017cona w silnik bezszczotkowy z funkcj\u0105 udaru. Pot\u0119\u017cny silnik i masywna stalowa przek\u0142adnia (53-56 HRC) to gwarancja niezawodno\u015bci i mocy przy wykonywaniu najtrudniejszych prac w ekstremalnych warunkach.&nbsp;</h2>"
                     },
                     {
                         "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/11872a/224b2c74494cb30cf6e2ebd4e074"
+                        "url": "https://a.allegroimg.com/original/11b049/5f55d31d47179ca82948019f09a7"
                     }
                 ]
             },
@@ -310,11 +453,23 @@
                 "items": [
                     {
                         "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/114c97/3ce17c2a47b4b89c2054fe918f5a"
+                        "url": "https://a.allegroimg.com/original/11291b/591f767a4f749b812f00c2fc7c39"
+                    },
+                    {
+                        "type": "TEXT",
+                        "content": "<p>Ogromna si\u0142a udaru i du\u017ca pr\u0119dko\u015b\u0107 obrotowa umo\u017cliwiaj\u0105 szybkie wiercenie w twardym betonie (max 12 mm), wkr\u0119canie d\u0142ugich ciesielskich wkr\u0119t\u00f3w (200 mm, bit PZ3, \u015brednica 5 mm), a nawet wiercenie wiert\u0142ami koronowymi BiM w metalu i drewnie.</p> <p>Kr\u00f3tki korpus u\u0142atwia mocny i prostopad\u0142y docisk do materia\u0142u podczas wiercenia w metalu i wkrecania wkret\u00f3w.</p> <h2>Informacje:</h2> <ul> <li>2-biegowa stalowa przek\u0142adnia</li> <li>precyzyjna regulacja pr\u0119dko\u015bci obrotowej we w\u0142\u0105czniku (potencjometr)</li> <li>niezawodny i trwa\u0142y silnik bezszczotkowy - brak zu\u017cycia wirnika spowodowanego tarciem o szczotki</li> <li>lampka LED o\u015bwietlaj\u0105ca miejsce pracy</li> <li>hamulec wrzeciona u\u0142atwiaj\u0105cy wymian\u0119 wiert\u0142a</li> <li>funkcja szybkiego zatrzymania</li> <li>metalowa obudowa przek\u0142adni (twardo\u015b\u0107 z\u0119b\u00f3w: 53-56 HRC)</li> <li>wytrzyma\u0142y, gumowany korpus z poliamidu wzmocnionego w\u0142\u00f3knem szklanym</li> <li>ergonomiczna r\u0119koje\u015b\u0107, metalowy zaczep na pasek</li> <li>4-stopniowy wska\u017anik na\u0142adowania baterii</li> <li>zabezpieczenie przeciw przegrzaniu ogniw baterii</li> <li>system 18 V \u2013 dzia\u0142anie na wsp\u00f3lnej baterii, pasuj\u0105cej do serii urz\u0105dze\u0144</li> <li>Maksymalny moment obrotowy [Nm]: 42</li> <li>Zastosowanie: Drewno, beton, metal</li> </ul> <p><b>Zestaw z dwoma akumulatorami 2 Ah oraz \u0142adowark\u0105!</b></p>"
+                    }
+                ]
+            },
+            {
+                "items": [
+                    {
+                        "type": "TEXT",
+                        "content": "<p><b>System 18 V</b> to seria narz\u0119dzi akumulatorowych <b>YATO</b>, kt\u00f3re zasilane s\u0105 t\u0105 sam\u0105 wytrzyma\u0142\u0105 bateri\u0105. Urz\u0105dzenia mo\u017cesz kupi\u0107 w zestawie z akumulatorem i szybk\u0105 \u0142adowark\u0105 lub te\u017c solo, co jest idealnym rozwi\u0105zaniem, gdy powi\u0119kszasz sw\u00f3j zestaw narz\u0119dzi.</p> <p>Zasilanie akumulatorowe daje Ci swobod\u0119 i wi\u0119kszy komfort pracy. Dodatkowo narz\u0119dzia akumulatorowe YATO s\u0105 trwa\u0142e, por\u0119czne i doskonale wywa\u017cone. Tak, by praca nimi by\u0142a przyjemno\u015bci\u0105.</p> <h2>Profesjonalizm</h2> <h2>Oszcz\u0119dno\u015b\u0107</h2> <p>Nie ma konieczno\u015bci kupowania wielu baterii i \u0142adowarek do kolejnych narz\u0119dzi. Dzi\u0119ki systemowi 18 V oszcz\u0119dzasz pieni\u0105dze, przestrze\u0144 w domu i \u015brodowisko!</p> <h2>Wyb\u00f3r</h2>"
                     },
                     {
                         "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/116a22/f5d30c4e4221bc32bc7c9789b238"
+                        "url": "https://a.allegroimg.com/original/03f8c2/aea613cd49339705fc3aaa61c4a3"
                     }
                 ]
             },
@@ -322,7 +477,43 @@
                 "items": [
                     {
                         "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/119722/a7def50d4788bccf6c8327991e6b"
+                        "url": "https://a.allegroimg.com/original/11a2fc/f19bfbd14040a9996123083214cf"
+                    },
+                    {
+                        "type": "TEXT",
+                        "content": "<h2>Du\u017cy, otwarty pojemnik narz\u0119dziowy, wykonany z technicznego poliestru 600 D.</h2> <ul> <li>Dno pojemnika o wzmocnionej, odpornej na wilgo\u0107 konstrukcji.</li> <li>Szwy g\u0142\u00f3wne oraz kieszenie w wersji, przystosowanej do du\u017cych obci\u0105\u017ce\u0144.</li> <li>Centralny uchwyt wykonany z metalowej rurki z mi\u0119kk\u0105 antypo\u015blizgow\u0105 os\u0142on\u0105, wytrzymuje du\u017ce obci\u0105\u017cenia i stabilizuje kszta\u0142t pojemnika.</li> <li>Wyposa\u017cona w 9 kieszeni o r\u00f3\u017cnych wielko\u015bciach i przeznaczeniu.</li> </ul> <p>Otwarty profil pojemnika pozwala na szybki dost\u0119p do przechowywanych narz\u0119dzi.</p> <p>Wymiary: <b>304 x 190 x 225 mm</b></p> <h2>Przeznaczenie:</h2> <ul> <li>do przenoszenia elektronarz\u0119dzi, narz\u0119dzi r\u0119cznych i osprz\u0119tu bezpo\u015brednio na stanowisko robocze</li> </ul>"
+                    }
+                ]
+            },
+            {
+                "items": [
+                    {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/11291b/591f767a4f749b812f00c2fc7c39"
+                    },
+                    {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/111187/deec1fb54b0da526d49a7ac59d61"
+                    }
+                ]
+            },
+            {
+                "items": [
+                    {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/03f8c2/aea613cd49339705fc3aaa61c4a3"
+                    },
+                    {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/11a2fc/f19bfbd14040a9996123083214cf"
+                    }
+                ]
+            },
+            {
+                "items": [
+                    {
+                        "type": "TEXT",
+                        "content": "<p>YT-82797+82842+82848+YT-74371</p>"
                     }
                 ]
             }

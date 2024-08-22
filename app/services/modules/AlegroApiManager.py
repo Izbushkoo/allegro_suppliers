@@ -150,6 +150,10 @@ async def process_offer(offer, client, headers, callback_manager,
         array_to_end.append(offer)
         return
 
+    if price > 5000:
+        array_to_end.append(offer)
+        return
+
     data = {
         "sellingMode": {
             "price": {
