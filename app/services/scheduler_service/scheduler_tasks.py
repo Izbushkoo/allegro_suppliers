@@ -16,7 +16,8 @@ from app.api.v1.routers.allegro_offerta_update import update_as_task_in_bulks
 from app.schemas.pydantic_models import UpdateConfig, CallbackManager, SynchronizeOffersRequest, DisableOffersRequest
 from app.services.allegro_token import get_token_by_id
 from app.loggers import ToLog
-from app.services.synchro_products_funcs import process_complete_synchro_task, disable_multiple_ean_offers
+from app.services.synchro_products_funcs import process_complete_synchro_task, disable_multiple_ean_offers, \
+    get_found_word_in_description
 
 redis_client = redis.StrictRedis(host="redis_suppliers", port=6379, db=0)
 
@@ -42,6 +43,18 @@ supplier_config = {
     "rekman": "12,0",
     "growbox": "13,1"
 }
+
+
+def add_get_description_contains(word: str, access_token, products, callback_manager):
+    return scheduler.add_job(
+        get_found_word_in_description,
+        kwargs={
+            "word": word,
+            "access_token": access_token,
+            "products": products,
+            "callback_manager": callback_manager
+        }
+    )
 
 
 def add_disable_ofertas(access_token, products, callback_manager):

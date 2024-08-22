@@ -1,3 +1,6 @@
+import json
+import os
+import re
 from typing import List
 
 import httpx
@@ -108,16 +111,61 @@ async def make_single_oferta_check(product_from_mongo, access_token):
     except Exception:
         return
 
+async def check_offer_product_for_word_containing(word: str, product_from_mongo, access_token):
+
+    try:
+        allegro_product_id = product_from_mongo["allegro_product_id"]
+        offer_id = product_from_mongo["allegro_oferta_id"]
+        allegro_product_details = await get_product_details(allegro_product_id, access_token)
+
+        if allegro_product_details:
+            description = allegro_product_details["description"]
+            found_descriptions = []
+            for section in description["sections"]:
+                for item in section["items"]:
+                    if item["type"] == "TEXT":
+                        content = item["content"]
+                        pattern = re.compile(re.escape(word), re.IGNORECASE)
+                        if pattern.search(content):
+                            found_descriptions.append(section)
+            if found_descriptions:
+                return {
+                    offer_id: found_descriptions
+                }
+    except Exception:
+        return
 
 async def disable_multiple_ean_offers(access_token, products, callback_manager, batch: int = 50):
     ToLog.write_basic(f"Total ofers to process {len(products)}")
     count = 0
+    offers = {}
     for i in range(0, len(products), batch):
         tasks = []
         for product in products[i: i + batch]:
             task = asyncio.create_task(make_single_oferta_check(product, access_token))
             tasks.append(task)
             await asyncio.sleep(0.3)
+
+        results = await asyncio.gather(*tasks)
+        found = [result for result in results if result]
+        for item in found:
+            offers.update(item)
+        count += batch
+        ToLog.write_basic(f"Processed {count} offers")
+    base_path = os.path.join(os.getcwd(), "logs", "to_check.json")
+    with open(base_path, "w", encoding="utf-8") as file:
+        file.write(json.dumps(offers, indent=4, ensure_ascii=False))
+    ToLog.write_basic(f"Finished")
+
+
+async def get_found_word_in_description(word: str, access_token, products, callback_manager, batch: int = 50):
+    ToLog.write_basic(f"Total ofers to process {len(products)}")
+    count = 0
+    for i in range(0, len(products), batch):
+        tasks = []
+        for product in products[i: i + batch]:
+            task = asyncio.create_task(check_offer_product_for_word_containing(word, product, access_token))
+            tasks.append(task)
 
         results = await asyncio.gather(*tasks)
         array_to_deactivate = [result for result in results if result]

@@ -43,6 +43,22 @@ class MongoBaseManager:
         finally:
             client.close()
 
+    async def fetch_all(self):
+
+        async with self._connect() as db_manager:
+            database = db_manager[base_db_name]
+            collection = database[base_db_collection]
+
+            query = {
+                "allegro_we_sell_it": True
+            }
+
+            projection = {"allegro_oferta_id": 1, "allegro_product_id": 1, "_id": 0}
+            documents = collection.find(query, projection)
+
+            items_array = await documents.to_list(length=None)
+            return items_array
+
     async def fetch_positions_for_sale(self, supplier):
 
         supplier_id = supplier_database_id[supplier]
