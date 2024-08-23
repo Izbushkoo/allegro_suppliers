@@ -145,7 +145,7 @@ async def check_offer_product_for_word_containing(word: str, product_from_mongo,
         return
 
 
-async def disable_multiple_ean_offers(access_token, products, callback_manager, batch: int = 50):
+async def disable_multiple_ean_offers(access_token, products, callback_manager, batch: int = 20):
     ToLog.write_basic(f"Total ofers to process {len(products)}")
     count = 0
     file_path_not_processed = os.path.join(os.getcwd(), "logs", "not_processed.json")
@@ -170,6 +170,7 @@ async def disable_multiple_ean_offers(access_token, products, callback_manager, 
                 continue
             task = asyncio.create_task(make_single_oferta_check(product, access_token))
             tasks.append(task)
+            await asyncio.sleep(0.3)
 
         results = await asyncio.gather(*tasks)
         array_to_deactivate = [result for result in results if result]
