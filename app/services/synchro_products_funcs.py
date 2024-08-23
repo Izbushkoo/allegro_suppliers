@@ -1,6 +1,7 @@
 import json
 import os
 import re
+from textwrap import indent
 from typing import List
 
 import httpx
@@ -87,29 +88,35 @@ async def process_complete_synchro_task(synchro_config: SynchronizeOffersRequest
 
 async def make_single_oferta_check(product_from_mongo, access_token):
 
+    ean = product_from_mongo["ean"]
+    allegro_product_id = product_from_mongo["allegro_product_id"]
+    offer_id = product_from_mongo["allegro_oferta_id"]
+
     try:
-        ean = product_from_mongo["ean"]
-        allegro_product_id = product_from_mongo["allegro_product_id"]
-        offer_id = product_from_mongo["allegro_oferta_id"]
         products = await search_product_by_ean(ean, access_token)
         allegro_product_details = await get_product_details(allegro_product_id, access_token)
+
+        if not products or len(products) != 1:
+            ToLog.write_basic(f"Offer id to deactivate {offer_id}")
+            return {"id": offer_id}
 
         allegro_eans = None
         if allegro_product_details:
             for param in allegro_product_details["parameters"]:
                 if param["id"] == "225693" or param["name"] == "EAN (GTIN)":
                     allegro_eans = param
+        else:
+            ToLog.write_basic(f"Can't get product details for {offer_id}")
+            return {"id": offer_id}
 
         if allegro_eans:
             if len(allegro_eans["values"]) != 1:
                 ToLog.write_basic(f"Offer id to deactivate {offer_id}")
                 return {"id": offer_id}
 
-        if len(products) != 1:
-            ToLog.write_basic(f"Offer id to deactivate {offer_id}")
-            return {"id": offer_id}
     except Exception:
-        return
+        return {"id": offer_id}
+
 
 async def check_offer_product_for_word_containing(word: str, product_from_mongo, access_token):
 
@@ -141,42 +148,70 @@ async def check_offer_product_for_word_containing(word: str, product_from_mongo,
 async def disable_multiple_ean_offers(access_token, products, callback_manager, batch: int = 50):
     ToLog.write_basic(f"Total ofers to process {len(products)}")
     count = 0
+    file_path_not_processed = os.path.join(os.getcwd(), "logs", "not_processed.json")
+    file_path_processed = os.path.join(os.getcwd(), "logs", "processed.json")
+
+    try:
+        with open(file_path_not_processed, "r") as file:
+            written_not_processed = json.loads(file.read())
+    except (FileExistsError, FileNotFoundError):
+        written_not_processed = []
+
+    try:
+        with open(file_path_processed, "r") as file:
+            written_processed = json.loads(file.read())
+    except (FileExistsError, FileNotFoundError):
+        written_processed = []
+
     for i in range(0, len(products), batch):
         tasks = []
         for product in products[i: i + batch]:
+            if product["allegro_oferta_id"] in written_processed:
+                continue
             task = asyncio.create_task(make_single_oferta_check(product, access_token))
             tasks.append(task)
 
         results = await asyncio.gather(*tasks)
         array_to_deactivate = [result for result in results if result]
+        offers_to_deactivate = [offer["id"] for offer in array_to_deactivate]
         try:
-            await MongoManager.set_we_sell_to([offer["id"] for offer in array_to_deactivate], False)
-        except Exception as e:
-            ToLog.write_error(f"{e}\n try one more time after 30 sec")
-            await asyncio.sleep(30)
-            try:
-                await MongoManager.set_we_sell_to([offer["id"] for offer in array_to_deactivate], False)
-            except Exception as e:
-                ToLog.write_error(f"{e}\n after one more time and 30 sec")
-                continue
+            await update_mongo_with_retry(offers_to_deactivate, False)
+        except RuntimeError:
+            written_not_processed += offers_to_deactivate
+
         try:
             await update_offers_status(access_token, array_to_deactivate, "END", callback_manager)
             ToLog.write_basic(f"Deactivated {len(array_to_deactivate)} offertas")
-        except Exception:
-            try:
-                await MongoManager.set_we_sell_to([offer["id"] for offer in array_to_deactivate], True)
-            except Exception as e:
-                ToLog.write_error(f"{e}\n try one more time after 30 sec")
-                await asyncio.sleep(30)
-                try:
-                    await MongoManager.set_we_sell_to([offer["id"] for offer in array_to_deactivate], True)
-                except Exception as e:
-                    ToLog.write_error(f"{e}\n after one more time and 30 sec")
-                    continue
+        except Exception as err:
+            ToLog.write_basic(f"Error during update offers status {err}")
+            written_processed += offers_to_deactivate
+            continue
+        else:
+            written_processed += offers_to_deactivate
+
+        with open(file_path_processed, "w") as file:
+            file.write(json.dumps(written_processed, indent=4))
+        with open(file_path_not_processed, "w") as file:
+            file.write(json.dumps(written_not_processed, indent=4))
 
         count += batch
         ToLog.write_basic(f"Processed {count} offers")
     ToLog.write_basic(f"Deactivation finished")
+
+
+async def update_mongo_with_retry(offer_ids, flag, retries: int = 10):
+    current_retry = 0
+    while current_retry < retries:
+        try:
+            await MongoManager.set_we_sell_to(offer_ids, flag)
+        except Exception as err:
+            ToLog.write_basic(f"Retry: {current_retry + 1}. Some err {err}. Retry in 10 sec...")
+            await asyncio.sleep(10)
+            current_retry += 1
+            continue
+        else:
+            return
+    raise RuntimeError("Mongo update failed 10 times")
 
 
 async def get_found_word_in_description(word: str, access_token, products, callback_manager, batch: int = 50):

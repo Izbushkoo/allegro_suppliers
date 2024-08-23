@@ -135,10 +135,11 @@ async def disable_offers_with_multiple_eans(
 async def disable_offers_with_multiple_eans(
         token_id: str,
         word: str,
+        supplier: str,
         database: AsyncSession = Depends(deps.get_db_async),
 ):
 
-    products_in_mongo = await MongoManager.fetch_all()
+    products_in_mongo = await MongoManager.fetch_positions_for_sale(supplier)
 
     allegro_token = await get_token_by_id(database, token_id)
     callback_manager = CallbackManager()

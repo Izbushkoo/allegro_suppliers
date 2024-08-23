@@ -1,8 +1,8 @@
 {
-    "id": "8f6168d2-3140-418a-8e9f-8ba70b731df4",
-    "name": "Wkr\u0119tarka Yato zasilanie akumulatorowe 18 V YT-82797",
+    "id": "8db3241b-8552-4eab-880a-44bb7a317123",
+    "name": "Przed\u0142u\u017cacz b\u0119bnowy Yato 30 m 4 szt. gniazd czarny",
     "category": {
-        "id": "147662",
+        "id": "111856",
         "path": [
             {
                 "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
@@ -13,17 +13,21 @@
                 "name": "Dom i Ogr\u00f3d"
             },
             {
-                "id": "1536",
-                "name": "Narz\u0119dzia"
+                "id": "1520",
+                "name": "Budownictwo i Akcesoria"
             },
             {
-                "id": "147662",
-                "name": "Wkr\u0119tarki"
+                "id": "1523",
+                "name": "Elektryka i akcesoria"
+            },
+            {
+                "id": "111856",
+                "name": "Przed\u0142u\u017cacze"
             }
         ],
         "similar": [
             {
-                "id": "300893",
+                "id": "46107",
                 "path": [
                     {
                         "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
@@ -34,17 +38,254 @@
                         "name": "Dom i Ogr\u00f3d"
                     },
                     {
-                        "id": "1536",
-                        "name": "Narz\u0119dzia"
+                        "id": "1520",
+                        "name": "Budownictwo i Akcesoria"
                     },
                     {
-                        "id": "300893",
-                        "name": "Zestawy elektronarz\u0119dzi"
+                        "id": "1523",
+                        "name": "Elektryka i akcesoria"
+                    },
+                    {
+                        "id": "46107",
+                        "name": "Zabezpieczenia i rozdzielnice"
                     }
                 ]
             },
             {
-                "id": "259924",
+                "id": "111855",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "5",
+                        "name": "Dom i Ogr\u00f3d"
+                    },
+                    {
+                        "id": "1520",
+                        "name": "Budownictwo i Akcesoria"
+                    },
+                    {
+                        "id": "1523",
+                        "name": "Elektryka i akcesoria"
+                    },
+                    {
+                        "id": "111855",
+                        "name": "Gniazda"
+                    }
+                ]
+            },
+            {
+                "id": "260055",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "2",
+                        "name": "Komputery"
+                    },
+                    {
+                        "id": "260017",
+                        "name": "Monitory komputerowe"
+                    },
+                    {
+                        "id": "260042",
+                        "name": "Cz\u0119\u015bci i akcesoria"
+                    },
+                    {
+                        "id": "260055",
+                        "name": "Zasilacze LCD"
+                    }
+                ]
+            },
+            {
+                "id": "4553",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "2",
+                        "name": "Komputery"
+                    },
+                    {
+                        "id": "4551",
+                        "name": "Listwy zasilaj\u0105ce i UPS"
+                    },
+                    {
+                        "id": "4553",
+                        "name": "Listwy, filtry sieciowe"
+                    }
+                ]
+            },
+            {
+                "id": "67306",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "10",
+                        "name": "RTV i AGD"
+                    },
+                    {
+                        "id": "67193",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "67195",
+                        "name": "Kable, przewody"
+                    },
+                    {
+                        "id": "67306",
+                        "name": "Zasilaj\u0105ce"
+                    }
+                ]
+            },
+            {
+                "id": "310361",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "5",
+                        "name": "Dom i Ogr\u00f3d"
+                    },
+                    {
+                        "id": "1520",
+                        "name": "Budownictwo i Akcesoria"
+                    },
+                    {
+                        "id": "310361",
+                        "name": "Zabezpieczenia przeciwpo\u017carowe"
+                    }
+                ]
+            },
+            {
+                "id": "260778",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "5",
+                        "name": "Dom i Ogr\u00f3d"
+                    },
+                    {
+                        "id": "5317",
+                        "name": "O\u015bwietlenie"
+                    },
+                    {
+                        "id": "260776",
+                        "name": "O\u015bwietlenie inteligentne"
+                    },
+                    {
+                        "id": "260778",
+                        "name": "Akcesoria"
+                    }
+                ]
+            },
+            {
+                "id": "46109",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "5",
+                        "name": "Dom i Ogr\u00f3d"
+                    },
+                    {
+                        "id": "1520",
+                        "name": "Budownictwo i Akcesoria"
+                    },
+                    {
+                        "id": "1523",
+                        "name": "Elektryka i akcesoria"
+                    },
+                    {
+                        "id": "46109",
+                        "name": "Wy\u0142\u0105czniki i \u015bciemniacze"
+                    }
+                ]
+            },
+            {
+                "id": "258295",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "5",
+                        "name": "Dom i Ogr\u00f3d"
+                    },
+                    {
+                        "id": "1520",
+                        "name": "Budownictwo i Akcesoria"
+                    },
+                    {
+                        "id": "1523",
+                        "name": "Elektryka i akcesoria"
+                    },
+                    {
+                        "id": "258295",
+                        "name": "Ramki"
+                    }
+                ]
+            },
+            {
+                "id": "76264",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "10",
+                        "name": "RTV i AGD"
+                    },
+                    {
+                        "id": "67193",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "76263",
+                        "name": "Listwy zasilaj\u0105ce"
+                    },
+                    {
+                        "id": "76264",
+                        "name": "Listwy"
+                    }
+                ]
+            },
+            {
+                "id": "257974",
                 "path": [
                     {
                         "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
@@ -55,16 +296,650 @@
                         "name": "Motoryzacja"
                     },
                     {
-                        "id": "18554",
-                        "name": "Narz\u0119dzia i sprz\u0119t warsztatowy"
+                        "id": "253498",
+                        "name": "Wyposa\u017cenie i akcesoria samochodowe"
                     },
                     {
-                        "id": "322020",
-                        "name": "Wiertarki i wkr\u0119tarki"
+                        "id": "257393",
+                        "name": "Elektronika samochodowa"
                     },
                     {
-                        "id": "259924",
-                        "name": "Wkr\u0119tarki"
+                        "id": "257969",
+                        "name": "\u0141adowarki samochodowe"
+                    },
+                    {
+                        "id": "257974",
+                        "name": "\u0141adowarki do laptop\u00f3w"
+                    }
+                ]
+            },
+            {
+                "id": "308821",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "10",
+                        "name": "RTV i AGD"
+                    },
+                    {
+                        "id": "67193",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "67194",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "67207",
+                        "name": "Zasilanie"
+                    },
+                    {
+                        "id": "67374",
+                        "name": "Zasilacze"
+                    },
+                    {
+                        "id": "308821",
+                        "name": "Do LED"
+                    }
+                ]
+            },
+            {
+                "id": "15961",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "5",
+                        "name": "Dom i Ogr\u00f3d"
+                    },
+                    {
+                        "id": "1520",
+                        "name": "Budownictwo i Akcesoria"
+                    },
+                    {
+                        "id": "1523",
+                        "name": "Elektryka i akcesoria"
+                    },
+                    {
+                        "id": "15961",
+                        "name": "Pozosta\u0142e"
+                    }
+                ]
+            },
+            {
+                "id": "8806",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "10",
+                        "name": "RTV i AGD"
+                    },
+                    {
+                        "id": "8785",
+                        "name": "Kamery"
+                    },
+                    {
+                        "id": "8790",
+                        "name": "Zasilanie"
+                    },
+                    {
+                        "id": "8806",
+                        "name": "Zasilacze"
+                    }
+                ]
+            },
+            {
+                "id": "67378",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "10",
+                        "name": "RTV i AGD"
+                    },
+                    {
+                        "id": "67193",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "67194",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "67207",
+                        "name": "Zasilanie"
+                    },
+                    {
+                        "id": "67374",
+                        "name": "Zasilacze"
+                    },
+                    {
+                        "id": "67378",
+                        "name": "Standardowe"
+                    }
+                ]
+            },
+            {
+                "id": "316094",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "5",
+                        "name": "Dom i Ogr\u00f3d"
+                    },
+                    {
+                        "id": "1520",
+                        "name": "Budownictwo i Akcesoria"
+                    },
+                    {
+                        "id": "1523",
+                        "name": "Elektryka i akcesoria"
+                    },
+                    {
+                        "id": "316094",
+                        "name": "Wtyczki"
+                    }
+                ]
+            },
+            {
+                "id": "46116",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "5",
+                        "name": "Dom i Ogr\u00f3d"
+                    },
+                    {
+                        "id": "1520",
+                        "name": "Budownictwo i Akcesoria"
+                    },
+                    {
+                        "id": "1523",
+                        "name": "Elektryka i akcesoria"
+                    },
+                    {
+                        "id": "15964",
+                        "name": "Alarmy"
+                    },
+                    {
+                        "id": "46116",
+                        "name": "Zestawy alarmowe"
+                    }
+                ]
+            },
+            {
+                "id": "67199",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "10",
+                        "name": "RTV i AGD"
+                    },
+                    {
+                        "id": "67193",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "67194",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "67199",
+                        "name": "Aparatura steruj\u0105ca"
+                    }
+                ]
+            },
+            {
+                "id": "68366",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "10",
+                        "name": "RTV i AGD"
+                    },
+                    {
+                        "id": "67193",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "67194",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "68366",
+                        "name": "Programatory"
+                    }
+                ]
+            },
+            {
+                "id": "46114",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "5",
+                        "name": "Dom i Ogr\u00f3d"
+                    },
+                    {
+                        "id": "1520",
+                        "name": "Budownictwo i Akcesoria"
+                    },
+                    {
+                        "id": "1523",
+                        "name": "Elektryka i akcesoria"
+                    },
+                    {
+                        "id": "15964",
+                        "name": "Alarmy"
+                    },
+                    {
+                        "id": "46114",
+                        "name": "Detektory"
+                    }
+                ]
+            },
+            {
+                "id": "46115",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "5",
+                        "name": "Dom i Ogr\u00f3d"
+                    },
+                    {
+                        "id": "1520",
+                        "name": "Budownictwo i Akcesoria"
+                    },
+                    {
+                        "id": "1523",
+                        "name": "Elektryka i akcesoria"
+                    },
+                    {
+                        "id": "15964",
+                        "name": "Alarmy"
+                    },
+                    {
+                        "id": "46115",
+                        "name": "Sygnalizatory"
+                    }
+                ]
+            },
+            {
+                "id": "110674",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "8845",
+                        "name": "Fotografia"
+                    },
+                    {
+                        "id": "110672",
+                        "name": "Zasilanie aparat\u00f3w"
+                    },
+                    {
+                        "id": "110674",
+                        "name": "Zasilacze"
+                    }
+                ]
+            },
+            {
+                "id": "67379",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "10",
+                        "name": "RTV i AGD"
+                    },
+                    {
+                        "id": "67193",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "67194",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "67207",
+                        "name": "Zasilanie"
+                    },
+                    {
+                        "id": "67374",
+                        "name": "Zasilacze"
+                    },
+                    {
+                        "id": "67379",
+                        "name": "Uniwersalne"
+                    }
+                ]
+            },
+            {
+                "id": "46113",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "5",
+                        "name": "Dom i Ogr\u00f3d"
+                    },
+                    {
+                        "id": "1520",
+                        "name": "Budownictwo i Akcesoria"
+                    },
+                    {
+                        "id": "1523",
+                        "name": "Elektryka i akcesoria"
+                    },
+                    {
+                        "id": "15964",
+                        "name": "Alarmy"
+                    },
+                    {
+                        "id": "46113",
+                        "name": "Centrale alarmowe"
+                    }
+                ]
+            },
+            {
+                "id": "68622",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "5",
+                        "name": "Dom i Ogr\u00f3d"
+                    },
+                    {
+                        "id": "1520",
+                        "name": "Budownictwo i Akcesoria"
+                    },
+                    {
+                        "id": "46099",
+                        "name": "Klimatyzacja i wentylacja"
+                    },
+                    {
+                        "id": "68622",
+                        "name": "Regulatory obrot\u00f3w"
+                    }
+                ]
+            },
+            {
+                "id": "76371",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "10",
+                        "name": "RTV i AGD"
+                    },
+                    {
+                        "id": "76254",
+                        "name": "Zasilanie"
+                    },
+                    {
+                        "id": "76371",
+                        "name": "Zasilacze"
+                    }
+                ]
+            },
+            {
+                "id": "251244",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "5",
+                        "name": "Dom i Ogr\u00f3d"
+                    },
+                    {
+                        "id": "123",
+                        "name": "Wyposa\u017cenie"
+                    },
+                    {
+                        "id": "251242",
+                        "name": "Inteligentny dom"
+                    },
+                    {
+                        "id": "251244",
+                        "name": "Elementy wykonawcze"
+                    }
+                ]
+            },
+            {
+                "id": "251245",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "5",
+                        "name": "Dom i Ogr\u00f3d"
+                    },
+                    {
+                        "id": "123",
+                        "name": "Wyposa\u017cenie"
+                    },
+                    {
+                        "id": "251242",
+                        "name": "Inteligentny dom"
+                    },
+                    {
+                        "id": "251245",
+                        "name": "Czujniki"
+                    }
+                ]
+            },
+            {
+                "id": "4718",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "2",
+                        "name": "Komputery"
+                    },
+                    {
+                        "id": "497",
+                        "name": "Akcesoria (Laptop, PC)"
+                    },
+                    {
+                        "id": "4689",
+                        "name": "Kable, ta\u015bmy, przed\u0142u\u017cacze"
+                    },
+                    {
+                        "id": "4718",
+                        "name": "Kable zasilaj\u0105ce"
+                    }
+                ]
+            },
+            {
+                "id": "251246",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "5",
+                        "name": "Dom i Ogr\u00f3d"
+                    },
+                    {
+                        "id": "123",
+                        "name": "Wyposa\u017cenie"
+                    },
+                    {
+                        "id": "251242",
+                        "name": "Inteligentny dom"
+                    },
+                    {
+                        "id": "251246",
+                        "name": "Modu\u0142y peryferyjne"
+                    }
+                ]
+            },
+            {
+                "id": "251247",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "5",
+                        "name": "Dom i Ogr\u00f3d"
+                    },
+                    {
+                        "id": "123",
+                        "name": "Wyposa\u017cenie"
+                    },
+                    {
+                        "id": "251242",
+                        "name": "Inteligentny dom"
+                    },
+                    {
+                        "id": "251247",
+                        "name": "Akcesoria"
+                    }
+                ]
+            },
+            {
+                "id": "11894",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
+                        "name": "Elektronika"
+                    },
+                    {
+                        "id": "2",
+                        "name": "Komputery"
+                    },
+                    {
+                        "id": "4578",
+                        "name": "Drukarki i skanery"
+                    },
+                    {
+                        "id": "4588",
+                        "name": "Cz\u0119\u015bci i akcesoria"
+                    },
+                    {
+                        "id": "11889",
+                        "name": "Akcesoria"
+                    },
+                    {
+                        "id": "11894",
+                        "name": "Zasilacze"
+                    }
+                ]
+            },
+            {
+                "id": "121448",
+                "path": [
+                    {
+                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
+                        "name": "Allegro"
+                    },
+                    {
+                        "id": "4bd97d96-f0ff-46cb-a52c-2992bd972bb1",
+                        "name": "Firma i us\u0142ugi"
+                    },
+                    {
+                        "id": "16696",
+                        "name": "Przemys\u0142"
+                    },
+                    {
+                        "id": "121333",
+                        "name": "Materia\u0142y i akcesoria"
+                    },
+                    {
+                        "id": "121421",
+                        "name": "Automatyka przemys\u0142owa"
+                    },
+                    {
+                        "id": "121448",
+                        "name": "Sterowniki i regulatory"
                     }
                 ]
             }
@@ -72,13 +947,13 @@
     },
     "parameters": [
         {
-            "id": "127509",
+            "id": "248811",
             "name": "Marka",
             "valuesLabels": [
                 "Yato"
             ],
             "valuesIds": [
-                "127509_29"
+                "248811_951886"
             ],
             "values": null,
             "unit": null,
@@ -87,16 +962,30 @@
             }
         },
         {
-            "id": "128551",
-            "name": "Napi\u0119cie (V)",
+            "id": "18717",
+            "name": "D\u0142ugo\u015b\u0107 kabla",
             "valuesLabels": [
-                "18 V"
+                "30,00 m"
+            ],
+            "values": [
+                "30.00"
+            ],
+            "unit": "m",
+            "options": {
+                "identifiesProduct": true
+            }
+        },
+        {
+            "id": "18714",
+            "name": "Liczba gniazdek",
+            "valuesLabels": [
+                "4 szt."
             ],
             "valuesIds": [
-                "128551_6"
+                "18714_8"
             ],
             "values": null,
-            "unit": null,
+            "unit": "szt.",
             "options": {
                 "identifiesProduct": true
             }
@@ -105,10 +994,14 @@
             "id": "225693",
             "name": "EAN (GTIN)",
             "valuesLabels": [
-                "5906083025082"
+                "5902273405450",
+                "5906083810534",
+                "5906197305025"
             ],
             "values": [
-                "5906083025082"
+                "5902273405450",
+                "5906083810534",
+                "5906197305025"
             ],
             "unit": null,
             "options": {
@@ -117,13 +1010,13 @@
             }
         },
         {
-            "id": "209202",
-            "name": "Zasilanie",
+            "id": "214786",
+            "name": "Kolor",
             "valuesLabels": [
-                "akumulatorowe"
+                "czarny"
             ],
             "valuesIds": [
-                "209202_1769478"
+                "214786_267890"
             ],
             "values": null,
             "unit": null,
@@ -132,13 +1025,13 @@
             }
         },
         {
-            "id": "204657",
-            "name": "Rodzaj silnika",
+            "id": "129916",
+            "name": "Typ",
             "valuesLabels": [
-                "silnik bezszczotkowy"
+                "b\u0119bnowy"
             ],
             "valuesIds": [
-                "204657_221325"
+                "129916_8"
             ],
             "values": null,
             "unit": null,
@@ -147,55 +1040,13 @@
             }
         },
         {
-            "id": "129633",
-            "name": "Pojemno\u015b\u0107 akumulatora",
+            "id": "18713",
+            "name": "Uziemienie",
             "valuesLabels": [
-                "0,00 Ah"
-            ],
-            "values": [
-                "0.00"
-            ],
-            "unit": "Ah",
-            "options": {
-                "identifiesProduct": false
-            }
-        },
-        {
-            "id": "205009",
-            "name": "Mi\u0119kki moment obrotowy",
-            "valuesLabels": [
-                "42,00 Nm"
-            ],
-            "values": [
-                "42.00"
-            ],
-            "unit": "Nm",
-            "options": {
-                "identifiesProduct": false
-            }
-        },
-        {
-            "id": "129635",
-            "name": "Twardy moment obrotowy",
-            "valuesLabels": [
-                "42,00 Nm"
-            ],
-            "values": [
-                "42.00"
-            ],
-            "unit": "Nm",
-            "options": {
-                "identifiesProduct": false
-            }
-        },
-        {
-            "id": "129634",
-            "name": "Typ akumulatora",
-            "valuesLabels": [
-                "Li-Ion"
+                "Z uziemieniem"
             ],
             "valuesIds": [
-                "129634_2"
+                "18713_1"
             ],
             "values": null,
             "unit": null,
@@ -204,128 +1055,15 @@
             }
         },
         {
-            "id": "205001",
-            "name": "Maksymalna pr\u0119dko\u015b\u0107 obrotowa - I bieg",
+            "id": "249906",
+            "name": "Przekr\u00f3j przewodu",
             "valuesLabels": [
-                "600 RPM"
+                "3 x 1,5 mm"
             ],
             "values": [
-                "600"
-            ],
-            "unit": "RPM",
-            "options": {
-                "identifiesProduct": false
-            }
-        },
-        {
-            "id": "205005",
-            "name": "Maksymalna pr\u0119dko\u015b\u0107 obrotowa - II bieg",
-            "valuesLabels": [
-                "2000 RPM"
-            ],
-            "values": [
-                "2000"
-            ],
-            "unit": "RPM",
-            "options": {
-                "identifiesProduct": false
-            }
-        },
-        {
-            "id": "205013",
-            "name": "Maksymalna \u015brednica wiercenia w drewnie",
-            "valuesLabels": [
-                "25 mm"
-            ],
-            "values": [
-                "25"
-            ],
-            "unit": "mm",
-            "options": {
-                "identifiesProduct": false
-            }
-        },
-        {
-            "id": "205017",
-            "name": "Maksymalna \u015brednica wiercenia w metalu",
-            "valuesLabels": [
-                "10 mm"
-            ],
-            "values": [
-                "10"
-            ],
-            "unit": "mm",
-            "options": {
-                "identifiesProduct": false
-            }
-        },
-        {
-            "id": "205021",
-            "name": "Maksymalna liczba udar\u00f3w",
-            "valuesLabels": [
-                "36000"
-            ],
-            "values": [
-                "36000"
+                "3 x 1,5 mm"
             ],
             "unit": null,
-            "options": {
-                "identifiesProduct": false
-            }
-        },
-        {
-            "id": "205025",
-            "name": "Liczba zakres\u00f3w momentu obrotowego (x+1)",
-            "valuesLabels": [
-                "20"
-            ],
-            "values": [
-                "20"
-            ],
-            "unit": null,
-            "options": {
-                "identifiesProduct": false
-            }
-        },
-        {
-            "id": "128552",
-            "name": "Informacje dodatkowe",
-            "valuesLabels": [
-                "nie dotyczy"
-            ],
-            "valuesIds": [
-                "128552_8"
-            ],
-            "values": null,
-            "unit": null,
-            "options": {
-                "identifiesProduct": false
-            }
-        },
-        {
-            "id": "25029",
-            "name": "Waga urz\u0105dzenia",
-            "valuesLabels": [
-                "1,30 kg"
-            ],
-            "values": [
-                "1.30"
-            ],
-            "unit": "kg",
-            "options": {
-                "identifiesProduct": false
-            }
-        },
-        {
-            "id": "17448",
-            "name": "Waga produktu z opakowaniem jednostkowym",
-            "valuesLabels": [
-                "1,700 kg"
-            ],
-            "values": [
-                "1.700"
-            ],
-            "unit": "kg",
             "options": {
                 "identifiesProduct": false
             }
@@ -334,10 +1072,10 @@
             "id": "224017",
             "name": "Kod producenta",
             "valuesLabels": [
-                "YT-82797"
+                "YT-81053"
             ],
             "values": [
-                "YT-82797"
+                "YT-81053"
             ],
             "unit": null,
             "options": {
@@ -345,14 +1083,43 @@
             }
         },
         {
-            "id": "237222",
-            "name": "Seria",
+            "id": "17448",
+            "name": "Waga produktu z opakowaniem jednostkowym",
             "valuesLabels": [
-                "GRF"
+                "6,240 kg"
             ],
             "values": [
-                "GRF"
+                "6.240"
             ],
+            "unit": "kg",
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "234133",
+            "name": "\u015arednica przewodu",
+            "valuesLabels": [
+                "1,50 mm"
+            ],
+            "values": [
+                "1.50"
+            ],
+            "unit": "mm",
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "250191",
+            "name": "Materia\u0142 izolacji",
+            "valuesLabels": [
+                "guma"
+            ],
+            "valuesIds": [
+                "250191_1799662"
+            ],
+            "values": null,
             "unit": null,
             "options": {
                 "identifiesProduct": false
@@ -361,58 +1128,55 @@
     ],
     "images": [
         {
-            "url": "https://a.allegroimg.com/original/11291b/591f767a4f749b812f00c2fc7c39"
+            "url": "https://a.allegroimg.com/original/29d6ab/5919cf724471bcfeb4d48e0dbdb1"
         },
         {
-            "url": "https://a.allegroimg.com/original/1140a2/04c943314bb59cebac1d8025fd61"
+            "url": "https://a.allegroimg.com/original/018d93/2cefbdba42ee86854004572c31d6"
         },
         {
-            "url": "https://a.allegroimg.com/original/11b049/5f55d31d47179ca82948019f09a7"
+            "url": "https://a.allegroimg.com/original/25b96b/9d5fef3148159c61e3def03f9966"
         },
         {
-            "url": "https://a.allegroimg.com/original/03f8c2/aea613cd49339705fc3aaa61c4a3"
+            "url": "https://a.allegroimg.com/original/256bfc/446cadc8400798f815a2dbe13c90"
         },
         {
-            "url": "https://a.allegroimg.com/original/11a2fc/f19bfbd14040a9996123083214cf"
+            "url": "https://a.allegroimg.com/original/25142a/dd77db23448dabd9b4979939c4a9"
         },
         {
-            "url": "https://a.allegroimg.com/original/111187/deec1fb54b0da526d49a7ac59d61"
+            "url": "https://a.allegroimg.com/original/258528/4ad978c1402f8d84db660d2e8fdc"
         },
         {
-            "url": "https://a.allegroimg.com/original/11a91e/b67202da47f9872db502dc6ffa6c"
+            "url": "https://a.allegroimg.com/original/253982/745fc1de489c88d6f68ff4a427a5"
         },
         {
-            "url": "https://a.allegroimg.com/original/03871d/d7046e034cdabd9ab8451eea96b6"
+            "url": "https://a.allegroimg.com/original/25fdeb/233c3e2a4144882946df3b5cf28d"
         },
         {
-            "url": "https://a.allegroimg.com/original/11beb2/e03b740a44aca82f0465e909f944"
+            "url": "https://a.allegroimg.com/original/251ab0/a56c85a4460daccafc4452b29d97"
         },
         {
-            "url": "https://a.allegroimg.com/original/1189f7/bac7cfb24a55b7b3cad19ea8b9d1"
+            "url": "https://a.allegroimg.com/original/11e175/016b525c425da343fe7b2ee8930d"
         },
         {
-            "url": "https://a.allegroimg.com/original/116b09/ab40024b4a6aa3ed67bb87812221"
+            "url": "https://a.allegroimg.com/original/111d76/46373adb47648e5d24292b71e9d3"
         },
         {
-            "url": "https://a.allegroimg.com/original/2519d5/d152e3884290819736ec28643902"
+            "url": "https://a.allegroimg.com/original/11b0e4/9f4932ea4e01884bd8a0f958ad11"
         },
         {
-            "url": "https://a.allegroimg.com/original/25bfc8/f23f1a4246fba97b0d0fddf2efc3"
+            "url": "https://a.allegroimg.com/original/111e49/0ccb734848ebb963c80590d847fb"
         },
         {
-            "url": "https://a.allegroimg.com/original/259d24/f54f7d2a414ca72d7f266a2648c2"
+            "url": "https://a.allegroimg.com/original/118783/193625ee4e58b83bdeeae823af2f"
         },
         {
-            "url": "https://a.allegroimg.com/original/1166e1/ffae3cd94b6aa77c80d769c301ce"
+            "url": "https://a.allegroimg.com/original/11221e/69ad28a24e4f8dfc6b6706b15031"
         },
         {
-            "url": "https://a.allegroimg.com/original/254811/c9c731c04417883743dbf00e07e7"
+            "url": "https://a.allegroimg.com/original/11acf1/6692949e4f11b2e69815c2a6bd22"
         },
         {
-            "url": "https://a.allegroimg.com/original/11ba2c/5928001e46c3b30e893842af31fe"
-        },
-        {
-            "url": "https://a.allegroimg.com/original/11034c/6fc599ea47bd9ca7023cd16b8599"
+            "url": "https://a.allegroimg.com/original/11978c/6c2788104edfac98d1d2d1a5233c"
         }
     ],
     "offerRequirements": {
@@ -425,7 +1189,7 @@
                 "items": [
                     {
                         "type": "TEXT",
-                        "content": "<h1>WIERTARKO-WKR\u0118TARKA BEZSZCZ. YATO + 2x2AH + TORBA</h1>"
+                        "content": "<p>Przed\u0142u\u017cacz b\u0119bnowy budowlany <b>YT-81053</b> o d\u0142ugo\u015bci 30 metr\u00f3w z 4-ma py\u0142o i bryzgoszczelnymi gniazdami, zabezpieczeniem termicznym oraz zabezpieczeniem przed dzie\u0107mi. Przew\u00f3d w os\u0142onie z gumy naturalnej nawini\u0119ty na b\u0119ben wykonany z wytrzyma\u0142ego tworzywa sprawia, \u017ce przed\u0142u\u017cacz mo\u017ce by\u0107 stosowany wewn\u0105trz jak i na zewn\u0105trz, np. na budowie, w ogrodzie, na placach przed zak\u0142adami produkcyjnymi. R\u0105czka umieszczona przy kraw\u0119dzi b\u0119bna przyspiesza zwijanie, a gumowy element przymocowany do przewodu kilka centymetr\u00f3w przed wtyczk\u0105 umo\u017cliwia zaczepienie go np. do kraw\u0119dzi b\u0119bna, co znacznie u\u0142atwia przechowanie i transport zwini\u0119tego przed\u0142u\u017cacza.</p> <ul> <li>napi\u0119cie i cz\u0119stotliwo\u015b\u0107 znamionowa: <b>~230V/50Hz</b></li> <li>maksymalne obci\u0105\u017cenie: <b>1000 W</b> - przew\u00f3d zwini\u0119ty, <b>3000 W</b> - przew\u00f3d rozwini\u0119ty.</li> <li>miedziany przew\u00f3d trzy \u017cy\u0142owy o przekrojach 1,5 mm\u00b2, d\u0142ugo\u015b\u0107 30 m</li> <li>izolacja z gumy naturalnej to wysoka odporno\u015b\u0107 na uszkodzenia mechaniczne, czynniki atmosferyczne (s\u0142o\u0144ce, ch\u0142\u00f3d), substancje chemiczne (oleje ch\u0142odz\u0105co-smaruj\u0105ce, benzyn\u0119, czy alkohole etylowe, metylowe), zapewnia elastyczno\u015b\u0107 przewodu oraz prawid\u0142ow\u0105 ochron\u0119 r\u00f3wnie\u017c podczas pracy na zewn\u0105trz</li> <li>py\u0142o i bryzgoszczelne gniazda w stopniu ochrony IP44 gwarantuj\u0105 ochron\u0119 przed wilgoci\u0105 czy py\u0142em i piaskiem.</li> <li>zabezpieczenie termiczne odetnie zasilanie przy temperaturze przewodu 56\u00b0C +-5\u00b0C</li> <li>zabezpieczenie przed dzie\u0107mi w postaci plastikowych klapek oraz specjalnego mechanizmu utrudnia dost\u0119p do otwor\u00f3w w gniazdku</li> </ul>"
                     }
                 ]
             },
@@ -433,87 +1197,11 @@
                 "items": [
                     {
                         "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/1140a2/04c943314bb59cebac1d8025fd61"
-                    }
-                ]
-            },
-            {
-                "items": [
-                    {
-                        "type": "TEXT",
-                        "content": "<h1>Najmocniejsza wiertarko wkr\u0119tarka wraz z torb\u0105 narz\u0119dziow\u0105 12\", 9 kieszeni renomowanej marki YATO</h1> <h2>Wyposa\u017cona w silnik bezszczotkowy z funkcj\u0105 udaru. Pot\u0119\u017cny silnik i masywna stalowa przek\u0142adnia (53-56 HRC) to gwarancja niezawodno\u015bci i mocy przy wykonywaniu najtrudniejszych prac w ekstremalnych warunkach.&nbsp;</h2>"
-                    },
-                    {
-                        "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/11b049/5f55d31d47179ca82948019f09a7"
-                    }
-                ]
-            },
-            {
-                "items": [
-                    {
-                        "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/11291b/591f767a4f749b812f00c2fc7c39"
+                        "url": "https://a.allegroimg.com/original/018d93/2cefbdba42ee86854004572c31d6"
                     },
                     {
                         "type": "TEXT",
-                        "content": "<p>Ogromna si\u0142a udaru i du\u017ca pr\u0119dko\u015b\u0107 obrotowa umo\u017cliwiaj\u0105 szybkie wiercenie w twardym betonie (max 12 mm), wkr\u0119canie d\u0142ugich ciesielskich wkr\u0119t\u00f3w (200 mm, bit PZ3, \u015brednica 5 mm), a nawet wiercenie wiert\u0142ami koronowymi BiM w metalu i drewnie.</p> <p>Kr\u00f3tki korpus u\u0142atwia mocny i prostopad\u0142y docisk do materia\u0142u podczas wiercenia w metalu i wkrecania wkret\u00f3w.</p> <h2>Informacje:</h2> <ul> <li>2-biegowa stalowa przek\u0142adnia</li> <li>precyzyjna regulacja pr\u0119dko\u015bci obrotowej we w\u0142\u0105czniku (potencjometr)</li> <li>niezawodny i trwa\u0142y silnik bezszczotkowy - brak zu\u017cycia wirnika spowodowanego tarciem o szczotki</li> <li>lampka LED o\u015bwietlaj\u0105ca miejsce pracy</li> <li>hamulec wrzeciona u\u0142atwiaj\u0105cy wymian\u0119 wiert\u0142a</li> <li>funkcja szybkiego zatrzymania</li> <li>metalowa obudowa przek\u0142adni (twardo\u015b\u0107 z\u0119b\u00f3w: 53-56 HRC)</li> <li>wytrzyma\u0142y, gumowany korpus z poliamidu wzmocnionego w\u0142\u00f3knem szklanym</li> <li>ergonomiczna r\u0119koje\u015b\u0107, metalowy zaczep na pasek</li> <li>4-stopniowy wska\u017anik na\u0142adowania baterii</li> <li>zabezpieczenie przeciw przegrzaniu ogniw baterii</li> <li>system 18 V \u2013 dzia\u0142anie na wsp\u00f3lnej baterii, pasuj\u0105cej do serii urz\u0105dze\u0144</li> <li>Maksymalny moment obrotowy [Nm]: 42</li> <li>Zastosowanie: Drewno, beton, metal</li> </ul> <p><b>Zestaw z dwoma akumulatorami 2 Ah oraz \u0142adowark\u0105!</b></p>"
-                    }
-                ]
-            },
-            {
-                "items": [
-                    {
-                        "type": "TEXT",
-                        "content": "<p><b>System 18 V</b> to seria narz\u0119dzi akumulatorowych <b>YATO</b>, kt\u00f3re zasilane s\u0105 t\u0105 sam\u0105 wytrzyma\u0142\u0105 bateri\u0105. Urz\u0105dzenia mo\u017cesz kupi\u0107 w zestawie z akumulatorem i szybk\u0105 \u0142adowark\u0105 lub te\u017c solo, co jest idealnym rozwi\u0105zaniem, gdy powi\u0119kszasz sw\u00f3j zestaw narz\u0119dzi.</p> <p>Zasilanie akumulatorowe daje Ci swobod\u0119 i wi\u0119kszy komfort pracy. Dodatkowo narz\u0119dzia akumulatorowe YATO s\u0105 trwa\u0142e, por\u0119czne i doskonale wywa\u017cone. Tak, by praca nimi by\u0142a przyjemno\u015bci\u0105.</p> <h2>Profesjonalizm</h2> <h2>Oszcz\u0119dno\u015b\u0107</h2> <p>Nie ma konieczno\u015bci kupowania wielu baterii i \u0142adowarek do kolejnych narz\u0119dzi. Dzi\u0119ki systemowi 18 V oszcz\u0119dzasz pieni\u0105dze, przestrze\u0144 w domu i \u015brodowisko!</p> <h2>Wyb\u00f3r</h2>"
-                    },
-                    {
-                        "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/03f8c2/aea613cd49339705fc3aaa61c4a3"
-                    }
-                ]
-            },
-            {
-                "items": [
-                    {
-                        "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/11a2fc/f19bfbd14040a9996123083214cf"
-                    },
-                    {
-                        "type": "TEXT",
-                        "content": "<h2>Du\u017cy, otwarty pojemnik narz\u0119dziowy, wykonany z technicznego poliestru 600 D.</h2> <ul> <li>Dno pojemnika o wzmocnionej, odpornej na wilgo\u0107 konstrukcji.</li> <li>Szwy g\u0142\u00f3wne oraz kieszenie w wersji, przystosowanej do du\u017cych obci\u0105\u017ce\u0144.</li> <li>Centralny uchwyt wykonany z metalowej rurki z mi\u0119kk\u0105 antypo\u015blizgow\u0105 os\u0142on\u0105, wytrzymuje du\u017ce obci\u0105\u017cenia i stabilizuje kszta\u0142t pojemnika.</li> <li>Wyposa\u017cona w 9 kieszeni o r\u00f3\u017cnych wielko\u015bciach i przeznaczeniu.</li> </ul> <p>Otwarty profil pojemnika pozwala na szybki dost\u0119p do przechowywanych narz\u0119dzi.</p> <p>Wymiary: <b>304 x 190 x 225 mm</b></p> <h2>Przeznaczenie:</h2> <ul> <li>do przenoszenia elektronarz\u0119dzi, narz\u0119dzi r\u0119cznych i osprz\u0119tu bezpo\u015brednio na stanowisko robocze</li> </ul>"
-                    }
-                ]
-            },
-            {
-                "items": [
-                    {
-                        "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/11291b/591f767a4f749b812f00c2fc7c39"
-                    },
-                    {
-                        "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/111187/deec1fb54b0da526d49a7ac59d61"
-                    }
-                ]
-            },
-            {
-                "items": [
-                    {
-                        "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/03f8c2/aea613cd49339705fc3aaa61c4a3"
-                    },
-                    {
-                        "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/11a2fc/f19bfbd14040a9996123083214cf"
-                    }
-                ]
-            },
-            {
-                "items": [
-                    {
-                        "type": "TEXT",
-                        "content": "<p>YT-82797+82842+82848+YT-74371</p>"
+                        "content": "<p>Oznaczenie&nbsp;<b>H05RR-F</b> oznacza przew\u00f3d oponowy wykony wed\u0142ug normy harmonizowanej <b>(H)</b>, na napi\u0119cie znamionowe 300/500V<b>(05)</b>, o&nbsp;izolacji z gumy naturalnej<b>(R)</b>, o&nbsp;pow\u0142oce z gumy naturalnej<b>(R)</b> i&nbsp;\u017cy\u0142ach wielodrutowych gi\u0119tkich <b>(-F)</b>.</p> <h2>Parametry</h2> <ul> <li>Ilo\u015b\u0107 gniazd: <b>4</b></li> <li>Typ przed\u0142u\u017cacza: <b>b\u0119bnowy</b></li> <li>Uziemienie: <b>tak</b></li> <li>D\u0142ugo\u015b\u0107 [m]: <b>30</b></li> <li>Stopie\u0144 ochrony [IP]: <b>IP44</b></li> <li>Przekr\u00f3j przewodu: <b>1,5 mm\u00b2</b></li> <li>Ilo\u015b\u0107 \u017cy\u0142 [szt.]: <b>3</b></li> <li>Rodzaj izolacji: <b>RR-F</b></li> </ul>"
                     }
                 ]
             }
