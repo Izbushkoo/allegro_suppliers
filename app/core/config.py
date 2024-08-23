@@ -47,7 +47,7 @@ class Settings(BaseSettings):
     SQLALCHEMY_DATABASE_URI: Optional[PostgresDsn] = None
     SQLALCHEMY_DATABASE_URI_ASYNC: Optional[PostgresDsn] = None
 
-    @field_validator(__field="SQLALCHEMY_DATABASE_URI", mode='before')
+    @field_validator("SQLALCHEMY_DATABASE_URI", mode='before')
     def assemble_db_connection(cls, v: Optional[str], values: ValidationInfo) -> Any:
         if isinstance(v, str) and v is not None:
             return v
@@ -59,7 +59,7 @@ class Settings(BaseSettings):
             path=f"{values.data.get('POSTGRES_DB') or ''}",
         )
 
-    @field_validator(__field="SQLALCHEMY_DATABASE_URI_ASYNC", mode='before')
+    @field_validator("SQLALCHEMY_DATABASE_URI_ASYNC", mode='before')
     def assemble_db_connection_async(cls, v: Optional[str], values: ValidationInfo) -> Any:
         if isinstance(v, str) and v is not None:
             return v

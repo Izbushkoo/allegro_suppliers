@@ -184,7 +184,7 @@ async def disable_multiple_ean_offers(access_token, products, callback_manager, 
             ToLog.write_basic(f"Deactivated {len(array_to_deactivate)} offertas")
         except Exception as err:
             ToLog.write_basic(f"Error during update offers status {err}")
-            written_processed += offers_to_deactivate
+            written_not_processed += offers_to_deactivate
             continue
         else:
             written_processed += offers_to_deactivate
