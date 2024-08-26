@@ -141,6 +141,7 @@ async def make_single_oferta_check(product_from_mongo, access_token):
 async def check_offer_product_for_word_containing(word: str, product_from_mongo, access_token):
 
     try:
+        ToLog.write_basic(f"{product_from_mongo}")
         allegro_product_id = product_from_mongo["allegro_product_id"]
         offer_id = product_from_mongo["allegro_oferta_id"]
         allegro_product_details = await get_product_details(allegro_product_id, access_token)
