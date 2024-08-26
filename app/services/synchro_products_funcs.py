@@ -161,7 +161,8 @@ async def check_offer_product_for_word_containing(word: str, product_from_mongo,
                 }
                 ToLog.write_basic(f"Found {offer_id}")
                 return to_return
-    except Exception:
+    except Exception as err:
+        ToLog.write_basic(f"{err}")
         return
 
 
