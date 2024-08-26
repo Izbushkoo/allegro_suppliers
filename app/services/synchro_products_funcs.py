@@ -26,27 +26,46 @@ async def handle_single_product(supplier_product, allegro_access_token):
                 if supplier_product["price"] <= 5000:
 
                     try:
-                        found_product = await search_product_by_ean_return_first(ean, allegro_access_token)
+
+                        found_product = await search_product_by_ean(ean, allegro_access_token)
+
                     except httpx.TimeoutException as err:
                         return None, ean
                     if found_product:
-                        ToLog.write_basic(f"Start process found product with ean: {ean}")
-                        product_to_work_with = {
-                            **supplier_product,
-                            "allegro_product_id": found_product["id"],
-                            "category_id": found_product["category"]["id"],
-                            "product_name": found_product["name"]
-                        }
-                        allegro_response = await create_single_offer(product_to_work_with,
-                                                                     access_token=allegro_access_token)
-                        if allegro_response:
-                            product_to_work_with["allegro_oferta_id"] = allegro_response["id"]
-                            product_to_work_with["allegro_we_sell_it"] = True
-                            product_to_work_with.pop("price")
-                            product_to_work_with.pop("stock")
+                        if len(found_product["products"]) == 1:
+                            ToLog.write_basic(f"Start process found product with ean: {ean}")
 
-                            ToLog.write_basic(f"Created offer with id {product_to_work_with['allegro_oferta_id']}")
-                            return product_to_work_with, None
+                            allegro_product_id = found_product["products"][0]["id"]
+
+                            product_details = await get_product_details(allegro_product_id, allegro_access_token)
+                            try:
+                                allegro_eans = None
+                                if product_details:
+                                    for param in product_details["parameters"]:
+                                        if param["id"] == "225693" or param["name"] == "EAN (GTIN)":
+                                            allegro_eans = param
+
+                            except Exception:
+                                return None, ean
+                            else:
+                                if len(allegro_eans["values"]) == 1:
+                                    product_to_work_with = {
+                                        **supplier_product,
+                                        "allegro_product_id": found_product["id"],
+                                        "category_id": found_product["category"]["id"],
+                                        "product_name": found_product["name"]
+                                    }
+
+                                    allegro_response = await create_single_offer(product_to_work_with,
+                                                                                 access_token=allegro_access_token)
+                                    if allegro_response:
+                                        product_to_work_with["allegro_oferta_id"] = allegro_response["id"]
+                                        product_to_work_with["allegro_we_sell_it"] = True
+                                        product_to_work_with.pop("price")
+                                        product_to_work_with.pop("stock")
+
+                                        ToLog.write_basic(f"Created offer with id {product_to_work_with['allegro_oferta_id']}")
+                                        return product_to_work_with, None
         return None, ean
     except Exception as er:
         ToLog.write_error(f"Error {er} \n skiped product with ean {ean}")
@@ -72,6 +91,7 @@ async def process_complete_synchro_task(synchro_config: SynchronizeOffersRequest
 
                 task = asyncio.create_task(handle_single_product(product, access_token))
                 tasks.append(task)
+                await asyncio.sleep(0.3)
         results = await asyncio.gather(*tasks)
         all_results = [result for result in results]
         all_records = [rec[0] for rec in all_results if rec[0]]
@@ -139,7 +159,7 @@ async def check_offer_product_for_word_containing(word: str, product_from_mongo,
                 to_return = {
                     offer_id: found_descriptions
                 }
-                ToLog.write_basic(f"Found {to_return}")
+                ToLog.write_basic(f"Found {offer_id}")
                 return to_return
     except Exception:
         return
