@@ -1,10 +1,11 @@
 import json
+import os.path
 
 import jwt
 import requests
 
 
-access_token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiIxMjI2NTc4MDAiLCJzY29wZSI6WyJhbGxlZ3JvOmFwaTpvcmRlcnM6cmVhZCIsImFsbGVncm86YXBpOmZ1bGZpbGxtZW50OnJlYWQiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOndyaXRlIiwiYWxsZWdybzphcGk6c2FsZTpvZmZlcnM6d3JpdGUiLCJhbGxlZ3JvOmFwaTpmdWxmaWxsbWVudDp3cml0ZSIsImFsbGVncm86YXBpOmJpbGxpbmc6cmVhZCIsImFsbGVncm86YXBpOmNhbXBhaWducyIsImFsbGVncm86YXBpOmRpc3B1dGVzIiwiYWxsZWdybzphcGk6c2FsZTpvZmZlcnM6cmVhZCIsImFsbGVncm86YXBpOnNoaXBtZW50czp3cml0ZSIsImFsbGVncm86YXBpOmJpZHMiLCJhbGxlZ3JvOmFwaTpvcmRlcnM6d3JpdGUiLCJhbGxlZ3JvOmFwaTphZHMiLCJhbGxlZ3JvOmFwaTpwYXltZW50czp3cml0ZSIsImFsbGVncm86YXBpOnNhbGU6c2V0dGluZ3M6d3JpdGUiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOnJlYWQiLCJhbGxlZ3JvOmFwaTpyYXRpbmdzIiwiYWxsZWdybzphcGk6c2FsZTpzZXR0aW5nczpyZWFkIiwiYWxsZWdybzphcGk6cGF5bWVudHM6cmVhZCIsImFsbGVncm86YXBpOnNoaXBtZW50czpyZWFkIiwiYWxsZWdybzphcGk6bWVzc2FnaW5nIl0sImFsbGVncm9fYXBpIjp0cnVlLCJpc3MiOiJodHRwczovL2FsbGVncm8ucGwiLCJleHAiOjE3MjQzNjc2NDAsImp0aSI6IjNjOWE5NWJlLTY4YmMtNGQ3Yy1hYzdkLWU5ZDJjMzI1YzExMiIsImNsaWVudF9pZCI6ImJkZDRkYTA1MThkOTQ5YzRiMDkxYTZhYmU0ZmQ4M2Y3In0.B4UrUw1rLTV3Orspylq5H6nH1KJYKwkm3aux4MqnZWmOpGaJrAd05k1nlcFfPHZrODLYRg3dcuPTqjxtqWAgxf0szhqq2YkknUrtl32kH-72W82KqNIdQXwMlOqfkAVO5_6C5JIasp2Zv2OImzckxtF4R79ItYfRf3e2L8dy96LCtSvj4JzAnfrvX4t5PWLhtQ05GbSlo4GEEnoUxBHB6aQoDX35DUYs7FzyfQ2oSBtHtFp6Tcl5Pd4B7YCydGXgfYp7HNzrgN23No_y6W2EJanD4XuIFJXGGgdzaNZ322RWMqMy9kezMV_TWp2Ufo5kEOt6R5fqQ6L_oKSIL8m1lw"
+access_token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiIxMjI2NTc4MDAiLCJzY29wZSI6WyJhbGxlZ3JvOmFwaTpvcmRlcnM6cmVhZCIsImFsbGVncm86YXBpOmZ1bGZpbGxtZW50OnJlYWQiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOndyaXRlIiwiYWxsZWdybzphcGk6c2FsZTpvZmZlcnM6d3JpdGUiLCJhbGxlZ3JvOmFwaTpmdWxmaWxsbWVudDp3cml0ZSIsImFsbGVncm86YXBpOmJpbGxpbmc6cmVhZCIsImFsbGVncm86YXBpOmNhbXBhaWducyIsImFsbGVncm86YXBpOmRpc3B1dGVzIiwiYWxsZWdybzphcGk6c2FsZTpvZmZlcnM6cmVhZCIsImFsbGVncm86YXBpOnNoaXBtZW50czp3cml0ZSIsImFsbGVncm86YXBpOmJpZHMiLCJhbGxlZ3JvOmFwaTpvcmRlcnM6d3JpdGUiLCJhbGxlZ3JvOmFwaTphZHMiLCJhbGxlZ3JvOmFwaTpwYXltZW50czp3cml0ZSIsImFsbGVncm86YXBpOnNhbGU6c2V0dGluZ3M6d3JpdGUiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOnJlYWQiLCJhbGxlZ3JvOmFwaTpyYXRpbmdzIiwiYWxsZWdybzphcGk6c2FsZTpzZXR0aW5nczpyZWFkIiwiYWxsZWdybzphcGk6cGF5bWVudHM6cmVhZCIsImFsbGVncm86YXBpOnNoaXBtZW50czpyZWFkIiwiYWxsZWdybzphcGk6bWVzc2FnaW5nIl0sImFsbGVncm9fYXBpIjp0cnVlLCJpc3MiOiJodHRwczovL2FsbGVncm8ucGwiLCJleHAiOjE3MjQ4ODU0MjEsImp0aSI6IjMyZTRjZmZlLThkMGItNDk0OS1hN2JkLWQ4MmY3OWM4MTkwYSIsImNsaWVudF9pZCI6ImJkZDRkYTA1MThkOTQ5YzRiMDkxYTZhYmU0ZmQ4M2Y3In0.dVkox6QwX4K_aaHyFPhBuLcTNk2mq9KU47DiU17UcGDGiUlRbVZQ6VJUg2SiLR-d6NXIu_ICrzMBVNeUsgoz1EORuw-wxD9DawjiBTFd3AZ6ebVUPElqIfl1YGrskVOp_9hJtAsztOjHnCqLU9KR5AhndY6EpXUHLnG1RMJYlRdVddY0Fs6G_G83GzhS2tzbLcj6ogkQQVt2Do250rzRqKU4W_nARlVLKfdkKuUN4PyqvnsWtmwbCHcaKqGL1yfmS6NkMl-bxrE3921ixmMHISnidjjibjAu9Qw7k7-T8Pv4CzXdW9oLDaC4lR3WaHAea5WMB4zEZFMMQdWWbc4Hag"
 
 
 headers = {
@@ -247,6 +248,22 @@ def check():
     response = requests.get(url, headers=headers)
     print(response.json())
 
+def search_all_offers():
+
+    url = "https://api.allegro.pl/offers/listing"
+    data = {
+        "phrase": "Arvex 2053.0001 resin mixing tip"
+    }
+    response = requests.get(url, headers=headers, data=json.dumps(data))
+
+    print(response.json())
+
+
+search_all_offers()
+
+
+# check()
+
 
 # get_offer(13409953686)
 # get_params_supported_by_category(cat_id=67456)
@@ -255,8 +272,20 @@ def check():
 # check()
 # get_responsible_persons()
 # get_offers_with_missing_params()
-get_product_details("8db3241b-8552-4eab-880a-44bb7a317123")
+# get_product_details("8db3241b-8552-4eab-880a-44bb7a317123")
 # get_all_offers_filter("HURTP")
 # get_all_offers()
 
-
+# def filter_local_file(supplier, word):
+#
+#     path = os.path.join("/home/izbushko/some_found_descriptions", f"{supplier}.json",)
+#     with open(path, "r") as file:
+#         data = json.loads(file.read())
+#     filtered_dict = {}
+#     count = 0
+#     for key, value in data.items():
+#         for item in value:
+#             if
+#         pattern = re.compile(re.escape(word), re.IGNORECASE)
+#         if pattern.search():
+#

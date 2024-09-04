@@ -160,6 +160,46 @@ supplier_settings = {
             "productC": 0.9
         }
     },
+    "darymex": {
+        "skuPrefix": "DRMX_",
+        "handlingTime": 3,
+        "xmlPath": {
+            "products": "offers.group.o",
+            "sku": "@id",
+            "price": "@purchase_price",
+            "vat": "vat",
+            "stock": "@stock",
+            "ean": "attrs.ean",
+            "category": "cat",
+            "weight": "@weight"
+        },
+        "priceRanges": [
+            {"maxPrice": 10, "factor": "add", "value": 12},
+            {"maxPrice": 20, "factor": "multiply", "value": 3.5},
+            {"maxPrice": 40, "factor": "multiply", "value": 3},
+            {"maxPrice": 60, "factor": "multiply", "value": 2.75},
+            {"maxPrice": 100, "factor": "multiply", "value": 2.5},
+            {"maxPrice": 200, "factor": "multiply", "value": 2.25},
+            {"maxPrice": 400, "factor": "multiply", "value": 2},
+            {"maxPrice": 600, "factor": "multiply", "value": 1.9},
+            {"maxPrice": 800, "factor": "multiply", "value": 1.8},
+            {"maxPrice": 1000, "factor": "multiply", "value": 1.7},
+            {"maxPrice": 1500, "factor": "multiply", "value": 1.7},
+            {"maxPrice": 3000, "factor": "multiply", "value": 1.7},
+            {"maxPrice": 5000, "factor": "multiply", "value": 1.7},
+            {"maxPrice": 9999, "factor": "multiply", "value": 1.7},
+            {"maxPrice": 99999, "factor": "multiply", "value": 1.7},
+        ],
+        "isVatIncluded": False,
+        "applyMultiplier": False,
+        "customMultiplier": 0.7,
+        "applyCustomMultipliers": False,
+        "customMultipliers": {
+            "productA": 1.2,
+            "productB": 1.1,
+            "productC": 0.9
+        }
+    },
     "growbox": {
         "skuPrefix": "GRBX_",
         "handlingTime": 3,
