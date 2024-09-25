@@ -225,7 +225,7 @@ def filter_json_object_to_array_of_objects(supplier, json_file, database_items):
     for item in database_items:
         sku = item['supplier_sku']
         try:
-            multiplier = item["custom_multiplier"]
+            multiplier = item["current_multiplier"]
             if not multiplier.isdigit():
                 multiplier = 1
         except KeyError:
