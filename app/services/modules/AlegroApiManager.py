@@ -185,10 +185,10 @@ async def process_offer(offer, client, headers, callback_manager,
                 array_to_activate.append(offer)
                 success = True
             else:
-                ToLog.write_basic(f"origin response: {response}")
                 await handle_errors(response, offer, array_to_end, array_with_price_errors_to_update, callback_manager)
                 success = True
         except httpx.HTTPStatusError as http_err:
+            ToLog.write_basic(f"origin exc: {http_err}")
             status_code = http_err.response.status_code if http_err.response else None
             if status_code in [500, 501, 502, 503, 504]:
                 retries += 1
