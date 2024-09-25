@@ -71,7 +71,8 @@ class MongoBaseManager:
                 "allegro_we_sell_it": True
             }
 
-            projection = {"allegro_oferta_id": 1, "supplier_sku": 1, "_id": 0, "weight": 1, "allegro_product_id": 1}
+            projection = {"allegro_oferta_id": 1, "supplier_sku": 1, "_id": 0, "weight": 1, "allegro_product_id": 1,
+                          "current_multiplier": 1}
             documents = collection.find(query, projection)
 
             items_array = await documents.to_list(length=None)

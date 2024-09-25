@@ -199,7 +199,7 @@ def filter_for_supplier_items(supplier, json_file, multiplier=1):
 
 
 # Final function
-def filter_json_object_to_array_of_objects(supplier, json_file, database_items, multiplier=1):
+def filter_json_object_to_array_of_objects(supplier, json_file, database_items):
     settings = supplier_settings[supplier]
 
     products_path = settings['xmlPath']['products']
@@ -224,6 +224,7 @@ def filter_json_object_to_array_of_objects(supplier, json_file, database_items, 
     filtered_objects = []
     for item in database_items:
         sku = item['supplier_sku']
+        multiplier = item["custom_multiplier"]
         product = product_map.get(sku)
 
         if not product:

@@ -5,7 +5,7 @@ import jwt
 import requests
 
 
-access_token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiIxMjI2NTc4MDAiLCJzY29wZSI6WyJhbGxlZ3JvOmFwaTpvcmRlcnM6cmVhZCIsImFsbGVncm86YXBpOmZ1bGZpbGxtZW50OnJlYWQiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOndyaXRlIiwiYWxsZWdybzphcGk6c2FsZTpvZmZlcnM6d3JpdGUiLCJhbGxlZ3JvOmFwaTpmdWxmaWxsbWVudDp3cml0ZSIsImFsbGVncm86YXBpOmJpbGxpbmc6cmVhZCIsImFsbGVncm86YXBpOmNhbXBhaWducyIsImFsbGVncm86YXBpOmRpc3B1dGVzIiwiYWxsZWdybzphcGk6c2FsZTpvZmZlcnM6cmVhZCIsImFsbGVncm86YXBpOnNoaXBtZW50czp3cml0ZSIsImFsbGVncm86YXBpOmJpZHMiLCJhbGxlZ3JvOmFwaTpvcmRlcnM6d3JpdGUiLCJhbGxlZ3JvOmFwaTphZHMiLCJhbGxlZ3JvOmFwaTpwYXltZW50czp3cml0ZSIsImFsbGVncm86YXBpOnNhbGU6c2V0dGluZ3M6d3JpdGUiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOnJlYWQiLCJhbGxlZ3JvOmFwaTpyYXRpbmdzIiwiYWxsZWdybzphcGk6c2FsZTpzZXR0aW5nczpyZWFkIiwiYWxsZWdybzphcGk6cGF5bWVudHM6cmVhZCIsImFsbGVncm86YXBpOnNoaXBtZW50czpyZWFkIiwiYWxsZWdybzphcGk6bWVzc2FnaW5nIl0sImFsbGVncm9fYXBpIjp0cnVlLCJpc3MiOiJodHRwczovL2FsbGVncm8ucGwiLCJleHAiOjE3MjQ4ODU0MjEsImp0aSI6IjMyZTRjZmZlLThkMGItNDk0OS1hN2JkLWQ4MmY3OWM4MTkwYSIsImNsaWVudF9pZCI6ImJkZDRkYTA1MThkOTQ5YzRiMDkxYTZhYmU0ZmQ4M2Y3In0.dVkox6QwX4K_aaHyFPhBuLcTNk2mq9KU47DiU17UcGDGiUlRbVZQ6VJUg2SiLR-d6NXIu_ICrzMBVNeUsgoz1EORuw-wxD9DawjiBTFd3AZ6ebVUPElqIfl1YGrskVOp_9hJtAsztOjHnCqLU9KR5AhndY6EpXUHLnG1RMJYlRdVddY0Fs6G_G83GzhS2tzbLcj6ogkQQVt2Do250rzRqKU4W_nARlVLKfdkKuUN4PyqvnsWtmwbCHcaKqGL1yfmS6NkMl-bxrE3921ixmMHISnidjjibjAu9Qw7k7-T8Pv4CzXdW9oLDaC4lR3WaHAea5WMB4zEZFMMQdWWbc4Hag"
+access_token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiIxMjI2NTc4MDAiLCJzY29wZSI6WyJhbGxlZ3JvOmFwaTpvcmRlcnM6cmVhZCIsImFsbGVncm86YXBpOmZ1bGZpbGxtZW50OnJlYWQiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOndyaXRlIiwiYWxsZWdybzphcGk6c2FsZTpvZmZlcnM6d3JpdGUiLCJhbGxlZ3JvOmFwaTpmdWxmaWxsbWVudDp3cml0ZSIsImFsbGVncm86YXBpOmJpbGxpbmc6cmVhZCIsImFsbGVncm86YXBpOmNhbXBhaWducyIsImFsbGVncm86YXBpOmRpc3B1dGVzIiwiYWxsZWdybzphcGk6c2FsZTpvZmZlcnM6cmVhZCIsImFsbGVncm86YXBpOnNoaXBtZW50czp3cml0ZSIsImFsbGVncm86YXBpOmJpZHMiLCJhbGxlZ3JvOmFwaTpvcmRlcnM6d3JpdGUiLCJhbGxlZ3JvOmFwaTphZHMiLCJhbGxlZ3JvOmFwaTpwYXltZW50czp3cml0ZSIsImFsbGVncm86YXBpOnNhbGU6c2V0dGluZ3M6d3JpdGUiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOnJlYWQiLCJhbGxlZ3JvOmFwaTpyYXRpbmdzIiwiYWxsZWdybzphcGk6c2FsZTpzZXR0aW5nczpyZWFkIiwiYWxsZWdybzphcGk6cGF5bWVudHM6cmVhZCIsImFsbGVncm86YXBpOnNoaXBtZW50czpyZWFkIiwiYWxsZWdybzphcGk6bWVzc2FnaW5nIl0sImFsbGVncm9fYXBpIjp0cnVlLCJpc3MiOiJodHRwczovL2FsbGVncm8ucGwiLCJleHAiOjE3MjcxMTcwNzUsImp0aSI6ImFmMjk1OGFlLTIzOTktNDk3MC04OGIzLWI5YWRlYzI2YjEzOCIsImNsaWVudF9pZCI6ImJkZDRkYTA1MThkOTQ5YzRiMDkxYTZhYmU0ZmQ4M2Y3In0.BdEbtPDUXDqMrcQLx_rcImaMPnbUGPIWr_pr9kCxtq5v5qWn5IqXczfc5JEaj38kR1roaSDXmG5RUp9gIqXxCh7nDULjQ7qT6yQn6YyfGRZx_R7ar2phRDkcLT6YFZYnS5GzZYbC9h2SszqiZUxSdCSXrLLGSggxdgzO3I0V8wtnAOaRnKck4jW9D2ofWTQ-kACntANJgG-ZzRiPae7PTh6cMslbBGqXdd3MnFkDwavMttAyizjBh-03-qsgL4sko_dRr8FMvhAFtO2eKz35fVczsIDcTbtuhrqHMg5BLnVyPqVvtiBHixQ8QllkQZiE2x9mKa_FTFdZp7_OBaeo_w"
 
 
 headers = {
@@ -107,6 +107,15 @@ def get_offer(offer):
         file.write(json.dumps(resp, indent=4))
 
     # print(len(response.json()["offers"]))
+def category_by_id(cat_id):
+
+    url = f"https://api.allegro.pl/sale/categories/{cat_id}"
+
+    response = requests.get(url, headers=headers)
+    resp = json.loads(response.text)
+
+    with open("categories.json", "w") as file:
+        file.write(json.dumps(resp, indent=4))
 
 
 def get_categories():
@@ -258,9 +267,19 @@ def search_all_offers():
 
     print(response.json())
 
+def handle_file(path: str):
+    with open(path, "r") as file:
+        data = json.loads(file.read())
+    ids = [item["allegro_oferta_id"] for item in data]
+    print(len(ids))
+    with open(f"{path}.txt", "w") as file:
+        file.write(",".join(ids))
 
-search_all_offers()
+handle_file("/home/izbushko/Downloads/Allegro_files/Category_353_date_25_09_2024.json")
 
+# search_all_offers()
+
+# category_by_id(353)
 
 # check()
 

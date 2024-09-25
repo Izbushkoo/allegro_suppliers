@@ -204,7 +204,7 @@ async def update_as_task_in_bulks(update_config: UpdateConfig, **kwargs):
         else:
             access_token = token.access_token
 
-        multiplier = update_config.multiplier
+        # multiplier = update_config.multiplier
         oferta_ids_to_process = update_config.oferta_ids_to_process
         suppliers_list = update_config.suppliers_to_update if update_config.suppliers_to_update else list(
             supplier_name.values()
@@ -217,7 +217,7 @@ async def update_as_task_in_bulks(update_config: UpdateConfig, **kwargs):
             for supplier in batch:
                 task = asyncio.create_task(
                     update_single_supplier(
-                        supplier, multiplier, access_token, oferta_ids_to_process, callback_manager
+                        supplier, access_token, oferta_ids_to_process, callback_manager
                     )
                 )
                 tasks.append(task)
@@ -227,12 +227,12 @@ async def update_as_task_in_bulks(update_config: UpdateConfig, **kwargs):
         await callback_manager.send_finish_callback_async("Обновление завершено.")
 
 
-async def update_single_supplier(supplier: str, multiplier: float | int, access_token, oferta_ids_to_process,
+async def update_single_supplier(supplier: str, access_token, oferta_ids_to_process,
                                  callback_manager: CallbackManager):
 
     try:
         await callback_manager.send_ok_callback_async(f"Начинаем скачивание данных для {supplier}")
-        filtered_objects = await get_all_data(supplier, multiplier, callback_manager)
+        filtered_objects = await get_all_data(supplier, callback_manager)
     except Exception as e:
         await callback_manager.send_error_callback_async(f"Ошибка во время парсинга данных для {supplier}. "
                                                          f"Попробуйте позже.")

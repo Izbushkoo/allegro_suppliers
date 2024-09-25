@@ -13,7 +13,7 @@ from app.services.modules.AlegroApiManager import update_offers_in_bulks
 from app.loggers import ToLog
 
 
-async def get_all_data(supplier, multiplier, callback_manager: CallbackManager):
+async def get_all_data(supplier, callback_manager: CallbackManager):
     content = await download_with_retry(supplier, callback_manager)
 
     database_items = await MongoManager.fetch_positions_for_sale(supplier)
@@ -21,7 +21,7 @@ async def get_all_data(supplier, multiplier, callback_manager: CallbackManager):
 
     ToLog.write_basic("parsed")
     filtered_objects = filter_json_object_to_array_of_objects(
-        supplier, json_from_xml, database_items, multiplier
+        supplier, json_from_xml, database_items
     )
     ToLog.write_basic("filtered")
     return filtered_objects
