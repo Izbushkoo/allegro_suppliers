@@ -119,6 +119,9 @@ async def update_offers_in_bulks(offers_array, access_token: str, callback_manag
             await callback_manager.send_ok_callback_async(
                 f"Завершение {len(array_to_end)} предложений(я) с ошибками..."
             )
+            await callback_manager.send_ok_callback_async(
+                f"Ошибки с офертами {array_to_end}"
+            )
             await update_offers_status(access_token, array_to_end, "END", callback_manager)
 
         if failed_http_request:

@@ -273,6 +273,9 @@ def handle_file(path: str):
     ids = [item["allegro_oferta_id"] for item in data]
     print(len(ids))
     with open(f"{path}.txt", "w") as file:
+        file.write(json.dumps(ids))
+
+    with open(f"{path}_for_updater.txt", "w") as file:
         file.write(",".join(ids))
 
 handle_file("/home/izbushko/Downloads/Allegro_files/Category_353_date_25_09_2024.json")
