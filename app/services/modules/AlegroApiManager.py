@@ -147,8 +147,8 @@ async def process_offer(offer, client, headers, callback_manager,
     id_ = offer.get('id')
     stock = offer.get('stock')
     price = offer.get('price')
-    # weight = offer.get("weight")
 
+    ToLog.write_basic(f"Offer to process {offer}")
     if stock <= 1:
         array_to_end.append(offer)
         return
@@ -169,23 +169,6 @@ async def process_offer(offer, client, headers, callback_manager,
             "unit": "UNIT",
         },
     }
-
-    # ToLog.write_basic(f"type {type(weight)}, value {weight}")
-    #
-    # if isinstance(weight, (int, float)) and weight != "N/A":
-    #     data.update(
-    #         {
-    #             "parameters": [
-    #                 {
-    #                     "id": 226262,
-    #                     # "name": "Waga",
-    #                     "values": [(weight / 1000)]
-    #
-    #                 }
-    #             ]
-    #         }
-    #     )
-    #     ToLog.write_basic("data updated with weight")
 
     url = f"https://api.allegro.pl/sale/product-offers/{id_}"
     retries = 0
