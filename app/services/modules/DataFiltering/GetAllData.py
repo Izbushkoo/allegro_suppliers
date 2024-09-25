@@ -224,7 +224,13 @@ def filter_json_object_to_array_of_objects(supplier, json_file, database_items):
     filtered_objects = []
     for item in database_items:
         sku = item['supplier_sku']
-        multiplier = item["custom_multiplier"]
+        try:
+            multiplier = item["custom_multiplier"]
+            if not multiplier.isdigit():
+                multiplier = 1
+        except KeyError:
+            multiplier = 1
+
         product = product_map.get(sku)
 
         if not product:
