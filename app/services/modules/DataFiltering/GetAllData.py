@@ -6,6 +6,7 @@ import json
 
 import pydash
 from jsonpath_ng.ext import parse
+from pydash import retry
 from sqlalchemy.sql.dml import isinsert
 
 from app.services.configs.AllegroConfig import supplier_settings
@@ -70,6 +71,15 @@ def calculate_price(price, price_ranges, is_apply_custom_multipliers, is_apply_c
     final_price *= multiplier
 
     return math.ceil(final_price) - 0.05
+
+
+def extract_set(set_string):
+    try:
+        set_value = int(set_string)
+    except ValueError:
+        return 0
+    else:
+        return set_value
 
 
 # def extract_and_calculate_stock(xml_stock):
@@ -337,9 +347,23 @@ def filter_json_object_for_unimet(supplier, json_file, database_items):
 
         price_string = str(by_string(product, price_path))
         vat_string = str(by_string(product, vat_path))
-        stock_string = str(by_string(product, stock_path))
-        ean_string = str(by_string(product, ean_path))
 
+        unit_string = str(by_string(product, unit_path))
+        set_string = str(by_string(product, set_path))
+        stock_string = str(by_string(product, stock_path))
+
+        stock = extract_and_calculate_stock(stock_string)
+
+        if unit_string == "STO":
+            set_value = extract_set(set_string)
+            if set_value != 0:
+                final_stock = stock // set_value
+            else:
+                final_stock = stock
+        else:
+            final_stock = stock
+
+        ean_string = str(by_string(product, ean_path))
         formatted_ean = format_ean(ean_string)
         vat = extract_vat(vat_string, is_vat_included)
 
@@ -353,7 +377,6 @@ def filter_json_object_for_unimet(supplier, json_file, database_items):
         final_price = calculate_price(price, price_ranges, is_apply_custom_multipliers, is_apply_custom_multiplier,
                                       supplier, sku, multiplier)
 
-        final_stock = extract_and_calculate_stock(stock_string)
         final_sku = replace_polish_characters_in_sku(f"{sku_prefix}{sku}")
         category = str(by_string(product, category_path))
 
