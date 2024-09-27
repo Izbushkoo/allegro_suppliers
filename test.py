@@ -270,7 +270,7 @@ def search_all_offers():
 def handle_file(path: str):
     with open(path, "r") as file:
         data = json.loads(file.read())
-    ids = [item["allegro_oferta_id"] for item in data]
+    ids = [item["allegro_oferta_id"] for item in data if item["allegro_we_sell_it"]]
     print(len(ids))
     with open(f"{path}.txt", "w") as file:
         file.write(json.dumps(ids))
@@ -278,7 +278,8 @@ def handle_file(path: str):
     with open(f"{path}_for_updater.txt", "w") as file:
         file.write(",".join(ids))
 
-handle_file("/home/izbushko/Downloads/Allegro_files/Category_353_date_25_09_2024.json")
+handle_file("/home/izbushko/Downloads/Allegro_files/cat_121585/SuppliersSkuMap.fursollerhouse_res.json")
+
 
 # search_all_offers()
 

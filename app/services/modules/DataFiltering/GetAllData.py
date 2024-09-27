@@ -255,9 +255,17 @@ def filter_json_object_to_array_of_objects(supplier, json_file, database_items):
 
         formatted_ean = format_ean(ean_string)
         vat = extract_vat(vat_string, is_vat_included)
-        price = extract_price(price_string, vat, is_vat_included)
+
+        fixed_price = item["fixed_price"]
+
+        if fixed_price:
+            price = fixed_price
+        else:
+            price = extract_price(price_string, vat, is_vat_included)
+
         final_price = calculate_price(price, price_ranges, is_apply_custom_multipliers, is_apply_custom_multiplier,
                                       supplier, sku, multiplier)
+
         final_stock = extract_and_calculate_stock(stock_string)
         final_sku = replace_polish_characters_in_sku(f"{sku_prefix}{sku}")
         category = str(by_string(product, category_path))
