@@ -284,6 +284,92 @@ def filter_json_object_to_array_of_objects(supplier, json_file, database_items):
     return filtered_objects
 
 
+def filter_json_object_for_unimet(supplier, json_file, database_items):
+    settings = supplier_settings[supplier]
+
+    products_path = settings['xmlPath']['products']
+    sku_path = settings['xmlPath']['sku']
+    category_path = settings['xmlPath']['category']
+    price_path = settings['xmlPath']['price']
+    is_apply_custom_multipliers = settings['applyCustomMultipliers']
+    is_apply_custom_multiplier = settings['applyMultiplier']
+    vat_path = settings['xmlPath']['vat']
+
+    unit_path = settings['xmlPath']['unit']
+    set_path = settings['xmlPath']['set']
+    stock_path = settings['xmlPath']['stock']
+
+    ean_path = settings['xmlPath']['ean']
+    price_ranges = settings['priceRanges']
+    is_vat_included = settings['isVatIncluded']
+
+    sku_prefix = settings['skuPrefix']
+    handling_time = settings['handlingTime']
+
+    all_products = by_string(json_file, products_path)
+
+    product_map = {by_string(product, sku_path): product for product in all_products}
+
+    filtered_objects = []
+    for item in database_items:
+        sku = item['supplier_sku']
+        try:
+            multiplier = item["current_multiplier"]
+            if not isinstance(multiplier, (int, float)):
+                multiplier = 1
+        except KeyError:
+            multiplier = 1
+
+        product = product_map.get(sku)
+
+        if not product:
+            filtered_objects.append({
+                'allegro_offerta_id': item['allegro_oferta_id'],
+                'amazon_sku': f"{sku_prefix}{sku}",
+                'stock': 0,
+                'price': 7.77,
+                'ean': 404,
+                'handling_time': handling_time,
+                'category': 'N/A',
+                'weight': item['weight']
+            })
+            continue
+
+        price_string = str(by_string(product, price_path))
+        vat_string = str(by_string(product, vat_path))
+        stock_string = str(by_string(product, stock_path))
+        ean_string = str(by_string(product, ean_path))
+
+        formatted_ean = format_ean(ean_string)
+        vat = extract_vat(vat_string, is_vat_included)
+
+        fixed_price = item["fixed_price"]
+
+        if fixed_price:
+            price = fixed_price
+        else:
+            price = extract_price(price_string, vat, is_vat_included)
+
+        final_price = calculate_price(price, price_ranges, is_apply_custom_multipliers, is_apply_custom_multiplier,
+                                      supplier, sku, multiplier)
+
+        final_stock = extract_and_calculate_stock(stock_string)
+        final_sku = replace_polish_characters_in_sku(f"{sku_prefix}{sku}")
+        category = str(by_string(product, category_path))
+
+        filtered_objects.append({
+            'allegro_offerta_id': item['allegro_oferta_id'],
+            'amazon_sku': final_sku,
+            'stock': final_stock,
+            'price': final_price,
+            'ean': formatted_ean,
+            'handlingTime': handling_time,
+            'category': category,
+            'weight': item['weight']
+        })
+
+    return filtered_objects
+
 def filter_json_object_to_array_of_objects_for_adding_to_mongo_map(supplier, json_file, database_items, multiplier=1):
     settings = supplier_settings[supplier]
 

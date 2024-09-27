@@ -278,7 +278,7 @@ def handle_file(path: str):
     with open(f"{path}_for_updater.txt", "w") as file:
         file.write(",".join(ids))
 
-handle_file("/home/izbushko/Downloads/Allegro_files/cat_121585/SuppliersSkuMap.fursollerhouse_res.json")
+handle_file("/home/izbushko/Downloads/Allegro_files/cat_121584_hurtprem/Collection.json")
 
 
 # search_all_offers()

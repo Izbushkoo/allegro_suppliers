@@ -47,6 +47,8 @@ supplier_settings = {
             "sku": "INDEKS",
             "price": "CENA_KLIENTA_MIN",
             "vat": "VAT",
+            "unit": "JEDNOSTKA_MIARY",
+            "set": "OPAKOWANIE",
             "stock": "STAN_NA_MAGAZYNIE",
             "ean": "EAN",
             "category": "KATEGORIE",
