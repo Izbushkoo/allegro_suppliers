@@ -5,7 +5,8 @@ from app.services.modules.DownloadXML import download_with_retry
 from app.services.modules.DatabaseManager import MongoManager
 from app.services.modules.ParsingManager import parse_xml_to_json_sync
 from app.services.modules.DataFiltering.GetAllData import filter_json_object_to_array_of_objects, \
-    filter_json_object_to_array_of_objects_for_adding_to_mongo_map, filter_for_supplier_items
+    filter_json_object_to_array_of_objects_for_adding_to_mongo_map, filter_for_supplier_items, \
+    filter_json_object_for_unimet
 from app.services.modules.DataFiltering.GetAllegroData import filter_supplier_data_for_allegro, \
     filter_supplier_data_for_category_by_allegro_id
 from app.schemas.pydantic_models import CallbackManager
@@ -20,9 +21,14 @@ async def get_all_data(supplier, callback_manager: CallbackManager):
     json_from_xml = parse_xml_to_json_sync(content)
 
     ToLog.write_basic("parsed")
-    filtered_objects = filter_json_object_to_array_of_objects(
-        supplier, json_from_xml, database_items
-    )
+    if supplier == "unimet":
+        filtered_objects = filter_json_object_for_unimet(
+            supplier, json_from_xml, database_items
+        )
+    else:
+        filtered_objects = filter_json_object_to_array_of_objects(
+            supplier, json_from_xml, database_items
+        )
     ToLog.write_basic("filtered")
     return filtered_objects
 
