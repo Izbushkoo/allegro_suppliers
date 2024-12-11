@@ -7,7 +7,7 @@ import jwt
 import requests
 from requests import delete
 
-access_token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiIxMjI2NTc4MDAiLCJzY29wZSI6WyJhbGxlZ3JvOmFwaTpvcmRlcnM6cmVhZCIsImFsbGVncm86YXBpOmZ1bGZpbGxtZW50OnJlYWQiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOndyaXRlIiwiYWxsZWdybzphcGk6c2FsZTpvZmZlcnM6d3JpdGUiLCJhbGxlZ3JvOmFwaTpmdWxmaWxsbWVudDp3cml0ZSIsImFsbGVncm86YXBpOmJpbGxpbmc6cmVhZCIsImFsbGVncm86YXBpOmNhbXBhaWducyIsImFsbGVncm86YXBpOmRpc3B1dGVzIiwiYWxsZWdybzphcGk6c2FsZTpvZmZlcnM6cmVhZCIsImFsbGVncm86YXBpOnNoaXBtZW50czp3cml0ZSIsImFsbGVncm86YXBpOmJpZHMiLCJhbGxlZ3JvOmFwaTpvcmRlcnM6d3JpdGUiLCJhbGxlZ3JvOmFwaTphZHMiLCJhbGxlZ3JvOmFwaTpwYXltZW50czp3cml0ZSIsImFsbGVncm86YXBpOnNhbGU6c2V0dGluZ3M6d3JpdGUiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOnJlYWQiLCJhbGxlZ3JvOmFwaTpyYXRpbmdzIiwiYWxsZWdybzphcGk6c2FsZTpzZXR0aW5nczpyZWFkIiwiYWxsZWdybzphcGk6cGF5bWVudHM6cmVhZCIsImFsbGVncm86YXBpOnNoaXBtZW50czpyZWFkIiwiYWxsZWdybzphcGk6bWVzc2FnaW5nIl0sImFsbGVncm9fYXBpIjp0cnVlLCJpc3MiOiJodHRwczovL2FsbGVncm8ucGwiLCJleHAiOjE3MzM5MDQwMDIsImp0aSI6IjFjM2FjNDcxLWY4ZTEtNDM3OS05ZDFiLTFlOTQ3YzFhNGNmYyIsImNsaWVudF9pZCI6ImJkZDRkYTA1MThkOTQ5YzRiMDkxYTZhYmU0ZmQ4M2Y3In0.wk1jBvGM1OPzsf_c7OBHJ1boslaQPtgLt-hemgXYnboAYUQBwuCGsW97ZW_b8s7KmDv0OkmCS7rid11RDIaZ1kP5OYUPvmt_ADBWlGbs1ynYzQ-Nzz53eczeRR8qCwR5co8Ssy-PA1km-RQdP7zGSLkgcUvVJ1zwl4sN5GVFWyy7LbCUsHfdv8MDM9b8_wkGRcB9rOCPKkxx0ZkC8mtLVfIlqdiTmDWtsI61iZcdiSMHZb503mv_CffehbKotqEWL9qx5DUmG9kACI-fTDSRC61e9Zq-69ACbFpg4VElQecKzgXoJWzF_P202JzcAg4X8FjaP2cayki4XmYykwEvgg"
+access_token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiIxMjI2NTc4MDAiLCJzY29wZSI6WyJhbGxlZ3JvOmFwaTpvcmRlcnM6cmVhZCIsImFsbGVncm86YXBpOmZ1bGZpbGxtZW50OnJlYWQiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOndyaXRlIiwiYWxsZWdybzphcGk6c2FsZTpvZmZlcnM6d3JpdGUiLCJhbGxlZ3JvOmFwaTpmdWxmaWxsbWVudDp3cml0ZSIsImFsbGVncm86YXBpOmJpbGxpbmc6cmVhZCIsImFsbGVncm86YXBpOmNhbXBhaWducyIsImFsbGVncm86YXBpOmRpc3B1dGVzIiwiYWxsZWdybzphcGk6c2FsZTpvZmZlcnM6cmVhZCIsImFsbGVncm86YXBpOnNoaXBtZW50czp3cml0ZSIsImFsbGVncm86YXBpOmJpZHMiLCJhbGxlZ3JvOmFwaTpvcmRlcnM6d3JpdGUiLCJhbGxlZ3JvOmFwaTphZHMiLCJhbGxlZ3JvOmFwaTpwYXltZW50czp3cml0ZSIsImFsbGVncm86YXBpOnNhbGU6c2V0dGluZ3M6d3JpdGUiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOnJlYWQiLCJhbGxlZ3JvOmFwaTpyYXRpbmdzIiwiYWxsZWdybzphcGk6c2FsZTpzZXR0aW5nczpyZWFkIiwiYWxsZWdybzphcGk6cGF5bWVudHM6cmVhZCIsImFsbGVncm86YXBpOnNoaXBtZW50czpyZWFkIiwiYWxsZWdybzphcGk6bWVzc2FnaW5nIl0sImFsbGVncm9fYXBpIjp0cnVlLCJpc3MiOiJodHRwczovL2FsbGVncm8ucGwiLCJleHAiOjE3MzM5NjE2MDAsImp0aSI6IjBlZDJmMDEwLWI4MDctNDZjZi04ZDM4LWZmNjE3NzI3ZDRmYyIsImNsaWVudF9pZCI6ImJkZDRkYTA1MThkOTQ5YzRiMDkxYTZhYmU0ZmQ4M2Y3In0.OiVg-TgIb28IjL4EW2n2sRk-_7wwVHP7TN9dkpO4RyKWBoOL9P-LsFKUHDvLnvzZbhtW0oHUyOnq1liTqJ4-AAPjY51oD1T0cqLb5DAhe1Bwmc2BDIR9fisoe5dMC9YCYwe9kGFb8ovK1R5Lp6AfUDLA6a8wq2lOJXkRXRaoTfh-B_d5f0ZDHfECajaz40CiKSvplqwWix2-G_UzCjNw-RRPJfAIWZp5FkFU2rGTVuziKG2iDAOrj3TmYja98ZZfC7cRfwzBFit947BQAjxO5pHDXS3l-U2PyxzIcOf_TtkGIse9lEntk8UKWEKg9d2oBc9Az4nW34xc0Lno6j-qPg"
 
 
 headers = {
@@ -227,16 +227,50 @@ def get_categories(cat_id: str | None = None):
     #     file.write(json.dumps(resp, indent=4))
 
 
+def get_categories_in_cat(cat_id: str):
+    params = {
+        "parent.id": cat_id
+    }
+
+    url = "https://api.allegro.pl/sale/categories"
+    r = requests.get(url, headers=headers, params=params)
+    data = r.json()
+
+    categories = data.get("categories", [])
+
+    # Будем собирать список категорий
+    result = []
+    for cat in categories:
+        print(f"Category: {cat['name']}")
+        # Проверяем, является ли категория листовой
+        if cat["leaf"]:
+            # Листовая категория - возвращаем её как объект
+            result.append({
+                "id": cat["id"],
+                "name": cat["name"]
+            })
+        else:
+            # Если не листовая, рекурсивно получаем её потомков
+            children = get_categories_in_cat(cat["id"])
+            result.append({
+                "id": cat["id"],
+                "name": cat["name"],
+                "children": children
+            })
+
+    return result
+
 def get_categories_tree():
 
-    cat_tree = {}
-    root_tree = get_categories()
-    categories = [{
+    result = get_categories_in_cat("954b95b6-43cf-4104-8354-dea4d9b10ddf")
 
-    }]
-    cat_tree["categories"] =
-    for category in root_tree.get("categories", []):
-        if
+    with open("cat_tree.json", "w") as file:
+        file.write(json.dumps(result, indent=2))
+
+
+get_categories_tree()
+
+
 
 
 
@@ -390,7 +424,7 @@ def handle_file(path: str):
 
 # handle_file("/home/izbushko/Downloads/Allegro_files/unimet_cat_147677/SuppliersSkuMap.fursollerhouse_res.json")
 
-get_categories()
+# get_categories()
 
 # get_product_details("5d621d3f-adbd-4441-be91-cf3698a44308")
 # offers_ = get_all_offers()
