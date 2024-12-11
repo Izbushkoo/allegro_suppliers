@@ -40,7 +40,7 @@ if settings.BACKEND_CORS_ORIGINS:
     )
 
 app.include_router(api_router_v1, prefix=settings.API_V1_STR)
-app.include_router(categories, prefix="cats")
+app.include_router(categories, prefix="/cats")
 
 
 if __name__ == "__main__":
