@@ -92,22 +92,29 @@
         const tree = this._renderTree(data);
         this.container.appendChild(tree);
 
+        // Обработчик клика
         this.container.addEventListener('click', (event) => {
           const leafIdSpan = event.target.closest('.leaf-id');
+
+          // Клик по ID листа
           if (leafIdSpan) {
             const id = leafIdSpan.getAttribute('data-id');
+            // Пытаемся скопировать в буфер
             navigator.clipboard.writeText(id)
               .catch((err) => {
                 console.error('Не удалось скопировать ID', err);
               })
               .finally(() => {
+                // Показать сообщение
                 this._showCopyMessage(leafIdSpan, "Скопировано!");
               });
             return;
           }
 
           const li = event.target.closest('li');
+          // Если клик не по ID, а по самой категории
           if (li && li.hasAttribute('data-id') && !event.target.classList.contains('leaf-id')) {
+            // Свернуть/развернуть
             if (li.querySelector('ul')) {
               if (li.hasAttribute('collapsed')) {
                 li.removeAttribute('collapsed');
@@ -133,6 +140,7 @@
           const text = document.createTextNode(node.name);
           li.appendChild(text);
 
+          // Если это листовая категория, добавим спан с ID
           if (isLeaf) {
             const idSpan = document.createElement('span');
             idSpan.className = 'leaf-id';
@@ -141,6 +149,7 @@
             li.appendChild(idSpan);
           }
 
+          // Рендерим потомков, если они есть
           if (node.children && node.children.length > 0) {
             const childUl = this._renderTree(node.children);
             li.appendChild(childUl);
@@ -152,6 +161,7 @@
       }
 
       _showCopyMessage(targetEl, message) {
+        // Удалим старое сообщение, если есть
         const oldMessage = targetEl.querySelector('.copy-message');
         if (oldMessage) {
           oldMessage.remove();
@@ -163,6 +173,7 @@
 
         targetEl.appendChild(msgSpan);
 
+        // Удаляем через 2 секунды
         setTimeout(() => {
           if (msgSpan.parentNode) {
             msgSpan.remove();
@@ -173,11 +184,13 @@
 
     customElements.define('category-tree', CategoryTree);
 
+    // Вызовем setData с переданными в шаблон данными
     document.addEventListener('DOMContentLoaded', () => {
       const tree = document.querySelector('category-tree');
-      const data = {{ data | safe }};
+      const data = {{ data|tojson }};
       tree.setData(data);
     });
   </script>
 </body>
 </html>
+

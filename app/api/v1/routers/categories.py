@@ -9,7 +9,7 @@ router = APIRouter()
 #     ...
 
 @router.get("/get")
-async def get_tree(request):
+async def get_tree(request: Request):
     with open("cat_tree.json", "r") as file:
         dumped_data = file.read()
 
