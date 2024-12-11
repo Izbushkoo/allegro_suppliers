@@ -6,6 +6,7 @@ from contextlib import asynccontextmanager
 from arq.connections import create_pool, RedisSettings
 
 from app.api.v1.api import api_router as api_router_v1
+from app.api.v1.routers.categories import router as categories
 from app.core.config import settings
 from app.loggers import setup_loggers
 from app.context import ctx
@@ -39,6 +40,7 @@ if settings.BACKEND_CORS_ORIGINS:
     )
 
 app.include_router(api_router_v1, prefix=settings.API_V1_STR)
+app.include_router(categories, prefix="cats")
 
 
 if __name__ == "__main__":

@@ -1,17 +1,378 @@
 {
-    "id": "353",
-    "name": "Etui i pokrowce",
-    "parent": {
-        "id": "348"
-    },
-    "leaf": true,
-    "options": {
-        "variantsByColorPatternAllowed": true,
-        "advertisement": false,
-        "advertisementPriceOptional": false,
-        "offersWithProductPublicationEnabled": true,
-        "productCreationEnabled": true,
-        "customParametersEnabled": true,
-        "sellerCanRequirePurchaseComments": false
-    }
+    "categories": [
+        {
+            "id": "322962",
+            "name": "Bramy gara\u017cowe",
+            "parent": {
+                "id": "1520"
+            },
+            "leaf": true,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "1521",
+            "name": "Dachy",
+            "parent": {
+                "id": "1520"
+            },
+            "leaf": false,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "15958",
+            "name": "Drzwi",
+            "parent": {
+                "id": "1520"
+            },
+            "leaf": false,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "1523",
+            "name": "Elektryka i akcesoria",
+            "parent": {
+                "id": "1520"
+            },
+            "leaf": false,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "316267",
+            "name": "Gara\u017ce",
+            "parent": {
+                "id": "1520"
+            },
+            "leaf": true,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "46124",
+            "name": "Hydraulika i akcesoria",
+            "parent": {
+                "id": "1520"
+            },
+            "leaf": false,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "46099",
+            "name": "Klimatyzacja i wentylacja",
+            "parent": {
+                "id": "1520"
+            },
+            "leaf": false,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "1525",
+            "name": "Kominki i akcesoria",
+            "parent": {
+                "id": "1520"
+            },
+            "leaf": false,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": false,
+                "productCreationEnabled": false,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "46121",
+            "name": "Kuchnia",
+            "parent": {
+                "id": "1520"
+            },
+            "leaf": false,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "46122",
+            "name": "\u0141azienka i toaleta",
+            "parent": {
+                "id": "1520"
+            },
+            "leaf": false,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "68626",
+            "name": "Odkurzacze centralne",
+            "parent": {
+                "id": "1520"
+            },
+            "leaf": false,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": false,
+                "productCreationEnabled": false,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "323595",
+            "name": "Odwodnienia liniowe",
+            "parent": {
+                "id": "1520"
+            },
+            "leaf": true,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "15957",
+            "name": "Ogrodzenia i bramy",
+            "parent": {
+                "id": "1520"
+            },
+            "leaf": false,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "111865",
+            "name": "Ogrzewanie",
+            "parent": {
+                "id": "1520"
+            },
+            "leaf": false,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": false,
+                "productCreationEnabled": false,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "15959",
+            "name": "Okna i parapety",
+            "parent": {
+                "id": "1520"
+            },
+            "leaf": false,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "15960",
+            "name": "Pod\u0142ogi",
+            "parent": {
+                "id": "1520"
+            },
+            "leaf": false,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": false,
+                "productCreationEnabled": false,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "68627",
+            "name": "Prace na wysoko\u015bci",
+            "parent": {
+                "id": "1520"
+            },
+            "leaf": false,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "46098",
+            "name": "Schody",
+            "parent": {
+                "id": "1520"
+            },
+            "leaf": false,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": false,
+                "productCreationEnabled": false,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "254840",
+            "name": "Sprz\u0119t i akcesoria budowlane",
+            "parent": {
+                "id": "1520"
+            },
+            "leaf": false,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "1527",
+            "name": "\u015aciany i elewacje",
+            "parent": {
+                "id": "1520"
+            },
+            "leaf": false,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": false,
+                "productCreationEnabled": false,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "310361",
+            "name": "Zabezpieczenia przeciwpo\u017carowe",
+            "parent": {
+                "id": "1520"
+            },
+            "leaf": true,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        },
+        {
+            "id": "126",
+            "name": "Pozosta\u0142e",
+            "parent": {
+                "id": "1520"
+            },
+            "leaf": true,
+            "options": {
+                "variantsByColorPatternAllowed": true,
+                "advertisement": false,
+                "advertisementPriceOptional": false,
+                "offersWithProductPublicationEnabled": true,
+                "productCreationEnabled": true,
+                "customParametersEnabled": true,
+                "sellerCanRequirePurchaseComments": false
+            }
+        }
+    ]
 }

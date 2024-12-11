@@ -1,945 +1,111 @@
 {
-    "id": "8db3241b-8552-4eab-880a-44bb7a317123",
-    "name": "Przed\u0142u\u017cacz b\u0119bnowy Yato 30 m 4 szt. gniazd czarny",
+    "id": "5d621d3f-adbd-4441-be91-cf3698a44308",
+    "name": "Gryzak na z\u0105bkowanie + grzechotka ekologiczny zestaw dla dziecka w pude\u0142ku",
     "category": {
-        "id": "111856",
+        "id": "257799",
         "path": [
             {
                 "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
                 "name": "Allegro"
             },
             {
-                "id": "5",
-                "name": "Dom i Ogr\u00f3d"
+                "id": "11763",
+                "name": "Dziecko"
             },
             {
-                "id": "1520",
-                "name": "Budownictwo i Akcesoria"
+                "id": "82595",
+                "name": "Akcesoria dla mamy i dziecka"
             },
             {
-                "id": "1523",
-                "name": "Elektryka i akcesoria"
+                "id": "257797",
+                "name": "Smoczki uspokajaj\u0105ce i gryzaki"
             },
             {
-                "id": "111856",
-                "name": "Przed\u0142u\u017cacze"
+                "id": "257799",
+                "name": "Gryzaki"
             }
         ],
         "similar": [
             {
-                "id": "46107",
+                "id": "315714",
                 "path": [
                     {
                         "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
                         "name": "Allegro"
                     },
                     {
-                        "id": "5",
-                        "name": "Dom i Ogr\u00f3d"
+                        "id": "a408e75a-cede-4587-8526-54e9be600d9f",
+                        "name": "Kolekcje i sztuka"
                     },
                     {
-                        "id": "1520",
-                        "name": "Budownictwo i Akcesoria"
+                        "id": "76593",
+                        "name": "R\u0119kodzie\u0142o"
                     },
                     {
-                        "id": "1523",
-                        "name": "Elektryka i akcesoria"
+                        "id": "76713",
+                        "name": "Szycie"
                     },
                     {
-                        "id": "46107",
-                        "name": "Zabezpieczenia i rozdzielnice"
+                        "id": "315711",
+                        "name": "Akcesoria do zabawek"
+                    },
+                    {
+                        "id": "315714",
+                        "name": "Gryzaki"
                     }
                 ]
             },
             {
-                "id": "111855",
+                "id": "315717",
                 "path": [
                     {
                         "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
                         "name": "Allegro"
                     },
                     {
-                        "id": "5",
-                        "name": "Dom i Ogr\u00f3d"
+                        "id": "a408e75a-cede-4587-8526-54e9be600d9f",
+                        "name": "Kolekcje i sztuka"
                     },
                     {
-                        "id": "1520",
-                        "name": "Budownictwo i Akcesoria"
+                        "id": "76593",
+                        "name": "R\u0119kodzie\u0142o"
                     },
                     {
-                        "id": "1523",
-                        "name": "Elektryka i akcesoria"
+                        "id": "76713",
+                        "name": "Szycie"
                     },
                     {
-                        "id": "111855",
-                        "name": "Gniazda"
+                        "id": "315711",
+                        "name": "Akcesoria do zabawek"
+                    },
+                    {
+                        "id": "315717",
+                        "name": "Grzechotki, pozytywki"
                     }
                 ]
             },
             {
-                "id": "260055",
+                "id": "17305",
                 "path": [
                     {
                         "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
                         "name": "Allegro"
                     },
                     {
-                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
-                        "name": "Elektronika"
+                        "id": "11763",
+                        "name": "Dziecko"
                     },
                     {
-                        "id": "2",
-                        "name": "Komputery"
+                        "id": "11818",
+                        "name": "Zabawki"
                     },
                     {
-                        "id": "260017",
-                        "name": "Monitory komputerowe"
+                        "id": "11820",
+                        "name": "Dla niemowl\u0105t"
                     },
                     {
-                        "id": "260042",
-                        "name": "Cz\u0119\u015bci i akcesoria"
-                    },
-                    {
-                        "id": "260055",
-                        "name": "Zasilacze LCD"
-                    }
-                ]
-            },
-            {
-                "id": "4553",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "2",
-                        "name": "Komputery"
-                    },
-                    {
-                        "id": "4551",
-                        "name": "Listwy zasilaj\u0105ce i UPS"
-                    },
-                    {
-                        "id": "4553",
-                        "name": "Listwy, filtry sieciowe"
-                    }
-                ]
-            },
-            {
-                "id": "67306",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "10",
-                        "name": "RTV i AGD"
-                    },
-                    {
-                        "id": "67193",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "67195",
-                        "name": "Kable, przewody"
-                    },
-                    {
-                        "id": "67306",
-                        "name": "Zasilaj\u0105ce"
-                    }
-                ]
-            },
-            {
-                "id": "310361",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "5",
-                        "name": "Dom i Ogr\u00f3d"
-                    },
-                    {
-                        "id": "1520",
-                        "name": "Budownictwo i Akcesoria"
-                    },
-                    {
-                        "id": "310361",
-                        "name": "Zabezpieczenia przeciwpo\u017carowe"
-                    }
-                ]
-            },
-            {
-                "id": "260778",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "5",
-                        "name": "Dom i Ogr\u00f3d"
-                    },
-                    {
-                        "id": "5317",
-                        "name": "O\u015bwietlenie"
-                    },
-                    {
-                        "id": "260776",
-                        "name": "O\u015bwietlenie inteligentne"
-                    },
-                    {
-                        "id": "260778",
-                        "name": "Akcesoria"
-                    }
-                ]
-            },
-            {
-                "id": "46109",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "5",
-                        "name": "Dom i Ogr\u00f3d"
-                    },
-                    {
-                        "id": "1520",
-                        "name": "Budownictwo i Akcesoria"
-                    },
-                    {
-                        "id": "1523",
-                        "name": "Elektryka i akcesoria"
-                    },
-                    {
-                        "id": "46109",
-                        "name": "Wy\u0142\u0105czniki i \u015bciemniacze"
-                    }
-                ]
-            },
-            {
-                "id": "258295",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "5",
-                        "name": "Dom i Ogr\u00f3d"
-                    },
-                    {
-                        "id": "1520",
-                        "name": "Budownictwo i Akcesoria"
-                    },
-                    {
-                        "id": "1523",
-                        "name": "Elektryka i akcesoria"
-                    },
-                    {
-                        "id": "258295",
-                        "name": "Ramki"
-                    }
-                ]
-            },
-            {
-                "id": "76264",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "10",
-                        "name": "RTV i AGD"
-                    },
-                    {
-                        "id": "67193",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "76263",
-                        "name": "Listwy zasilaj\u0105ce"
-                    },
-                    {
-                        "id": "76264",
-                        "name": "Listwy"
-                    }
-                ]
-            },
-            {
-                "id": "257974",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "3",
-                        "name": "Motoryzacja"
-                    },
-                    {
-                        "id": "253498",
-                        "name": "Wyposa\u017cenie i akcesoria samochodowe"
-                    },
-                    {
-                        "id": "257393",
-                        "name": "Elektronika samochodowa"
-                    },
-                    {
-                        "id": "257969",
-                        "name": "\u0141adowarki samochodowe"
-                    },
-                    {
-                        "id": "257974",
-                        "name": "\u0141adowarki do laptop\u00f3w"
-                    }
-                ]
-            },
-            {
-                "id": "308821",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "10",
-                        "name": "RTV i AGD"
-                    },
-                    {
-                        "id": "67193",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "67194",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "67207",
-                        "name": "Zasilanie"
-                    },
-                    {
-                        "id": "67374",
-                        "name": "Zasilacze"
-                    },
-                    {
-                        "id": "308821",
-                        "name": "Do LED"
-                    }
-                ]
-            },
-            {
-                "id": "15961",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "5",
-                        "name": "Dom i Ogr\u00f3d"
-                    },
-                    {
-                        "id": "1520",
-                        "name": "Budownictwo i Akcesoria"
-                    },
-                    {
-                        "id": "1523",
-                        "name": "Elektryka i akcesoria"
-                    },
-                    {
-                        "id": "15961",
-                        "name": "Pozosta\u0142e"
-                    }
-                ]
-            },
-            {
-                "id": "8806",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "10",
-                        "name": "RTV i AGD"
-                    },
-                    {
-                        "id": "8785",
-                        "name": "Kamery"
-                    },
-                    {
-                        "id": "8790",
-                        "name": "Zasilanie"
-                    },
-                    {
-                        "id": "8806",
-                        "name": "Zasilacze"
-                    }
-                ]
-            },
-            {
-                "id": "67378",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "10",
-                        "name": "RTV i AGD"
-                    },
-                    {
-                        "id": "67193",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "67194",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "67207",
-                        "name": "Zasilanie"
-                    },
-                    {
-                        "id": "67374",
-                        "name": "Zasilacze"
-                    },
-                    {
-                        "id": "67378",
-                        "name": "Standardowe"
-                    }
-                ]
-            },
-            {
-                "id": "316094",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "5",
-                        "name": "Dom i Ogr\u00f3d"
-                    },
-                    {
-                        "id": "1520",
-                        "name": "Budownictwo i Akcesoria"
-                    },
-                    {
-                        "id": "1523",
-                        "name": "Elektryka i akcesoria"
-                    },
-                    {
-                        "id": "316094",
-                        "name": "Wtyczki"
-                    }
-                ]
-            },
-            {
-                "id": "46116",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "5",
-                        "name": "Dom i Ogr\u00f3d"
-                    },
-                    {
-                        "id": "1520",
-                        "name": "Budownictwo i Akcesoria"
-                    },
-                    {
-                        "id": "1523",
-                        "name": "Elektryka i akcesoria"
-                    },
-                    {
-                        "id": "15964",
-                        "name": "Alarmy"
-                    },
-                    {
-                        "id": "46116",
-                        "name": "Zestawy alarmowe"
-                    }
-                ]
-            },
-            {
-                "id": "67199",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "10",
-                        "name": "RTV i AGD"
-                    },
-                    {
-                        "id": "67193",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "67194",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "67199",
-                        "name": "Aparatura steruj\u0105ca"
-                    }
-                ]
-            },
-            {
-                "id": "68366",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "10",
-                        "name": "RTV i AGD"
-                    },
-                    {
-                        "id": "67193",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "67194",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "68366",
-                        "name": "Programatory"
-                    }
-                ]
-            },
-            {
-                "id": "46114",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "5",
-                        "name": "Dom i Ogr\u00f3d"
-                    },
-                    {
-                        "id": "1520",
-                        "name": "Budownictwo i Akcesoria"
-                    },
-                    {
-                        "id": "1523",
-                        "name": "Elektryka i akcesoria"
-                    },
-                    {
-                        "id": "15964",
-                        "name": "Alarmy"
-                    },
-                    {
-                        "id": "46114",
-                        "name": "Detektory"
-                    }
-                ]
-            },
-            {
-                "id": "46115",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "5",
-                        "name": "Dom i Ogr\u00f3d"
-                    },
-                    {
-                        "id": "1520",
-                        "name": "Budownictwo i Akcesoria"
-                    },
-                    {
-                        "id": "1523",
-                        "name": "Elektryka i akcesoria"
-                    },
-                    {
-                        "id": "15964",
-                        "name": "Alarmy"
-                    },
-                    {
-                        "id": "46115",
-                        "name": "Sygnalizatory"
-                    }
-                ]
-            },
-            {
-                "id": "110674",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "8845",
-                        "name": "Fotografia"
-                    },
-                    {
-                        "id": "110672",
-                        "name": "Zasilanie aparat\u00f3w"
-                    },
-                    {
-                        "id": "110674",
-                        "name": "Zasilacze"
-                    }
-                ]
-            },
-            {
-                "id": "67379",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "10",
-                        "name": "RTV i AGD"
-                    },
-                    {
-                        "id": "67193",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "67194",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "67207",
-                        "name": "Zasilanie"
-                    },
-                    {
-                        "id": "67374",
-                        "name": "Zasilacze"
-                    },
-                    {
-                        "id": "67379",
-                        "name": "Uniwersalne"
-                    }
-                ]
-            },
-            {
-                "id": "46113",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "5",
-                        "name": "Dom i Ogr\u00f3d"
-                    },
-                    {
-                        "id": "1520",
-                        "name": "Budownictwo i Akcesoria"
-                    },
-                    {
-                        "id": "1523",
-                        "name": "Elektryka i akcesoria"
-                    },
-                    {
-                        "id": "15964",
-                        "name": "Alarmy"
-                    },
-                    {
-                        "id": "46113",
-                        "name": "Centrale alarmowe"
-                    }
-                ]
-            },
-            {
-                "id": "68622",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "5",
-                        "name": "Dom i Ogr\u00f3d"
-                    },
-                    {
-                        "id": "1520",
-                        "name": "Budownictwo i Akcesoria"
-                    },
-                    {
-                        "id": "46099",
-                        "name": "Klimatyzacja i wentylacja"
-                    },
-                    {
-                        "id": "68622",
-                        "name": "Regulatory obrot\u00f3w"
-                    }
-                ]
-            },
-            {
-                "id": "76371",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "10",
-                        "name": "RTV i AGD"
-                    },
-                    {
-                        "id": "76254",
-                        "name": "Zasilanie"
-                    },
-                    {
-                        "id": "76371",
-                        "name": "Zasilacze"
-                    }
-                ]
-            },
-            {
-                "id": "251244",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "5",
-                        "name": "Dom i Ogr\u00f3d"
-                    },
-                    {
-                        "id": "123",
-                        "name": "Wyposa\u017cenie"
-                    },
-                    {
-                        "id": "251242",
-                        "name": "Inteligentny dom"
-                    },
-                    {
-                        "id": "251244",
-                        "name": "Elementy wykonawcze"
-                    }
-                ]
-            },
-            {
-                "id": "251245",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "5",
-                        "name": "Dom i Ogr\u00f3d"
-                    },
-                    {
-                        "id": "123",
-                        "name": "Wyposa\u017cenie"
-                    },
-                    {
-                        "id": "251242",
-                        "name": "Inteligentny dom"
-                    },
-                    {
-                        "id": "251245",
-                        "name": "Czujniki"
-                    }
-                ]
-            },
-            {
-                "id": "4718",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "2",
-                        "name": "Komputery"
-                    },
-                    {
-                        "id": "497",
-                        "name": "Akcesoria (Laptop, PC)"
-                    },
-                    {
-                        "id": "4689",
-                        "name": "Kable, ta\u015bmy, przed\u0142u\u017cacze"
-                    },
-                    {
-                        "id": "4718",
-                        "name": "Kable zasilaj\u0105ce"
-                    }
-                ]
-            },
-            {
-                "id": "251246",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "5",
-                        "name": "Dom i Ogr\u00f3d"
-                    },
-                    {
-                        "id": "123",
-                        "name": "Wyposa\u017cenie"
-                    },
-                    {
-                        "id": "251242",
-                        "name": "Inteligentny dom"
-                    },
-                    {
-                        "id": "251246",
-                        "name": "Modu\u0142y peryferyjne"
-                    }
-                ]
-            },
-            {
-                "id": "251247",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "5",
-                        "name": "Dom i Ogr\u00f3d"
-                    },
-                    {
-                        "id": "123",
-                        "name": "Wyposa\u017cenie"
-                    },
-                    {
-                        "id": "251242",
-                        "name": "Inteligentny dom"
-                    },
-                    {
-                        "id": "251247",
-                        "name": "Akcesoria"
-                    }
-                ]
-            },
-            {
-                "id": "11894",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "42540aec-367a-4e5e-b411-17c09b08e41f",
-                        "name": "Elektronika"
-                    },
-                    {
-                        "id": "2",
-                        "name": "Komputery"
-                    },
-                    {
-                        "id": "4578",
-                        "name": "Drukarki i skanery"
-                    },
-                    {
-                        "id": "4588",
-                        "name": "Cz\u0119\u015bci i akcesoria"
-                    },
-                    {
-                        "id": "11889",
-                        "name": "Akcesoria"
-                    },
-                    {
-                        "id": "11894",
-                        "name": "Zasilacze"
-                    }
-                ]
-            },
-            {
-                "id": "121448",
-                "path": [
-                    {
-                        "id": "954b95b6-43cf-4104-8354-dea4d9b10ddf",
-                        "name": "Allegro"
-                    },
-                    {
-                        "id": "4bd97d96-f0ff-46cb-a52c-2992bd972bb1",
-                        "name": "Firma i us\u0142ugi"
-                    },
-                    {
-                        "id": "16696",
-                        "name": "Przemys\u0142"
-                    },
-                    {
-                        "id": "121333",
-                        "name": "Materia\u0142y i akcesoria"
-                    },
-                    {
-                        "id": "121421",
-                        "name": "Automatyka przemys\u0142owa"
-                    },
-                    {
-                        "id": "121448",
-                        "name": "Sterowniki i regulatory"
+                        "id": "17305",
+                        "name": "Grzechotki"
                     }
                 ]
             }
@@ -947,45 +113,18 @@
     },
     "parameters": [
         {
-            "id": "248811",
+            "id": "127812",
             "name": "Marka",
             "valuesLabels": [
-                "Yato"
+                "Pozosta\u0142e (Gryzak dla dziecka)"
             ],
             "valuesIds": [
-                "248811_951886"
-            ],
-            "values": null,
-            "unit": null,
-            "options": {
-                "identifiesProduct": true
-            }
-        },
-        {
-            "id": "18717",
-            "name": "D\u0142ugo\u015b\u0107 kabla",
-            "valuesLabels": [
-                "30,00 m"
+                "127812_24"
             ],
             "values": [
-                "30.00"
+                "Gryzak dla dziecka"
             ],
-            "unit": "m",
-            "options": {
-                "identifiesProduct": true
-            }
-        },
-        {
-            "id": "18714",
-            "name": "Liczba gniazdek",
-            "valuesLabels": [
-                "4 szt."
-            ],
-            "valuesIds": [
-                "18714_8"
-            ],
-            "values": null,
-            "unit": "szt.",
+            "unit": null,
             "options": {
                 "identifiesProduct": true
             }
@@ -994,14 +133,10 @@
             "id": "225693",
             "name": "EAN (GTIN)",
             "valuesLabels": [
-                "5902273405450",
-                "5906083810534",
-                "5906197305025"
+                "5906058972380"
             ],
             "values": [
-                "5902273405450",
-                "5906083810534",
-                "5906197305025"
+                "5906058972380"
             ],
             "unit": null,
             "options": {
@@ -1010,72 +145,13 @@
             }
         },
         {
-            "id": "214786",
-            "name": "Kolor",
-            "valuesLabels": [
-                "czarny"
-            ],
-            "valuesIds": [
-                "214786_267890"
-            ],
-            "values": null,
-            "unit": null,
-            "options": {
-                "identifiesProduct": false
-            }
-        },
-        {
-            "id": "129916",
-            "name": "Typ",
-            "valuesLabels": [
-                "b\u0119bnowy"
-            ],
-            "valuesIds": [
-                "129916_8"
-            ],
-            "values": null,
-            "unit": null,
-            "options": {
-                "identifiesProduct": false
-            }
-        },
-        {
-            "id": "18713",
-            "name": "Uziemienie",
-            "valuesLabels": [
-                "Z uziemieniem"
-            ],
-            "valuesIds": [
-                "18713_1"
-            ],
-            "values": null,
-            "unit": null,
-            "options": {
-                "identifiesProduct": false
-            }
-        },
-        {
-            "id": "249906",
-            "name": "Przekr\u00f3j przewodu",
-            "valuesLabels": [
-                "3 x 1,5 mm"
-            ],
-            "values": [
-                "3 x 1,5 mm"
-            ],
-            "unit": null,
-            "options": {
-                "identifiesProduct": false
-            }
-        },
-        {
             "id": "224017",
             "name": "Kod producenta",
             "valuesLabels": [
-                "YT-81053"
+                "2380"
             ],
             "values": [
-                "YT-81053"
+                "2380"
             ],
             "unit": null,
             "options": {
@@ -1083,41 +159,132 @@
             }
         },
         {
-            "id": "17448",
-            "name": "Waga produktu z opakowaniem jednostkowym",
+            "id": "212162",
+            "name": "Rodzaj",
             "valuesLabels": [
-                "6,240 kg"
-            ],
-            "values": [
-                "6.240"
-            ],
-            "unit": "kg",
-            "options": {
-                "identifiesProduct": false
-            }
-        },
-        {
-            "id": "234133",
-            "name": "\u015arednica przewodu",
-            "valuesLabels": [
-                "1,50 mm"
-            ],
-            "values": [
-                "1.50"
-            ],
-            "unit": "mm",
-            "options": {
-                "identifiesProduct": false
-            }
-        },
-        {
-            "id": "250191",
-            "name": "Materia\u0142 izolacji",
-            "valuesLabels": [
-                "guma"
+                "drewniany",
+                "na z\u0105bkowanie",
+                "sensoryczny",
+                "z grzechotk\u0105"
             ],
             "valuesIds": [
-                "250191_1799662"
+                "212162_1648314",
+                "212162_1648311",
+                "212162_1648312",
+                "212162_2"
+            ],
+            "values": null,
+            "unit": null,
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "211414",
+            "name": "Kolor",
+            "valuesLabels": [
+                "wielokolorowy"
+            ],
+            "valuesIds": [
+                "211414_270238"
+            ],
+            "values": null,
+            "unit": null,
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "18136",
+            "name": "Materia\u0142",
+            "valuesLabels": [
+                "drewno",
+                "karton",
+                "metal",
+                "tkanina"
+            ],
+            "valuesIds": [
+                "18136_1",
+                "18136_32",
+                "18136_8",
+                "18136_2"
+            ],
+            "values": null,
+            "unit": null,
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "3475",
+            "name": "Wiek dziecka",
+            "valuesLabels": [
+                "3 m +"
+            ],
+            "valuesIds": [
+                "3475_14"
+            ],
+            "values": null,
+            "unit": null,
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "212166",
+            "name": "Informacje dodatkowe",
+            "valuesLabels": [
+                "mo\u017cna przechowywa\u0107 w lod\u00f3wce"
+            ],
+            "valuesIds": [
+                "212166_4"
+            ],
+            "values": null,
+            "unit": null,
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "18137",
+            "name": "Certyfikaty, opinie, atesty",
+            "valuesLabels": [
+                "CE",
+                "EN 71"
+            ],
+            "valuesIds": [
+                "18137_8",
+                "18137_16"
+            ],
+            "values": null,
+            "unit": null,
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "201345",
+            "name": "Efekty",
+            "valuesLabels": [
+                "d\u017awi\u0119kowe"
+            ],
+            "valuesIds": [
+                "201345_1"
+            ],
+            "values": null,
+            "unit": null,
+            "options": {
+                "identifiesProduct": false
+            }
+        },
+        {
+            "id": "218669",
+            "name": "Informacje o bezpiecze\u0144stwie",
+            "valuesLabels": [
+                "CE"
+            ],
+            "valuesIds": [
+                "218669_1"
             ],
             "values": null,
             "unit": null,
@@ -1128,55 +295,40 @@
     ],
     "images": [
         {
-            "url": "https://a.allegroimg.com/original/29d6ab/5919cf724471bcfeb4d48e0dbdb1"
+            "url": "https://a.allegroimg.com/original/11a7a5/91d615ea4c008e1239213c79cad4"
         },
         {
-            "url": "https://a.allegroimg.com/original/018d93/2cefbdba42ee86854004572c31d6"
+            "url": "https://a.allegroimg.com/original/114a6f/bb704b25480c8f01883ec3a810e1"
         },
         {
-            "url": "https://a.allegroimg.com/original/25b96b/9d5fef3148159c61e3def03f9966"
+            "url": "https://a.allegroimg.com/original/113921/56b3065347eebd07ee3fcca6064b"
         },
         {
-            "url": "https://a.allegroimg.com/original/256bfc/446cadc8400798f815a2dbe13c90"
+            "url": "https://a.allegroimg.com/original/11961e/d15d66de4aa8bc3ee5413ee954da"
         },
         {
-            "url": "https://a.allegroimg.com/original/25142a/dd77db23448dabd9b4979939c4a9"
+            "url": "https://a.allegroimg.com/original/11cedb/f3bd23844be7924d46d8357ae3ea"
         },
         {
-            "url": "https://a.allegroimg.com/original/258528/4ad978c1402f8d84db660d2e8fdc"
+            "url": "https://a.allegroimg.com/original/11fde5/47727c934cd9af0eafa5bd51b041"
         },
         {
-            "url": "https://a.allegroimg.com/original/253982/745fc1de489c88d6f68ff4a427a5"
+            "url": "https://a.allegroimg.com/original/11fd7c/1ffe62e24ed3a9cf4f9701a68690"
         },
         {
-            "url": "https://a.allegroimg.com/original/25fdeb/233c3e2a4144882946df3b5cf28d"
+            "url": "https://a.allegroimg.com/original/11203d/7217363d46e1b07961a3aca61815"
         },
         {
-            "url": "https://a.allegroimg.com/original/251ab0/a56c85a4460daccafc4452b29d97"
+            "url": "https://a.allegroimg.com/original/11315a/1bbbb31249dc8f0cb4fd324effb9"
         },
         {
-            "url": "https://a.allegroimg.com/original/11e175/016b525c425da343fe7b2ee8930d"
+            "url": "https://a.allegroimg.com/original/11c967/a1d47294491f89e24005969dd4de"
         },
         {
-            "url": "https://a.allegroimg.com/original/111d76/46373adb47648e5d24292b71e9d3"
+            "url": "https://a.allegroimg.com/original/118966/0b2444a1460fbf33eea8705c70c6"
         },
         {
-            "url": "https://a.allegroimg.com/original/11b0e4/9f4932ea4e01884bd8a0f958ad11"
-        },
-        {
-            "url": "https://a.allegroimg.com/original/111e49/0ccb734848ebb963c80590d847fb"
-        },
-        {
-            "url": "https://a.allegroimg.com/original/118783/193625ee4e58b83bdeeae823af2f"
-        },
-        {
-            "url": "https://a.allegroimg.com/original/11221e/69ad28a24e4f8dfc6b6706b15031"
-        },
-        {
-            "url": "https://a.allegroimg.com/original/11acf1/6692949e4f11b2e69815c2a6bd22"
-        },
-        {
-            "url": "https://a.allegroimg.com/original/11978c/6c2788104edfac98d1d2d1a5233c"
+            "url": "https://a.allegroimg.com/original/118260/f0303dad4f43ba8fe23fa8da6f5b"
         }
     ],
     "offerRequirements": {
@@ -1188,8 +340,12 @@
             {
                 "items": [
                     {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/11a7a5/91d615ea4c008e1239213c79cad4"
+                    },
+                    {
                         "type": "TEXT",
-                        "content": "<p>Przed\u0142u\u017cacz b\u0119bnowy budowlany <b>YT-81053</b> o d\u0142ugo\u015bci 30 metr\u00f3w z 4-ma py\u0142o i bryzgoszczelnymi gniazdami, zabezpieczeniem termicznym oraz zabezpieczeniem przed dzie\u0107mi. Przew\u00f3d w os\u0142onie z gumy naturalnej nawini\u0119ty na b\u0119ben wykonany z wytrzyma\u0142ego tworzywa sprawia, \u017ce przed\u0142u\u017cacz mo\u017ce by\u0107 stosowany wewn\u0105trz jak i na zewn\u0105trz, np. na budowie, w ogrodzie, na placach przed zak\u0142adami produkcyjnymi. R\u0105czka umieszczona przy kraw\u0119dzi b\u0119bna przyspiesza zwijanie, a gumowy element przymocowany do przewodu kilka centymetr\u00f3w przed wtyczk\u0105 umo\u017cliwia zaczepienie go np. do kraw\u0119dzi b\u0119bna, co znacznie u\u0142atwia przechowanie i transport zwini\u0119tego przed\u0142u\u017cacza.</p> <ul> <li>napi\u0119cie i cz\u0119stotliwo\u015b\u0107 znamionowa: <b>~230V/50Hz</b></li> <li>maksymalne obci\u0105\u017cenie: <b>1000 W</b> - przew\u00f3d zwini\u0119ty, <b>3000 W</b> - przew\u00f3d rozwini\u0119ty.</li> <li>miedziany przew\u00f3d trzy \u017cy\u0142owy o przekrojach 1,5 mm\u00b2, d\u0142ugo\u015b\u0107 30 m</li> <li>izolacja z gumy naturalnej to wysoka odporno\u015b\u0107 na uszkodzenia mechaniczne, czynniki atmosferyczne (s\u0142o\u0144ce, ch\u0142\u00f3d), substancje chemiczne (oleje ch\u0142odz\u0105co-smaruj\u0105ce, benzyn\u0119, czy alkohole etylowe, metylowe), zapewnia elastyczno\u015b\u0107 przewodu oraz prawid\u0142ow\u0105 ochron\u0119 r\u00f3wnie\u017c podczas pracy na zewn\u0105trz</li> <li>py\u0142o i bryzgoszczelne gniazda w stopniu ochrony IP44 gwarantuj\u0105 ochron\u0119 przed wilgoci\u0105 czy py\u0142em i piaskiem.</li> <li>zabezpieczenie termiczne odetnie zasilanie przy temperaturze przewodu 56\u00b0C +-5\u00b0C</li> <li>zabezpieczenie przed dzie\u0107mi w postaci plastikowych klapek oraz specjalnego mechanizmu utrudnia dost\u0119p do otwor\u00f3w w gniazdku</li> </ul>"
+                        "content": "<p>Gryzak i grzechotka - zestaw dw\u00f3ch element\u00f3w w ekologicznym pude\u0142ku na prezent</p> <p><b>Bezpieczny, estetyczny, lekki, ekologiczny i w 100% naturalny zestaw gryzak\u00f3w/grzechotek, czyli niezb\u0119dnik ka\u017cdej noworodkowej wyprawki.</b></p> <p><b>Zestaw zawiera:</b></p> <ul> <li><b>gryzak/grzechotk\u0119</b> na d\u0142ugiej r\u0105czce z r\u00f3\u017cowym dzwoneczkiem. Wykonany z naturalnego drewna bukowego. Lekki i \u0142atwy do chwytania, idealny dla ma\u0142ych r\u0105czek,</li> <li>drewniana<b> grzechotka-gryzak </b>w kszta\u0142cie uszu misia i kuleczek. Wykonany z naturalnego drewna bukowego oraz bawe\u0142ny. Niezast\u0105piony podczas z\u0105bkowania. Jego r\u00f3\u017cne struktury zapewniaj\u0105 sensoryczny rozw\u00f3j maluszka,</li> <li>ekologiczne pude\u0142ko z okienkiem wraz z ozdobnym \u201esiankiem\" o wymiarach 15 cm d\u0142ugo\u015bci, 15 cm szeroko\u015bci i 5 cm wysoko\u015bci,</li> </ul> <p><b>Ca\u0142o\u015b\u0107 zachowana jest w pi\u0119knych, stonowanych kolorach i zapakowana w eleganckie pude\u0142ko z okienkiem.</b></p> <p>Podaruj dziecku produkty najwy\u017cszej jako\u015bci!</p>"
                     }
                 ]
             },
@@ -1197,11 +353,59 @@
                 "items": [
                     {
                         "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/018d93/2cefbdba42ee86854004572c31d6"
+                        "url": "https://a.allegroimg.com/original/114a6f/bb704b25480c8f01883ec3a810e1"
                     },
                     {
-                        "type": "TEXT",
-                        "content": "<p>Oznaczenie&nbsp;<b>H05RR-F</b> oznacza przew\u00f3d oponowy wykony wed\u0142ug normy harmonizowanej <b>(H)</b>, na napi\u0119cie znamionowe 300/500V<b>(05)</b>, o&nbsp;izolacji z gumy naturalnej<b>(R)</b>, o&nbsp;pow\u0142oce z gumy naturalnej<b>(R)</b> i&nbsp;\u017cy\u0142ach wielodrutowych gi\u0119tkich <b>(-F)</b>.</p> <h2>Parametry</h2> <ul> <li>Ilo\u015b\u0107 gniazd: <b>4</b></li> <li>Typ przed\u0142u\u017cacza: <b>b\u0119bnowy</b></li> <li>Uziemienie: <b>tak</b></li> <li>D\u0142ugo\u015b\u0107 [m]: <b>30</b></li> <li>Stopie\u0144 ochrony [IP]: <b>IP44</b></li> <li>Przekr\u00f3j przewodu: <b>1,5 mm\u00b2</b></li> <li>Ilo\u015b\u0107 \u017cy\u0142 [szt.]: <b>3</b></li> <li>Rodzaj izolacji: <b>RR-F</b></li> </ul>"
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/113921/56b3065347eebd07ee3fcca6064b"
+                    }
+                ]
+            },
+            {
+                "items": [
+                    {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/11961e/d15d66de4aa8bc3ee5413ee954da"
+                    },
+                    {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/11cedb/f3bd23844be7924d46d8357ae3ea"
+                    }
+                ]
+            },
+            {
+                "items": [
+                    {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/11fde5/47727c934cd9af0eafa5bd51b041"
+                    },
+                    {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/11fd7c/1ffe62e24ed3a9cf4f9701a68690"
+                    }
+                ]
+            },
+            {
+                "items": [
+                    {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/11203d/7217363d46e1b07961a3aca61815"
+                    },
+                    {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/11315a/1bbbb31249dc8f0cb4fd324effb9"
+                    }
+                ]
+            },
+            {
+                "items": [
+                    {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/11c967/a1d47294491f89e24005969dd4de"
+                    },
+                    {
+                        "type": "IMAGE",
+                        "url": "https://a.allegroimg.com/original/118966/0b2444a1460fbf33eea8705c70c6"
                     }
                 ]
             }
@@ -1213,5 +417,6 @@
     "isDraft": false,
     "aiCoCreatedContent": {
         "paths": []
-    }
+    },
+    "hasProtectedBrand": false
 }

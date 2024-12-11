@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Allegro Categories Tree</title>
+</head>
+<body>
+  <category-tree></category-tree>
+
+  <script>
+    class CategoryTree extends HTMLElement {
+      constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+
+        const style = document.createElement('style');
+        style.textContent = `
+          ul {
+            list-style-type: none;
+            padding-left: 1em;
+            margin: 0;
+          }
+
+          li {
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            margin: 4px 0;
+          }
+
+          li::before {
+            content: "▶";
+            display: inline-block;
+            margin-right: 0.5em;
+            transform: rotate(0deg);
+            transition: transform 0.2s;
+          }
+
+          li[collapsed]::before {
+            transform: rotate(-90deg);
+          }
+
+          li[leaf]::before {
+            content: "•";
+            transform: none;
+          }
+
+          li ul {
+            margin-left: 1em;
+            display: block;
+          }
+
+          li[collapsed] > ul {
+            display: none;
+          }
+
+          li[leaf] .leaf-id {
+            font-size: 0.9em;
+            color: #666;
+            margin-left: 0.5em;
+            cursor: pointer;
+            text-decoration: underline;
+            position: relative;
+          }
+
+          li[leaf] .leaf-id:hover {
+            color: #333;
+          }
+
+          .copy-message {
+            position: absolute;
+            left: 0;
+            top: 100%;
+            background: #333;
+            color: #fff;
+            font-size: 0.8em;
+            padding: 3px 6px;
+            border-radius: 4px;
+            white-space: nowrap;
+            z-index: 10;
+            margin-top: 5px;
+          }
+        `;
+
+        this.container = document.createElement('div');
+        this.shadowRoot.append(style, this.container);
+      }
+
+      setData(data) {
+        this.container.innerHTML = '';
+        const tree = this._renderTree(data);
+        this.container.appendChild(tree);
+
+        // Обработчик клика
+        this.container.addEventListener('click', (event) => {
+          const leafIdSpan = event.target.closest('.leaf-id');
+
+          // Клик по ID листа
+          if (leafIdSpan) {
+            const id = leafIdSpan.getAttribute('data-id');
+            // Пытаемся скопировать в буфер
+            navigator.clipboard.writeText(id)
+              .catch((err) => {
+                console.error('Не удалось скопировать ID', err);
+              })
+              .finally(() => {
+                // Показать сообщение
+                this._showCopyMessage(leafIdSpan, "Скопировано!");
+              });
+            return;
+          }
+
+          const li = event.target.closest('li');
+          // Если клик не по ID, а по самой категории
+          if (li && li.hasAttribute('data-id') && !event.target.classList.contains('leaf-id')) {
+            // Свернуть/развернуть
+            if (li.querySelector('ul')) {
+              if (li.hasAttribute('collapsed')) {
+                li.removeAttribute('collapsed');
+              } else {
+                li.setAttribute('collapsed', '');
+              }
+            }
+          }
+        });
+      }
+
+      _renderTree(nodes) {
+        const ul = document.createElement('ul');
+        for (const node of nodes) {
+          const li = document.createElement('li');
+          li.setAttribute('data-id', node.id);
+
+          const isLeaf = !node.children || node.children.length === 0;
+          if (isLeaf) {
+            li.setAttribute('leaf', '');
+          }
+
+          const text = document.createTextNode(node.name);
+          li.appendChild(text);
+
+          // Если это листовая категория, добавим спан с ID
+          if (isLeaf) {
+            const idSpan = document.createElement('span');
+            idSpan.className = 'leaf-id';
+            idSpan.setAttribute('data-id', node.id);
+            idSpan.textContent = `[ID: ${node.id}]`;
+            li.appendChild(idSpan);
+          }
+
+          // Рендерим потомков, если они есть
+          if (node.children && node.children.length > 0) {
+            const childUl = this._renderTree(node.children);
+            li.appendChild(childUl);
+          }
+
+          ul.appendChild(li);
+        }
+        return ul;
+      }
+
+      _showCopyMessage(targetEl, message) {
+        // Удалим старое сообщение, если есть
+        const oldMessage = targetEl.querySelector('.copy-message');
+        if (oldMessage) {
+          oldMessage.remove();
+        }
+
+        const msgSpan = document.createElement('span');
+        msgSpan.className = 'copy-message';
+        msgSpan.textContent = message;
+
+        targetEl.appendChild(msgSpan);
+
+        // Удаляем через 2 секунды
+        setTimeout(() => {
+          if (msgSpan.parentNode) {
+            msgSpan.remove();
+          }
+        }, 2000);
+      }
+    }
+
+    customElements.define('category-tree', CategoryTree);
+
+    // Вызовем setData с переданными в шаблон данными
+    document.addEventListener('DOMContentLoaded', () => {
+      const tree = document.querySelector('category-tree');
+      const data = {{ data|tojson }};
+      tree.setData(data);
+    });
+  </script>
+</body>
+</html>
+

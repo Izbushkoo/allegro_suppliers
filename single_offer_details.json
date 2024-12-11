@@ -1,52 +1,30 @@
 {
-    "name": "INTEGRA BOOST TERPENY HUMULENE 4G 62%",
+    "name": "TROLMASTER BETA-8 CO2 KONTROLER DZIE\u0143/NOC",
     "productSet": [
         {
             "product": {
-                "id": "dd2bca59-ee64-42c4-85b1-be29256b61d7",
+                "id": "6d7dec76-dd99-4be4-ac23-072448b2c638",
                 "publication": {
                     "status": "LISTED"
                 },
                 "parameters": [
                     {
-                        "id": "25168",
-                        "name": "Zastosowanie",
-                        "values": [
-                            "inne"
-                        ],
-                        "valuesIds": [
-                            "25168_8192"
-                        ],
-                        "rangeValue": null
-                    },
-                    {
                         "id": "224017",
                         "name": "Kod producenta",
                         "values": [
-                            "5947-UNIW"
+                            "04759"
                         ],
                         "valuesIds": null,
                         "rangeValue": null
                     },
                     {
-                        "id": "236342",
-                        "name": "Forma",
+                        "id": "248811",
+                        "name": "Marka",
                         "values": [
-                            "inna"
+                            "TROLMASTER"
                         ],
                         "valuesIds": [
-                            "236342_400266"
-                        ],
-                        "rangeValue": null
-                    },
-                    {
-                        "id": "248801",
-                        "name": "Producent",
-                        "values": [
-                            "Integra"
-                        ],
-                        "valuesIds": [
-                            "248801_943043"
+                            "248811_950468"
                         ],
                         "rangeValue": null
                     },
@@ -54,7 +32,7 @@
                         "id": "225693",
                         "name": "EAN (GTIN)",
                         "values": [
-                            "802359002021"
+                            "6970207970069"
                         ],
                         "valuesIds": null,
                         "rangeValue": null
@@ -81,11 +59,10 @@
         }
     ],
     "images": [
-        "https://a.allegroimg.com/original/119236/7922f0d5472898ff063451ff0f9d",
-        "https://a.allegroimg.com/original/1156de/f973a8024b6896f723d8d6de47bb",
-        "https://a.allegroimg.com/original/115490/109db99c454cb9c211039ec63adf",
-        "https://a.allegroimg.com/original/11b296/d8abd28b4d26be8d96f56ad0aa02",
-        "https://a.allegroimg.com/original/111c4a/7bc8e7a4429fb9768dce6489fd64"
+        "https://a.allegroimg.com/original/11a423/4af3293d4088be1e57f9c58fe567",
+        "https://a.allegroimg.com/original/112e89/9cc450d34801ac144a899babc45c",
+        "https://a.allegroimg.com/original/1118a6/7b138c9e4dd5a68fd395b6e48e08",
+        "https://a.allegroimg.com/original/116b30/cb2503674d3f9c9a073431163c16"
     ],
     "afterSalesServices": {
         "impliedWarranty": {
@@ -104,14 +81,14 @@
     "sellingMode": {
         "format": "BUY_NOW",
         "price": {
-            "amount": "56.95",
+            "amount": "1920.95",
             "currency": "PLN"
         },
         "startingPrice": null,
         "minimalPrice": null
     },
     "stock": {
-        "available": 100,
+        "available": 3,
         "unit": "UNIT"
     },
     "location": {
@@ -134,7 +111,7 @@
                 "items": [
                     {
                         "type": "TEXT",
-                        "content": "<p>Czym s\u0105 terpeny?</p>\n<p>Terpeny to naturalne zwi\u0105zki, kt\u00f3re nadaj\u0105 ro\u015blinom       charakterystyczny aromat i smak. W Integra terpeny s\u0105 pozyskiwane z ro\u015blin,       standaryzowane pod k\u0105tem si\u0142y dzia\u0142ania, bezpieczne dla \u017cywno\u015bci i posiadaj\u0105            certyfikat Safe Terpene Certified - co oznacza, \u017ce \u200b\u200bBoost\u00ae Terpene   Essentials    s\u0105 testowane przy u\u017cyciu zaawansowanych metod analitycznych, aby   upewni\u0107 si\u0119,       \u017ce  NIE zawieraj\u0105 metali ci\u0119\u017ckich, pestycyd\u00f3w, pozosta\u0142o\u015bci    rozpuszczalnik\u00f3w, i   mykotoksyny.</p>\n<p>Czym s\u0105 terpenowe INTEGRA BOOST?</p>\n<p>Linia Boost\u00ae Terpene Essentials obejmuje   niekt\u00f3re z najpopularniejszych izolat\u00f3w:</p>\n<p>linalol, limonen, mircen, humulen,   beta-kariofilen, pinen i     terpinolen.</p>\n<p>Formu\u0142a, kt\u00f3r\u0105 stosuj\u0119 si\u0119 do INTEGRA BOOST jest\u00a0bezsolna, nietoksyczna,  ro\u015blinna    formu\u0142a kontroluj\u0105ca wilgotno\u015b\u0107, ale r\u00f3wnie\u017c\u00a0s\u0105 dodane terpeny  pochodzenia ro\u015blinnego, dzi\u0119ki czemu mo\u017cna nasyci\u0107 sw\u00f3j zio\u0142owy produkt     wyra\u017anymi aromatami i smakami ulubionego terpenu.</p>\n<p>Opakowania te maj\u0105 dwojaki cel: w\u0142\u0105czenie terpen\u00f3w botanicznych       wzmacniaj\u0105cych smak/sensory do produkt\u00f3w zio\u0142owych oraz regulacj\u0119            wilgotno\u015bci.</p>\n<p>Jak korzysta\u0107 z terpenowych INTEGRA BOOST</p>\n<p>1. Wyjmij opakowanie z       zewn\u0119trznego przezroczystego opakowania.</p>\n<p>2. Umie\u015b\u0107 opakowanie\u00a0swojej      mieszanki zio\u0142owej\u00a0i Integra Boost\u00ae Terpene Essentials w hermetycznym       pojemniku i zamknij.</p>\n<p>3. Odczekaj 24-72 godziny na wyst\u0105pienie pocz\u0105tkowej      infuzji terpenu.</p>\n<p>4. Po tym czasie wymie\u0144 opakowanie na bezsmakowe 55% lub     62%  RH Boost\u00ae, aby zachowa\u0107 smak i \u015bwie\u017co\u015b\u0107 przez d\u0142ugi czas.</p>\n<p>5. Pakiet      Boost\u00ae  Terpene Essentials Pack mo\u017ce by\u0107 u\u017cyty do 3 razy, je\u015bli jest      przechowywany w  hermetycznym pojemniku.</p>\n<p>4G produktu\u00a0wystarczy na oko\u0142o 14g suszu</p>\n<p>W przeciwie\u0144stwie do zwyk\u0142ych, niesmakowanych opakowa\u0144 Integra Boost\u00ae, linia   Boost\u00ae Terpene Essentials zmieni aromaty i smaki Twojego produktu. Te zmiany s\u0105            normalne i oczekiwane - oznacza to, \u017ce Tw\u00f3j produkt wch\u0142ania/nas\u0105cza     terpen.</p>\n<p>Ka\u017cde opakowanie Integra Boost\u00ae Terpene Essentials zawiera opatentowan\u0105,             bezsoln\u0105, ro\u015blinn\u0105 dwukierunkow\u0105 formu\u0142\u0119 kontroli wilgotno\u015bci oraz izolaty     terpenowe pochodzenia ro\u015blinnego. Wszystkie terpeny s\u0105   testowane,       standaryzowane pod wzgl\u0119dem si\u0142y dzia\u0142ania i posiadaj\u0105 certyfikat  Safe       Terpene.</p>\n<p>Nape\u0142nij sw\u00f3j produkt zio\u0142owy okre\u015blonym aromatem, smakiem i potencjalnym      efektem jednego z siedmiu izolat\u00f3w terpenowych, podczas gdy dwukierunkowa        technologia kontroli wilgotno\u015bci zachowuje \u015bwie\u017co\u015b\u0107, moc i integralno\u015b\u0107              produktu  zio\u0142owego przez ca\u0142y proces.</p>\n<p>Przechowuj pakiet Boost\u00ae Terpene Essentials z zio\u0142ami w hermetycznym       pojemniku, odczekaj 24-72 godziny na infuzj\u0119 terpenu.</p>\n<p>Aby zapewni\u0107               d\u0142ugotrwa\u0142\u0105 \u015bwie\u017co\u015b\u0107, wymie\u0144 pakiet Boost\u00ae Terpene Essentials na bezsmakowy       pakiet 55% lub 62% RH Boost\u00ae.</p>\n<p>Wskaz\u00f3wka dla profesjonalist\u00f3w: po pocz\u0105tkowej infuzji przechowuj pakiet       Boost\u00ae Terpene Essentials w hermetycznym pojemniku i u\u017cyj do 2  razy.</p>\n<p>Humulene:</p>\n<p>Potencjalne skutki:</p>\n<p>Dzia\u0142a przeciwzapalnie, relaksuj\u0105co,    koj\u0105co, uspokajaj\u0105co</p>\n<p>Aromat:</p>\n<p>Chmiel i cytrusy z ostrym akcentem</p>\n<p>Smak:</p>\n<p>Bogata ziemista baza z nutami ostrego chmielu</p>\n<p>Zaopatrzenie botaniczne:</p>\n<p>Chmiel, sza\u0142wia, \u017ce\u0144sze\u0144, mi\u0119ta, imbir, li\u015b\u0107       laurowy, pomara\u0144cze, kolendra</p>"
+                        "content": "<p>\u00a0Kontroler CO2 BETA-8 oferuje precyzyjny czujnik / kontroler CO2 NDIR w przyst\u0119pnej i \u0142atwej w u\u017cyciu obudowie. BETA-8 jest wyposa\u017cony w wysokiej jako\u015bci zdalny czujnik CO2 (z kablem o d\u0142ugo\u015bci 4,5m) i wbudowan\u0105 fotokom\u00f3rk\u0119, kt\u00f3ra automatycznie aktywuje dodatkowy system CO2 w celu utrzymania poziom\u00f3w CO2 PPM tylko w godzinach dziennych. BETA-8 ma r\u00f3wnie\u017c regulowan\u0105 stref\u0119 nieczu\u0142o\u015bci i wywo\u0142anie min-max. Posiada r\u00f3wnie\u017c funkcj\u0119 \u201elogiki rozmytej\u201d, kt\u00f3ra dok\u0142adniej steruje uk\u0142adami spr\u0119\u017conego CO2. Czujnik CO2 mo\u017cna \u0142atwo ponownie skalibrowa\u0107 i b\u0119dzie dzia\u0142a\u0142 dok\u0142adnie przez wiele lat.</p><p>Zestaw zawiera:</p>\n<ul>  <li>1x\u00a0CO2\u00a0PPM\u00a0Controller BETA-8</li>  <li>1x\u00a0Sensor CO2</li></ul>\n<p>\u00a0</p><p>Specyfikacja:</p>\n<ul>  <li>Napi\u0119cie wej\u015bciowe 120V</li>  <li>Maksymalny pr\u0105d 10A</li>  <li>D\u0142ugo\u015b\u0107 kabla zasilaj\u0105cego 1.8m</li>  <li>Zakres regulacji CO2 400-2000 PPM</li>  <li>Zakres nieczu\u0142o\u015bci CO2 20-200 PPM</li>  <li>Dok\u0142adno\u015b\u0107 CO2\u00a0\u00a0\u00b150 PPM</li>  <li>Typ sensora CO2\u00a0NDIR ( Niedyspersyjna podczerwie\u0144   )</li>  <li>Wymiary opakowania: 275mm x 87mm x 94mm</li>  <li>Waga 0.56kg</li></ul>\n<p>\u00a0</p>\n<p>\u00a0</p>"
                     }
                 ]
             },
@@ -142,7 +119,7 @@
                 "items": [
                     {
                         "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/119236/7922f0d5472898ff063451ff0f9d"
+                        "url": "https://a.allegroimg.com/original/11a423/4af3293d4088be1e57f9c58fe567"
                     },
                     {
                         "type": "TEXT",
@@ -154,7 +131,7 @@
                 "items": [
                     {
                         "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/1156de/f973a8024b6896f723d8d6de47bb"
+                        "url": "https://a.allegroimg.com/original/112e89/9cc450d34801ac144a899babc45c"
                     }
                 ]
             },
@@ -162,21 +139,21 @@
                 "items": [
                     {
                         "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/115490/109db99c454cb9c211039ec63adf"
+                        "url": "https://a.allegroimg.com/original/1118a6/7b138c9e4dd5a68fd395b6e48e08"
                     },
                     {
                         "type": "IMAGE",
-                        "url": "https://a.allegroimg.com/original/11b296/d8abd28b4d26be8d96f56ad0aa02"
+                        "url": "https://a.allegroimg.com/original/116b30/cb2503674d3f9c9a073431163c16"
                     }
                 ]
             }
         ]
     },
     "external": {
-        "id": "GRBX_FS_05326"
+        "id": "GRBX_FS_04759"
     },
     "category": {
-        "id": "126200"
+        "id": "82285"
     },
     "taxSettings": null,
     "sizeTable": null,
@@ -205,6 +182,13 @@
                 "refusalReasons": []
             }
         },
+        "allegro-hu": {
+            "sellingMode": null,
+            "publication": {
+                "state": "NOT_REQUESTED",
+                "refusalReasons": []
+            }
+        },
         "allegro-business-cz": {
             "sellingMode": null,
             "publication": {
@@ -213,7 +197,8 @@
             }
         }
     },
-    "id": "13409953686",
+    "warnings": [],
+    "id": "13410777704",
     "language": "pl-PL",
     "publication": {
         "status": "ENDED",
@@ -232,8 +217,8 @@
     "validation": {
         "errors": [],
         "warnings": [],
-        "validatedAt": "2024-06-09T19:38:47.127Z"
+        "validatedAt": "2024-07-04T09:03:06.836Z"
     },
-    "createdAt": "2023-03-13T08:59:07.000Z",
-    "updatedAt": "2024-07-03T16:22:42.469Z"
+    "createdAt": "2023-03-13T12:09:29.000Z",
+    "updatedAt": "2024-08-07T21:11:10.980Z"
 }

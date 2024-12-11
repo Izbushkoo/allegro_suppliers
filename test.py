@@ -1,11 +1,13 @@
 import json
 import os.path
+import time
+import uuid
 
 import jwt
 import requests
+from requests import delete
 
-
-access_token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiIxMjI2NTc4MDAiLCJzY29wZSI6WyJhbGxlZ3JvOmFwaTpvcmRlcnM6cmVhZCIsImFsbGVncm86YXBpOmZ1bGZpbGxtZW50OnJlYWQiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOndyaXRlIiwiYWxsZWdybzphcGk6c2FsZTpvZmZlcnM6d3JpdGUiLCJhbGxlZ3JvOmFwaTpmdWxmaWxsbWVudDp3cml0ZSIsImFsbGVncm86YXBpOmJpbGxpbmc6cmVhZCIsImFsbGVncm86YXBpOmNhbXBhaWducyIsImFsbGVncm86YXBpOmRpc3B1dGVzIiwiYWxsZWdybzphcGk6c2FsZTpvZmZlcnM6cmVhZCIsImFsbGVncm86YXBpOnNoaXBtZW50czp3cml0ZSIsImFsbGVncm86YXBpOmJpZHMiLCJhbGxlZ3JvOmFwaTpvcmRlcnM6d3JpdGUiLCJhbGxlZ3JvOmFwaTphZHMiLCJhbGxlZ3JvOmFwaTpwYXltZW50czp3cml0ZSIsImFsbGVncm86YXBpOnNhbGU6c2V0dGluZ3M6d3JpdGUiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOnJlYWQiLCJhbGxlZ3JvOmFwaTpyYXRpbmdzIiwiYWxsZWdybzphcGk6c2FsZTpzZXR0aW5nczpyZWFkIiwiYWxsZWdybzphcGk6cGF5bWVudHM6cmVhZCIsImFsbGVncm86YXBpOnNoaXBtZW50czpyZWFkIiwiYWxsZWdybzphcGk6bWVzc2FnaW5nIl0sImFsbGVncm9fYXBpIjp0cnVlLCJpc3MiOiJodHRwczovL2FsbGVncm8ucGwiLCJleHAiOjE3MjcxMTcwNzUsImp0aSI6ImFmMjk1OGFlLTIzOTktNDk3MC04OGIzLWI5YWRlYzI2YjEzOCIsImNsaWVudF9pZCI6ImJkZDRkYTA1MThkOTQ5YzRiMDkxYTZhYmU0ZmQ4M2Y3In0.BdEbtPDUXDqMrcQLx_rcImaMPnbUGPIWr_pr9kCxtq5v5qWn5IqXczfc5JEaj38kR1roaSDXmG5RUp9gIqXxCh7nDULjQ7qT6yQn6YyfGRZx_R7ar2phRDkcLT6YFZYnS5GzZYbC9h2SszqiZUxSdCSXrLLGSggxdgzO3I0V8wtnAOaRnKck4jW9D2ofWTQ-kACntANJgG-ZzRiPae7PTh6cMslbBGqXdd3MnFkDwavMttAyizjBh-03-qsgL4sko_dRr8FMvhAFtO2eKz35fVczsIDcTbtuhrqHMg5BLnVyPqVvtiBHixQ8QllkQZiE2x9mKa_FTFdZp7_OBaeo_w"
+access_token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiIxMjI2NTc4MDAiLCJzY29wZSI6WyJhbGxlZ3JvOmFwaTpvcmRlcnM6cmVhZCIsImFsbGVncm86YXBpOmZ1bGZpbGxtZW50OnJlYWQiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOndyaXRlIiwiYWxsZWdybzphcGk6c2FsZTpvZmZlcnM6d3JpdGUiLCJhbGxlZ3JvOmFwaTpmdWxmaWxsbWVudDp3cml0ZSIsImFsbGVncm86YXBpOmJpbGxpbmc6cmVhZCIsImFsbGVncm86YXBpOmNhbXBhaWducyIsImFsbGVncm86YXBpOmRpc3B1dGVzIiwiYWxsZWdybzphcGk6c2FsZTpvZmZlcnM6cmVhZCIsImFsbGVncm86YXBpOnNoaXBtZW50czp3cml0ZSIsImFsbGVncm86YXBpOmJpZHMiLCJhbGxlZ3JvOmFwaTpvcmRlcnM6d3JpdGUiLCJhbGxlZ3JvOmFwaTphZHMiLCJhbGxlZ3JvOmFwaTpwYXltZW50czp3cml0ZSIsImFsbGVncm86YXBpOnNhbGU6c2V0dGluZ3M6d3JpdGUiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOnJlYWQiLCJhbGxlZ3JvOmFwaTpyYXRpbmdzIiwiYWxsZWdybzphcGk6c2FsZTpzZXR0aW5nczpyZWFkIiwiYWxsZWdybzphcGk6cGF5bWVudHM6cmVhZCIsImFsbGVncm86YXBpOnNoaXBtZW50czpyZWFkIiwiYWxsZWdybzphcGk6bWVzc2FnaW5nIl0sImFsbGVncm9fYXBpIjp0cnVlLCJpc3MiOiJodHRwczovL2FsbGVncm8ucGwiLCJleHAiOjE3MzM5MDQwMDIsImp0aSI6IjFjM2FjNDcxLWY4ZTEtNDM3OS05ZDFiLTFlOTQ3YzFhNGNmYyIsImNsaWVudF9pZCI6ImJkZDRkYTA1MThkOTQ5YzRiMDkxYTZhYmU0ZmQ4M2Y3In0.wk1jBvGM1OPzsf_c7OBHJ1boslaQPtgLt-hemgXYnboAYUQBwuCGsW97ZW_b8s7KmDv0OkmCS7rid11RDIaZ1kP5OYUPvmt_ADBWlGbs1ynYzQ-Nzz53eczeRR8qCwR5co8Ssy-PA1km-RQdP7zGSLkgcUvVJ1zwl4sN5GVFWyy7LbCUsHfdv8MDM9b8_wkGRcB9rOCPKkxx0ZkC8mtLVfIlqdiTmDWtsI61iZcdiSMHZb503mv_CffehbKotqEWL9qx5DUmG9kACI-fTDSRC61e9Zq-69ACbFpg4VElQecKzgXoJWzF_P202JzcAg4X8FjaP2cayki4XmYykwEvgg"
 
 
 headers = {
@@ -63,6 +65,12 @@ def get_all_offers_filter(supplier_prefix: str):
     return offers
 
 
+exclude_ = ["15193904908", "15221979431", "15221893453", "15226795111", "15152356217", "15156052034", "15134639326",
+            "15142137283", "15112772370", "15226872005", "15163112735", "15226918914", "15226937696", "15141963766",
+            "16246163234", "16248412238", "15512762792", "15496129185", "15495863511", "15280815954", "15280626256",
+            "15280464139"]
+
+
 def get_all_offers():
     current = 0
     batch = 900
@@ -78,24 +86,107 @@ def get_all_offers():
     with open("all_offers.json", "w") as file:
         file.write(json.dumps(offers, indent=4))
 
-    all_skus = []
+    return offers
+
+
+def update_offers_status_sync(offers, action):
+    batch_size = 1000
+    max_offers_per_minute = 9000
+    start_index = 0
+
+    # headers_ = {
+    #     'Authorization': f'Bearer {access_token}',
+    #     'Accept': 'application/vnd.allegro.public.v1+json',
+    #     'Content-Type': 'application/vnd.allegro.public.v1+json'
+    # }
+
+    while start_index < len(offers):
+        end_index = min(start_index + batch_size, len(offers))
+        batch_offers = offers[start_index:end_index]
+
+        payload = {
+            "offerCriteria": [
+                {
+                    "offers": [{"id": offer.get('id')} for offer in batch_offers],
+                    "type": "CONTAINS_OFFERS",
+                }
+            ],
+            "publication": {
+                "action": action,
+            },
+        }
+
+        command_id = str(uuid.uuid4())
+        url = f"https://api.allegro.pl/sale/offer-publication-commands/{command_id}"
+
+        try:
+            response = requests.put(url, headers=headers, data=payload)
+            if response.status_code == 201:
+                print(f"Command {action}ed successfully. Command ID: {command_id}. {response.text}")
+            else:
+                print(f"Error {response.status_code}: {response.text}")
+        except Exception as error:
+            print(f"Error sending request: {error}")
+
+        start_index += batch_size
+
+        if start_index % max_offers_per_minute == 0:
+            print("Waiting for 1 minute before processing more offers...")
+            time.sleep(60)
+        else:
+            time.sleep(0.5)
+
+
+def process_change_offer(id_):
+    url = f"https://api.allegro.pl/sale/product-offers/{id_}"
+
+    data = {
+        "publication": {
+            "status": "INACTIVE"
+        }
+    }
+
+    result = requests.patch(url=url, headers=headers, data=json.dumps(data))
+    if result.status_code in [200, 202]:
+        print(f"success {id_} {result.text}")
+    else:
+        print()
+
+
+def process_update_offers(offers):
+    # to_draft = []
+    
     for item in offers:
-        if item["external"]:
-            all_skus.append(item["external"]["id"])
+        if item["id"] in exclude_:
+            continue
+        else:
+            if item["publication"]["status"] == "ENDED":
+                process_change_offer(item["id"])
 
-    with open("all_skus.json", "w") as file:
-        file.write(json.dumps(all_skus, indent=4))
+    # update_offers_status_sync(to_draft, "INACTIVE")
 
-    return all_skus
+
+def process_delete_draft_offers(offers):
+
+    for item in offers:
+        if item["id"] in ...:
+            continue
+        else:
+            if item["publication"]["status"] == "INACTIVE":
+                delete_draft_offer(offer_id=item["id"])
+
+
+def delete_draft_offer(offer_id):
+    url = f"https://api.allegro.pl/sale/offers/{offer_id}"
+
+    result = requests.delete(headers=headers, url=url)
+    if result.status_code in [200, 204]:
+        print(f"Success {offer_id}")
+    else:
+        print(f"error {offer_id}")
 
 
 def get_offer(offer):
-
-    params = {
-        "name": "wkręt do drewna",
-        # "name": "",
-        "limit": 500
-    }
 
     url = f"https://api.allegro.pl/sale/product-offers/{offer}"
 
@@ -118,21 +209,40 @@ def category_by_id(cat_id):
         file.write(json.dumps(resp, indent=4))
 
 
-def get_categories():
-
-    params = {
-        "parent.id": 5317
-    }
+def get_categories(cat_id: str | None = None):
+    if cat_id:
+        params = {
+            "parent.id": cat_id
+        }
+    else:
+        params = {}
 
     url = f"https://api.allegro.pl/sale/categories"
 
     response = requests.get(url, headers=headers, params=params)
     resp = json.loads(response.text)
 
-    # new = list(filter(lambda x: x['leaf'], resp["categories"]))
+    return resp
+    # with open("categories.json", "w") as file:
+    #     file.write(json.dumps(resp, indent=4))
 
-    with open("categories.json", "w") as file:
-        file.write(json.dumps(resp, indent=4))
+
+def get_categories_tree():
+
+    cat_tree = {}
+    root_tree = get_categories()
+    categories = [{
+
+    }]
+    cat_tree["categories"] =
+    for category in root_tree.get("categories", []):
+        if
+
+
+
+
+
+
 
 
 def get_category_info(cat_id):
@@ -278,37 +388,19 @@ def handle_file(path: str):
     with open(f"{path}_for_updater.txt", "w") as file:
         file.write(",".join(ids))
 
-handle_file("/home/izbushko/Downloads/Allegro_files/cat_121584_hurtprem/Collection.json")
+# handle_file("/home/izbushko/Downloads/Allegro_files/unimet_cat_147677/SuppliersSkuMap.fursollerhouse_res.json")
 
+get_categories()
 
-# search_all_offers()
+# get_product_details("5d621d3f-adbd-4441-be91-cf3698a44308")
+# offers_ = get_all_offers()
+# process_change_offer(13410553170)
+# delete_draft_offer(13410553170)
 
-# category_by_id(353)
+# inactive = []
+# for o in offers_:
+#     if o["publication"]["status"] == "INACTIVE":
+#         inactive.append(o)
+# print(len(inactive))
+# process_update_offers(offers_)
 
-# check()
-
-
-# get_offer(13409953686)
-# get_params_supported_by_category(cat_id=67456)
-# get_products_search("4260223021305")
-# create_offer("4260223021305")
-# check()
-# get_responsible_persons()
-# get_offers_with_missing_params()
-# get_product_details("8db3241b-8552-4eab-880a-44bb7a317123")
-# get_all_offers_filter("HURTP")
-# get_all_offers()
-
-# def filter_local_file(supplier, word):
-#
-#     path = os.path.join("/home/izbushko/some_found_descriptions", f"{supplier}.json",)
-#     with open(path, "r") as file:
-#         data = json.loads(file.read())
-#     filtered_dict = {}
-#     count = 0
-#     for key, value in data.items():
-#         for item in value:
-#             if
-#         pattern = re.compile(re.escape(word), re.IGNORECASE)
-#         if pattern.search():
-#
