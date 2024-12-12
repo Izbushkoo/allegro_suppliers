@@ -4,9 +4,56 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Categories Tree</title>
+  <style>
+    .loading-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #333;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .loading-overlay.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .spinner {
+      margin-left: 10px;
+      width: 24px;
+      height: 24px;
+      border: 3px solid #666;
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: spin 0.8s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    .refresh-button {
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
+  <button class="refresh-button">Обновить</button>
   <category-tree></category-tree>
+
+  <div class="loading-overlay" id="loadingOverlay">
+    Обновление...<span class="spinner"></span>
+  </div>
 
   <script>
     class CategoryTree extends HTMLElement {
@@ -24,11 +71,9 @@
           li {
             position: relative;
             margin: 4px 0;
-            /* Уберем user-select: none; чтобы можно было выделять текст */
             cursor: pointer;
           }
 
-          /* Иконка до текста */
           li::before {
             content: "-";
             display: inline-block;
@@ -106,7 +151,6 @@
             if (!li.hasAttribute('leaf')) {
               let childUl = li.querySelector('ul');
               if (!childUl) {
-                // Подгружаем детей из глобального объекта categoriesData
                 const parentId = li.getAttribute('data-id');
                 const children = this._getChildren(parentId);
                 if (children.length > 0) {
@@ -150,10 +194,9 @@
             li.setAttribute('collapsed', '');
           }
 
-          // Имя категории в отдельный спан, чтобы можно было выделить текст
           const nameSpan = document.createElement('span');
           nameSpan.textContent = node.name;
-          nameSpan.style.userSelect = 'text'; // Позволим выделять текст
+          nameSpan.style.userSelect = 'text';
           li.appendChild(nameSpan);
 
           if (node.leaf) {
@@ -197,9 +240,33 @@
     document.addEventListener('DOMContentLoaded', () => {
       const tree = document.querySelector('category-tree');
       tree.setData(categoriesData);
+
+      const refreshButton = document.querySelector('.refresh-button');
+      const loadingOverlay = document.getElementById('loadingOverlay');
+
+      refreshButton.addEventListener('click', async () => {
+        // Показываем оверлей загрузки
+        loadingOverlay.classList.add('show');
+        refreshButton.disabled = true;
+
+        try {
+          const response = await fetch('/update-categories', { method: 'POST' });
+          if (!response.ok) {
+            throw new Error('Не удалось обновить категории');
+          }
+          // После успешного обновления перезагружаем страницу
+          window.location.reload();
+        } catch (err) {
+          console.error(err);
+          // Можно отображать сообщение об ошибке, если нужно
+          loadingOverlay.classList.remove('show');
+          refreshButton.disabled = false;
+        }
+      });
     });
   </script>
 </body>
 </html>
+
 
 
