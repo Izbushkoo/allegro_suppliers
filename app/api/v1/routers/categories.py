@@ -35,7 +35,8 @@ semaphore = asyncio.Semaphore(CONCURRENT_REQUESTS)
 @router.post("/update-categories")
 async def update_categories(database: AsyncSession = Depends(deps.get_db_async)):
 
-    allegro_token = await get_token_by_id(database, "7344ce84-2759-4fb1-b206-cf102cc25694")
+    # Тут захардкожен токен с названием AdditionalToken
+    allegro_token = await get_token_by_id(database, "384e047c-997f-4916-8b10-589c523fb066")
 
     try:
         token = await check_token(database, allegro_token)
