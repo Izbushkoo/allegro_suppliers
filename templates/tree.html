@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Allegro Categories Tree</title>
+  <title>Categories Tree</title>
 </head>
 <body>
   <category-tree></category-tree>
@@ -13,7 +13,6 @@
       constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-
         const style = document.createElement('style');
         style.textContent = `
           ul {
@@ -82,40 +81,39 @@
             margin-top: 5px;
           }
         `;
-
         this.container = document.createElement('div');
         this.shadowRoot.append(style, this.container);
       }
 
-      setData(data) {
-        this.container.innerHTML = '';
-        const tree = this._renderTree(data);
-        this.container.appendChild(tree);
-
-        // Обработчик клика
+      connectedCallback() {
         this.container.addEventListener('click', (event) => {
           const leafIdSpan = event.target.closest('.leaf-id');
-
-          // Клик по ID листа
           if (leafIdSpan) {
             const id = leafIdSpan.getAttribute('data-id');
-            // Пытаемся скопировать в буфер
             navigator.clipboard.writeText(id)
-              .catch((err) => {
-                console.error('Не удалось скопировать ID', err);
-              })
               .finally(() => {
-                // Показать сообщение
                 this._showCopyMessage(leafIdSpan, "Скопировано!");
               });
             return;
           }
 
           const li = event.target.closest('li');
-          // Если клик не по ID, а по самой категории
           if (li && li.hasAttribute('data-id') && !event.target.classList.contains('leaf-id')) {
-            // Свернуть/развернуть
-            if (li.querySelector('ul')) {
+            // Если это не лист, нужно открыть/закрыть и возможно подгрузить детей
+            if (!li.hasAttribute('leaf')) {
+              let childUl = li.querySelector('ul');
+              if (!childUl) {
+                // Подгружаем детей из глобального объекта categoriesData
+                const parentId = li.getAttribute('data-id');
+                const children = this._getChildren(parentId);
+                if (children.length > 0) {
+                  childUl = this._renderTree(children);
+                  li.appendChild(childUl);
+                } else {
+                  li.setAttribute('leaf', '');
+                }
+              }
+              // Тогглим collapsed
               if (li.hasAttribute('collapsed')) {
                 li.removeAttribute('collapsed');
               } else {
@@ -126,33 +124,42 @@
         });
       }
 
+      setData(data) {
+        // data — это объект с ключами = parent_id и значениями = массивы категорий
+        this.categoriesData = data;
+        // Рендерим только корневой уровень (parent_id = "")
+        const rootCategories = this._getChildren("");
+        this.container.innerHTML = '';
+        const tree = this._renderTree(rootCategories);
+        this.container.appendChild(tree);
+      }
+
+      _getChildren(parentId) {
+        return this.categoriesData[parentId] || [];
+      }
+
       _renderTree(nodes) {
         const ul = document.createElement('ul');
         for (const node of nodes) {
           const li = document.createElement('li');
           li.setAttribute('data-id', node.id);
-
-          const isLeaf = !node.children || node.children.length === 0;
-          if (isLeaf) {
+          if (node.leaf) {
             li.setAttribute('leaf', '');
+          } else {
+            // Если не листовая, значит у неё есть (или могут быть) потомки
+            // Сразу свернём
+            li.setAttribute('collapsed', '');
           }
 
           const text = document.createTextNode(node.name);
           li.appendChild(text);
 
-          // Если это листовая категория, добавим спан с ID
-          if (isLeaf) {
+          if (node.leaf) {
             const idSpan = document.createElement('span');
             idSpan.className = 'leaf-id';
             idSpan.setAttribute('data-id', node.id);
             idSpan.textContent = `[ID: ${node.id}]`;
             li.appendChild(idSpan);
-          }
-
-          // Рендерим потомков, если они есть
-          if (node.children && node.children.length > 0) {
-            const childUl = this._renderTree(node.children);
-            li.appendChild(childUl);
           }
 
           ul.appendChild(li);
@@ -161,7 +168,6 @@
       }
 
       _showCopyMessage(targetEl, message) {
-        // Удалим старое сообщение, если есть
         const oldMessage = targetEl.querySelector('.copy-message');
         if (oldMessage) {
           oldMessage.remove();
@@ -173,7 +179,6 @@
 
         targetEl.appendChild(msgSpan);
 
-        // Удаляем через 2 секунды
         setTimeout(() => {
           if (msgSpan.parentNode) {
             msgSpan.remove();
@@ -183,12 +188,16 @@
     }
 
     customElements.define('category-tree', CategoryTree);
+  </script>
 
-    // Вызовем setData с переданными в шаблон данными
+  <script>
+    // Вставляем данные прямо из контекста jinja2
+    // data — это уже подготовленный объект { parent_id: [...children...] }
+    const categoriesData = {{ data|tojson }};
+
     document.addEventListener('DOMContentLoaded', () => {
       const tree = document.querySelector('category-tree');
-      const data = {{ data|tojson }};
-      tree.setData(data);
+      tree.setData(categoriesData);
     });
   </script>
 </body>

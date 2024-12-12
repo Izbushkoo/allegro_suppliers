@@ -7,7 +7,7 @@ import jwt
 import requests
 from requests import delete
 
-access_token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiIxMjI2NTc4MDAiLCJzY29wZSI6WyJhbGxlZ3JvOmFwaTpvcmRlcnM6cmVhZCIsImFsbGVncm86YXBpOmZ1bGZpbGxtZW50OnJlYWQiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOndyaXRlIiwiYWxsZWdybzphcGk6c2FsZTpvZmZlcnM6d3JpdGUiLCJhbGxlZ3JvOmFwaTpmdWxmaWxsbWVudDp3cml0ZSIsImFsbGVncm86YXBpOmJpbGxpbmc6cmVhZCIsImFsbGVncm86YXBpOmNhbXBhaWducyIsImFsbGVncm86YXBpOmRpc3B1dGVzIiwiYWxsZWdybzphcGk6c2FsZTpvZmZlcnM6cmVhZCIsImFsbGVncm86YXBpOnNoaXBtZW50czp3cml0ZSIsImFsbGVncm86YXBpOmJpZHMiLCJhbGxlZ3JvOmFwaTpvcmRlcnM6d3JpdGUiLCJhbGxlZ3JvOmFwaTphZHMiLCJhbGxlZ3JvOmFwaTpwYXltZW50czp3cml0ZSIsImFsbGVncm86YXBpOnNhbGU6c2V0dGluZ3M6d3JpdGUiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOnJlYWQiLCJhbGxlZ3JvOmFwaTpyYXRpbmdzIiwiYWxsZWdybzphcGk6c2FsZTpzZXR0aW5nczpyZWFkIiwiYWxsZWdybzphcGk6cGF5bWVudHM6cmVhZCIsImFsbGVncm86YXBpOnNoaXBtZW50czpyZWFkIiwiYWxsZWdybzphcGk6bWVzc2FnaW5nIl0sImFsbGVncm9fYXBpIjp0cnVlLCJpc3MiOiJodHRwczovL2FsbGVncm8ucGwiLCJleHAiOjE3MzM5NjE2MDAsImp0aSI6IjBlZDJmMDEwLWI4MDctNDZjZi04ZDM4LWZmNjE3NzI3ZDRmYyIsImNsaWVudF9pZCI6ImJkZDRkYTA1MThkOTQ5YzRiMDkxYTZhYmU0ZmQ4M2Y3In0.OiVg-TgIb28IjL4EW2n2sRk-_7wwVHP7TN9dkpO4RyKWBoOL9P-LsFKUHDvLnvzZbhtW0oHUyOnq1liTqJ4-AAPjY51oD1T0cqLb5DAhe1Bwmc2BDIR9fisoe5dMC9YCYwe9kGFb8ovK1R5Lp6AfUDLA6a8wq2lOJXkRXRaoTfh-B_d5f0ZDHfECajaz40CiKSvplqwWix2-G_UzCjNw-RRPJfAIWZp5FkFU2rGTVuziKG2iDAOrj3TmYja98ZZfC7cRfwzBFit947BQAjxO5pHDXS3l-U2PyxzIcOf_TtkGIse9lEntk8UKWEKg9d2oBc9Az4nW34xc0Lno6j-qPg"
+access_token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiIxMjI2NTc4MDAiLCJzY29wZSI6WyJhbGxlZ3JvOmFwaTpvcmRlcnM6cmVhZCIsImFsbGVncm86YXBpOmZ1bGZpbGxtZW50OnJlYWQiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOndyaXRlIiwiYWxsZWdybzphcGk6c2FsZTpvZmZlcnM6d3JpdGUiLCJhbGxlZ3JvOmFwaTpmdWxmaWxsbWVudDp3cml0ZSIsImFsbGVncm86YXBpOmJpbGxpbmc6cmVhZCIsImFsbGVncm86YXBpOmNhbXBhaWducyIsImFsbGVncm86YXBpOmRpc3B1dGVzIiwiYWxsZWdybzphcGk6c2FsZTpvZmZlcnM6cmVhZCIsImFsbGVncm86YXBpOnNoaXBtZW50czp3cml0ZSIsImFsbGVncm86YXBpOmJpZHMiLCJhbGxlZ3JvOmFwaTpvcmRlcnM6d3JpdGUiLCJhbGxlZ3JvOmFwaTphZHMiLCJhbGxlZ3JvOmFwaTpwYXltZW50czp3cml0ZSIsImFsbGVncm86YXBpOnNhbGU6c2V0dGluZ3M6d3JpdGUiLCJhbGxlZ3JvOmFwaTpwcm9maWxlOnJlYWQiLCJhbGxlZ3JvOmFwaTpyYXRpbmdzIiwiYWxsZWdybzphcGk6c2FsZTpzZXR0aW5nczpyZWFkIiwiYWxsZWdybzphcGk6cGF5bWVudHM6cmVhZCIsImFsbGVncm86YXBpOnNoaXBtZW50czpyZWFkIiwiYWxsZWdybzphcGk6bWVzc2FnaW5nIl0sImFsbGVncm9fYXBpIjp0cnVlLCJpc3MiOiJodHRwczovL2FsbGVncm8ucGwiLCJleHAiOjE3MzQwMzY4NjQsImp0aSI6IjM4YjQxMjcxLWUwMTYtNGZhZS05MDcxLWU4YzU2ZWI2N2ExMiIsImNsaWVudF9pZCI6ImJkZDRkYTA1MThkOTQ5YzRiMDkxYTZhYmU0ZmQ4M2Y3In0.kTPd0bWaZV792cVYId657jxCD2PmAx7-gthmMgw7k183k_ww04V63PAmX5SWFGC0QGcw8hUbwHPUZBnB_BnsJhBd3NXdDMKFYt8tMvm5oFqgzz5BRLCgWGk1VWZ4kFacaJX6pkxvjeIC_cEDdlXjUIp4UIfTspHVMtclteLn3GmR8xycQFz38ZssesyHaAZg0RN2Y8FzkcVSr2aMvxJVQh2ugn7MEKOhgcGMNTJq6w9GsTK6J4LEVlPozSpOnhJByyE3dB-bvGfD9IcDAqfTLIkuX63Jq0ZERaarb-Kt599pFkRduijkGvy4Cj1wd8jpJ3qRmXer6fexvkt_3bkq_g"
 
 
 headers = {
@@ -208,23 +208,23 @@ def category_by_id(cat_id):
     with open("categories.json", "w") as file:
         file.write(json.dumps(resp, indent=4))
 
-
-def get_categories(cat_id: str | None = None):
-    if cat_id:
-        params = {
-            "parent.id": cat_id
-        }
-    else:
-        params = {}
-
-    url = f"https://api.allegro.pl/sale/categories"
-
-    response = requests.get(url, headers=headers, params=params)
-    resp = json.loads(response.text)
-
-    return resp
-    # with open("categories.json", "w") as file:
-    #     file.write(json.dumps(resp, indent=4))
+#
+# def get_categories(cat_id: str | None = None):
+#     if cat_id:
+#         params = {
+#             "parent.id": cat_id
+#         }
+#     else:
+#         params = {}
+#
+#     url = f"https://api.allegro.pl/sale/categories"
+#
+#     response = requests.get(url, headers=headers, params=params)
+#     resp = json.loads(response.text)
+#
+#     return resp
+#     # with open("categories.json", "w") as file:
+#     #     file.write(json.dumps(resp, indent=4))
 
 
 def get_categories_in_cat(cat_id: str):
@@ -260,15 +260,62 @@ def get_categories_in_cat(cat_id: str):
 
     return result
 
-def get_categories_tree():
 
-    result = get_categories_in_cat("954b95b6-43cf-4104-8354-dea4d9b10ddf")
 
+def get_categories(parent_id=None, base_url="https://api.allegro.pl"):
+    """
+    Получает список категорий по заданному parent_id.
+    Если parent_id не указан, возвращает главные категории.
+    """
+    url = f"{base_url}/sale/categories"
+    params = {}
+    if parent_id:
+        params["parent.id"] = parent_id
+
+    response = requests.get(url, headers=headers, params=params)
+    response.raise_for_status()
+    data = response.json()
+    # Ожидается, что data имеет ключ "categories"
+    return data.get("categories", [])
+
+
+def build_category_tree(base_url="https://api.allegro.pl"):
+    """
+    Рекурсивно обходит дерево категорий Allegro, начиная с корневых.
+    Возвращает словарь вида:
+    {
+      "": [ { "id": ..., "name": ..., "leaf": bool }, ... ],
+      "some_id": [ { "id": ..., "name": ..., "leaf": bool }, ... ],
+      ...
+    }
+    """
+    # Структура для хранения результатов
+    parent_to_children = {}
+
+    def fetch_children(parent_id):
+        # Получаем категории для данного родителя
+        children = get_categories(parent_id=parent_id, base_url=base_url)
+        parent_key = parent_id if parent_id else ""
+        parent_to_children[parent_key] = []
+        for cat in children:
+            print(cat["name"])
+            parent_to_children[parent_key].append({
+                "id": cat["id"],
+                "name": cat["name"],
+                "leaf": cat["leaf"]
+            })
+            # Если категория не листовая, рекурсивно загружаем её детей
+            if not cat["leaf"]:
+                fetch_children(cat["id"])
+
+    # Начинаем с корневых категорий (parent_id=None)
+    fetch_children(None)
     with open("cat_tree.json", "w") as file:
-        file.write(json.dumps(result, indent=2))
+        file.write(json.dumps(parent_to_children, indent=2))
 
+    return parent_to_children
 
-get_categories_tree()
+build_category_tree()
 
 
 
