@@ -137,7 +137,7 @@ async def build_category_tree(headers) -> Dict[str, List[Dict]]:
     # Сохраняем результат в файл
     with open("cat_tree.json", "w", encoding="utf-8") as file:
         file.write(json.dumps(parent_to_children, indent=2, ensure_ascii=False))
-
+    ToLog.write_basic("Finished.")
     return parent_to_children
 
 
