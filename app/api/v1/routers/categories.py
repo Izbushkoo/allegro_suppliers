@@ -5,6 +5,7 @@ from typing import Optional, Dict, List
 from fastapi.templating import Jinja2Templates
 from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks, Request, UploadFile
 from fastapi.responses import JSONResponse
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api import deps
 from app.services.allegro_token import get_token_by_id
@@ -32,7 +33,7 @@ semaphore = asyncio.Semaphore(CONCURRENT_REQUESTS)
 
 
 @router.post("/update-categories")
-async def update_categories(database: Depends(deps.get_db_async)):
+async def update_categories(database: AsyncSession = Depends(deps.get_db_async)):
 
     allegro_token = await get_token_by_id(database, "7344ce84-2759-4fb1-b206-cf102cc25694")
 
