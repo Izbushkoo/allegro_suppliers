@@ -22,27 +22,29 @@
           }
 
           li {
-            cursor: pointer;
-            user-select: none;
             position: relative;
             margin: 4px 0;
+            /* Уберем user-select: none; чтобы можно было выделять текст */
+            cursor: pointer;
           }
 
+          /* Иконка до текста */
           li::before {
-            content: "▶";
+            content: "-";
             display: inline-block;
             margin-right: 0.5em;
-            transform: rotate(0deg);
             transition: transform 0.2s;
+            font-weight: bold;
+            width: 1em;
+            text-align: center;
           }
 
           li[collapsed]::before {
-            transform: rotate(-90deg);
+            content: "+";
           }
 
           li[leaf]::before {
             content: "•";
-            transform: none;
           }
 
           li ul {
@@ -61,6 +63,7 @@
             cursor: pointer;
             text-decoration: underline;
             position: relative;
+            user-select: none;
           }
 
           li[leaf] .leaf-id:hover {
@@ -125,9 +128,7 @@
       }
 
       setData(data) {
-        // data — это объект с ключами = parent_id и значениями = массивы категорий
         this.categoriesData = data;
-        // Рендерим только корневой уровень (parent_id = "")
         const rootCategories = this._getChildren("");
         this.container.innerHTML = '';
         const tree = this._renderTree(rootCategories);
@@ -146,13 +147,14 @@
           if (node.leaf) {
             li.setAttribute('leaf', '');
           } else {
-            // Если не листовая, значит у неё есть (или могут быть) потомки
-            // Сразу свернём
             li.setAttribute('collapsed', '');
           }
 
-          const text = document.createTextNode(node.name);
-          li.appendChild(text);
+          // Имя категории в отдельный спан, чтобы можно было выделить текст
+          const nameSpan = document.createElement('span');
+          nameSpan.textContent = node.name;
+          nameSpan.style.userSelect = 'text'; // Позволим выделять текст
+          li.appendChild(nameSpan);
 
           if (node.leaf) {
             const idSpan = document.createElement('span');
@@ -191,10 +193,7 @@
   </script>
 
   <script>
-    // Вставляем данные прямо из контекста jinja2
-    // data — это уже подготовленный объект { parent_id: [...children...] }
     const categoriesData = {{ data|tojson }};
-
     document.addEventListener('DOMContentLoaded', () => {
       const tree = document.querySelector('category-tree');
       tree.setData(categoriesData);
@@ -202,4 +201,5 @@
   </script>
 </body>
 </html>
+
 
