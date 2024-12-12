@@ -91,7 +91,6 @@
 
           li[leaf]::before {
             content: "•";
-            color: blue;
           }
 
           li ul {
@@ -101,6 +100,10 @@
 
           li[collapsed] > ul {
             display: none;
+          }
+
+          li[leaf] {
+            color: blue;
           }
 
           li[leaf] .leaf-id {
