@@ -51,7 +51,7 @@ async def update_categories(database: AsyncSession = Depends(deps.get_db_async))
         "Accept": "application/vnd.allegro.public.v1+json"
     }
     # Запускаем обновление категорий
-    new_data = build_category_tree(HEADERS)
+    new_data = await build_category_tree(HEADERS)
     # Сохраняем в файл
 
     with open("cat_tree.json", "w", encoding="utf-8") as f:
